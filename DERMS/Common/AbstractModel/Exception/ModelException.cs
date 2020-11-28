@@ -82,6 +82,7 @@ namespace Common.AbstractModel
         }
     }
 
+    [Serializable]
     public class ModelException : System.Exception
     {
         private ErrorCode code = ErrorCode.Unknown;
