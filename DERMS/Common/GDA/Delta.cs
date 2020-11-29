@@ -36,17 +36,17 @@ namespace Common.GDA
         {
             get
             {
-                if (Delta.resDesc == null)
+                if (resDesc == null)
                 {
-                    Delta.resDesc = new ModelResourcesDesc();
+                    resDesc = new ModelResourcesDesc();
                 }
 
-                return Delta.resDesc;
+                return resDesc;
             }
 
             set
             {
-                Delta.resDesc = value;
+                resDesc = value;
             }
         }
 
@@ -67,22 +67,22 @@ namespace Common.GDA
             foreach (ResourceDescription resDesc in toCopy.insertOps)
             {
                 ResourceDescription toAdd = new ResourceDescription(resDesc);
-                this.AddDeltaOperation(DeltaOpType.Insert, toAdd, true);
+                AddDeltaOperation(DeltaOpType.Insert, toAdd, true);
             }
 
             foreach (ResourceDescription resDesc in toCopy.updateOps)
             {
                 ResourceDescription toAdd = new ResourceDescription(resDesc);
-                this.AddDeltaOperation(DeltaOpType.Update, toAdd, true);
+                AddDeltaOperation(DeltaOpType.Update, toAdd, true);
             }
 
             foreach (ResourceDescription resDesc in toCopy.deleteOps)
             {
                 ResourceDescription toAdd = new ResourceDescription(resDesc);
-                this.AddDeltaOperation(DeltaOpType.Delete, toAdd, true);
+                AddDeltaOperation(DeltaOpType.Delete, toAdd, true);
             }
 
-            this.positiveIdsAllowed = toCopy.positiveIdsAllowed;
+            positiveIdsAllowed = toCopy.positiveIdsAllowed;
         }
 
         //public Delta(long id, byte[] deltaBinary)

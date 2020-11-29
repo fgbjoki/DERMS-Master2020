@@ -60,7 +60,12 @@
     <Compile Include="ServiceInterfaces\INetworkModelGDAContract.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
+    <Compile Include="WeatherAPI\IWeatherClient.cs" />
+    <Compile Include="WeatherAPI\WeatherApiClient.cs" />
+    <Compile Include="WeatherAPI\WeatherDataEnumerator.cs" />
+    <Compile Include="WeatherAPI\WeatherDayData.cs" />
+    <Compile Include="WeatherAPI\WeatherDayXMLParser.cs" />
+    <Compile Include="WeatherAPI\WeatherHourData.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
