@@ -19,7 +19,6 @@ namespace Common.WeatherApiTester
             for (int i = 0; i < xelements.Count(); i++)
             {
                 WeatherHourData hourData = (WeatherHourData)serializer.Deserialize(xelements[i].CreateReader());
-                hourData.InternalParseHour();
 
                 if (i%24 == 0)
                 {

@@ -7,11 +7,21 @@ namespace Common.WeatherApiTester
     [XmlRoot(ElementName = "hour")]
     public class WeatherHourData
     {
+        private string timeUsedForParsing;
+
         [XmlElement("temp_c")]
         public float Temperature { get; set; }
 
         [XmlElement("time")]
-        public string TimeUsedToParse { get; set; }
+        public string TimeUsedToParse
+        {
+            get { return timeUsedForParsing; }
+            set
+            {
+                timeUsedForParsing = value;
+                InternalParseHour();
+            }
+        }
 
         public ushort Hour { get; set; }
 
@@ -24,7 +34,7 @@ namespace Common.WeatherApiTester
         [XmlElement("cloud")]
         public float CloudCover { get; set; }
 
-        public void InternalParseHour()
+        private void InternalParseHour()
         {
             string temp = TimeUsedToParse.Substring(TimeUsedToParse.IndexOf(" ") + 1, 2);
             temp = temp[0] == '0' ? temp.Substring(1) : temp;
