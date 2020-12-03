@@ -4,6 +4,6 @@ namespace Common.WeatherApiTester
 {
     public interface IWeatherClient
     {
-        List<WeatherDayData> GetWeatherDayData(int numberOfDays);
+        WeatherDayData GetNextDayWeatherData();
     }
 }
