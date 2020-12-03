@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace Common.WeatherApiTester
 {
@@ -18,9 +12,8 @@ namespace Common.WeatherApiTester
         private static readonly string cityParameter = "@CITY@";
 
         private static readonly string forecastParameter = "forecast";
-        private static readonly string historyParameter = "history";
 
-        private static readonly int futureDays = 3;
+        private static readonly int futureDays = 2;
 
         private string url;
 
@@ -29,64 +22,38 @@ namespace Common.WeatherApiTester
             url = apiUrl.Replace(keyParameter, apiKey).Replace(cityParameter, city);
         }
 
-        public List<WeatherDayData> GetWeatherDayData(int numberOfDays)
+        public WeatherDayData GetNextDayWeatherData()
         {
-            List<WeatherDayData> daysData = new List<WeatherDayData>();
+            WeatherDayData dayData = null;
 
-            using (WebClient client = new WebClient())
+            try
             {
-                daysData = GetFutureDays(client);
-                daysData.AddRange(GetHistoryDays(client, numberOfDays - 3));
+                dayData = DownloadNextDayWeatherData();
+            }
+            catch (Exception e)
+            {
+                // log exception
             }
 
-            return daysData;
+            return dayData;
         }
 
-        private List<WeatherDayData> GetFutureDays(WebClient client)
+        private WeatherDayData DownloadNextDayWeatherData()
         {
-            List<WeatherDayData> returnData = null;
+            WeatherDayData returnData = null;
 
             string additionalParameter = $"days={futureDays}";
             string tempUrl = url.Replace(queryParameter, forecastParameter) + additionalParameter;
+            string xmlContent = String.Empty;
 
-            string xmlContent = client.DownloadString(tempUrl);
+            using (WebClient client = new WebClient())
+            {
+                xmlContent = client.DownloadString(tempUrl);
+            }
 
             XElement xml = XElement.Parse(xmlContent);
 
-            // parse XML
-            IEnumerable<XElement> xelements =
-            from elements in xml.Descendants("hour")
-            select elements;
-
-            returnData = WeatherDayXMLParser.ParseXMLElements(xelements.ToList());
-           
-            return returnData;
-        }
-
-        private List<WeatherDayData> GetHistoryDays(WebClient client, int numberofDays)
-        {
-            List<WeatherDayData> returnData = new List<WeatherDayData>(0);
-            DateTime dateTime = DateTime.Now;
-            TimeSpan daySubtraction = new TimeSpan(1, 0, 0, 0);
-
-            for (int i = 0; i < numberofDays; i++)
-            {
-                string additionalParameter = $"dt={dateTime.Year}-{dateTime.Month}-{dateTime.Day}";
-                string tempUrl = url.Replace(queryParameter, historyParameter) + additionalParameter;
-
-                string xmlContent = client.DownloadString(tempUrl);
-
-                XElement xml = XElement.Parse(xmlContent);
-
-                // parse XML
-                IEnumerable<XElement> xelements =
-                from elements in xml.Descendants("hour")
-                select elements;
-
-                returnData.AddRange(WeatherDayXMLParser.ParseXMLElements(xelements.ToList()));
-
-                dateTime = dateTime.Subtract(daySubtraction);
-            }
+            returnData = WeatherDayXMLParser.ParseXMLElements(xml)[0];
 
             return returnData;
         }
