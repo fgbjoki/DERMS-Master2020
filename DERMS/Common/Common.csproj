@@ -49,6 +49,7 @@
     <Compile Include="AbstractModel\ModelCodeHelper.cs" />
     <Compile Include="AbstractModel\ModelDefines.cs" />
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
+    <Compile Include="DatabaseManipulation\IDatabaseAccess.cs" />
     <Compile Include="GDA\Association.cs" />
     <Compile Include="GDA\CompareHelper.cs" />
     <Compile Include="GDA\Delta.cs" />
