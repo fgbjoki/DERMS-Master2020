@@ -12,12 +12,12 @@ namespace Common.WeatherApiTester
         public static List<WeatherDayData> ParseXMLElements(XElement xmlContent)
         {
             IEnumerable<XElement> xElements =
-            from elements in xmlContent.Descendants("hour")
-            select elements;
+                from elements in xmlContent.Descendants("hour")
+                select elements;
 
             xElements = xElements.Skip(24);
 
-            List<WeatherDayData> returnList = new List<WeatherDayData>(1);
+            var returnList = new List<WeatherDayData>(1);
 
             var serializer = new XmlSerializer(typeof(WeatherHourData));
 
@@ -25,7 +25,7 @@ namespace Common.WeatherApiTester
             int i = 0;
             foreach (XElement xElement in xElements)
             {
-                WeatherHourData hourData = (WeatherHourData)serializer.Deserialize(xElement.CreateReader());
+                var hourData = (WeatherHourData)serializer.Deserialize(xElement.CreateReader());
 
                 if (i % 24 == 0)
                 {

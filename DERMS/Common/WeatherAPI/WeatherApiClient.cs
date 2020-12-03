@@ -6,20 +6,20 @@ namespace Common.WeatherApiTester
 {
     public class WeatherApiClient : IWeatherClient
     {
-        private static readonly string apiUrl = "http://api.weatherapi.com/v1/@QUERYTYPE@.xml?key=@KEY@&q=@CITY@&";
-        private static readonly string queryParameter = "@QUERYTYPE@";
-        private static readonly string keyParameter = "@KEY@";
-        private static readonly string cityParameter = "@CITY@";
+        private static readonly string API_URL = "http://api.weatherapi.com/v1/@QUERYTYPE@.xml?key=@KEY@&q=@CITY@&";
+        private static readonly string QUERY_PARAMETER = "@QUERYTYPE@";
+        private static readonly string KEY_PARAMETER = "@KEY@";
+        private static readonly string CITY_PARAMETER = "@CITY@";
 
-        private static readonly string forecastParameter = "forecast";
+        private static readonly string FORECAST_PARAMETER = "forecast";
 
-        private static readonly int futureDays = 2;
+        private static readonly int FUTURE_DAYS = 2;
 
         private string url;
 
         public WeatherApiClient(string apiKey, string city)
         {
-            url = apiUrl.Replace(keyParameter, apiKey).Replace(cityParameter, city);
+            url = API_URL.Replace(KEY_PARAMETER, apiKey).Replace(CITY_PARAMETER, city);
         }
 
         public WeatherDayData GetNextDayWeatherData()
@@ -42,11 +42,11 @@ namespace Common.WeatherApiTester
         {
             WeatherDayData returnData = null;
 
-            string additionalParameter = $"days={futureDays}";
-            string tempUrl = url.Replace(queryParameter, forecastParameter) + additionalParameter;
+            string additionalParameter = $"days={FUTURE_DAYS}";
+            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER) + additionalParameter;
             string xmlContent = String.Empty;
 
-            using (WebClient client = new WebClient())
+            using (var client = new WebClient())
             {
                 xmlContent = client.DownloadString(tempUrl);
             }
