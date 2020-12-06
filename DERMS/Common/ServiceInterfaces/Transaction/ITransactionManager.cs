@@ -2,14 +2,14 @@
 
 namespace Common.ServiceInterfaces.Transaction
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(ITransactionCallback))]
     public interface ITransactionManager
     {
         [OperationContract]
         bool StartEnlist();
 
         [OperationContract]
-        void EnlistService(string serviceName);
+        bool EnlistService(string serviceName);
 
         [OperationContract]
         bool EndEnlist(bool allServicesEnlisted);

@@ -3,7 +3,7 @@
 namespace Common.ServiceInterfaces.Transaction
 {
     [ServiceContract]
-    public interface ITransaction
+    public interface ITransactionCallback
     {
         [OperationContract]
         bool Prepare();
