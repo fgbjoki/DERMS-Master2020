@@ -57,6 +57,7 @@
     <Compile Include="GDA\ResourceDescription.cs" />
     <Compile Include="GDA\UpdateResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceInterfaces\IModelPromotionParticipant.cs" />
     <Compile Include="ServiceInterfaces\INetworkModelGDAContract.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionCallback.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
