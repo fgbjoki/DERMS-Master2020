@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TransactionManager</RootNamespace>
     <AssemblyName>TransactionManager</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,9 +47,30 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionManager.cs" />
+    <Compile Include="TransactionPhases\Phases\CommitTransactionPhase.cs" />
+    <Compile Include="TransactionPhases\Phases\PrepareTransactionPhase.cs" />
+    <Compile Include="TransactionPhases\Phases\RollbackTransactionPhase.cs" />
+    <Compile Include="TransactionPhases\Phases\TransactionPhase.cs" />
+    <Compile Include="TransactionPhases\TransactionPhaseExecutor.cs" />
+    <Compile Include="TransactionStates\States\TransactionStateWrapper.cs" />
+    <Compile Include="TransactionStates\TransactionProcessor.cs" />
+    <Compile Include="TransactionStates\States\TransactionRollbackState.cs" />
+    <Compile Include="TransactionStates\States\TransactionCommitState.cs" />
+    <Compile Include="TransactionStates\States\TransactionEnlistState.cs" />
+    <Compile Include="TransactionException.cs" />
+    <Compile Include="TransactionStates\States\TransactionIdleState.cs" />
+    <Compile Include="TransactionStates\States\TransactionPrepareState.cs" />
+    <Compile Include="TransactionStates\States\TransactionState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8d4e56af-5587-407f-859b-47ed9f572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

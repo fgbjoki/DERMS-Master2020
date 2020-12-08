@@ -3,7 +3,7 @@
 namespace Common.ServiceInterfaces.Transaction
 {
     /// <summary>
-    /// Transaction managers interface.
+    /// Represents actions which can be preformed on the transaction manager.
     /// </summary>
     [ServiceContract(CallbackContract = typeof(ITransactionCallback))]
     public interface ITransactionManager
