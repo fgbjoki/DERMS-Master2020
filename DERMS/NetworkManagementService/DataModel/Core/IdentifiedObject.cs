@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.AbstractModel
+namespace NetworkManagementService.DataModel.Core
 {
-    // TODO
+    public class IdentifiedObject
+    {
+        // TODO
+    }
 }

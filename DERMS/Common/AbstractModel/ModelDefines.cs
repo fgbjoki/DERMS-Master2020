@@ -5,13 +5,15 @@ namespace Common.AbstractModel
     public enum DMSType : short
     {
         MASK_TYPE = unchecked((short)0xFFFF),
+        // TODO
     }
 
     [Flags]
     public enum ModelCode : long
     {
         IDOBJ = 0x1000000000000000,
-        IDOBJ_GID = 0x1000000000000104,  
+        IDOBJ_GID = 0x1000000000000104,
+        // TODO
     }
 
     [Flags]

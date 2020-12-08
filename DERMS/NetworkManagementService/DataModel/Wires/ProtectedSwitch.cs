@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.AbstractModel
+namespace NetworkManagementService.DataModel.Wires
 {
-    // TODO
+    public class ProtectedSwitch : Switch
+    {
+        // TODO
+    }
 }
