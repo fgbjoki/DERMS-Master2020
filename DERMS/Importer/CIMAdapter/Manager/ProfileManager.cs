@@ -6,11 +6,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Manager
 	public enum SupportedProfiles : byte
 	{
 		PowerTransformer = 0,
-		VoltageRegulator,
-		SwitchingEquipment,
-		OverheadLines,
-		UndergroundCables,
-		ProtectionDevices
+		DERMS
 	};
 
 
@@ -25,20 +21,20 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Manager
 		/// Method returns the name of CIM profile based on the defined enumeration.
 		/// </summary>
 		/// <param name="profile">supported CIM profile</param>
-		/// <returns>name of profile + "CIMProfile_Labs"</returns>
+		/// <returns>name of profile + "CIMProfile"</returns>
 		public static string GetProfileName(SupportedProfiles profile)
 		{
-			return string.Format("{0}CIMProfile_Labs", profile.ToString());
+			return string.Format("{0}CIMProfile", profile.ToString());
 		}
 
 		/// <summary>
 		/// Method returns the name of the CIM profile DLL based on the defined enumeration.
 		/// </summary>
 		/// <param name="profile">supported CIM profile</param>
-		/// <returns>name of profile + "CIMProfile_Labs.DLL"</returns>
+		/// <returns>name of profile + "CIMProfile.DLL"</returns>
 		public static string GetProfileDLLName(SupportedProfiles profile)
 		{
-			return string.Format("{0}CIMProfile_Labs.DLL", profile.ToString());
+			return string.Format("{0}CIMProfile.DLL", profile.ToString());
 		}
 
 		public static bool LoadAssembly(SupportedProfiles profile, out Assembly assembly)
