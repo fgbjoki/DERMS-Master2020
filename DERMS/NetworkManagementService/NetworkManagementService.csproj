@@ -45,6 +45,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Container.cs" />
+    <Compile Include="DataModel\Core\ConductingEquipment.cs" />
+    <Compile Include="DataModel\Core\ConnectivityNodeContainer.cs" />
+    <Compile Include="DataModel\Core\Equipment.cs" />
+    <Compile Include="DataModel\Core\EquipmentContainer.cs" />
+    <Compile Include="DataModel\Core\GeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\IdentifiedObject.cs" />
+    <Compile Include="DataModel\Core\PowerSystemResource.cs" />
+    <Compile Include="DataModel\Core\SubGeographicalRegion.cs" />
+    <Compile Include="DataModel\Core\Substation.cs" />
+    <Compile Include="DataModel\Core\Terminal.cs" />
+    <Compile Include="DataModel\DER Specific\DistributedEnergyResource.cs" />
+    <Compile Include="DataModel\DER Specific\EnergyStorage.cs" />
+    <Compile Include="DataModel\DER Specific\Generator.cs" />
+    <Compile Include="DataModel\DER Specific\SolarGenerator.cs" />
+    <Compile Include="DataModel\DER Specific\WindGenerator.cs" />
+    <Compile Include="DataModel\Measurement\Analog.cs" />
+    <Compile Include="DataModel\Measurement\Discrete.cs" />
+    <Compile Include="DataModel\Measurement\Measurement.cs" />
+    <Compile Include="DataModel\Topology\ConnectivityNode.cs" />
+    <Compile Include="DataModel\Wires\ACLineSegment.cs" />
+    <Compile Include="DataModel\Wires\Breaker.cs" />
+    <Compile Include="DataModel\Wires\Conductor.cs" />
+    <Compile Include="DataModel\Wires\EnergyConsumer.cs" />
+    <Compile Include="DataModel\Wires\EnergySource.cs" />
+    <Compile Include="DataModel\Wires\ProtectedSwitch.cs" />
+    <Compile Include="DataModel\Wires\Switch.cs" />
     <Compile Include="NetworkModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,9 +84,7 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataModel OVDE IDU CIM GENERISANE KLASE\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
