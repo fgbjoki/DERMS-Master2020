@@ -72,6 +72,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DERMSCIMProfile">
+      <HintPath>..\bin\DLL\DERMSCIMProfile.dll</HintPath>
+    </Reference>
     <Reference Include="PowerTransformerCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\PowerTransformerCIMProfile_Labs.dll</HintPath>
@@ -88,8 +91,8 @@
   <ItemGroup>
     <Compile Include="CIMAdapter.cs" />
     <Compile Include="Importer\ImportHelper.cs" />
-    <Compile Include="Importer\PowerTransformerConverter.cs" />
-    <Compile Include="Importer\PowerTransformerImporter.cs" />
+    <Compile Include="Importer\DERMSConverter.cs" />
+    <Compile Include="Importer\DERMSImporter.cs" />
     <Compile Include="Manager\LogManager.cs" />
     <Compile Include="Manager\ProfileManager.cs" />
     <Compile Include="NetworkModelGDAProxy.cs" />
