@@ -8,6 +8,15 @@ namespace NetworkManagementService.DataModel.Core
 {
     public class Terminal : IdentifiedObject
     {
+        public Terminal(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected Terminal(Terminal copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

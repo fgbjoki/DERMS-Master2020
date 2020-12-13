@@ -9,6 +9,15 @@ namespace NetworkManagementService.DataModel.Topology
 {
     public class ConnectivityNode : IdentifiedObject
     {
+        public ConnectivityNode(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected ConnectivityNode(ConnectivityNode copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

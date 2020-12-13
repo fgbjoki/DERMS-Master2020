@@ -8,6 +8,15 @@ namespace NetworkManagementService.DataModel.Core
 {
     public class Substation : EquipmentContainer
     {
+        public Substation(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected Substation(Substation copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

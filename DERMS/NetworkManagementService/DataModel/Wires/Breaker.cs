@@ -8,6 +8,15 @@ namespace NetworkManagementService.DataModel.Wires
 {
     public class Breaker : ProtectedSwitch
     {
+        public Breaker(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected Breaker(Breaker copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

@@ -9,6 +9,15 @@ namespace NetworkManagementService.DataModel.Wires
 {
     public class EnergyConsumer : ConductingEquipment
     {
+        public EnergyConsumer(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected EnergyConsumer(EnergyConsumer copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

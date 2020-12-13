@@ -8,6 +8,15 @@ namespace NetworkManagementService.DataModel.Core
 {
     public class ConnectivityNodeContainer : PowerSystemResource
     {
+        public ConnectivityNodeContainer(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected ConnectivityNodeContainer(ConnectivityNodeContainer copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }

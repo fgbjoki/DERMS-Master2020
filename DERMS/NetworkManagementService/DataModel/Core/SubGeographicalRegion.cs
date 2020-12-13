@@ -8,6 +8,15 @@ namespace NetworkManagementService.DataModel.Core
 {
     public class SubGeographicalRegion : IdentifiedObject
     {
+        public SubGeographicalRegion(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected SubGeographicalRegion(SubGeographicalRegion copyObject) : base(copyObject)
+        {
+
+        }
         // TODO
     }
 }
