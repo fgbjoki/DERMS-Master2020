@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NetworkManagementService.DataModel.DER_Specific
+﻿namespace NetworkManagementService.DataModel.DER_Specific
 {
     public class SolarGenerator : Generator
     {
-        // TODO
+        public SolarGenerator(long globalId) : base(globalId)
+        {
+
+        }
+
+        protected SolarGenerator(SolarGenerator copyObject) : base(copyObject) 
+        {
+
+        }
     }
 }

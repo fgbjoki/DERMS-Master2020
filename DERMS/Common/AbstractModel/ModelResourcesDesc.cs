@@ -869,9 +869,9 @@ namespace Common.AbstractModel
             typeIdsInInsertOrder.Add(ModelCode.SUBSTATION);
             typeIdsInInsertOrder.Add(ModelCode.ENERGYCONSUMER);
             typeIdsInInsertOrder.Add(ModelCode.ENERGYSOURCE);
-            typeIdsInInsertOrder.Add(ModelCode.DERENERGYSTORAGE);
-            typeIdsInInsertOrder.Add(ModelCode.DERSOLARGENERATOR);
-            typeIdsInInsertOrder.Add(ModelCode.DERWINDGENERATOR);
+            typeIdsInInsertOrder.Add(ModelCode.ENERGYSTORAGE);
+            typeIdsInInsertOrder.Add(ModelCode.SOLARGENERATOR);
+            typeIdsInInsertOrder.Add(ModelCode.WINDGENERATOR);
             typeIdsInInsertOrder.Add(ModelCode.ACLINESEG);
             typeIdsInInsertOrder.Add(ModelCode.BREAKER);
             typeIdsInInsertOrder.Add(ModelCode.CONNECTIVITYNODE);
