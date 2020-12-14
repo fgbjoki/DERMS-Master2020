@@ -210,7 +210,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                 if (energyStorage.GeneratorHasValue)
                 {
-                    importHelper.AddMissingMappingUnit(rd, ModelCode.ENERGYSTORAGE_GENERATOR, energyStorage.Generator.ID);
+                    importHelper.AddReferenceToMissingResourceDescription(rd, ModelCode.ENERGYSTORAGE_GENERATOR, energyStorage.Generator.ID);
                 }
             }
         }
