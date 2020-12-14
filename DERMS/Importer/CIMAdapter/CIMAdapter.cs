@@ -123,14 +123,14 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 
 				switch (extractType)
 				{
-					case SupportedProfiles.DERMS:
+					case SupportedProfiles.PowerTransformer:
 						{
 							// transformation to DMS delta					
-							TransformAndLoadReport report = DERMSImporter.Instance.CreateNMSDelta(concreteModel);
+							TransformAndLoadReport report = PowerTransformerImporter.Instance.CreateNMSDelta(concreteModel);
 
 							if (report.Success)
 							{
-								nmsDelta = DERMSImporter.Instance.NMSDelta;
+								nmsDelta = PowerTransformerImporter.Instance.NMSDelta;
 								success = true;
 							}
 							else
@@ -138,7 +138,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 								success = false;
 							}
 							log = report.Report.ToString();
-							DERMSImporter.Instance.Reset();
+							PowerTransformerImporter.Instance.Reset();
 
 							break;
 						}
