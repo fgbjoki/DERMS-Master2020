@@ -69,6 +69,8 @@ namespace NetworkManagementService.DataModel.Core
             {
                 references[ModelCode.CONDUCTINGEQ_TERMINALS] = new List<long>(Terminals);
             }
+
+            base.GetReferences(references, refType);
         }
 
         public override void RemoveReference(ModelCode referenceId, long globalId)

@@ -63,6 +63,8 @@ namespace NetworkManagementService.DataModel.Core
             {
                 references[ModelCode.EQUIPMENT_EQCONTAINER] = new List<long>(1) { EquipmentContainer };
             }
+
+            base.GetReferences(references, refType);
         }
 
         public override int GetHashCode()

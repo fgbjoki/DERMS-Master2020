@@ -37,16 +37,16 @@ namespace NetworkManagementService.DataModel.Measurement
             {
                 if (Terminal != 0)
                 {
-                    references[ModelCode.MEASUREMENT_TERMINAL] = new List<long>();
-                    references[ModelCode.MEASUREMENT_TERMINAL].Add(Terminal);
+                    references[ModelCode.MEASUREMENT_TERMINAL] = new List<long>() { Terminal };
                 }
 
                 if (PowerSystemResource != 0)
                 {
-                    references[ModelCode.MEASUREMENT_PSR] = new List<long>();
-                    references[ModelCode.MEASUREMENT_PSR].Add(Terminal);
+                    references[ModelCode.MEASUREMENT_PSR] = new List<long>() { PowerSystemResource };
                 }
             }
+
+            base.GetReferences(references, refType);
         }
 
         public override bool HasProperty(ModelCode property)

@@ -104,6 +104,8 @@ namespace NetworkManagementService.DataModel.DER_Specific
             {
                 references[ModelCode.DERENERGYSTORAGE_GENERATOR] = new List<long>(1) { Generator };
             }
+
+            base.GetReferences(references, refType);
         }
 
         public override int GetHashCode()

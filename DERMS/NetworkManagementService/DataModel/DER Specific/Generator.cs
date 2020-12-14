@@ -79,6 +79,8 @@ namespace NetworkManagementService.DataModel.DER_Specific
             {
                 references[ModelCode.DERGENERATOR_STORAGE] = new List<long>(1) { Storage };
             }
+
+            base.GetReferences(references, refType);
         }
 
         public override int GetHashCode()
