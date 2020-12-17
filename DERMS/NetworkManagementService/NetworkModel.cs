@@ -1,30 +1,79 @@
 ﻿using Common.AbstractModel;
 using Common.GDA;
+using Common.ServiceInterfaces;
+using NetworkManagementService.Components;
 using System;
 using System.Collections.Generic;
+using System.ServiceModel;
+using System.Threading;
 
 namespace NetworkManagementService
 {
-    public class NetworkModel : IDisposable
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract
     {
-        /// <summary>
-		/// Dictionaru which contains all data: Key - DMSType, Value - Container
-		/// </summary>
-		private Dictionary<DMSType, Container> networkDataModel;
-
-        /// <summary>
-        /// ModelResourceDesc class contains metadata of the model
-        /// </summary>
         private ModelResourcesDesc resourcesDescs;
 
-        /// <summary>
-        /// Initializes a new instance of the Model class.
-        /// </summary>
+        private IInsertionComponent insertionProcessor;
+        private INetworkModelGDAContract gdaProcessor;
+        private IDeltaProcessor deltaProcessor;
+
         public NetworkModel()
         {
-            networkDataModel = new Dictionary<DMSType, Container>();
-            resourcesDescs = new ModelResourcesDesc();
+            Semaphore deltaWaitSemaphore = new Semaphore(0, 1);
+
+            ModelProcessor modelProcessor = new ModelProcessor(deltaWaitSemaphore);
+
+            insertionProcessor = modelProcessor;
+            gdaProcessor = new GDAProcessor(modelProcessor);
+            deltaProcessor = new DeltaProcessor(modelProcessor, deltaWaitSemaphore);
+
             Initialize();
+        }
+
+        public UpdateResult ApplyUpdate(Delta delta)
+        {
+            return deltaProcessor.ApplyDelta(delta);
+        }
+
+        public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds)
+        {
+            return gdaProcessor.GetExtentValues(entityType, propIds);
+        }
+
+        public int GetRelatedValues(long source, List<ModelCode> propIds, Association association)
+        {
+            return gdaProcessor.GetRelatedValues(source, propIds, association);
+        }
+
+        public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
+        {
+            return gdaProcessor.GetValues(resourceId, propIds);
+        }
+
+        public bool IteratorClose(int id)
+        {
+            return gdaProcessor.IteratorClose(id);
+        }
+
+        public List<ResourceDescription> IteratorNext(int n, int id)
+        {
+            return gdaProcessor.IteratorNext(n, id);
+        }
+
+        public int IteratorResourcesLeft(int id)
+        {
+            return gdaProcessor.IteratorResourcesLeft(id);
+        }
+
+        public int IteratorResourcesTotal(int id)
+        {
+            return gdaProcessor.IteratorResourcesLeft(id);
+        }
+
+        public bool IteratorRewind(int id)
+        {
+            return IteratorRewind(id);
         }
 
         public void Dispose()
@@ -40,20 +89,7 @@ namespace NetworkManagementService
             {
                 try
                 {
-                    //foreach (ResourceDescription rd in delta.InsertOperations)
-                    //{
-                    //    InsertEntity(rd);
-                    //}
-
-                    //foreach (ResourceDescription rd in delta.UpdateOperations)
-                    //{
-                    //    UpdateEntity(rd);
-                    //}
-
-                    //foreach (ResourceDescription rd in delta.DeleteOperations)
-                    //{
-                    //    DeleteEntity(rd);
-                    //}
+                    deltaProcessor.ApplyDelta(delta, true);
                 }
                 catch (Exception ex)
                 {

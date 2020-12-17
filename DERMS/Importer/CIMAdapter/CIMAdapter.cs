@@ -13,6 +13,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 	public class CIMAdapter
 	{
         private NetworkModelGDAProxy gdaQueryProxy = null;
+        private NetworkModelDeltaProxy deltaProxy = null;
        
 		public CIMAdapter()
 		{
@@ -28,10 +29,27 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
                     gdaQueryProxy = null;
                 }
 
-                gdaQueryProxy = new NetworkModelGDAProxy("NetworkModelGDAEndpoint");
+                gdaQueryProxy = new NetworkModelGDAProxy("net.tcp://localhost:12121/NetworkModel/GDA");
                 gdaQueryProxy.Open();
 
                 return gdaQueryProxy;
+            }
+        }
+
+        private NetworkModelDeltaProxy DeltaProxy
+        {
+            get
+            {
+                if (deltaProxy != null)
+                {
+                    deltaProxy.Abort();
+                    deltaProxy = null;
+                }
+
+                deltaProxy = new NetworkModelDeltaProxy("net.tcp://localhost:12121/NetworkModel/Delta");
+                deltaProxy.Open();
+
+                return deltaProxy;
             }
         }
 
@@ -61,7 +79,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 			if ((delta != null) && (delta.NumberOfOperations != 0))
 			{
 				//// NetworkModelService->ApplyUpdates
-                updateResult = GdaQueryProxy.ApplyUpdate(delta).ToString();
+                updateResult = DeltaProxy.ApplyUpdate(delta).ToString();
 			}
 
 			Thread.CurrentThread.CurrentCulture = culture;

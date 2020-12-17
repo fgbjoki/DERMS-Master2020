@@ -13,11 +13,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 		{
 		}
 
-		public UpdateResult ApplyUpdate(Delta delta)
-		{
-			return Channel.ApplyUpdate(delta);
-		}
-
 		public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
 		{
 			return Channel.GetValues(resourceId, propIds);
