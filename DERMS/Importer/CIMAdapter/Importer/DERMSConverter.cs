@@ -445,6 +445,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_NORMALOPEN, discrete.NormalOpen));
                 }
+
+                if (discrete.TypeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_TYPE, (short)discrete.Type));
+                }
             }
         }
 
@@ -467,6 +472,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 if (analog.CurrentValueHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, analog.CurrentValueHasValue));
+                }
+
+                if (analog.TypeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_TYPE, (short)analog.Type));
                 }
             }
         }
