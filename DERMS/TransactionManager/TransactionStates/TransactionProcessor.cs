@@ -1,4 +1,5 @@
-﻿using Common.Logger;
+﻿using Common.Communication;
+using Common.Logger;
 using Common.ServiceInterfaces.Transaction;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace TransactionManager
     {
         private static readonly int TIME_OUT_PERIOD = 10000;
 
-        private Dictionary<string, ITransactionCallback> servicesInTransaction;
+        private static readonly NetTcpBinding netTcpBinding = new NetTcpBinding();
+
+        private Dictionary<string, WCFClient<ITransaction>> servicesInTransaction;
 
         private ReaderWriterLock transactionStateLocker;
 
@@ -31,7 +34,7 @@ namespace TransactionManager
 
             phaseExecutor = new TransactionPhaseExecutor(transactionStateLocker);
 
-            servicesInTransaction = new Dictionary<string, ITransactionCallback>();
+            servicesInTransaction = new Dictionary<string, WCFClient<ITransaction>>();
         }
 
         /// <inheritdoc/>
@@ -73,30 +76,24 @@ namespace TransactionManager
         }
 
         /// <inheritdoc/>
-        public bool EnlistService(string serviceName)
+        public bool EnlistService(string serviceName, string endpointAddress)
         {
             bool isCommandSuccessful = true;
 
             try
             {
-                ITransactionCallback callback = OperationContext.Current.GetCallbackChannel<ITransactionCallback>();
+                var wcfClient = new WCFClient<ITransaction>(netTcpBinding, new EndpointAddress(endpointAddress));
 
-                if (callback == null)
-                {
-                    DERMSLogger.Instance.Log($"\"{serviceName}\" doesn't have {typeof(ITransactionCallback).ToString()} callback.");
-                }
-                else
-                {
-                    transactionStateLocker.AcquireWriterLock(TIME_OUT_PERIOD);
+                transactionStateLocker.AcquireWriterLock(TIME_OUT_PERIOD);
 
-                    transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.Enlist(serviceName);
+                transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.Enlist(serviceName);
 
-                    servicesInTransaction.Add(serviceName, callback);
+                servicesInTransaction.Add(serviceName, wcfClient);
 
-                    transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ReleaseWriterLock();
 
-                    DERMSLogger.Instance.Log($"\"{serviceName}\" enlisted.");
-                }           
+                DERMSLogger.Instance.Log($"\"{serviceName}\" enlisted.");
+
             }
             catch (ApplicationException ae)
             {

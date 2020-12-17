@@ -6,7 +6,7 @@ namespace Common.ServiceInterfaces.Transaction
     /// Used for components which participate in transaction.
     /// </summary>
     [ServiceContract]
-    public interface ITransactionCallback
+    public interface ITransaction
     {
         /// <summary>
         /// Perform prepare phase.

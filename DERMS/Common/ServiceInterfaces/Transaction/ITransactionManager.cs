@@ -5,7 +5,7 @@ namespace Common.ServiceInterfaces.Transaction
     /// <summary>
     /// Represents actions which can be preformed on the transaction manager.
     /// </summary>
-    [ServiceContract(CallbackContract = typeof(ITransactionCallback))]
+    [ServiceContract]
     public interface ITransactionManager
     {
         /// <summary>
@@ -19,9 +19,10 @@ namespace Common.ServiceInterfaces.Transaction
         /// Enlists the service in the ongoing transaction.
         /// </summary>
         /// <param name="serviceName">Name of the service which wants to participate in the transaction.</param>
+        /// <param name="serviceEnedPoint">Endpoint of the <paramref="serviceName"/> service.</param>
         /// <returns><b>True</b> if the service is sucessfuly enlisted, otherwise <b>false</b>.</returns>
         [OperationContract]
-        bool EnlistService(string serviceName);
+        bool EnlistService(string serviceName, string serviceEndpoint);
 
         /// <summary>
         /// Ends the enlist procedure.

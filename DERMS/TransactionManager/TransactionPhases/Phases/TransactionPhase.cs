@@ -1,4 +1,5 @@
-﻿using Common.Logger;
+﻿using Common.Communication;
+using Common.Logger;
 using Common.ServiceInterfaces.Transaction;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace TransactionManager.TransactionPhases
 
         protected Semaphore semaphore;
 
-        private readonly Dictionary<string, ITransactionCallback> services;
+        private readonly Dictionary<string, WCFClient<ITransaction>> services;
 
-        protected TransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore, Dictionary<string, ITransactionCallback> services)
+        protected TransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore, Dictionary<string, WCFClient<ITransaction>> services)
         {
             this.transactionStateLocker = transactionStateLocker;
             this.phaseLocker = phaseLocker;
@@ -46,7 +47,7 @@ namespace TransactionManager.TransactionPhases
             {
                 phaseLocker.AcquireReaderLock(LOCKER_TIME_OUT);
 
-                foreach (KeyValuePair<string, ITransactionCallback> serviceCallback in services)
+                foreach (KeyValuePair<string, WCFClient<ITransaction>> serviceCallback in services)
                 {
                     // log service name
                     Task<bool> callServiceThread = new Task<bool>(() => ExecuteAction(serviceCallback.Key, serviceCallback.Value));
@@ -97,9 +98,9 @@ namespace TransactionManager.TransactionPhases
         /// Executes one of <see cref="ITransactionCallback"/> function, it depends which phase is currently executing. 
         /// </summary>
         /// <param name="serviceName">Name of the the current processing service.</param>
-        /// <param name="serviceCallback">Service callback.</param>
+        /// <param name="serviceClient"><see cref="WCFClient{T}"/> for the <paramref name="serviceName"/> service.</param>
         /// <returns><b>True</b> if the specific <see cref="ITransactionCallback"/> is successful, otherwise <b>false</b>.</returns>
-        protected abstract bool ExecutePhaseFunction(string serviceName, ITransactionCallback serviceCallback);
+        protected abstract bool ExecutePhaseFunction(string serviceName, WCFClient<ITransaction> serviceClient);
 
         /// <summary>
         /// Changes the current state of the transaction based on which phase is executing.
@@ -108,11 +109,11 @@ namespace TransactionManager.TransactionPhases
         /// <returns>Next <see cref="TransactionState"/>.</returns>
         protected abstract TransactionState ChangeTransactionState(string serviceName);
 
-        private bool ExecuteAction(string serviceName, ITransactionCallback serviceCallback)
+        private bool ExecuteAction(string serviceName, WCFClient<ITransaction> clientService)
         {
             bool successfulyExecuted = true;
 
-            successfulyExecuted = ExecutePhaseFunction(serviceName, serviceCallback);
+            successfulyExecuted = ExecutePhaseFunction(serviceName, clientService);
 
             try
             {

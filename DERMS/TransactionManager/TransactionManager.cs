@@ -16,9 +16,9 @@ namespace TransactionManager
             transactionProcessor = new TransactionProcessor();
         }
 
-        public bool EnlistService(string serviceName)
+        public bool EnlistService(string serviceName, string endpointAddress)
         {
-            return transactionProcessor.EnlistService(serviceName);
+            return transactionProcessor.EnlistService(serviceName, endpointAddress);
         }
 
         public bool StartEnlist()

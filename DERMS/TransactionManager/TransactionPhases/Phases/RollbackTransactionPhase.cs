@@ -3,6 +3,7 @@ using Common.ServiceInterfaces.Transaction;
 using TransactionManager.TransactionStates;
 using System.Collections.Generic;
 using Common.Logger;
+using Common.Communication;
 
 namespace TransactionManager.TransactionPhases
 {
@@ -12,7 +13,7 @@ namespace TransactionManager.TransactionPhases
     class RollbackTransactionPhase : TransactionPhase
     {
         public RollbackTransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore,
-                                        Dictionary<string, ITransactionCallback> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
+                                        Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
         {
 
         }
@@ -24,9 +25,9 @@ namespace TransactionManager.TransactionPhases
         }
 
         /// <summary>
-        /// Executes <see cref="ITransactionCallback.Rollback"/> on each transaction participant.
+        /// Executes <see cref="ITransaction.Rollback"/> on each transaction participant.
         /// </summary>
-        protected override bool ExecutePhaseFunction(string serviceName, ITransactionCallback serviceCallback)
+        protected override bool ExecutePhaseFunction(string serviceName, WCFClient<ITransaction> serviceClient)
         {
             bool isFunctionSuccessful = true;
 
@@ -34,7 +35,7 @@ namespace TransactionManager.TransactionPhases
             {
                 DERMSLogger.Instance.Log($"[ExecutePhases] Executing rollback phase on \"{serviceName}\".");
 
-                isFunctionSuccessful = serviceCallback.Rollback();
+                isFunctionSuccessful = serviceClient.Proxy.Rollback();
             }
             catch
             {

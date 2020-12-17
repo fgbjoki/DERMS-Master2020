@@ -1,4 +1,5 @@
-﻿using Common.Logger;
+﻿using Common.Communication;
+using Common.Logger;
 using Common.ServiceInterfaces.Transaction;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace TransactionManager.TransactionPhases
         /// </summary>
         /// <param name="services"></param>
         /// <param name="transactionStateWrapper"></param>
-        public void SchedulePreparePhase(Dictionary<string, ITransactionCallback> services, TransactionStateWrapper transactionStateWrapper)
+        public void SchedulePreparePhase(Dictionary<string, WCFClient<ITransaction>> services, TransactionStateWrapper transactionStateWrapper)
         {
             phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
             currentPhase = new PrepareTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services);
@@ -55,7 +56,7 @@ namespace TransactionManager.TransactionPhases
             semaphore.Release();
         }
 
-        public void ScheduleRollbackPhase(Dictionary<string, ITransactionCallback> services, TransactionStateWrapper transactionStateWrapper)
+        public void ScheduleRollbackPhase(Dictionary<string, WCFClient<ITransaction>> services, TransactionStateWrapper transactionStateWrapper)
         {
             phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
             currentPhase = new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services);

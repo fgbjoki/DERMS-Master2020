@@ -3,21 +3,22 @@ using Common.ServiceInterfaces.Transaction;
 using TransactionManager.TransactionStates;
 using System.Collections.Generic;
 using Common.Logger;
+using Common.Communication;
 
 namespace TransactionManager.TransactionPhases
 {
     internal sealed class PrepareTransactionPhase : TransactionPhase
     {
-        private Dictionary<string, ITransactionCallback> preparedServices;
-        private Dictionary<string, ITransactionCallback> enlistedServices;
+        private Dictionary<string, WCFClient<ITransaction>> preparedServices;
+        private Dictionary<string, WCFClient<ITransaction>> enlistedServices;
 
         public PrepareTransactionPhase(ReaderWriterLock transactionStateLocker,
                                         ReaderWriterLock phaseLocker,
                                         TransactionStateWrapper transactionStateWrapper, 
                                         Semaphore semaphore,
-                                        Dictionary<string, ITransactionCallback> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
+                                        Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
         {
-            preparedServices = new Dictionary<string, ITransactionCallback>(services.Count);
+            preparedServices = new Dictionary<string, WCFClient<ITransaction>>(services.Count);
             enlistedServices = services;
         }
 
@@ -40,17 +41,17 @@ namespace TransactionManager.TransactionPhases
         }
 
         /// <summary>
-        /// Executes <see cref="ITransactionCallback.Prepare"/> on each transaction participant.
+        /// Executes <see cref="ITransaction.Prepare"/> on each transaction participant.
         /// </summary>
-        protected override bool ExecutePhaseFunction(string serviceName, ITransactionCallback serviceCallback)
+        protected override bool ExecutePhaseFunction(string serviceName, WCFClient<ITransaction> serviceClient)
         {
             bool isFunctionSuccessful = true;
 
             try
             {
                 DERMSLogger.Instance.Log($"[ExecutePhases] Executing prepare phase on \"{serviceName}\".");
-                isFunctionSuccessful = serviceCallback.Prepare();
-                preparedServices.Add(serviceName, serviceCallback);
+                isFunctionSuccessful = serviceClient.Proxy.Prepare();
+                preparedServices.Add(serviceName, serviceClient);
             }
             catch
             {
