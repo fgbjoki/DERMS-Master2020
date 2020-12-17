@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Common.WeatherApiTester
 {
@@ -31,7 +30,7 @@ namespace Common.WeatherApiTester
 
         public bool MoveNext()
         {
-            if (currentElement == 24)
+            if (currentElement == dataByHour.Length)
             {
                 return false;
             }
@@ -47,7 +46,7 @@ namespace Common.WeatherApiTester
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
