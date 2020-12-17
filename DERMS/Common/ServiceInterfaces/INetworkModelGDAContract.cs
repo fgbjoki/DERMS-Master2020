@@ -9,14 +9,6 @@ namespace Common.ServiceInterfaces
     public interface INetworkModelGDAContract
     {
         /// <summary>
-        /// Updates model by appluing reosoreces sent in delta
-        /// </summary>		
-        /// <param name="delta">Object which contains model changes</param>		
-        /// <returns>Result of model changes</returns>
-        [OperationContract]
-        UpdateResult ApplyUpdate(Delta delta);
-
-        /// <summary>
         /// Gets resource description for resource specified by id.
         /// </summary>		
         /// <param name="resourceId">Resource id of the entity</param>
