@@ -864,15 +864,33 @@ namespace Common.AbstractModel
 
         private void InitializeTypeIdsInInsertOrder()
         {
-           // TODO DEFINE ORDER OF TYPE INSERTION
-           // typeIdsInInsertOrder.Add();
-
+            typeIdsInInsertOrder.Add(ModelCode.GEOGRAPHICALREGION);
+            typeIdsInInsertOrder.Add(ModelCode.SUBGEOGRAPHICALREGION);
+            typeIdsInInsertOrder.Add(ModelCode.SUBSTATION);
+            typeIdsInInsertOrder.Add(ModelCode.ENERGYCONSUMER);
+            typeIdsInInsertOrder.Add(ModelCode.ENERGYSOURCE);
+            typeIdsInInsertOrder.Add(ModelCode.ENERGYSTORAGE);
+            typeIdsInInsertOrder.Add(ModelCode.SOLARGENERATOR);
+            typeIdsInInsertOrder.Add(ModelCode.WINDGENERATOR);
+            typeIdsInInsertOrder.Add(ModelCode.ACLINESEG);
+            typeIdsInInsertOrder.Add(ModelCode.BREAKER);
+            typeIdsInInsertOrder.Add(ModelCode.CONNECTIVITYNODE);
+            typeIdsInInsertOrder.Add(ModelCode.TERMINAL);
+            typeIdsInInsertOrder.Add(ModelCode.MEASUREMENTANALOG);
+            typeIdsInInsertOrder.Add(ModelCode.MEASUREMENTDISCRETE);
         }
 
         private void InitializeNotSettablePropertyIds()
         {
             notSettablePropertyIds.Add(ModelCode.IDOBJ_GID);
-            // TODO ADD PROPERTIES WHICH ARE NOT SETTABLE BY DELTA
+            notSettablePropertyIds.Add(ModelCode.PSR_MEASUREMENTS);
+            notSettablePropertyIds.Add(ModelCode.CONNECTIVITYNODE_TERMINALS);
+            notSettablePropertyIds.Add(ModelCode.CONNECTIVIRYNODECONTAINER_CONNECTIVITYNODES);
+            notSettablePropertyIds.Add(ModelCode.CONDUCTINGEQ_TERMINALS);
+            notSettablePropertyIds.Add(ModelCode.EQUIPMENTCONTAINER_EQUIPEMENTS);
+            notSettablePropertyIds.Add(ModelCode.SUBGEOGRAPHICALREGION_SUBSTATIONS);
+            notSettablePropertyIds.Add(ModelCode.GEOGRAPHICALREGION_SUBREGIONS);
+            notSettablePropertyIds.Add(ModelCode.TERMINAL_MEASUREMENTS);
         }
 
         #endregion Initialization of metadata
