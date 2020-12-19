@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="FieldSimulator.View.AnalogPointsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FieldSimulator.View"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+             xmlns:domain="clr-namespace:FieldSimulator.ViewModel">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DataGrid
+                    ItemsSource="{Binding RemotePoints}"
+                    CanUserAddRows="False" AutoGenerateColumns="False"
+                    HeadersVisibility="All">
+        <DataGrid.Columns>
+            <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+            <materialDesign:DataGridTextColumn Header="Name" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" MinWidth="100">
+                <materialDesign:DataGridTextColumn.Binding>
+                    <Binding Path="Name"/>
+                </materialDesign:DataGridTextColumn.Binding>
+            </materialDesign:DataGridTextColumn>
+
+            <materialDesign:DataGridTextColumn
+                            MinWidth="100"
+                            Header="Index"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <materialDesign:DataGridTextColumn.Binding>
+                    <Binding Path="Index"/>
+                </materialDesign:DataGridTextColumn.Binding>
+            </materialDesign:DataGridTextColumn>
+
+            <DataGridTextColumn
+                            Binding="{Binding CalculationName}"
+                            MinWidth="100"
+                            Header="Calculation"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+
+
+            <!-- set a max length to get an indicator in the editor -->
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="Value"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn.Binding>
+                    <Binding Path="Value">
+                        <!--<Binding.ValidationRules>
+                                <domain:NotEmptyValidationRule />
+                            </Binding.ValidationRules>-->
+                    </Binding>
+                </DataGridTextColumn.Binding>
+            </DataGridTextColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>
