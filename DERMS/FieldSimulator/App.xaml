@@ -1,0 +1,22 @@
+﻿<Application x:Class="FieldSimulator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FieldSimulator"
+             xmlns:views="clr-namespace:FieldSimulator.View"
+             xmlns:viewModels="clr-namespace:FieldSimulator.ViewModel"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type viewModels:HoldingRegistersViewModel}">
+            <views:AnalogPointsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:InputRegistersViewModel}">
+            <views:AnalogPointsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:CoilsViewModel}">
+            <views:DiscretePointsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:DiscreteInputsViewModel}">
+            <views:DiscretePointsView/>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
