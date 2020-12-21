@@ -73,7 +73,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DERMSCIMProfile">
-      <HintPath>..\bin\DLL\DERMSCIMProfile.dll</HintPath>
+      <HintPath>..\..\Resources\DERMSCIMProfile.dll</HintPath>
     </Reference>
     <Reference Include="PowerTransformerCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
