@@ -15,7 +15,6 @@ namespace NetworkManagementService.DataModel.Measurement
             MinValue = copyObject.MinValue;
             MaxValue = copyObject.MaxValue;
             CurrentValue = copyObject.CurrentValue;
-            Type = copyObject.Type;
         }
 
         public float MinValue { get; set; }
@@ -24,8 +23,6 @@ namespace NetworkManagementService.DataModel.Measurement
 
         public float CurrentValue { get; set; }
 
-        public AnalogType Type { get; set; }
-
         public override bool HasProperty(ModelCode property)
         {
             switch (property)
@@ -33,7 +30,6 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTANALOG_MINVALUE:
                 case ModelCode.MEASUREMENTANALOG_MAXVALUE:
                 case ModelCode.MEASUREMENTANALOG_CURRENTVALUE:
-                case ModelCode.MEASUREMENTANALOG_TYPE:
                     return true;
                 default:
                     return base.HasProperty(property);
@@ -52,9 +48,6 @@ namespace NetworkManagementService.DataModel.Measurement
                     break;
                 case ModelCode.MEASUREMENTANALOG_CURRENTVALUE:
                     property.SetValue(CurrentValue);
-                    break;
-                case ModelCode.MEASUREMENTANALOG_TYPE:
-                    property.SetValue((short)Type);
                     break;
                 default:
                     base.GetProperty(property);
@@ -75,9 +68,6 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTANALOG_CURRENTVALUE:
                     CurrentValue = property.AsFloat();
                     break;
-                case ModelCode.MEASUREMENTANALOG_TYPE:
-                    Type = (AnalogType)property.AsEnum();
-                    break;
                 default:
                     base.GetProperty(property);
                     break;
@@ -97,8 +87,7 @@ namespace NetworkManagementService.DataModel.Measurement
                 return false;
             }
 
-            return MinValue == compareObject.MinValue && MaxValue == compareObject.MaxValue && CurrentValue == compareObject.MaxValue 
-                && Type == compareObject.Type && base.Equals(x);
+            return MinValue == compareObject.MinValue && MaxValue == compareObject.MaxValue && CurrentValue == compareObject.MaxValue && base.Equals(x);
         }
         public override object Clone()
         {

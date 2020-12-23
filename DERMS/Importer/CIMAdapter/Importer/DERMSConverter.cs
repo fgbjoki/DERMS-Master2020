@@ -65,12 +65,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(subGeographicalRegion.GetType().ToString()).Append(" rdfID = \"").Append(subGeographicalRegion.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(subGeographicalRegion.Region.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to Region: rdfID \"").Append(subGeographicalRegion.Region.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.SUBGEOGRAPHICALREGION_REGION, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(subGeographicalRegion.GetType().ToString()).Append(" rdfID = \"").Append(subGeographicalRegion.ID);
+                    report.Report.Append("\" - Failed to set reference to Region: rdfID \"").Append(subGeographicalRegion.Region.ID).AppendLine(" \" is not mapped to GID!");
                 }
             }
         }
@@ -111,12 +116,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(substation.GetType().ToString()).Append(" rdfID = \"").Append(substation.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(substation.Region.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to SubGeographicalRegion: rdfID \"").Append(substation.Region.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.SUBGEOGRAPHICALREGION_REGION, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(substation.GetType().ToString()).Append(" rdfID = \"").Append(substation.ID);
+                    report.Report.Append("\" - Failed to set reference to SubGeographicalRegion: rdfID \"").Append(substation.Region.ID).AppendLine(" \" is not mapped to GID!");
                 }
             }
         }
@@ -146,12 +156,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(equipment.EquipmentContainer.GetType().ToString()).Append(" rdfID = \"").Append(equipment.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(equipment.EquipmentContainer.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to EquipmentContainer: rdfID \"").Append(equipment.EquipmentContainer.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.EQUIPMENT_EQCONTAINER, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(equipment.EquipmentContainer.GetType().ToString()).Append(" rdfID = \"").Append(equipment.ID);
+                    report.Report.Append("\" - Failed to set reference to EquipmentContainer: rdfID \"").Append(equipment.EquipmentContainer.ID).AppendLine(" \" is not mapped to GID!");
                 }
             }
         }
@@ -174,6 +189,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.DER_ACTIVEPOWER, der.ActivePower));
                 }
+                else
+                {
+                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"ActivePower\" = 0");
+                    rd.AddProperty(new Property(ModelCode.DER_ACTIVEPOWER, (int)0));
+                }
 
                 if (der.NominalPowerHasValue)
                 {
@@ -183,6 +203,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 if (der.SetPointHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.DER_SETPOINT, der.SetPoint));
+                }
+                else
+                {
+                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"SetPoint\" = 0");
+                    rd.AddProperty(new Property(ModelCode.DER_SETPOINT, (int)0));
                 }
             }
         }
@@ -202,10 +227,20 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATE, (short)energyStorage.State));
                 }
+                else
+                {
+                    report.Report.Append($"EnergyStorage with id = {energyStorage.MRID} will have default value of property \"EnergyStorageState\" = {Common.AbstractModel.EnergyStorageState.Idle}\n");
+                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATE, (short)Common.AbstractModel.EnergyStorageState.Idle));
+                }
 
                 if (energyStorage.StateOfChargeHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_CAPACITY, energyStorage.StateOfCharge));
+                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATEOFCHARGE, energyStorage.StateOfCharge));
+                }
+                else
+                {
+                    report.Report.Append($"EnergyStorage with id = {energyStorage.MRID} will have default value of property \"StateOfCharge\" = 1\n");
+                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATEOFCHARGE, (int)1));
                 }
 
                 if (energyStorage.GeneratorHasValue)
@@ -225,6 +260,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.GENERATOR_DELTAPOWER, generator.DeltaPower));
                 }
+                else
+                {
+                    report.Report.Append($"{generator.GetType().ToString()} with id = {generator.MRID} will have default value of property \"DeltaPower\" = 0\n");
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_DELTAPOWER, (int)0));
+                }
 
                 if (generator.StorageHasValue)
                 {
@@ -232,12 +272,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(generator.Storage.GetType().ToString()).Append(" rdfID = \"").Append(generator.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(generator.Storage.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to EnergyStorage: rdfID \"").Append(generator.Storage.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.GENERATOR_ENERGYSTORAGE, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(generator.Storage.GetType().ToString()).Append(" rdfID = \"").Append(generator.ID);
+                    report.Report.Append("\" - Failed to set reference to EnergyStorage since it is not defined\n");
                 }
             }
         }
@@ -323,12 +368,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(connectivityNode.ConnectivityNodeContainer.GetType().ToString()).Append(" rdfID = \"").Append(connectivityNode.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(connectivityNode.ConnectivityNodeContainer.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to ConnectivityNodeContainer: rdfID \"").Append(connectivityNode.ConnectivityNodeContainer.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.CONNECTIVITYNODE_CONNECTIVITYNODECONTAINER, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(connectivityNode.ConnectivityNodeContainer.GetType().ToString()).Append(" rdfID = \"").Append(connectivityNode.ID);
+                    report.Report.Append("\" - Failed to set reference to ConnectivityNodeContainer: rdfID \"").Append(connectivityNode.ConnectivityNodeContainer.ID).AppendLine(" \" is not mapped to GID!");
                 }
             }
         }
@@ -345,12 +395,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(terminal.ConnectivityNode.GetType().ToString()).Append(" rdfID = \"").Append(terminal.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(terminal.ConnectivityNode.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to ConnectivityNode: rdfID \"").Append(terminal.ConnectivityNode.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.TERMINAL_CONNECTIVITYNODE, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(terminal.ConnectivityNode.GetType().ToString()).Append(" rdfID = \"").Append(terminal.ID);
+                    report.Report.Append("\" - Failed to set reference to ConnectivityNode: rdfID \"").Append(terminal.ConnectivityNode.ID).AppendLine(" \" is not mapped to GID!");
                 }
 
                 if (terminal.ConductingEquipmentHasValue)
@@ -359,12 +414,17 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(terminal.ConductingEquipment.GetType().ToString()).Append(" rdfID = \"").Append(terminal.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(terminal.ConductingEquipment.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to ConductingEquipment: rdfID \"").Append(terminal.ConductingEquipment.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.TERMINAL_CONDUCTINGEQ, gid));
                     }
+                }
+                else
+                {
+                    report.Report.Append("WARNING: Convert ").Append(terminal.ConductingEquipment.GetType().ToString()).Append(" rdfID = \"").Append(terminal.ID);
+                    report.Report.Append("\" - Failed to set reference to ConductingEquipment: rdfID \"").Append(terminal.ConductingEquipment.ID).AppendLine(" \" is not mapped to GID!");
                 }
             }
         }
@@ -381,11 +441,18 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(measurement.PowerSystemResource.GetType().ToString()).Append(" rdfID = \"").Append(measurement.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(measurement.PowerSystemResource.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to PowerSystemResource: rdfID \"").Append(measurement.PowerSystemResource.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
                         rd.AddProperty(new Property(ModelCode.MEASUREMENT_PSR, gid));
+                    }
+                }
+                else
+                {
+                    {
+                        report.Report.Append("WARNING: Convert ").Append(measurement.PowerSystemResource.GetType().ToString()).Append(" rdfID = \"").Append(measurement.ID);
+                        report.Report.Append("\" - Failed to set reference to PowerSystemResource: rdfID \"").Append(measurement.PowerSystemResource.ID).AppendLine(" \" is not mapped to GID!");
                     }
                 }
 
@@ -395,7 +462,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     if (gid < 0)
                     {
                         report.Report.Append("WARNING: Convert ").Append(measurement.Terminal.GetType().ToString()).Append(" rdfID = \"").Append(measurement.ID);
-                        report.Report.Append("\" - Failed to set reference to BaseVoltage: rdfID \"").Append(measurement.Terminal.ID).AppendLine(" \" is not mapped to GID!");
+                        report.Report.Append("\" - Failed to set reference to Terminal: rdfID \"").Append(measurement.Terminal.ID).AppendLine(" \" is not mapped to GID!");
                     }
                     else
                     {
@@ -445,11 +512,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_NORMALOPEN, discrete.NormalOpen));
                 }
-
-                if (discrete.TypeHasValue)
-                {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_TYPE, (short)discrete.Type));
-                }
             }
         }
 
@@ -472,11 +534,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 if (analog.CurrentValueHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, analog.CurrentValueHasValue));
-                }
-
-                if (analog.TypeHasValue)
-                {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_TYPE, (short)analog.Type));
                 }
             }
         }

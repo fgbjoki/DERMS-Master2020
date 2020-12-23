@@ -16,7 +16,6 @@ namespace NetworkManagementService.DataModel.Measurement
             MinValue = copyObject.MinValue;
             NormalOpen = copyObject.NormalOpen;
             CurrentOpen = copyObject.CurrentOpen;
-            Type = copyObject.Type;
         }
 
         public int MinValue { get; set; }
@@ -26,8 +25,6 @@ namespace NetworkManagementService.DataModel.Measurement
         public bool CurrentOpen { get; set; }
 
         public bool NormalOpen { get; set; }
-
-        public DiscreteType Type { get; set; }
 
         public override int GetHashCode()
         {
@@ -50,9 +47,6 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
                     NormalOpen = property.AsBool();
                     break;
-                case ModelCode.MEASUREMENTDISCRETE_TYPE:
-                    Type = (DiscreteType)property.AsEnum();
-                    break;
                 default:
                     base.SetProperty(property);
                     break;
@@ -67,7 +61,6 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_MINVALUE:
                 case ModelCode.MEASUREMENTDISCRETE_CURRENTOPEN:
                 case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
-                case ModelCode.MEASUREMENTDISCRETE_TYPE:
                     return true;
                 default:
                     return base.HasProperty(property);
@@ -90,9 +83,6 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
                     property.SetValue(NormalOpen);
                     break;
-                case ModelCode.MEASUREMENTDISCRETE_TYPE:
-                    property.SetValue((short)Type);
-                    break;
                 default:
                     base.GetProperty(property);
                     break;
@@ -109,7 +99,7 @@ namespace NetworkManagementService.DataModel.Measurement
             }
 
             return  MinValue == compareObject.MinValue && MaxValue == compareObject.MaxValue
-                && CurrentOpen == compareObject.CurrentOpen && NormalOpen == compareObject.NormalOpen && Type == compareObject.Type && base.Equals(x);
+                && CurrentOpen == compareObject.CurrentOpen && NormalOpen == compareObject.NormalOpen && base.Equals(x);
         }
 
         public override object Clone()
