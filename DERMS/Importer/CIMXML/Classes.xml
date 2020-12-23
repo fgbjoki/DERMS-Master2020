@@ -73,7 +73,7 @@
 		<cim:EnergyStorage.capacity> </cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#"/>
 		<cim:EnergyStorage.state></cim:EnergyStorage.state>
-		<cim:EnergyStorage.stateOfCharge>Idle</cim:EnergyStorage.stateOfCharge>
+		<cim:EnergyStorage.stateOfCharge></cim:EnergyStorage.stateOfCharge>
 		<cim:DER.activePower> </cim:DER.activePower>
 		<cim:DER.nominalPower> </cim:DER.nominalPower>
 		<cim:DER.setPoint> </cim:DER.setPoint>
