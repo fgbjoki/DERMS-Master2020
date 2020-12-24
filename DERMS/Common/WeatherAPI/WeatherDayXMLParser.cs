@@ -15,8 +15,6 @@ namespace Common.WeatherApiTester
                 from elements in xmlContent.Descendants("hour")
                 select elements;
 
-            xElements = xElements.Skip(24);
-
             var returnList = new List<WeatherDayData>(1);
 
             var serializer = new XmlSerializer(typeof(WeatherHourData));

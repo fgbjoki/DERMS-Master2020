@@ -445,6 +445,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_NORMALOPEN, discrete.NormalOpen));
                 }
+
+                if (discrete.TypeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_TYPE, (short)discrete.Type));
+                }
             }
         }
 
@@ -468,98 +473,74 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, analog.CurrentValueHasValue));
                 }
+
+                if (analog.TypeHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_TYPE, (short)analog.Type));
+                }
             }
         }
 
+        public static void PopulateProperties<T>(T cimObj, ResourceDescription rd, ImportHelper helper, TransformAndLoadReport report)
+        {
+            if (typeof(T) == typeof(EnergyConsumer))
+                PopulateEnergyConsumerProperties(cimObj as EnergyConsumer, rd, helper, report);
+            if (typeof(T) == typeof(ACLineSegment))
+                PopulateACLineSegmentProperties(cimObj as ACLineSegment, rd, helper, report);
+            if (typeof(T) == typeof(Analog))
+                PopulateAnalogProperties(cimObj as Analog, rd, helper, report);
+            if (typeof(T) == typeof(Breaker))
+                PopulateBreakerProperties(cimObj as Breaker, rd, helper, report);
+            if (typeof(T) == typeof(ConductingEquipment))
+                PopulateConductingEquipmentProperties(cimObj as DERMS.ConductingEquipment, rd, helper, report);
+            if (typeof(T) == typeof(Conductor))
+                PopulateConductorProperties(cimObj as Conductor, rd, helper, report);
+            if (typeof(T) == typeof(ConnectivityNode))
+                PopulateConnectivityNodeProperties(cimObj as ConnectivityNode, rd, helper, report);
+            if (typeof(T) == typeof(ConnectivityNodeContainer))
+                PopulateConnectivityNodeContainerProperties(cimObj as ConnectivityNodeContainer, rd);
+            if (typeof(T) == typeof(Generator))
+                PopulateDERGeneratorProperties(cimObj as Generator, rd, helper, report);
+            if (typeof(T) == typeof(DER))
+                PopulateDERProperties(cimObj as DER, rd, helper, report);
+            if (typeof(T) == typeof(Discrete))
+                PopulateDiscreteProperties(cimObj as Discrete, rd, helper, report);
+            if (typeof(T) == typeof(EnergyConsumer))
+                PopulateEnergyConsumerProperties(cimObj as EnergyConsumer, rd, helper, report);
+            if (typeof(T) == typeof(EnergySource))
+                PopulateEnergySourceProperties(cimObj as EnergySource, rd, helper, report);
+            if (typeof(T) == typeof(EnergyStorage))
+                PopulateEnergyStorageProperties(cimObj as EnergyStorage, rd, helper, report);
+            if (typeof(T) == typeof(EquipmentContainer))
+                PopulateEquipmentContainerProperties(cimObj as EquipmentContainer, rd);
+            if (typeof(T) == typeof(Equipment))
+                PopulateEquipmentProperties(cimObj as DERMS.Equipment, rd, helper, report);
+            if (typeof(T) == typeof(GeographicalRegion))
+                PopulateGeographicalRegionProperties(cimObj as GeographicalRegion, rd);
+            if (typeof(T) == typeof(SubGeographicalRegion))
+                PopulateSubGeographicalRegionProperties(cimObj as SubGeographicalRegion, rd, helper, report);
+            if (typeof(T) == typeof(IdentifiedObject))
+                PopulateIdentifiedObjectProperties(cimObj as DERMS.IdentifiedObject, rd);
+            if (typeof(T) == typeof(Measurement))
+                PopulateMeasurementProperties(cimObj as Measurement, rd, helper, report);
+            if (typeof(T) == typeof(PowerSystemResource))
+                PopulatePowerSystemResourceProperties(cimObj as DERMS.PowerSystemResource, rd);
+            if (typeof(T) == typeof(ProtectedSwitch))
+                PopulateProtectedSwitchProperties(cimObj as ProtectedSwitch, rd, helper, report);
+            if (typeof(T) == typeof(Substation))
+                PopulateSubstationProperties(cimObj as Substation, rd, helper, report);
+            if (typeof(T) == typeof(SolarGenerator))
+                PopulateSolarGeneratorProperties(cimObj as SolarGenerator, rd, helper, report);
+            if (typeof(T) == typeof(Switch))
+                PopulateSwitchProperties(cimObj as Switch, rd, helper, report);
+            if (typeof(T) == typeof(WindGenerator))
+                PopulateWindGeneratorProperties(cimObj as WindGenerator, rd, helper, report);
+            if (typeof(T) == typeof(Terminal))
+                PopulateTerminalProperties(cimObj as Terminal, rd, helper, report);
+        }
+                    
         #region Enums convert
-        // TODO
-
-        //public static PhaseCode GetDMSPhaseCode(FTN.PhaseCode phases)
-        //{
-        //	switch (phases)
-        //	{
-        //		case FTN.PhaseCode.A:
-        //			return PhaseCode.A;
-        //		case FTN.PhaseCode.AB:
-        //			return PhaseCode.AB;
-        //		case FTN.PhaseCode.ABC:
-        //			return PhaseCode.ABC;
-        //		case FTN.PhaseCode.ABCN:
-        //			return PhaseCode.ABCN;
-        //		case FTN.PhaseCode.ABN:
-        //			return PhaseCode.ABN;
-        //		case FTN.PhaseCode.AC:
-        //			return PhaseCode.AC;
-        //		case FTN.PhaseCode.ACN:
-        //			return PhaseCode.ACN;
-        //		case FTN.PhaseCode.AN:
-        //			return PhaseCode.AN;
-        //		case FTN.PhaseCode.B:
-        //			return PhaseCode.B;
-        //		case FTN.PhaseCode.BC:
-        //			return PhaseCode.BC;
-        //		case FTN.PhaseCode.BCN:
-        //			return PhaseCode.BCN;
-        //		case FTN.PhaseCode.BN:
-        //			return PhaseCode.BN;
-        //		case FTN.PhaseCode.C:
-        //			return PhaseCode.C;
-        //		case FTN.PhaseCode.CN:
-        //			return PhaseCode.CN;
-        //		case FTN.PhaseCode.N:
-        //			return PhaseCode.N;
-        //		case FTN.PhaseCode.s12N:
-        //			return PhaseCode.ABN;
-        //		case FTN.PhaseCode.s1N:
-        //			return PhaseCode.AN;
-        //		case FTN.PhaseCode.s2N:
-        //			return PhaseCode.BN;
-        //		default: return PhaseCode.Unknown;
-        //	}
-        //}
-
-        //public static TransformerFunction GetDMSTransformerFunctionKind(FTN.TransformerFunctionKind transformerFunction)
-        //{
-        //	switch (transformerFunction)
-        //	{
-        //		case FTN.TransformerFunctionKind.voltageRegulator:
-        //			return TransformerFunction.Voltreg;
-        //		default:
-        //			return TransformerFunction.Consumer;
-        //	}
-        //}
-
-        //public static WindingType GetDMSWindingType(FTN.WindingType windingType)
-        //{
-        //	switch (windingType)
-        //	{
-        //		case FTN.WindingType.primary:
-        //			return WindingType.Primary;
-        //		case FTN.WindingType.secondary:
-        //			return WindingType.Secondary;
-        //		case FTN.WindingType.tertiary:
-        //			return WindingType.Tertiary;
-        //		default:
-        //			return WindingType.None;
-        //	}
-        //}
-
-        //public static WindingConnection GetDMSWindingConnection(FTN.WindingConnection windingConnection)
-        //{
-        //	switch (windingConnection)
-        //	{
-        //		case FTN.WindingConnection.D:
-        //			return WindingConnection.D;
-        //		case FTN.WindingConnection.I:
-        //			return WindingConnection.I;
-        //		case FTN.WindingConnection.Z:
-        //			return WindingConnection.Z;
-        //		case FTN.WindingConnection.Y:
-        //			return WindingConnection.Y;
-        //		default:
-        //			return WindingConnection.Y;
-        //	}
-        //}
+        /// TODO.
         #endregion Enums convert
     }
 }

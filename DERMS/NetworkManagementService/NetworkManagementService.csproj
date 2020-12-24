@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,7 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Container.cs" />
+    <Compile Include="Components\GDAProcessor.cs" />
+    <Compile Include="Components\GDA\ResourceIterator.cs" />
+    <Compile Include="Components\Interfaces\IDeltaProcessor.cs" />
+    <Compile Include="Components\Interfaces\IInsertionComponent.cs" />
+    <Compile Include="Components\Interfaces\IStorageComponent.cs" />
+    <Compile Include="DataModel\Container.cs" />
+    <Compile Include="Components\DeltaProcessor.cs" />
     <Compile Include="DataModel\Core\ConductingEquipment.cs" />
     <Compile Include="DataModel\Core\ConnectivityNodeContainer.cs" />
     <Compile Include="DataModel\Core\Equipment.cs" />
@@ -71,9 +78,16 @@
     <Compile Include="DataModel\Wires\EnergySource.cs" />
     <Compile Include="DataModel\Wires\ProtectedSwitch.cs" />
     <Compile Include="DataModel\Wires\Switch.cs" />
+    <Compile Include="Components\ModelProcessor.cs" />
     <Compile Include="NetworkModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceStates\ApplyDeltaState.cs" />
+    <Compile Include="ServiceStates\CommitState.cs" />
+    <Compile Include="ServiceStates\IdleState.cs" />
+    <Compile Include="ServiceStates\PrepareState.cs" />
+    <Compile Include="ServiceStates\RollbackState.cs" />
+    <Compile Include="ServiceStates\ServiceState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

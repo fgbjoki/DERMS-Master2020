@@ -30,4 +30,16 @@
         Charging = 1,
         Discharging = 2
     }
+
+    public enum DiscreteType : short
+    {
+        Coil = 0,
+        DiscreteInput = 1
+    }
+
+    public enum AnalogType : short
+    {
+        HoldingRegister = 0,
+        InputRegister = 1
+    }
 }
