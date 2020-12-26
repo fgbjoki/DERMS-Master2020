@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +51,8 @@
     <Compile Include="Components\Interfaces\IDeltaProcessor.cs" />
     <Compile Include="Components\Interfaces\IInsertionComponent.cs" />
     <Compile Include="Components\Interfaces\IStorageComponent.cs" />
+    <Compile Include="Components\Interfaces\ITransactionStarter.cs" />
+    <Compile Include="Components\TransactionStarter.cs" />
     <Compile Include="DataModel\Container.cs" />
     <Compile Include="Components\DeltaProcessor.cs" />
     <Compile Include="DataModel\Core\ConductingEquipment.cs" />

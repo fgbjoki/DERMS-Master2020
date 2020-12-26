@@ -1,6 +1,7 @@
 ﻿using Common.AbstractModel;
 using Common.GDA;
 using Common.ServiceInterfaces;
+using Common.ServiceInterfaces.Transaction;
 using NetworkManagementService.Components;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ using System.Threading;
 namespace NetworkManagementService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract
+    public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract, ITransaction
     {
         private ModelResourcesDesc resourcesDescs;
 
-        private IInsertionComponent insertionProcessor;
-        private INetworkModelGDAContract gdaProcessor;
         private IDeltaProcessor deltaProcessor;
+        private ITransaction transactionParticipant;
+        private INetworkModelGDAContract gdaProcessor;
+        private IInsertionComponent insertionProcessor;
 
         public NetworkModel()
         {
@@ -25,6 +27,7 @@ namespace NetworkManagementService
             ModelProcessor modelProcessor = new ModelProcessor(deltaWaitSemaphore);
 
             insertionProcessor = modelProcessor;
+            transactionParticipant = modelProcessor;
             gdaProcessor = new GDAProcessor(modelProcessor);
             deltaProcessor = new DeltaProcessor(modelProcessor, deltaWaitSemaphore);
 
@@ -102,6 +105,21 @@ namespace NetworkManagementService
         {
             // TODO QUERY FROM DB
             return new List<Delta>(0);
+        }
+
+        public bool Prepare()
+        {
+            return transactionParticipant.Prepare();
+        }
+
+        public bool Commit()
+        {
+            return transactionParticipant.Commit();
+        }
+
+        public bool Rollback()
+        {
+            return transactionParticipant.Rollback();
         }
     }
 }

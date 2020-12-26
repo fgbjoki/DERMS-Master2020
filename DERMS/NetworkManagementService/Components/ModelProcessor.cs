@@ -232,6 +232,7 @@ namespace NetworkManagementService.Components
             catch (Exception e)
             {
                 // LOG
+                transactionFinishedSemaphore.Release();
                 locker.ExitWriteLock();
                 return false;
             }
@@ -252,6 +253,8 @@ namespace NetworkManagementService.Components
             catch (Exception e)
             {
                 // LOG
+
+                transactionFinishedSemaphore.Release();
                 locker.ExitWriteLock();
                 return false;
             }
@@ -272,6 +275,8 @@ namespace NetworkManagementService.Components
             catch (Exception e)
             {
                 // LOG
+
+                transactionFinishedSemaphore.Release();
                 locker.ExitWriteLock();
                 return false;
             }

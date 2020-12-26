@@ -7,7 +7,7 @@ namespace Common.ServiceInterfaces
     /// Interface ment for component which participates in model promotion.
     /// </summary>
     [ServiceContract]
-    interface IModelPromotionParticipant
+    public interface IModelPromotionParticipant
     {
         /// <summary>
         /// Defines GIDs of inserted, updater and deleted entities and validates given lists.
