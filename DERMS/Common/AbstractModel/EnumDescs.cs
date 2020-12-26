@@ -12,8 +12,6 @@ namespace Common.AbstractModel
             property2enumType.Add(ModelCode.MEASUREMENT_DIRECTION, typeof(SignalDirection));
             property2enumType.Add(ModelCode.MEASUREMENT_MEASUREMENTYPE, typeof(MeasurementType));
             property2enumType.Add(ModelCode.ENERGYSTORAGE_STATE, typeof(EnergyStorageState));
-            property2enumType.Add(ModelCode.MEASUREMENTDISCRETE_TYPE, typeof(DiscreteType));
-            property2enumType.Add(ModelCode.MEASUREMENTANALOG_TYPE, typeof(AnalogType));
         }
 
         public List<string> GetEnumList(ModelCode propertyId)
