@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace TransactionManager
 {
@@ -10,6 +7,13 @@ namespace TransactionManager
     {
         static void Main(string[] args)
         {
+            TransactionManager ts = new TransactionManager();
+
+            ServiceHost host = new ServiceHost(ts);
+            host.Open();
+
+            Console.WriteLine("Transaction service started...");
+            Console.ReadLine();
         }
     }
 }
