@@ -103,6 +103,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             Import<SolarGenerator>(DMSType.SOLARGENERATOR);
             Import<WindGenerator>(DMSType.WINDGENERATOR);
             Import<Breaker>(DMSType.BREAKER);
+            Import<ACLineSegment>(DMSType.ACLINESEG);
             Import<ConnectivityNode>(DMSType.CONNECTIVITYNODE);
             Import<Terminal>(DMSType.TERMINAL);
             Import<Discrete>(DMSType.MEASUREMENTDISCRETE);
