@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace NetworkManagementService
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract, ITransaction
     {
         private ModelResourcesDesc resourcesDescs;

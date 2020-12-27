@@ -25,7 +25,7 @@ namespace NetworkManagementService.Components
             this.serviceName = serviceName;
             this.serviceEndpoint = serviceEndpoint;
 
-            transactionManager = new WCFClient<ITransactionManager>();
+            transactionManager = new WCFClient<ITransactionManager>("transactionManagerEndpoint");
 
             InitializeServices();
         }
