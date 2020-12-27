@@ -8,7 +8,7 @@ namespace NetworkManagementService.DataModel.Core
     {
         public Terminal(long globalId) : base(globalId)
         {
-
+            Measurements = new List<long>(1);
         }
 
         protected Terminal(Terminal copyObject) : base(copyObject)

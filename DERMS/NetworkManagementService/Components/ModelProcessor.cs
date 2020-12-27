@@ -194,7 +194,9 @@ namespace NetworkManagementService.Components
             locker.EnterReadLock();
             if (ContainerExists(type, accessScope))
             {
+                locker.ExitReadLock();
                 Container container = GetContainer(type, accessScope);
+                locker.EnterReadLock();
 
                 if (container.EntityExists(globalId))
                 {

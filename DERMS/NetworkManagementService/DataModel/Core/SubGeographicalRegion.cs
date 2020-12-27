@@ -8,7 +8,7 @@ namespace NetworkManagementService.DataModel.Core
     {
         public SubGeographicalRegion(long globalId) : base(globalId)
         {
-
+            Substations = new List<long>(1);
         }
 
         protected SubGeographicalRegion(SubGeographicalRegion copyObject) : base(copyObject)
