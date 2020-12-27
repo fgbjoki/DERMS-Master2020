@@ -120,7 +120,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     }
                     else
                     {
-                        rd.AddProperty(new Property(ModelCode.SUBGEOGRAPHICALREGION_REGION, gid));
+                        rd.AddProperty(new Property(ModelCode.SUBSTATION_REGION, gid));
                     }
                 }
                 else
@@ -191,8 +191,8 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 }
                 else
                 {
-                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"ActivePower\" = 0");
-                    rd.AddProperty(new Property(ModelCode.DER_ACTIVEPOWER, (int)0));
+                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"ActivePower\" = 0\n");
+                    rd.AddProperty(new Property(ModelCode.DER_ACTIVEPOWER, 0f));
                 }
 
                 if (der.NominalPowerHasValue)
@@ -206,8 +206,8 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 }
                 else
                 {
-                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"SetPoint\" = 0");
-                    rd.AddProperty(new Property(ModelCode.DER_SETPOINT, (int)0));
+                    report.Report.Append($"{der.GetType().ToString()} will have default value of property \"SetPoint\" = 0\n");
+                    rd.AddProperty(new Property(ModelCode.DER_SETPOINT, 0f));
                 }
             }
         }
@@ -240,12 +240,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 else
                 {
                     report.Report.Append($"EnergyStorage with id = {energyStorage.MRID} will have default value of property \"StateOfCharge\" = 1\n");
-                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATEOFCHARGE, (int)1));
-                }
-
-                if (energyStorage.GeneratorHasValue)
-                {
-                    importHelper.AddReferenceToMissingResourceDescription(rd, ModelCode.ENERGYSTORAGE_GENERATOR, energyStorage.Generator.ID);
+                    rd.AddProperty(new Property(ModelCode.ENERGYSTORAGE_STATEOFCHARGE, 1f));
                 }
             }
         }
@@ -263,7 +258,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 else
                 {
                     report.Report.Append($"{generator.GetType().ToString()} with id = {generator.MRID} will have default value of property \"DeltaPower\" = 0\n");
-                    rd.AddProperty(new Property(ModelCode.GENERATOR_DELTAPOWER, (int)0));
+                    rd.AddProperty(new Property(ModelCode.GENERATOR_DELTAPOWER, 0f));
                 }
 
                 if (generator.StorageHasValue)
@@ -533,7 +528,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                 if (analog.CurrentValueHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, analog.CurrentValueHasValue));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, analog.CurrentValue));
                 }
             }
         }
