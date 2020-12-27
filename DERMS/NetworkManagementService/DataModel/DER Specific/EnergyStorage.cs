@@ -79,7 +79,7 @@ namespace NetworkManagementService.DataModel.DER_Specific
                     StateOfCharge = property.AsFloat();
                     break;
                 case ModelCode.ENERGYSTORAGE_STATE:
-                    State = (EnergyStorageState)property.AsFloat();
+                    State = (EnergyStorageState)property.AsEnum();
                     break;
                 case ModelCode.ENERGYSTORAGE_GENERATOR:
                     Generator = property.AsReference();
@@ -95,6 +95,26 @@ namespace NetworkManagementService.DataModel.DER_Specific
             get
             {
                 return Generator > 0 || base.IsReferenced;
+            }
+        }
+
+        public override void AddReference(ModelCode referenceId, long globalId)
+        {
+            switch (referenceId)
+            {
+                case ModelCode.GENERATOR_ENERGYSTORAGE:
+                    if (Generator == 0)
+                    {
+                        Generator = globalId;
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Energy storage {0x16} already has Generator reference!", GlobalId));
+                    }
+                    break;
+                default:
+                    base.AddReference(referenceId, globalId);
+                    break;
             }
         }
 
