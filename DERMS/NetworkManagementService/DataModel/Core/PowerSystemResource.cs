@@ -12,7 +12,7 @@ namespace NetworkManagementService.DataModel.Core
         /// <param name="globalId">Global id of the entity.</param>
         public PowerSystemResource(long globalId) : base(globalId)
         {
-
+            Measurements = new List<long>(1);
         }
 
         /// <summary>
