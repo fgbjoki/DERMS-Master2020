@@ -46,7 +46,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
                     deltaProxy = null;
                 }
 
-                deltaProxy = new NetworkModelDeltaProxy("net.tcp://localhost:12121/NetworkModel/Delta");
+                deltaProxy = new NetworkModelDeltaProxy("net.tcp://localhost:11112/NetworkModel/INetworkModelDeltaContract");
                 deltaProxy.Open();
 
                 return deltaProxy;
