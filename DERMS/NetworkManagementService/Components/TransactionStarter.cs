@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
+using System.Threading.Tasks;
 
 namespace NetworkManagementService.Components
 {
@@ -44,12 +45,9 @@ namespace NetworkManagementService.Components
                     return false;
                 }
 
-                foreach (WCFClient<IModelPromotionParticipant> client in services)
+                if (!InformOtherServicesForTransaction(services, insertedGids.ToList()))
                 {
-                    if (!InformOtherServicesForTransaction(client, insertedGids.ToList()))
-                    {
-                        transactionManager.Proxy.EndEnlist(false);
-                    }
+                    transactionManager.Proxy.EndEnlist(false);
                 }
 
                 if (!transactionManager.Proxy.EndEnlist(true))
@@ -67,7 +65,27 @@ namespace NetworkManagementService.Components
             return true;
         }
 
-        private bool InformOtherServicesForTransaction(WCFClient<IModelPromotionParticipant> client, List<long> insertedGids)
+        private bool InformOtherServicesForTransaction(List<WCFClient<IModelPromotionParticipant>> clients, List<long> insertedGids)
+        {
+            bool areAllServicesReady = true;
+
+            List<Task<bool>> sendingTasks = new List<Task<bool>>(clients.Count);
+
+            foreach (var client in clients)
+            {
+                Task<bool> newTask = new Task<bool>(() => InformServiceForTransaction(client, insertedGids));
+                newTask.Start();
+                sendingTasks.Add(newTask);
+            }
+
+            Task.WaitAll(sendingTasks.ToArray());
+
+            sendingTasks.ForEach(task => areAllServicesReady &= task.Result);
+
+            return areAllServicesReady;
+        }
+
+        private bool InformServiceForTransaction(WCFClient<IModelPromotionParticipant> client, List<long> insertedGids)
         {
             try
             {
