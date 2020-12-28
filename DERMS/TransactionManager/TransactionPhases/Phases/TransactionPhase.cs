@@ -14,7 +14,7 @@ namespace TransactionManager.TransactionPhases
     /// </summary>
     internal abstract class TransactionPhase
     {
-        private static readonly int LOCKER_TIME_OUT = 120000; /// 120 seconds
+        private static readonly int LOCKER_TIME_OUT = 600000 * 10; /// 10 minutes
         protected TransactionPhase nextPhase;
 
         protected ReaderWriterLock transactionStateLocker;
