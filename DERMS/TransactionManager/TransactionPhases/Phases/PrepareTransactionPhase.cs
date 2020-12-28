@@ -4,6 +4,7 @@ using TransactionManager.TransactionStates;
 using System.Collections.Generic;
 using Common.Logger;
 using Common.Communication;
+using System.Linq;
 
 namespace TransactionManager.TransactionPhases
 {
@@ -35,8 +36,14 @@ namespace TransactionManager.TransactionPhases
             }
             else
             {
-                enlistedServices.Clear();
-                return new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, preparedServices);
+                Dictionary<string, WCFClient<ITransaction>> servicesToRollBack = preparedServices;
+
+                foreach (var enlistService in enlistedServices)
+                {
+                    servicesToRollBack.Add(enlistService.Key, enlistService.Value);
+                }
+
+                return new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, servicesToRollBack);
             }
         }
 
@@ -50,8 +57,12 @@ namespace TransactionManager.TransactionPhases
             try
             {
                 DERMSLogger.Instance.Log($"[ExecutePhases] Executing prepare phase on \"{serviceName}\".");
+
                 isFunctionSuccessful = serviceClient.Proxy.Prepare();
+
                 preparedServices.Add(serviceName, serviceClient);
+
+                enlistedServices.Remove(serviceName);
             }
             catch
             {
