@@ -41,8 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\ArrayExtensions.cs" />
     <Compile Include="BlockingQueue.cs" />
     <Compile Include="FieldProcessor.cs" />
+    <Compile Include="ModbusMessages\IRequestMessage.cs" />
+    <Compile Include="ModbusMessages\IResponseMessage.cs" />
+    <Compile Include="ModbusMessages\ModbusMessage.cs" />
+    <Compile Include="ModbusMessages\ModbusReadRequestMessage.cs" />
+    <Compile Include="ModbusMessages\ModbusReadResponseMessage.cs" />
+    <Compile Include="ModbusMessages\ModbusSingleWriteMessage.cs" />
+    <Compile Include="Model\ModbusFunctionCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

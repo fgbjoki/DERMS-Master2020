@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientUI", "ModelBuilder\ClientUI.csproj", "{BB2E15CA-8243-413C-B6BC-AA0E25A4B47A}"
 EndProject
@@ -24,6 +24,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldSimulator", "FieldSimulator\FieldSimulator.csproj", "{FF21C791-5BEA-40BC-A236-E436A5C53085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldProcessor", "FieldProcessor\FieldProcessor.csproj", "{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{983C6B17-ACDA-4C94-BF90-A0645DD10FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentTests", "ComponentTests\ComponentTests.csproj", "{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{83755B08-CDB3-40EE-9381-EAE8F6CC632A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +157,30 @@ Global
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x64.Build.0 = Release|Any CPU
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x86.Build.0 = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|x64.Build.0 = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC}.Release|x86.Build.0 = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|x64.Build.0 = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Debug|x86.Build.0 = Debug|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|x64.ActiveCfg = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|x64.Build.0 = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|x86.ActiveCfg = Release|Any CPU
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +190,8 @@ Global
 		{F680D34F-C148-4314-8914-B2DF3E7B17AF} = {83654C88-0AB0-4DA1-A0EB-BE10BF005DEC}
 		{3C03A41C-BE4C-40A8-97D5-5DBAC0C34102} = {83654C88-0AB0-4DA1-A0EB-BE10BF005DEC}
 		{3DD11384-2CC1-4EE9-9F4A-02B6FE8759C0} = {83654C88-0AB0-4DA1-A0EB-BE10BF005DEC}
+		{2E852BFD-C775-4BF1-8ECB-6C60D17366EC} = {983C6B17-ACDA-4C94-BF90-A0645DD10FB0}
+		{83755B08-CDB3-40EE-9381-EAE8F6CC632A} = {983C6B17-ACDA-4C94-BF90-A0645DD10FB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D1337E4-81ED-48CE-B2EB-52A2AA5CFF54}
