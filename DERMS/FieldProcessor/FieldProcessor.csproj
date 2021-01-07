@@ -51,6 +51,8 @@
     <Compile Include="ModbusMessages\ModbusReadResponseMessage.cs" />
     <Compile Include="ModbusMessages\ModbusSingleWriteMessage.cs" />
     <Compile Include="Model\ModbusFunctionCode.cs" />
+    <Compile Include="Model\RemotePoint.cs" />
+    <Compile Include="Model\RemotePointType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
