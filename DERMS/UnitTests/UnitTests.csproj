@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADA\Collections\CircularMemoryBufferTests.cs" />
     <Compile Include="SCADA\ModbusMessages\SerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>

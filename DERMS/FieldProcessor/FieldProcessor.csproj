@@ -54,6 +54,7 @@
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Model\RemotePointType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TCPCommunicationHandler\Collection\CircularMemoryBuffer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
