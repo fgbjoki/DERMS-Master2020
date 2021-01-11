@@ -10,7 +10,7 @@ namespace FieldProcessor.ModbusMessages
     /// | 2 bytes                | 2 bytes             | 2 bytes | 1 byte          |  1 byte       | ...
     /// --------------------------------------------------------------------------------------------
 
-    public class ModbusMessage
+    public class ModbusMessageHeader
     {
         private static readonly int transactionIdentifierOffset = 0;
         private static readonly int protocolIdentifierOffset = 2;
@@ -18,12 +18,12 @@ namespace FieldProcessor.ModbusMessages
         private static readonly int unitIdentifierOffset = 6;
         private static readonly int functionCodeOffeset = 7;
         
-        protected ModbusMessage()
+        public ModbusMessageHeader()
         {
 
         }
 
-        protected ModbusMessage(ushort transactionIdentifier, ModbusFunctionCode functionCode)
+        protected ModbusMessageHeader(ushort transactionIdentifier, ModbusFunctionCode functionCode)
         {
             TransactionIdentifier = transactionIdentifier;
             FunctionCode = functionCode;
@@ -54,7 +54,7 @@ namespace FieldProcessor.ModbusMessages
         {
             TransactionIdentifier = SwitchEndian(BitConverter.ToUInt16(rawData, transactionIdentifierOffset), true);
             ProtocolIdentifier = SwitchEndian(BitConverter.ToUInt16(rawData, protocolIdentifierOffset), true);
-            Length =SwitchEndian(BitConverter.ToUInt16(rawData, lengthOffset), true);
+            Length = SwitchEndian(BitConverter.ToUInt16(rawData, lengthOffset), true);
             UnitIdentifier = rawData[unitIdentifierOffset];
             FunctionCode = (ModbusFunctionCode)rawData[functionCodeOffeset];
         }

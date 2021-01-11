@@ -10,7 +10,7 @@ namespace FieldProcessor.ModbusMessages
     /// ... | 2 bytes           | 2 bytes  |
     /// ------------------------------------
     
-    public class ModbusReadRequestMessage : ModbusMessage, IRequestMessage
+    public class ModbusReadRequestMessage : ModbusMessageHeader, IRequestMessage
     {
         public ModbusReadRequestMessage() : base()
         {

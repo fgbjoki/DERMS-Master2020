@@ -4,7 +4,7 @@ using FieldProcessor.Model;
 
 namespace FieldProcessor.ModbusMessages
 {
-    public class ModbusSingleWriteMessage : ModbusMessage, IRequestMessage, IResponseMessage
+    public class ModbusSingleWriteMessage : ModbusMessageHeader, IRequestMessage, IResponseMessage
     {
         private static readonly ushort remotePointAddressOffset = 8;
         private static readonly ushort remotePointValueOffset = 10;

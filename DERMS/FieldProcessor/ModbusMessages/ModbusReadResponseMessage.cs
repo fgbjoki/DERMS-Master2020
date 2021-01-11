@@ -9,7 +9,7 @@ namespace FieldProcessor.ModbusMessages
     /// ... | 1 byte     | 1 byte     | 1 byte     | ... | 1 byte                  | 1 byte              |
     /// -------------------------------------------------------------------------------------------------
     
-    public class ModbusReadResponseMessage : ModbusMessage, IResponseMessage
+    public class ModbusReadResponseMessage : ModbusMessageHeader, IResponseMessage
     {
         private static readonly int byteCountOffset = 8;
         private static readonly int valuesOffset = 9;
