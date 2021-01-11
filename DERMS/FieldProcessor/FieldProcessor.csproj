@@ -54,7 +54,19 @@
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Model\RemotePointType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCPCommunicationHandler\Collection\CircularMemoryBuffer.cs" />
+    <Compile Include="FieldCommunicationHandler\AsynchronousTCPClient.cs" />
+    <Compile Include="FieldCommunicationHandler\Collection\CircularMemoryBuffer.cs" />
+    <Compile Include="FieldCommunicationHandler\CommunicationState.cs" />
+    <Compile Include="FieldCommunicationHandler\ICommunication.cs" />
+    <Compile Include="FieldCommunicationHandler\ModbusMessageArbitrator.cs" />
+    <Compile Include="FieldCommunicationHandler\ModbusMessageExtractor.cs" />
+    <Compile Include="FieldCommunicationHandler\FieldCommunicationHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
