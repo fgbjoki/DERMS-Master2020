@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientUI", "ModelBuilder\ClientUI.csproj", "{BB2E15CA-8243-413C-B6BC-AA0E25A4B47A}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldSimulator", "FieldSimulator\FieldSimulator.csproj", "{FF21C791-5BEA-40BC-A236-E436A5C53085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldProcessor", "FieldProcessor\FieldProcessor.csproj", "{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkDynamicsService", "NetworkDynamicsService\NetworkDynamicsService.csproj", "{0F741DF2-424F-47DB-8D8C-782496D68F65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +153,18 @@ Global
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x64.Build.0 = Release|Any CPU
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}.Release|x86.Build.0 = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|x64.Build.0 = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Debug|x86.Build.0 = Debug|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|x64.Build.0 = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F741DF2-424F-47DB-8D8C-782496D68F65}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
