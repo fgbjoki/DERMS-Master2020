@@ -20,7 +20,7 @@ namespace UnitTests.SCADA.TCPCommunicationHandler
             CircularMemoryBuffer buffer = new CircularMemoryBuffer(bufferSize);
             ModbusMessageExtractor extractor = new ModbusMessageExtractor();
 
-            ModbusReadRequestMessage requestMessage = new ModbusReadRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
+            ModbusReadRequestMessage requestMessage = new ModbusReadDigitalRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
 
             byte[] message = requestMessage.TransfromMessageToBytes();
             byte[] bufferMessage = new byte[message.Length - 1];

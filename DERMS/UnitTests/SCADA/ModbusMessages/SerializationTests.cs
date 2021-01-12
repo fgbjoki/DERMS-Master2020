@@ -32,7 +32,7 @@ namespace UnitTests.SCADA.ModbusMessages
             ushort expectedProtocolIdentifier = 0;
 
             // Assign
-            IRequestMessage requestMessage = new ModbusReadRequestMessage(expectedStartingAddress, expectedQuantity, expectedTransactionIdentifier, expectedFunctionCode);
+            IRequestMessage requestMessage = new ModbusReadDigitalRequestMessage(expectedStartingAddress, expectedQuantity, expectedTransactionIdentifier, expectedFunctionCode);
 
             // Act
             byte[] rawData = requestMessage.TransfromMessageToBytes();

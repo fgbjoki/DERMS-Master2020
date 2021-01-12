@@ -10,14 +10,14 @@ namespace FieldProcessor.ModbusMessages
     /// ... | 2 bytes           | 2 bytes  |
     /// ------------------------------------
     
-    public class ModbusReadRequestMessage : ModbusMessageHeader, IRequestMessage
+    public abstract class ModbusReadRequestMessage : ModbusMessageHeader
     {
-        public ModbusReadRequestMessage() : base()
+        protected ModbusReadRequestMessage() : base()
         {
 
         }
 
-        public ModbusReadRequestMessage(ushort startingAddress, ushort quantity, ushort transactionIdentifier, ModbusFunctionCode functionCode) : base(transactionIdentifier, functionCode)
+        protected ModbusReadRequestMessage(ushort startingAddress, ushort quantity, ushort transactionIdentifier, ModbusFunctionCode functionCode) : base(transactionIdentifier, functionCode)
         {
             StartingAddress = startingAddress;
             Quantity = quantity;
@@ -34,5 +34,14 @@ namespace FieldProcessor.ModbusMessages
                 Append(BitConverter.GetBytes(SwitchEndian(StartingAddress, false))).
                 Append(BitConverter.GetBytes(SwitchEndian(Quantity, false)));
         }
+
+        public override bool ValidateResponse(ModbusMessageHeader response)
+        {
+            ModbusReadResponseMessage readResponse = response as ModbusReadResponseMessage;
+
+            return base.ValidateResponse(response) && ValidateMessageSize(readResponse);
+        }
+
+        protected abstract bool ValidateMessageSize(ModbusReadResponseMessage response);
     }
 }

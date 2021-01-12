@@ -20,7 +20,7 @@ namespace UnitTests.SCADA.TCPCommunicationHandler
             BlockingQueue<byte[]> queue = Substitute.For<BlockingQueue<byte[]>>();
             ModbusMessageArbitrator arbitrator = new ModbusMessageArbitrator(queue);
 
-            ModbusReadRequestMessage requestMessage = new ModbusReadRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
+            ModbusReadRequestMessage requestMessage = new ModbusReadDigitalRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
 
             byte[] message = requestMessage.TransfromMessageToBytes();
             byte[] bufferMessage = new byte[message.Length - 1];
@@ -43,7 +43,7 @@ namespace UnitTests.SCADA.TCPCommunicationHandler
             BlockingQueue<byte[]> queue = Substitute.For<BlockingQueue<byte[]>>();
             ModbusMessageArbitrator arbitrator = new ModbusMessageArbitrator(queue);
 
-            ModbusReadRequestMessage requestMessage = new ModbusReadRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
+            ModbusReadRequestMessage requestMessage = new ModbusReadDigitalRequestMessage(0, 1, 1, FieldProcessor.Model.ModbusFunctionCode.ReadCoils);
 
             byte[] expectedMessage = requestMessage.TransfromMessageToBytes().Concat(requestMessage.TransfromMessageToBytes()).ToArray();
 

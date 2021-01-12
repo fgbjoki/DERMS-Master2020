@@ -10,7 +10,7 @@ namespace FieldProcessor.ModbusMessages
     /// | 2 bytes                | 2 bytes             | 2 bytes | 1 byte          |  1 byte       | ...
     /// --------------------------------------------------------------------------------------------
 
-    public class ModbusMessageHeader
+    public class ModbusMessageHeader : IRequestMessage
     {
         private static readonly int transactionIdentifierOffset = 0;
         private static readonly int protocolIdentifierOffset = 2;
@@ -23,7 +23,7 @@ namespace FieldProcessor.ModbusMessages
 
         }
 
-        protected ModbusMessageHeader(ushort transactionIdentifier, ModbusFunctionCode functionCode)
+        public ModbusMessageHeader(ushort transactionIdentifier, ModbusFunctionCode functionCode)
         {
             TransactionIdentifier = transactionIdentifier;
             FunctionCode = functionCode;
@@ -69,6 +69,12 @@ namespace FieldProcessor.ModbusMessages
             {
                 return (ushort)IPAddress.HostToNetworkOrder((short)value);
             }
+        }
+
+        public virtual bool ValidateResponse(ModbusMessageHeader response)
+        {
+            return TransactionIdentifier == response.TransactionIdentifier && ProtocolIdentifier == response.ProtocolIdentifier &&
+                UnitIdentifier == response.UnitIdentifier && FunctionCode == response.FunctionCode;
         }
     }
 }

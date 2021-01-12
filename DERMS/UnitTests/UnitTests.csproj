@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADA\Collections\CircularMemoryBufferTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\FieldCommunicationHandlerTests.cs" />
+    <Compile Include="SCADA\ModbusMessages\ModbusMessageCreationTests.cs" />
     <Compile Include="SCADA\ModbusMessages\SerializationTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\ModbusMessageArbitratorTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\ModbusMessageExtractorTests.cs" />
