@@ -57,10 +57,14 @@ namespace FieldProcessor
                     semaphore.WaitOne();
                 }
 
+                lock (locker)
+                {
+                    collectionSize = items.Count;
+                }
+
                 if (collectionSize == 0)
                 {
-                    // Dispose
-                    throw new ObjectDisposedException(this.GetType().Name, "Collection empty!");
+                    return default(T);
                 }
 
                 lock (locker)
@@ -83,7 +87,6 @@ namespace FieldProcessor
             {
                 items.Clear();
                 semaphore.Set();
-                semaphore.Dispose();
             }
         }
     }

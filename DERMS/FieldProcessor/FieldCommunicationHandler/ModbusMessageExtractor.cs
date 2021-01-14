@@ -4,6 +4,9 @@ using System.Net;
 
 namespace FieldProcessor.TCPCommunicationHandler
 {
+    /// <summary>
+    /// Class used to extract message from <see cref="CircularMemoryBuffer"/>. 
+    /// </summary>
     public sealed class ModbusMessageExtractor
     {
         private readonly ushort headerSize = 6;
@@ -78,6 +81,10 @@ namespace FieldProcessor.TCPCommunicationHandler
             offset += readAmount;            
         }
 
+        /// <summary>
+        /// Determines if processing of the message should be skipped. Processing will be skipped if 
+        /// there are not enough bytes in <paramref name="buffer"/> for processing.
+        /// </summary>
         private bool ShouldSkipProcessing(CircularMemoryBuffer buffer)
         {
             return buffer.Size < headerSize && header == null;

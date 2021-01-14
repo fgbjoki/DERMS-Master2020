@@ -17,6 +17,7 @@ namespace UnitTests.SCADA.ModbusMessages
         private readonly int functionCodeOffeset = 7;
         private readonly int startingAddressOffset = 8;
         private readonly int quantityOffset = 10;
+        private readonly int remotePointValueOffset = 10;
 
         public SerializationTests()
         {
@@ -59,12 +60,15 @@ namespace UnitTests.SCADA.ModbusMessages
         [TestCase((ushort)0x10, (ushort)0x21, (ushort)0x31, ModbusFunctionCode.WriteSingleRegister)]
         public void ModbusSingleWriteMessage_RequestSerializationTest(ushort expectedRemotePointAddress, ushort expectedRemotePointValue, ushort expectedTransactionIdentifier, ModbusFunctionCode expectedFunctionCode)
         {
+            byte[] expectedRawValue = BitConverter.GetBytes(expectedRemotePointValue);
             ushort expectedLength = 6;
             byte expectedUnitIdentifier = 1;
             ushort expectedProtocolIdentifier = 0;
 
+            byte[] byteExpectedRemoteValues = BitConverter.GetBytes(expectedRemotePointValue);
+
             // Assign
-            IRequestMessage requestMessage = new ModbusSingleWriteMessage(expectedRemotePointAddress, expectedRemotePointValue, expectedTransactionIdentifier, expectedFunctionCode);
+            IRequestMessage requestMessage = new ModbusSingleWriteMessage(expectedRemotePointAddress, byteExpectedRemoteValues, expectedTransactionIdentifier, expectedFunctionCode);
 
             // Act
             byte[] rawData = requestMessage.TransfromMessageToBytes();
@@ -75,16 +79,18 @@ namespace UnitTests.SCADA.ModbusMessages
             byte unitIdentifier = rawData[unitIdentifierOffset];
             ModbusFunctionCode functionCode = (ModbusFunctionCode)rawData[functionCodeOffeset];
             ushort remotePointAddress = (ushort)IPAddress.HostToNetworkOrder(BitConverter.ToInt16(rawData, startingAddressOffset));
-            ushort remotePointValue = (ushort)IPAddress.HostToNetworkOrder(BitConverter.ToInt16(rawData, quantityOffset));
+            byte[] remotePointValue = new byte[2];
+            Buffer.BlockCopy(rawData, remotePointValueOffset, remotePointValue, 0, 2);
 
             //Assert
             Assert.AreEqual(expectedTransactionIdentifier, transactionIdentifier);
             Assert.AreEqual(expectedProtocolIdentifier, protocolIdentifier);
             Assert.AreEqual(expectedLength, length);
             Assert.AreEqual(expectedUnitIdentifier, unitIdentifier);
-            Assert.AreEqual(expectedFunctionCode, functionCode); ;
+            Assert.AreEqual(expectedFunctionCode, functionCode);
             Assert.AreEqual(expectedRemotePointAddress, remotePointAddress);
-            Assert.AreEqual(expectedRemotePointValue, remotePointValue);
+            Assert.AreEqual(byteExpectedRemoteValues[0], remotePointValue[1]);
+            Assert.AreEqual(byteExpectedRemoteValues[1], remotePointValue[0]);
         }
 
         [TestCaseSource("ModbusReadResponseMessage_SerializationTestCases")]
@@ -122,7 +128,7 @@ namespace UnitTests.SCADA.ModbusMessages
         }
 
         [TestCaseSource("ModbusSingleWriteMessage_ResponseSerializationTestCases")]
-        public void ModbusSingleWriteMessage_ResponseSerializationTest(ushort expectedRemotePointAddress, ushort expectedRemotePointValue, ushort expectedTransactionIdentifier, ModbusFunctionCode expectedFunctionCode)
+        public void ModbusSingleWriteMessage_ResponseSerializationTest(ushort expectedRemotePointAddress, byte[] expectedRemotePointValue, ushort expectedTransactionIdentifier, ModbusFunctionCode expectedFunctionCode)
         {
             ushort expectedLength = sizeof(byte) * 2;
             expectedLength += sizeof(ushort) * 2;
@@ -137,7 +143,7 @@ namespace UnitTests.SCADA.ModbusMessages
                 Append(expectedUnitIdentifier).
                 Append((byte)expectedFunctionCode).
                 Append(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)expectedRemotePointAddress))).
-                Append(BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)expectedRemotePointValue)));
+                Append(expectedRemotePointValue);
 
             //Act
             IResponseMessage responseMessage = new ModbusSingleWriteMessage();
@@ -163,8 +169,8 @@ namespace UnitTests.SCADA.ModbusMessages
 
         private static object[] ModbusSingleWriteMessage_ResponseSerializationTestCases =
         {
-            new object[] { (ushort)2, (ushort)2, (ushort)1 , ModbusFunctionCode.WriteSingleCoil },
-            new object[] { (ushort)0x12, (ushort)0x11, (ushort)0x13, ModbusFunctionCode.WriteSingleRegister },
+            new object[] { (ushort)2, new byte[2] { 1, 2 }, (ushort)1 , ModbusFunctionCode.WriteSingleCoil },
+            new object[] { (ushort)0x12, new byte[2] { 0, 1 }, (ushort)0x13, ModbusFunctionCode.WriteSingleRegister },
         };
     }
 }

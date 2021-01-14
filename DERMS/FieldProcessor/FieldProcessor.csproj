@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FieldProcessor</RootNamespace>
     <AssemblyName>FieldProcessor</AssemblyName>
@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +47,9 @@
     <Compile Include="ExtensionMethods\ArrayExtensions.cs" />
     <Compile Include="BlockingQueue.cs" />
     <Compile Include="FieldProcessor.cs" />
+    <Compile Include="MessageValidation\IResponseCommandCreator.cs" />
+    <Compile Include="MessageValidation\MessageValidator.cs" />
+    <Compile Include="MessageValidation\ResponseCommandCreator.cs" />
     <Compile Include="ModbusMessages\RequestMessages\IRequestMessage.cs" />
     <Compile Include="ModbusMessages\IResponseMessage.cs" />
     <Compile Include="ModbusMessages\ModbusMessageHeader.cs" />
@@ -55,6 +61,8 @@
     <Compile Include="Model\ModbusFunctionCode.cs" />
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Model\RemotePointType.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ValueExtractor\IPointValueExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FieldCommunicationHandler\AsynchronousTCPClient.cs" />
     <Compile Include="FieldCommunicationHandler\Collection\CircularMemoryBuffer.cs" />
@@ -69,6 +77,9 @@
       <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

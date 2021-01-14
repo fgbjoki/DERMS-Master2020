@@ -86,8 +86,8 @@ namespace UnitTests.SCADA.TCPCommunicationHandler
 
         private static object[] ModbusMessageExtractor_ReturnMessagesCases = new object[]
         {
-            new object[] { new List<IRequestMessage>(1) { new ModbusSingleWriteMessage(1, 0, 1, FieldProcessor.Model.ModbusFunctionCode.WriteSingleCoil)} },
-            new object[] { new List<IRequestMessage>(2) { new ModbusSingleWriteMessage(1, 0, 1, FieldProcessor.Model.ModbusFunctionCode.WriteSingleCoil), new ModbusSingleWriteMessage(2, 0, 2, FieldProcessor.Model.ModbusFunctionCode.WriteSingleRegister) } }
+            new object[] { new List<IRequestMessage>(1) { new ModbusSingleWriteMessage(1, new byte[] { 0, 0 }, 1, FieldProcessor.Model.ModbusFunctionCode.WriteSingleCoil)} },
+            new object[] { new List<IRequestMessage>(2) { new ModbusSingleWriteMessage(1, new byte[] { 0, 0 }, 1, FieldProcessor.Model.ModbusFunctionCode.WriteSingleCoil), new ModbusSingleWriteMessage(2, new byte[] { 0, 0 }, 2, FieldProcessor.Model.ModbusFunctionCode.WriteSingleRegister) } }
         };
     }
 }

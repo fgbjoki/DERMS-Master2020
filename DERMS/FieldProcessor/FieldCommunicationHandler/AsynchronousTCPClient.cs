@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace FieldProcessor.TCPCommunicationHandler
 {
+    /// <summary>
+    /// Uses TCP protocol to communicate with field units (RTUs).
+    /// </summary>
     public class AsynchronousTCPClient : ICommunication
     {
         private AutoResetEvent connectDone;

@@ -5,6 +5,10 @@ using System.Threading;
 
 namespace FieldProcessor.TCPCommunicationHandler
 {
+    /// <summary>
+    /// Unit used to store bytes received and extract modbus messages from provided bytes. If there is a valid message in given byte range
+    /// the message will be sent to <see cref="BlockingQueue{T}"/> for further processing.
+    /// </summary>
     public class ModbusMessageArbitrator : IDisposable
     {
         private readonly int timeOutLock = 1000; // 1 second

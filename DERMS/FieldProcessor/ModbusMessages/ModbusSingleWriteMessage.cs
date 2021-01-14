@@ -14,7 +14,7 @@ namespace FieldProcessor.ModbusMessages
 
         }
 
-        public ModbusSingleWriteMessage(ushort remotePointAddress, ushort remotePointValue, ushort transactionIdentifier, ModbusFunctionCode functionCode) : base(transactionIdentifier, functionCode)
+        public ModbusSingleWriteMessage(ushort remotePointAddress, byte[] remotePointValue, ushort transactionIdentifier, ModbusFunctionCode functionCode) : base(transactionIdentifier, functionCode)
         {
             RemotePointAddress = remotePointAddress;
             RemotePointValue = remotePointValue;
@@ -23,20 +23,35 @@ namespace FieldProcessor.ModbusMessages
         }
 
         public ushort RemotePointAddress { get; private set; }
-        public ushort RemotePointValue { get; set; }
+        public byte[] RemotePointValue { get; private set; }
 
         public override void ConvertMessageFromBytes(byte[] rawData)
         {
             base.ConvertMessageFromBytes(rawData);
             RemotePointAddress = SwitchEndian(BitConverter.ToUInt16(rawData, remotePointAddressOffset), true);
-            RemotePointValue = SwitchEndian(BitConverter.ToUInt16(rawData, remotePointValueOffset), true);
+
+            RemotePointValue = new byte[sizeof(ushort)];
+            Buffer.BlockCopy(rawData, remotePointValueOffset, RemotePointValue, 0, sizeof(ushort));
         }
 
         public override byte[] TransfromMessageToBytes()
         {
             return base.TransfromMessageToBytes().
                 Append(BitConverter.GetBytes(SwitchEndian(RemotePointAddress, false))).
-                Append(BitConverter.GetBytes(SwitchEndian(RemotePointValue, false)));
+                Append(new byte[] { RemotePointValue[1], RemotePointValue[0] });
+        }
+
+        public override bool ValidateResponse(ModbusMessageHeader response)
+        {
+            ModbusSingleWriteMessage writeResponse = response as ModbusSingleWriteMessage;
+
+            if (writeResponse == null)
+            {
+                return false;
+            }
+
+            return base.ValidateResponse(response) && RemotePointAddress == writeResponse.RemotePointAddress &&
+                RemotePointValue[0] == writeResponse.RemotePointValue[1] && RemotePointValue[1] == writeResponse.RemotePointValue[0];
         }
     }
 }
