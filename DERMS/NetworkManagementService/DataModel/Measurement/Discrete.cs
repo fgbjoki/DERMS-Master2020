@@ -14,17 +14,13 @@ namespace NetworkManagementService.DataModel.Measurement
         {
             MaxValue = copyObject.MaxValue;
             MinValue = copyObject.MinValue;
-            NormalOpen = copyObject.NormalOpen;
-            CurrentOpen = copyObject.CurrentOpen;
         }
 
         public int MinValue { get; set; }
                
         public int MaxValue { get; set; }
 
-        public bool CurrentOpen { get; set; }
-
-        public bool NormalOpen { get; set; }
+        public int CurrentValue { get; set; }
 
         public override int GetHashCode()
         {
@@ -41,11 +37,8 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_MINVALUE:
                     MinValue = property.AsInt();
                     break;
-                case ModelCode.MEASUREMENTDISCRETE_CURRENTOPEN:
-                    CurrentOpen = property.AsBool();
-                    break;
-                case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
-                    NormalOpen = property.AsBool();
+                case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
+                    CurrentValue = property.AsInt();
                     break;
                 default:
                     base.SetProperty(property);
@@ -59,8 +52,7 @@ namespace NetworkManagementService.DataModel.Measurement
             {
                 case ModelCode.MEASUREMENTDISCRETE_MAXVALUE:
                 case ModelCode.MEASUREMENTDISCRETE_MINVALUE:
-                case ModelCode.MEASUREMENTDISCRETE_CURRENTOPEN:
-                case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
+                case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
                     return true;
                 default:
                     return base.HasProperty(property);
@@ -77,11 +69,8 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_MINVALUE:
                     property.SetValue(MinValue);
                     break;
-                case ModelCode.MEASUREMENTDISCRETE_CURRENTOPEN:
-                    property.SetValue(CurrentOpen);
-                    break;
-                case ModelCode.MEASUREMENTDISCRETE_NORMALOPEN:
-                    property.SetValue(NormalOpen);
+                case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
+                    property.SetValue(CurrentValue);
                     break;
                 default:
                     base.GetProperty(property);
@@ -99,7 +88,7 @@ namespace NetworkManagementService.DataModel.Measurement
             }
 
             return  MinValue == compareObject.MinValue && MaxValue == compareObject.MaxValue
-                && CurrentOpen == compareObject.CurrentOpen && NormalOpen == compareObject.NormalOpen && base.Equals(x);
+                && CurrentValue == compareObject.CurrentValue && base.Equals(x);
         }
 
         public override object Clone()
