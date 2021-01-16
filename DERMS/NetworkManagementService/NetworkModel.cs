@@ -121,5 +121,10 @@ namespace NetworkManagementService
         {
             return transactionParticipant.Rollback();
         }
+
+        public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)
+        {
+            return gdaProcessor.GetExtentValues(entityType, propIds, gids);
+        }
     }
 }

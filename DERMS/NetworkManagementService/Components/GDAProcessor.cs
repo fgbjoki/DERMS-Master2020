@@ -1,5 +1,6 @@
 ﻿using Common.ServiceInterfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Common.AbstractModel;
 using Common.GDA;
@@ -34,6 +35,38 @@ namespace NetworkManagementService.Components
                 DMSType entityDmsType = ModelCodeHelper.GetTypeFromModelCode(entityType);
 
                 globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
+                class2PropertyIDs.Add(entityDmsType, propIds);
+
+                ri = new ResourceIterator(globalIds, class2PropertyIDs);
+
+                retVal = AddIterator(ri);
+                // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("Failed to get extent values for entity type = {0}. {1}", entityType, ex.Message);
+                throw new Exception(message);
+            }
+
+            return retVal;
+        }
+
+        public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)
+        {
+            // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} .", entityType);
+            int retVal = 0;
+            ResourceIterator ri = null;
+
+            try
+            {
+                List<long> globalIds = new List<long>();
+                Dictionary<DMSType, List<ModelCode>> class2PropertyIDs = new Dictionary<DMSType, List<ModelCode>>();
+
+                DMSType entityDmsType = ModelCodeHelper.GetTypeFromModelCode(entityType);
+
+                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
+                globalIds = globalIds.Intersect(gids).ToList();
+
                 class2PropertyIDs.Add(entityDmsType, propIds);
 
                 ri = new ResourceIterator(globalIds, class2PropertyIDs);

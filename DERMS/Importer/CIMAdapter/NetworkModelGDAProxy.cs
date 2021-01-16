@@ -3,6 +3,7 @@ using Common.GDA;
 using Common.ServiceInterfaces;
 using System.Collections.Generic;
 using System.ServiceModel;
+using System;
 
 namespace FTN.ESI.SIMES.CIM.CIMAdapter
 {
@@ -53,5 +54,10 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 		{
 			return Channel.IteratorRewind(id);
 		}
-	}
+
+        public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)
+        {
+            return Channel.GetExtentValues(entityType, propIds, gids);
+        }
+    }
 }
