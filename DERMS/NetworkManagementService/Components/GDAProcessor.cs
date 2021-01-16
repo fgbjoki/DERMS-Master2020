@@ -38,6 +38,7 @@ namespace NetworkManagementService.Components
 
                 ri = new ResourceIterator(globalIds, class2PropertyIDs);
 
+                retVal = AddIterator(ri);
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
             }
             catch (Exception ex)
@@ -140,7 +141,18 @@ namespace NetworkManagementService.Components
 
         public List<ResourceDescription> IteratorNext(int n, int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<ResourceDescription> retVal = GetIterator(id).Next(n);
+
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("IteratorNext failed. Iterator ID = {0}. Resources to fetch count = {1}. {2} ", id, n, ex.Message);
+                
+                throw new Exception(message);
+            }
         }
 
         public int IteratorResourcesLeft(int id)
