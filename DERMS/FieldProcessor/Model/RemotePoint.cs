@@ -1,15 +1,14 @@
-﻿namespace FieldProcessor.Model
+﻿using Common.ComponentStorage;
+
+namespace FieldProcessor.Model
 {
-    public class RemotePoint
+    public class RemotePoint : IdentifiedObject
     {
-        public RemotePoint(long gid, ushort address, RemotePointType type)
+        public RemotePoint(long gid, ushort address, RemotePointType type) : base(gid)
         {
-            Gid = gid;
             Address = address;
             Type = type;
         }
-
-        public long Gid { get; private set; }
 
         public ushort Address { get; private set; }
 

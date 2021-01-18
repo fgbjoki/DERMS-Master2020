@@ -73,6 +73,7 @@
     <Compile Include="SCADA\ModbusMessages\SerializationTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\ModbusMessageArbitratorTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\ModbusMessageExtractorTests.cs" />
+    <Compile Include="SCADA\TransactionProcessing\TransactionStorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
