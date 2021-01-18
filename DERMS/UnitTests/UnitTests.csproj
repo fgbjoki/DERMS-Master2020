@@ -61,6 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\TransactionProcessing\StorageTransactionProcessorTests.cs" />
+    <Compile Include="Common\TransactionProcessing\TestClasses\StorageItemCreatorTest.cs" />
+    <Compile Include="Common\TransactionProcessing\TestClasses\StorageTransactionProcessorTestClass.cs" />
+    <Compile Include="Common\TransactionProcessing\TestClasses\TestObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCADA\Collections\CircularMemoryBufferTests.cs" />
     <Compile Include="SCADA\FieldCommunicationHandler\FieldCommunicationHandlerTests.cs" />
@@ -74,6 +78,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FieldProcessor\FieldProcessor.csproj">
       <Project>{BAD4FEDD-9CF8-4A47-AF5D-565A5D2BAEB4}</Project>
       <Name>FieldProcessor</Name>

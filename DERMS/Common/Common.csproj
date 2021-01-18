@@ -52,6 +52,15 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="TransactionProcessing\Storage\IdentifiedObject.cs" />
+    <Compile Include="TransactionProcessing\Storage\IStorage.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\IStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\StorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\IStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\Storage\ITransactionStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Storage.cs" />
+    <Compile Include="TransactionProcessing\TransactionManager.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\StorageTransactionProcessor.cs" />
     <Compile Include="GDA\Association.cs" />
     <Compile Include="GDA\CompareHelper.cs" />
     <Compile Include="GDA\Delta.cs" />
