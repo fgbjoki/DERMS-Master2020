@@ -12,10 +12,11 @@ namespace Common.ComponentStorage
     {
         private Dictionary<DMSType, IStorageItemCreator> storageItemCreators;
 
-        private IStorage<T> storage;
-        private Dictionary<long, T> preparedObjects;
-
         private List<DMSType> primaryTypes;
+
+        protected Dictionary<long, T> preparedObjects;
+
+        protected  IStorage<T> storage;
 
         protected StorageTransactionProcessor(IStorage<T> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators)
         {
@@ -25,20 +26,22 @@ namespace Common.ComponentStorage
             primaryTypes = GetPrimaryTypes();
         }
 
-        public bool Commit()
+        public virtual bool Commit()
         {
+            bool commited = true;
             foreach (var preparedObject in preparedObjects.Values)
             {
                 if (!storage.AddEntity(preparedObject))
                 {
                     DERMSLogger.Instance.Log($"[{this.GetType().Name}] Failed on Commit!");
-                    return false;
+                    commited = false;
+                    break;
                 }
             }
 
             DisposeTransactionResources();
 
-            return true;
+            return commited;
         }
 
         public bool Prepare(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
@@ -56,7 +59,7 @@ namespace Common.ComponentStorage
             return true;
         }
 
-        public bool Rollback()
+        public virtual bool Rollback()
         {
             DisposeTransactionResources();
 

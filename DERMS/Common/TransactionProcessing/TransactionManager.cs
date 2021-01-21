@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Common.ComponentStorage
 {
-    class TransactionManager : ITransaction, IModelPromotionParticipant
+    public class TransactionManager : ITransaction, IModelPromotionParticipant
     {
         private string serviceName;
         private string serviceEndpoint;
