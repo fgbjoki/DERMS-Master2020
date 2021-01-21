@@ -44,12 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandingProcessor\ReceiveCommandingProcessor.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\RequestCommandCreator.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteCoilRequestCommandCreator.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteRegisterRequestCommandCreator.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteRequestCommandCreator.cs" />
     <Compile Include="ExtensionMethods\ArrayExtensions.cs" />
     <Compile Include="BlockingQueue.cs" />
     <Compile Include="FieldProcessor.cs" />
     <Compile Include="MessageValidation\IResponseCommandCreator.cs" />
     <Compile Include="MessageValidation\MessageValidator.cs" />
     <Compile Include="MessageValidation\ResponseCommandCreator.cs" />
+    <Compile Include="MessageValidation\ICommandSender.cs" />
     <Compile Include="ModbusMessages\RequestMessages\IRequestMessage.cs" />
     <Compile Include="ModbusMessages\IResponseMessage.cs" />
     <Compile Include="ModbusMessages\ModbusMessageHeader.cs" />

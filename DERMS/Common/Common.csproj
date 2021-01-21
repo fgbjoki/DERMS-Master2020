@@ -72,6 +72,8 @@
     <Compile Include="Logger\DERMSLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADA\FieldProcessor\Command.cs" />
+    <Compile Include="SCADA\FieldProcessor\ICommanding.cs" />
     <Compile Include="ServiceInterfaces\IModelPromotionParticipant.cs" />
     <Compile Include="ServiceInterfaces\INetworkModelDeltaContract.cs" />
     <Compile Include="ServiceInterfaces\INetworkModelGDAContract.cs" />

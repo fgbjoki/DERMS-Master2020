@@ -20,7 +20,7 @@ namespace FieldProcessor.MessageValidation
         public byte[] ResponseBytes { get; private set; }
     }
 
-    public class MessageValidator : IDisposable
+    public class MessageValidator : ICommandSender,  IDisposable
     {
         private Dictionary<ModbusFunctionCode, IResponseCommandCreator> responseCreators;
 
