@@ -33,7 +33,7 @@ namespace Common.ServiceInterfaces
         /// <param name="propIds">List of requested property codes</param>
         /// <param name="gids">List of wanted entities</param>
         /// <returns>Id of resource iterator for the requested entities</returns>
-        [OperationContract]
+        [OperationContract(Name = "GetExtentValuesWithGids")]
         int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids);
 
         /// <summary>
