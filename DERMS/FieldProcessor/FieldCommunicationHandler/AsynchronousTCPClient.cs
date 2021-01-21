@@ -67,6 +67,8 @@ namespace FieldProcessor.TCPCommunicationHandler
                 // Complete the connection.  
                 client.EndConnect(ar);
 
+                connectDone.Set();
+
                 Receive(client);
             }
             catch (Exception e)

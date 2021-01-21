@@ -2,9 +2,11 @@
 using Common.ComponentStorage;
 using Common.ComponentStorage.StorageItemCreator;
 using Common.Logger;
+using Common.ServiceLocator;
 using FieldProcessor.Model;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using FieldProcessor.TransactionProcessing.TransactionProcessors;
+using FieldProcessor.ValueExtractor;
 using System.Collections.Generic;
 
 namespace FieldProcessor.TransactionProcessing.Storages
@@ -25,7 +27,9 @@ namespace FieldProcessor.TransactionProcessing.Storages
                 { DMSType.MEASUREMENTDISCRETE, new DiscreteStorageItemCreator() }
             };
 
-            return new List<IStorageTransactionProcessor>() { new DiscreteTransactionProcessor(this, storageItemCreators) };
+            RemotePointAddressCollector remotePointAddressCollector = ServiceLocator.GetService<RemotePointAddressCollector>();
+
+            return new List<IStorageTransactionProcessor>() { new DiscreteTransactionProcessor(this, storageItemCreators, remotePointAddressCollector) };
         }
 
         public override bool AddEntity(RemotePoint item)

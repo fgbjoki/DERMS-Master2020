@@ -7,7 +7,6 @@ namespace FieldProcessor.TCPCommunicationHandler
     {
         private AutoResetEvent sendDone;
 
-        private ModbusMessageArbitrator arbitrator;
         private ICommunication client;
 
         private BlockingQueue<byte[]> requestQueue;
@@ -16,13 +15,12 @@ namespace FieldProcessor.TCPCommunicationHandler
 
         private CancellationTokenSource tokenSource;
 
-        public FieldCommunicationHandler(BlockingQueue<byte[]> requestQueue, ModbusMessageArbitrator arbitrator, ICommunication client, AutoResetEvent sendDone)
+        public FieldCommunicationHandler(BlockingQueue<byte[]> requestQueue, ICommunication client, AutoResetEvent sendDone)
         {
             this.requestQueue = requestQueue;
 
             this.sendDone = sendDone;
 
-            this.arbitrator = arbitrator;
             this.client = client;
 
             tokenSource = new CancellationTokenSource();
