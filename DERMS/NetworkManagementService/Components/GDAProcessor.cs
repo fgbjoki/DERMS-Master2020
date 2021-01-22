@@ -37,7 +37,7 @@ namespace NetworkManagementService.Components
                 globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
                 class2PropertyIDs.Add(entityDmsType, propIds);
 
-                ri = new ResourceIterator(globalIds, class2PropertyIDs);
+                ri = new ResourceIterator(globalIds, class2PropertyIDs, this);
 
                 retVal = AddIterator(ri);
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
@@ -69,7 +69,7 @@ namespace NetworkManagementService.Components
 
                 class2PropertyIDs.Add(entityDmsType, propIds);
 
-                ri = new ResourceIterator(globalIds, class2PropertyIDs);
+                ri = new ResourceIterator(globalIds, class2PropertyIDs, this);
 
                 retVal = AddIterator(ri);
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
@@ -106,7 +106,7 @@ namespace NetworkManagementService.Components
                     }
                 }
 
-                ri = new ResourceIterator(relatedGids, class2PropertyIDs);
+                ri = new ResourceIterator(relatedGids, class2PropertyIDs, this);
 
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, String.Format("Getting related values for source = 0x{0:x16} succeeded.", source));
 
