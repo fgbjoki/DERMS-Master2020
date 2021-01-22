@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -68,13 +69,16 @@
     <Compile Include="Model\ModbusFunctionCode.cs" />
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Model\RemotePointType.cs" />
+    <Compile Include="PollingRequestCreator\PollingInvoker.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RemotePointAddressCollectors\IRemotePointRangeAddressCollector.cs" />
     <Compile Include="TransactionProcessing\TransactionProcessors\AnalogTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\AnalogStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\TransactionProcessors\DiscreteTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\TransactionProcessors\IRemotePointDependentTransactionUnit.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\BitFieldValueReader.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\FieldValueReader.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\TwoByteFieldValueReader.cs" />
@@ -91,8 +95,10 @@
     <Compile Include="FieldCommunicationHandler\FieldCommunicationHandler.cs" />
     <Compile Include="ValueExtractor\ExtractValueProcessors\ExtractValueProcessor.cs" />
     <Compile Include="ValueExtractor\ExtractValueProcessors\SingleWriteCommandExtractValueProcessor.cs" />
-    <Compile Include="ValueExtractor\RemotePointAddressCollector\IRemotePointAddressCollector.cs" />
-    <Compile Include="ValueExtractor\RemotePointAddressCollector\RemotePointAddressCollector.cs" />
+    <Compile Include="RemotePointAddressCollectors\IRemotePointSortedAddressCollector.cs" />
+    <Compile Include="RemotePointAddressCollectors\RemotePointAddressCollector.cs" />
+    <Compile Include="RemotePointAddressCollectors\RemotePointRangeAddressCollector.cs" />
+    <Compile Include="RemotePointAddressCollectors\RemotePointSortedAddressCollector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -103,6 +109,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if not exist $(SolutionDir)Executables (mkdir  $(SolutionDir)Executables)

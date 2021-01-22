@@ -18,7 +18,7 @@ namespace TransactionManager.TransactionPhases
 
         private TransactionPhase currentPhase;
 
-        private ReaderWriterLock transactionStateLocker;
+        private ReaderWriterLockSlim transactionStateLocker;
         private ReaderWriterLock phaseLocker;
 
         private CancellationTokenSource cancellationTokenSource;
@@ -30,7 +30,7 @@ namespace TransactionManager.TransactionPhases
 
         private Semaphore semaphore;
 
-        public TransactionPhaseExecutor(ReaderWriterLock locker)
+        public TransactionPhaseExecutor(ReaderWriterLockSlim locker)
         {
             transactionStateLocker = locker;
             phaseLocker = new ReaderWriterLock();

@@ -12,7 +12,7 @@ namespace TransactionManager.TransactionPhases
     /// </summary>
     class CommitTransactionPhase : TransactionPhase
     {
-        public CommitTransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore,
+        public CommitTransactionPhase(ReaderWriterLockSlim transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore,
                                       Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
         {
         }

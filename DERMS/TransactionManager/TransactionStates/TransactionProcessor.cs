@@ -15,13 +15,13 @@ namespace TransactionManager
     /// </summary>
     internal class TransactionProcessor : ITransactionManager
     {
-        private static readonly int TIME_OUT_PERIOD = 10000;
+        private static readonly int TIME_OUT_PERIOD = 60000 * 10;
 
         private static readonly NetTcpBinding netTcpBinding = new NetTcpBinding();
 
         private Dictionary<string, WCFClient<ITransaction>> servicesInTransaction;
 
-        private ReaderWriterLock transactionStateLocker;
+        private ReaderWriterLockSlim transactionStateLocker;
 
         private TransactionStateWrapper transactionStateWrapper;
 
@@ -30,7 +30,7 @@ namespace TransactionManager
         public TransactionProcessor()
         {
             transactionStateWrapper = new TransactionStateWrapper(new TransactionIdleState());
-            transactionStateLocker = new ReaderWriterLock();
+            transactionStateLocker = new ReaderWriterLockSlim();
 
             phaseExecutor = new TransactionPhaseExecutor(transactionStateLocker);
 
@@ -43,32 +43,44 @@ namespace TransactionManager
             bool isCommandSuccessful = true;
             try
             {
-                transactionStateLocker.AcquireWriterLock(TIME_OUT_PERIOD);
+                transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.StartEnlist();
                 DERMSLogger.Instance.Log("Start enlist successfuly called.");
 
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
             }
             catch (ApplicationException ae)
             {
                 DERMSLogger.Instance.Log("Start enlist failed due to timeout while waiting for reader lock.");
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
             catch (TransactionException te)
             {
                 DERMSLogger.Instance.Log(te.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
             catch (Exception e)
             {
                 DERMSLogger.Instance.Log(e.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
 
@@ -84,13 +96,13 @@ namespace TransactionManager
             {
                 var wcfClient = new WCFClient<ITransaction>(netTcpBinding, new EndpointAddress(endpointAddress));
 
-                transactionStateLocker.AcquireWriterLock(TIME_OUT_PERIOD);
+                transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.Enlist(serviceName);
 
                 servicesInTransaction.Add(serviceName, wcfClient);
 
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
 
                 DERMSLogger.Instance.Log($"\"{serviceName}\" enlisted.");
 
@@ -105,14 +117,22 @@ namespace TransactionManager
             {
                 DERMSLogger.Instance.Log(te.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
             catch (Exception e)
             {
                 DERMSLogger.Instance.Log(e.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
 
@@ -130,11 +150,11 @@ namespace TransactionManager
             bool isCommandSuccessful = true;
             try
             {
-                transactionStateLocker.AcquireWriterLock(TIME_OUT_PERIOD);
+                transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.EndEnlist(allServicesEnlisted);
 
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
 
                 DERMSLogger.Instance.Log($"EndEnlist called with {allServicesEnlisted == true}.");
 
@@ -159,14 +179,22 @@ namespace TransactionManager
             {
                 DERMSLogger.Instance.Log(te.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
             catch (Exception e)
             {
                 DERMSLogger.Instance.Log(e.Message);
 
-                transactionStateLocker.ReleaseWriterLock();
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
+
                 isCommandSuccessful = false;
             }
 

@@ -12,7 +12,7 @@ namespace TransactionManager.TransactionPhases
     /// </summary>
     class RollbackTransactionPhase : TransactionPhase
     {
-        public RollbackTransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore,
+        public RollbackTransactionPhase(ReaderWriterLockSlim transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore,
                                         Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
         {
 

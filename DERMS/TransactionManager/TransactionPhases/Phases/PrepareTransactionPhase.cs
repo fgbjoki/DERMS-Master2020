@@ -13,7 +13,7 @@ namespace TransactionManager.TransactionPhases
         private Dictionary<string, WCFClient<ITransaction>> preparedServices;
         private Dictionary<string, WCFClient<ITransaction>> enlistedServices;
 
-        public PrepareTransactionPhase(ReaderWriterLock transactionStateLocker,
+        public PrepareTransactionPhase(ReaderWriterLockSlim transactionStateLocker,
                                         ReaderWriterLock phaseLocker,
                                         TransactionStateWrapper transactionStateWrapper, 
                                         Semaphore semaphore,
