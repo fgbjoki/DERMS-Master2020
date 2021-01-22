@@ -22,6 +22,8 @@ namespace FieldProcessor.MessageValidation
 
     public class MessageValidator : ICommandSender,  IDisposable
     {
+        private readonly int lockerTimeout = 3000; // 3 seconds
+
         private Dictionary<ModbusFunctionCode, IResponseCommandCreator> responseCreators;
 
         private ModbusMessageHeader validationHeader;
@@ -35,6 +37,10 @@ namespace FieldProcessor.MessageValidation
         private CancellationTokenSource tokenSource;
 
         private IPointValueExtractor pointValueExtractor;
+
+        private int currentTransactionIdentifier;
+
+        private ReaderWriterLock locker;
 
         public MessageValidator(BlockingQueue<byte[]> responseQueue, BlockingQueue<byte[]> requestQueue, IPointValueExtractor pointValueExtractor)
         {
@@ -58,14 +64,29 @@ namespace FieldProcessor.MessageValidation
         public bool SendCommand(ModbusMessageHeader command)
         {
             bool commandSent = true;
+
+            if (command.TransactionIdentifier == 0)
+            {
+                GenerateTransactionIdentifier(command);
+            }
+
+            locker.AcquireReaderLock(lockerTimeout);
+
             if (sentMessages.ContainsKey(command.TransactionIdentifier))
             {
                 DERMSLogger.Instance.Log($"Command with transction identifier \'{command.TransactionIdentifier}\' already sent! Skipping further processing of this command.");
                 commandSent = false;
+
+                locker.ReleaseReaderLock();
             }
             else
             {
+                locker.ReleaseReaderLock();
+                locker.AcquireWriterLock(lockerTimeout);
+
                 sentMessages.Add(command.TransactionIdentifier, command);
+                locker.ReleaseWriterLock();
+
                 commandSent = requestQueue.Enqueue(command.TransfromMessageToBytes());
             }
 
@@ -75,7 +96,11 @@ namespace FieldProcessor.MessageValidation
             }
             else if (sentMessages.ContainsKey(command.TransactionIdentifier))
             {
+                locker.AcquireWriterLock(lockerTimeout);
+
                 sentMessages.Remove(command.TransactionIdentifier);
+
+                locker.ReleaseWriterLock();
             }
 
             return commandSent;
@@ -117,13 +142,25 @@ namespace FieldProcessor.MessageValidation
                 validationHeader.ConvertMessageFromBytes(receivedBytes);
 
                 ModbusMessageHeader requestCommand;
+
+                locker.AcquireReaderLock(lockerTimeout);
+
                 if (!sentMessages.TryGetValue(validationHeader.TransactionIdentifier, out requestCommand))
                 {
                     DERMSLogger.Instance.Log($"Response message received with invalid \'transaction identifier\' ({validationHeader.TransactionIdentifier})");
+
+                    locker.ReleaseReaderLock();
+
                     continue;
                 }
 
+                locker.ReleaseReaderLock();
+
+                locker.AcquireWriterLock(lockerTimeout);
+
                 sentMessages.Remove(validationHeader.TransactionIdentifier);
+
+                locker.ReleaseWriterLock();
 
                 ThreadPool.QueueUserWorkItem(ProcessCommand, new ProcessingParametersWrapper(requestCommand, receivedBytes));          
             }
@@ -155,6 +192,21 @@ namespace FieldProcessor.MessageValidation
         private void ExtractValues(ModbusMessageHeader request, ModbusMessageHeader response)
         {
             pointValueExtractor.ExtractValues(request, response);
+        }
+
+        private void GenerateTransactionIdentifier(ModbusMessageHeader command)
+        {
+            locker.AcquireWriterLock(lockerTimeout);
+
+            if (currentTransactionIdentifier == ushort.MaxValue - 1)
+            {
+                currentTransactionIdentifier = 0;
+                locker.ReleaseWriterLock();
+            }
+
+            Interlocked.Increment(ref currentTransactionIdentifier);
+
+            command.TransactionIdentifier = (ushort)currentTransactionIdentifier;
         }
     }
 }

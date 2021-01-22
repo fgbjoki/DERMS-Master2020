@@ -4,6 +4,7 @@ using Common.SCADA;
 using Common.ServiceInterfaces.NetworkDynamicsService;
 using FieldProcessor.ModbusMessages;
 using FieldProcessor.Model;
+using FieldProcessor.RemotePointAddressCollector;
 using System.Collections.Generic;
 
 namespace FieldProcessor.ValueExtractor
@@ -13,7 +14,7 @@ namespace FieldProcessor.ValueExtractor
         private Dictionary<ModbusFunctionCode, ExtractValueProcessor> extractValueProcessors;
         private WCFClient<IFieldValuesProcessing> fieldValueProcessing;
 
-        public PointValueExtractor(IRemotePointAddressCollector remotePointAddressCollector)
+        public PointValueExtractor(IRemotePointSortedAddressCollector remotePointAddressCollector)
         {
             InitializeProcessors(remotePointAddressCollector);
             fieldValueProcessing = new WCFClient<IFieldValuesProcessing>();
@@ -34,7 +35,7 @@ namespace FieldProcessor.ValueExtractor
             fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
         }
 
-        private void InitializeProcessors(IRemotePointAddressCollector remotePointAddressCollector)
+        private void InitializeProcessors(IRemotePointSortedAddressCollector remotePointAddressCollector)
         {
             IFieldValueReader bitValueReader = new BitFieldValueReader();
             IFieldValueReader twoByteValueReader = new TwoByteFieldValueReader();

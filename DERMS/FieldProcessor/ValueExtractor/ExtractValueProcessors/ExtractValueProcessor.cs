@@ -2,6 +2,7 @@
 using Common.SCADA;
 using FieldProcessor.ModbusMessages;
 using FieldProcessor.Model;
+using FieldProcessor.RemotePointAddressCollector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace FieldProcessor.ValueExtractor
 {
     public abstract class ExtractValueProcessor
     {
-        private IRemotePointAddressCollector remotePointAddressCollector;
+        private IRemotePointSortedAddressCollector remotePointAddressCollector;
 
         protected IFieldValueReader fieldValueReader;
         protected RemotePointType remotePointType;
 
-        public ExtractValueProcessor(IFieldValueReader fieldValueReader, RemotePointType remotePointType, IRemotePointAddressCollector remotePointAddressCollector)
+        public ExtractValueProcessor(IFieldValueReader fieldValueReader, RemotePointType remotePointType, IRemotePointSortedAddressCollector remotePointAddressCollector)
         {
             this.remotePointAddressCollector = remotePointAddressCollector;
             this.fieldValueReader = fieldValueReader;

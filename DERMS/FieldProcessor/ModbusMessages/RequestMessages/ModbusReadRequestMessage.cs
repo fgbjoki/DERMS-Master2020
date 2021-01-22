@@ -25,8 +25,8 @@ namespace FieldProcessor.ModbusMessages
             Length += sizeof(ushort) + sizeof(ushort);
         }
 
-        public ushort StartingAddress { get; private set; }
-        public ushort Quantity { get; private set; }
+        public ushort StartingAddress { get; set; }
+        public ushort Quantity { get; set; }
 
         public override byte[] TransfromMessageToBytes()
         {

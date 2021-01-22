@@ -7,6 +7,7 @@ using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Common.Logger;
 using FieldProcessor.ValueExtractor;
 using Common.ServiceLocator;
+using FieldProcessor.RemotePointAddressCollector;
 
 namespace FieldProcessor.TransactionProcessing.Storages
 {
@@ -26,9 +27,10 @@ namespace FieldProcessor.TransactionProcessing.Storages
                 { DMSType.MEASUREMENTANALOG, new AnalogStorageItemCreator() }
             };
 
-            RemotePointAddressCollector remotePointAddressCollector = ServiceLocator.GetService<RemotePointAddressCollector>();
+            RemotePointSortedAddressCollector remotePointAddressCollector = ServiceLocator.GetService<RemotePointSortedAddressCollector>();
+            RemotePointRangeAddressCollector remoteRangeAddressCollector = ServiceLocator.GetService<RemotePointRangeAddressCollector>();
 
-            return new List<IStorageTransactionProcessor>() { new AnalogTransactionProcessor(this, storageItemCreators, remotePointAddressCollector) };
+            return new List<IStorageTransactionProcessor>() { new AnalogTransactionProcessor(this, storageItemCreators, remotePointAddressCollector, remoteRangeAddressCollector) };
         }
 
         public override bool AddEntity(RemotePoint item)

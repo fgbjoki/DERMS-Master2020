@@ -4,19 +4,19 @@ using Common.AbstractModel;
 using Common.ComponentStorage.StorageItemCreator;
 using FieldProcessor.Model;
 using Common.GDA;
-using FieldProcessor.ValueExtractor;
 using System.Linq;
+using FieldProcessor.TransactionProcessing.TransactionProcessors;
 
 namespace FieldProcessor.TransactionProcessing
 {
     public class AnalogTransactionProcessor : StorageTransactionProcessor<RemotePoint>
     {
-        private RemotePointAddressCollector remotePointAddressCollector;
+        private List<IRemotePointDependentTransactionUnit> remotePointDependentUnits;
 
-        public AnalogTransactionProcessor(IStorage<RemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators, 
-            RemotePointAddressCollector remotePointAddressCollector) : base(storage, storageItemCreators)
+        public AnalogTransactionProcessor(IStorage<RemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators,
+            params IRemotePointDependentTransactionUnit[] remotePointDependentUnits) : base(storage, storageItemCreators)
         {
-            this.remotePointAddressCollector = remotePointAddressCollector;
+            this.remotePointDependentUnits = new List<IRemotePointDependentTransactionUnit>(remotePointDependentUnits);
         }
 
         protected override List<DMSType> GetPrimaryTypes()
@@ -33,15 +33,15 @@ namespace FieldProcessor.TransactionProcessing
                 return false;
             }
 
-            remotePointAddressCollector.Commit();
+            remotePointDependentUnits.ForEach(x => x.Commit());
+            remotePointDependentUnits.ForEach(x => x.RelaseTransactionResources());
 
             return commited;
         }
 
         public override bool Rollback()
         {
-            remotePointAddressCollector.Rollback();
-
+            remotePointDependentUnits.ForEach(x => x.Rollback());
             return base.Rollback();
         }
 
@@ -59,7 +59,7 @@ namespace FieldProcessor.TransactionProcessing
 
         private bool AdditionalProcessing()
         {
-            remotePointAddressCollector.Prepare(preparedObjects.Values.ToList());
+            remotePointDependentUnits.ForEach(x => x.Prepare(preparedObjects.Values.ToList()));
 
             return true;
         }

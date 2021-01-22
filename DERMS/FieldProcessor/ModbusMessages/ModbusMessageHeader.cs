@@ -29,7 +29,7 @@ namespace FieldProcessor.ModbusMessages
             FunctionCode = functionCode;
         }
 
-        public ushort TransactionIdentifier { get; private set; }
+        public ushort TransactionIdentifier { get; set; }
         public ushort ProtocolIdentifier { get; private set; } = 0; // MODBUS protocol
         public ushort Length { get; protected set; } = 2; // function code + unit identifier
 

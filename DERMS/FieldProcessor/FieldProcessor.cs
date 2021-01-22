@@ -5,11 +5,16 @@ using Common.ServiceInterfaces.Transaction;
 using Common.ServiceLocator;
 using FieldProcessor.CommandingProcessor;
 using FieldProcessor.MessageValidation;
+using FieldProcessor.PollingRequestCreator;
+using FieldProcessor.RemotePointAddressCollector;
 using FieldProcessor.TCPCommunicationHandler;
 using FieldProcessor.TransactionProcessing.Storages;
 using FieldProcessor.ValueExtractor;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.ServiceModel;
+using System.ServiceModel.Configuration;
 using System.Threading;
 
 namespace FieldProcessor
@@ -17,6 +22,9 @@ namespace FieldProcessor
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class FieldProcessor : ITransaction, IModelPromotionParticipant, ICommanding 
     {
+        private readonly string serviceName = "FieldProcessor";
+        private string serviceUrlForTransaction;
+
         private FieldCommunicationHandler fieldCommunicationHandler;
 
         private BlockingQueue<byte[]> requestQueue;
@@ -24,11 +32,14 @@ namespace FieldProcessor
 
         private ModbusMessageArbitrator messageArbitrator;
 
+        private PollingInvoker pollingInvoker;
+
         private ICommandSender commandSender;
 
         private IPointValueExtractor pointValueExtractor;
 
-        private IRemotePointAddressCollector remotePointAddressCollector;
+        private IRemotePointSortedAddressCollector remotePointSortedAddressCollector;
+        private IRemotePointRangeAddressCollector remotePointRangeAddressCollector;
 
         private ICommanding commandingProcessor;
 
@@ -43,15 +54,19 @@ namespace FieldProcessor
 
             messageArbitrator = new ModbusMessageArbitrator(responseQueue);
 
+            InitializeRemotePointAddressCollectors();
+
             InitializeValueExtractor();
 
-            commandSender = new MessageValidator(responseQueue, requestQueue, pointValueExtractor);
+            pollingInvoker = new PollingInvoker(remotePointRangeAddressCollector, commandSender);
 
-            InitializeForTransaction();
+            commandSender = new MessageValidator(responseQueue, requestQueue, pointValueExtractor);
 
             commandingProcessor = new ReceiveCommandingProcessor(commandSender, discreteStorage, analogStorage);
 
             InitializeFieldCommunicationHandler();
+
+            LoadConfigurationFromAppConfig();
             InitializeForTransaction();
         }
 
@@ -66,16 +81,38 @@ namespace FieldProcessor
         {
             discreteStorage = new DiscreteRemotePointStorage();
             analogStorage = new AnalogRemotePointStorage();
-            transactionManager = new TransactionManager("SCADA", "TODO");
+            transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
             transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteStorage, analogStorage });
+        }
+
+        private void InitializeRemotePointAddressCollectors()
+        {
+            remotePointRangeAddressCollector = new RemotePointRangeAddressCollector();
+            remotePointSortedAddressCollector = new RemotePointSortedAddressCollector();
+            ServiceLocator.AddService(remotePointSortedAddressCollector);
+            ServiceLocator.AddService(remotePointRangeAddressCollector);
+        }
+
+        private void LoadConfigurationFromAppConfig()
+        {
+            ServicesSection serviceSection = ConfigurationManager.GetSection("system.serviceModel/services") as ServicesSection;
+            ServiceEndpointElementCollection endpoints = serviceSection.Services[0].Endpoints;
+            string transactionAddition = String.Empty;
+            for (int i = 0; i < endpoints.Count; i++)
+            {
+                ServiceEndpointElement endpoint = endpoints[i];
+                if (endpoint.Contract.Equals(typeof(ITransaction).ToString()))
+                {
+                    transactionAddition = $"/{endpoint.Address.OriginalString}";
+                }
+            }
+
+            serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
         }
 
         private void InitializeValueExtractor()
         {
-            remotePointAddressCollector = new RemotePointAddressCollector();
-            ServiceLocator.AddService(remotePointAddressCollector);
-
-            pointValueExtractor = new PointValueExtractor(remotePointAddressCollector);
+            pointValueExtractor = new PointValueExtractor(remotePointSortedAddressCollector);
         }
 
         private void InitializeQueues()

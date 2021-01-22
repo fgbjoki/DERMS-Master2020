@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using FieldProcessor.Model;
 
-namespace FieldProcessor.ValueExtractor
+namespace FieldProcessor.RemotePointAddressCollector
 {
-    public interface IRemotePointAddressCollector
+    public interface IRemotePointSortedAddressCollector
     {
         List<RemotePoint> GetSortedAddresses(RemotePointType pointType);
     }

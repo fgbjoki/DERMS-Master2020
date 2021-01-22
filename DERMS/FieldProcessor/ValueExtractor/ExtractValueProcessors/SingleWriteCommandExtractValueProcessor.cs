@@ -1,11 +1,12 @@
 ﻿using FieldProcessor.ModbusMessages;
 using FieldProcessor.Model;
+using FieldProcessor.RemotePointAddressCollector;
 
 namespace FieldProcessor.ValueExtractor
 {
     class SingleWriteCommandExtractValueProcessor : ExtractValueProcessor
     {
-        public SingleWriteCommandExtractValueProcessor(IFieldValueReader fieldValueReader, RemotePointType remotePointType, IRemotePointAddressCollector remotePointAddressCollector) : base(fieldValueReader, remotePointType, remotePointAddressCollector)
+        public SingleWriteCommandExtractValueProcessor(IFieldValueReader fieldValueReader, RemotePointType remotePointType, IRemotePointSortedAddressCollector remotePointAddressCollector) : base(fieldValueReader, remotePointType, remotePointAddressCollector)
         {
         }
 

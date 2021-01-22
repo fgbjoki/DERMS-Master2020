@@ -27,7 +27,7 @@ namespace Common.ComponentStorage
             this.serviceName = serviceName;
             this.serviceEndpoint = serviceEndpoint;
 
-            gdaProxy = new GDAProxy();
+            gdaProxy = new GDAProxy("gdaQueryEndpoint");
 
             neededProperties = new Dictionary<ModelCode, List<ModelCode>>();
         }
@@ -100,7 +100,7 @@ namespace Common.ComponentStorage
         {
             try
             {
-                WCFClient<ITransactionManager> transactionManager = new WCFClient<ITransactionManager>();
+                WCFClient<ITransactionManager> transactionManager = new WCFClient<ITransactionManager>("transactionManagerEndpoint");
 
                 return transactionManager.Proxy.EnlistService(serviceName, serviceEndpoint);
             }
@@ -116,7 +116,7 @@ namespace Common.ComponentStorage
 
             foreach (var typeProperties in neededProperties)
             {
-                List<ResourceDescription> rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value);
+                List<ResourceDescription> rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, newNeededGids[ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key)]);
 
                 if (rds?.Count > 0)
                 {
