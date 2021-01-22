@@ -69,7 +69,7 @@ namespace NetworkManagementService.DataModel.Measurement
                     CurrentValue = property.AsFloat();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }
