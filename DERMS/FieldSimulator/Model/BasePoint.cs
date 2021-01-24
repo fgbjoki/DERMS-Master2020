@@ -39,7 +39,7 @@ namespace FieldSimulator.Model
 
         public int Index
         {
-            get { return index; }
+            get { return index - 1; }
             set { SetProperty(ref index, value); }
         }
 
