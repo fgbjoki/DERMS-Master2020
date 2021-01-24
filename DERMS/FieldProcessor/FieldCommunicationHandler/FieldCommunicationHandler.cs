@@ -27,7 +27,6 @@ namespace FieldProcessor.TCPCommunicationHandler
 
             sendingThread = new Thread(() => SendDataToClient(tokenSource.Token));
 
-            client.StartClient();
             sendingThread.Start();
         }
 

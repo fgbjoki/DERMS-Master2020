@@ -32,7 +32,7 @@ namespace FieldProcessor.ValueExtractor
 
             IEnumerable<RemotePointFieldValue> fieldValues = processor.ExtractValues(request, response);
 
-            fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
+            //fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
         }
 
         private void InitializeProcessors(IRemotePointSortedAddressCollector remotePointAddressCollector)

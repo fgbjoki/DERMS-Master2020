@@ -72,6 +72,9 @@
     <Compile Include="PollingRequestCreator\PollingInvoker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="RemotePointAddressCollectors\IRemotePointRangeAddressCollector.cs" />
+    <Compile Include="SimulatorState\ISimulatorState.cs" />
+    <Compile Include="SimulatorState\SimulatorState.cs" />
+    <Compile Include="SimulatorState\IConnectionNotifier.cs" />
     <Compile Include="TransactionProcessing\TransactionProcessors\AnalogTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\AnalogStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteStorageItemCreator.cs" />

@@ -53,6 +53,15 @@ namespace FieldProcessor.TCPCommunicationHandler
             messageReady.Set();
         }
 
+        public void ReceiveData(byte[] data, int count)
+        {
+            locker.AcquireWriterLock(timeOutLock);
+            buffer.Put(data, count);
+            locker.ReleaseWriterLock();
+
+            messageReady.Set();
+        }
+
         private void MessageRecongition(CancellationToken cancelationToken)
         {
             List<byte[]> messages = new List<byte[]>(1);

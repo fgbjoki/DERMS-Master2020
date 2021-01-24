@@ -1,4 +1,5 @@
 ﻿using Common.Logger;
+using FieldProcessor.SimulatorState;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -11,7 +12,8 @@ namespace FieldProcessor.TCPCommunicationHandler
     /// </summary>
     public class AsynchronousTCPClient : ICommunication
     {
-        private AutoResetEvent connectDone;
+        private AutoResetEvent connectionFailed;
+        private AutoResetEvent connectionDone;
         private AutoResetEvent sendDone;
 
         private ModbusMessageArbitrator arbitrator;
@@ -19,20 +21,39 @@ namespace FieldProcessor.TCPCommunicationHandler
         private int port;
         private string ipAddress = string.Empty;
 
+        private IConnectionNotifier connectionStateNotifier;
+
         private Socket client;
 
-        public AsynchronousTCPClient(string ipAddress, int port, AutoResetEvent sendDone, ModbusMessageArbitrator arbitrator)
+        private Thread tryConnectWorker;
+        private Thread waitForConnectionWorker;
+
+        private CancellationTokenSource tokenSource;
+
+        public AsynchronousTCPClient(string ipAddress, int port, AutoResetEvent sendDone, ModbusMessageArbitrator arbitrator, 
+            IConnectionNotifier connectionStateNotifier)
         {
             this.ipAddress = ipAddress;
             this.port = port;
 
-            connectDone = new AutoResetEvent(false);
+            connectionFailed = new AutoResetEvent(false);
+            connectionDone = new AutoResetEvent(false);
             this.sendDone = sendDone;
 
             this.arbitrator = arbitrator;
+
+            this.connectionStateNotifier = connectionStateNotifier;
+
+            tokenSource = new CancellationTokenSource();
+
+            tryConnectWorker = new Thread(() => TryConnect(tokenSource.Token));
+            waitForConnectionWorker = new Thread(() => WaitForConnection(tokenSource.Token));
+
+            tryConnectWorker.Start();
+            waitForConnectionWorker.Start();
         }
 
-        public bool StartClient()
+        private void StartClient()
         {
             // Connect to a remote device.  
             try
@@ -46,15 +67,12 @@ namespace FieldProcessor.TCPCommunicationHandler
                 // Connect to the remote endpoint.  
                 client.BeginConnect(remoteEP,
                     new AsyncCallback(ConnectCallback), client);
-
-                return connectDone.WaitOne();
+            
             }
             catch (Exception e)
             {
                 DERMSLogger.Instance.Log(e.Message);
             }
-
-            return false;
         }
 
         private void ConnectCallback(IAsyncResult ar)
@@ -67,12 +85,13 @@ namespace FieldProcessor.TCPCommunicationHandler
                 // Complete the connection.  
                 client.EndConnect(ar);
 
-                connectDone.Set();
+                connectionDone.Set();
 
                 Receive(client);
             }
             catch (Exception e)
             {
+                connectionFailed.Set();
                 DERMSLogger.Instance.Log(e.Message);
             }
         }
@@ -88,6 +107,10 @@ namespace FieldProcessor.TCPCommunicationHandler
                 // Begin receiving the data from the remote device.  
                 client.BeginReceive(state.buffer, 0, CommunicationState.BufferSize, 0,
                     new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (SocketException se)
+            {
+                connectionStateNotifier.Disconnected();
             }
             catch (Exception e)
             {
@@ -109,11 +132,16 @@ namespace FieldProcessor.TCPCommunicationHandler
 
                 if (bytesRead > 0)
                 {
-                    arbitrator.ReceiveData(state.buffer);
+                    arbitrator.ReceiveData(state.buffer, bytesRead);
                     // Get the rest of the data.  
                     client.BeginReceive(state.buffer, 0, CommunicationState.BufferSize, 0,
                         new AsyncCallback(ReceiveCallback), state);
                 }
+            }
+            catch (SocketException se)
+            {
+                connectionStateNotifier.Disconnected();
+                connectionFailed.Set();
             }
             catch (Exception e)
             {
@@ -133,13 +161,44 @@ namespace FieldProcessor.TCPCommunicationHandler
             {
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
-
-                // Signal that all bytes have been sent.  
-                sendDone.Set();
+            }
+            catch (SocketException se)
+            {
+                connectionStateNotifier.Disconnected();
+                connectionFailed.Set();
             }
             catch (Exception e)
             {
                 DERMSLogger.Instance.Log(e.Message);
+            }
+            finally
+            {
+                sendDone.Set();
+            }
+        }
+
+        private void WaitForConnection(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                connectionDone.WaitOne();
+
+                if (!token.IsCancellationRequested)
+                {
+                    Console.WriteLine($"[{this.GetType().Name}] Connection restored!");
+                    connectionStateNotifier.Connected();
+                }
+            }
+        }
+
+        private void TryConnect(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                StartClient();
+
+                connectionFailed.WaitOne();
+                Console.WriteLine($"[{this.GetType().Name}] Connection failed!");
             }
         }
     }

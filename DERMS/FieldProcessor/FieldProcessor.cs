@@ -7,6 +7,7 @@ using FieldProcessor.CommandingProcessor;
 using FieldProcessor.MessageValidation;
 using FieldProcessor.PollingRequestCreator;
 using FieldProcessor.RemotePointAddressCollector;
+using FieldProcessor.SimulatorState;
 using FieldProcessor.TCPCommunicationHandler;
 using FieldProcessor.TransactionProcessing.Storages;
 using FieldProcessor.ValueExtractor;
@@ -43,6 +44,8 @@ namespace FieldProcessor
 
         private ICommanding commandingProcessor;
 
+        private SimulatorStateNotifier simulatorState;
+
         private TransactionManager transactionManager;
 
         private DiscreteRemotePointStorage discreteStorage;
@@ -58,9 +61,11 @@ namespace FieldProcessor
 
             InitializeValueExtractor();
 
-            pollingInvoker = new PollingInvoker(remotePointRangeAddressCollector, commandSender);
-
+            simulatorState = new SimulatorStateNotifier();
+            
             commandSender = new MessageValidator(responseQueue, requestQueue, pointValueExtractor);
+
+            pollingInvoker = new PollingInvoker(remotePointRangeAddressCollector, commandSender, simulatorState);
 
             commandingProcessor = new ReceiveCommandingProcessor(commandSender, discreteStorage, analogStorage);
 
@@ -73,7 +78,7 @@ namespace FieldProcessor
         private void InitializeFieldCommunicationHandler()
         {
             AutoResetEvent sendDone = new AutoResetEvent(false);
-            AsynchronousTCPClient tcpClient = new AsynchronousTCPClient("127.0.0.1", 22222, sendDone, messageArbitrator);
+            AsynchronousTCPClient tcpClient = new AsynchronousTCPClient("127.0.0.1", 22222, sendDone, messageArbitrator, simulatorState);
             fieldCommunicationHandler = new FieldCommunicationHandler(requestQueue, tcpClient, sendDone);
         }
 

@@ -57,6 +57,40 @@ namespace FieldProcessor.TCPCommunicationHandler.Collection
             Size += data.Length;
         }
 
+        public void Put(byte[] data, int count)
+        {
+            if (count <= 0)
+            {
+                return;
+            }
+
+            if (capacity - Size < count)
+            {
+                throw new ArgumentOutOfRangeException("data", "There is not enough space in the circular buffer.");
+            }
+
+            int remainingBytesToSave = count;
+            while (remainingBytesToSave > 0)
+            {
+                int continualSpace = capacity - tail - remainingBytesToSave;
+                int bytesSaved = 0;
+
+                if (IsPartialManipulation(tail >= head, continualSpace))
+                {
+                    bytesSaved = remainingBytesToSave;
+                    CopyBlock(data, count - remainingBytesToSave, array, tail, remainingBytesToSave, ref tail);
+                }
+                else
+                {
+                    bytesSaved = capacity - tail;
+                    CopyBlock(data, count - remainingBytesToSave, array, tail, capacity - tail, ref tail);
+                }
+                remainingBytesToSave -= bytesSaved;
+            }
+
+            Size += count;
+        }
+
         public byte[] Get(int amount)
         {
             if (Size == 0)

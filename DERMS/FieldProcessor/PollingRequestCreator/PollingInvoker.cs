@@ -12,7 +12,7 @@ namespace FieldProcessor.PollingRequestCreator
 {
     public class PollingInvoker : IDisposable
     {
-        private readonly int acquisitionTimer = 2000; // 2 seconds
+        private readonly int acquisitionTimer = 10000; // 2 seconds
 
         private Dictionary<RemotePointType, ModbusReadRequestMessage> remotePointToMessageMapper;
 
@@ -43,6 +43,7 @@ namespace FieldProcessor.PollingRequestCreator
             pollTimer = new Timer(acquisitionTimer);
             pollTimer.Elapsed += CreatePollRequests;
             pollTimer.AutoReset = true;
+            pollTimer.Enabled = false;
         }
 
         private void SimulatorDisconnectedHandler()

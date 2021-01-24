@@ -22,7 +22,7 @@ namespace FieldProcessor.MessageValidation
 
     public class MessageValidator : ICommandSender,  IDisposable
     {
-        private readonly int lockerTimeout = 3000; // 3 seconds
+        private readonly int lockerTimeout = 10000; // 10 seconds
 
         private Dictionary<ModbusFunctionCode, IResponseCommandCreator> responseCreators;
 
@@ -44,6 +44,8 @@ namespace FieldProcessor.MessageValidation
 
         public MessageValidator(BlockingQueue<byte[]> responseQueue, BlockingQueue<byte[]> requestQueue, IPointValueExtractor pointValueExtractor)
         {
+            locker = new ReaderWriterLock();
+
             InitializeCommandCreators();
 
             validationHeader = new ModbusMessageHeader();
@@ -201,8 +203,9 @@ namespace FieldProcessor.MessageValidation
             if (currentTransactionIdentifier == ushort.MaxValue - 1)
             {
                 currentTransactionIdentifier = 0;
-                locker.ReleaseWriterLock();
             }
+
+            locker.ReleaseWriterLock();
 
             Interlocked.Increment(ref currentTransactionIdentifier);
 
