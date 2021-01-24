@@ -5,7 +5,6 @@ using FieldProcessor.RemotePointAddressCollector;
 using FieldProcessor.ModbusMessages;
 using System.Timers;
 using FieldProcessor.MessageValidation;
-using Common.Logger;
 using FieldProcessor.SimulatorState;
 
 namespace FieldProcessor.PollingRequestCreator
@@ -59,7 +58,6 @@ namespace FieldProcessor.PollingRequestCreator
         private void CreatePollRequests(object sender, ElapsedEventArgs e)
         {
             pollTimer.Enabled = false;
-            Console.WriteLine("EVENT Raised");
             foreach (var pair in remotePointToMessageMapper)
             {
                 List<AddressRange> addressRanges = remotePointAddressRangeCollector.GetAddressRanges(pair.Key);

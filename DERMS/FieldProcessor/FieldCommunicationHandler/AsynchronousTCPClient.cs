@@ -185,7 +185,7 @@ namespace FieldProcessor.TCPCommunicationHandler
 
                 if (!token.IsCancellationRequested)
                 {
-                    Console.WriteLine($"[{this.GetType().Name}] Connection restored!");
+                    DERMSLogger.Instance.Log($"[{this.GetType().Name}] Connection restored!");
                     connectionStateNotifier.Connected();
                 }
             }
@@ -198,7 +198,7 @@ namespace FieldProcessor.TCPCommunicationHandler
                 StartClient();
 
                 connectionFailed.WaitOne();
-                Console.WriteLine($"[{this.GetType().Name}] Connection failed!");
+                DERMSLogger.Instance.Log($"[{this.GetType().Name}] Connection failed!");
             }
         }
     }
