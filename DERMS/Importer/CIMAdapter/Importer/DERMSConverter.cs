@@ -316,6 +316,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             if (cimSwitch != null && rd != null)
             {
                 DERMSConverter.PopulateConductingEquipmentProperties(cimSwitch, rd, importHelper, report);
+
+                if(cimSwitch.NormalOpenHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.SWITCH_NORMALOPEN, cimSwitch.NormalOpen));
+                }
             }
         }
 
@@ -498,14 +503,9 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_MAXVALUE, discrete.MaxValue));
                 }
 
-                if (discrete.CurrentOpenHasValue)
+                if(discrete.CurrentValueHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_CURRENTOPEN, discrete.CurrentOpen));
-                }
-
-                if (discrete.NormalOpenHasValue)
-                {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_NORMALOPEN, discrete.NormalOpen));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE, discrete.CurrentValue));
                 }
             }
         }
