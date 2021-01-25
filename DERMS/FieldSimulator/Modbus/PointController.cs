@@ -42,11 +42,13 @@ namespace FieldSimulator.Modbus
             switch (pointType)
             {
                 case PointType.Coil:
+                    slave.Coils[index] = value == 1 ? true : false;
                     break;
                 case PointType.DiscreteInput:
                     slave.DiscreteInputs[index] = value == 1 ? true : false;
                     break;
                 case PointType.HoldingRegister:
+                    slave.HoldingRegisters[index] = value;
                     break;
                 case PointType.InputRegister:
                     slave.InputRegisters[index] = value;
@@ -94,16 +96,16 @@ namespace FieldSimulator.Modbus
 
             for (int i = 0; i < maxIterations; ++i)
             {
-                coils[i] = new CoilWrapper(i);
+                coils[i] = new CoilWrapper(i + 1);
                 coils[i].PointValueChanged += PointValueChanged;
 
-                holdingRegisters[i] = new HoldingRegisterWrapper(i);
+                holdingRegisters[i] = new HoldingRegisterWrapper(i + 1);
                 holdingRegisters[i].PointValueChanged += PointValueChanged;
 
-                inputRegisters[i] = new InputRegisterWrapper(i);
+                inputRegisters[i] = new InputRegisterWrapper(i + 1);
                 inputRegisters[i].PointValueChanged += PointValueChanged;
 
-                discreteInput[i] = new DiscreteInputWrapper(i);
+                discreteInput[i] = new DiscreteInputWrapper(i + 1);
                 discreteInput[i].PointValueChanged += PointValueChanged;
             }
         }

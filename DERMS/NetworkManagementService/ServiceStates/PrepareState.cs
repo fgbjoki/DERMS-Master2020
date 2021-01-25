@@ -22,5 +22,10 @@ namespace NetworkManagementService.ServiceStates
         {
             return new CommitState().Commit(ref currentModel, ref currentWorkingModel, ref temporaryModel);
         }
+
+        public override ServiceState Rollback(ref Dictionary<DMSType, Container> currentModel, ref Dictionary<DMSType, Container> currentWorkingModel, ref Dictionary<DMSType, Container> temporaryModel)
+        {
+            return new RollbackState().Rollback(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+        }
     }
 }

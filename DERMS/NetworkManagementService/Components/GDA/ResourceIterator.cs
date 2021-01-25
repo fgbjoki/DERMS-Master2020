@@ -22,7 +22,7 @@ namespace NetworkManagementService.Components.GDA
             this.gdaProcessor = gdaProcessor;
         }
 
-        public ResourceIterator(List<long> globalIDs, Dictionary<DMSType, List<ModelCode>> class2PropertyIDs)
+        public ResourceIterator(List<long> globalIDs, Dictionary<DMSType, List<ModelCode>> class2PropertyIDs, INetworkModelGDAContract gdaProcessor) : this(gdaProcessor)
         {
             this.globalDs = globalIDs;
             this.class2PropertyIDs = class2PropertyIDs;

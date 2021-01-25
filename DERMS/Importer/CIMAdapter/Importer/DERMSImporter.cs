@@ -107,7 +107,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             Import<ConnectivityNode>(DMSType.CONNECTIVITYNODE);
             Import<Terminal>(DMSType.TERMINAL);
             Import<Discrete>(DMSType.MEASUREMENTDISCRETE);
-            Import<Analog>(DMSType.MEASUREMENTDISCRETE);
+            Import<Analog>(DMSType.MEASUREMENTANALOG);
 
             importHelper.ExecuteReferenceAddition();
 

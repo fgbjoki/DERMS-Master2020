@@ -14,6 +14,8 @@ x64/
 [Bb]in/
 [Oo]bj/
 
+Executables/
+
 # .vs
 .vs/
 

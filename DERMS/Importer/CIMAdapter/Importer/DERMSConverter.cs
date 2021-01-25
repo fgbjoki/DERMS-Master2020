@@ -477,12 +477,12 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                 if (measurement.DirectionHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_DIRECTION, (short)measurement.Direction));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_DIRECTION, (short)SignalDirectionMap(measurement.Direction)));
                 }
 
                 if (measurement.MeasurementTypeHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_MEASUREMENTYPE, (short)measurement.MeasurementType));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENT_MEASUREMENTYPE, (short)MeasurementTypeMap(measurement.MeasurementType)));
                 }
             }
         }
@@ -592,7 +592,55 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
         }
                     
         #region Enums convert
-        /// TODO.
+        private static Common.AbstractModel.SignalDirection SignalDirectionMap(DERMS.SignalDirection signalDirection)
+        {
+            switch (signalDirection)
+            {
+                case DERMS.SignalDirection.Read:
+                    return Common.AbstractModel.SignalDirection.Read;
+                case DERMS.SignalDirection.ReadWrite:
+                    return Common.AbstractModel.SignalDirection.ReadWrite;
+                case DERMS.SignalDirection.Write:
+                    return Common.AbstractModel.SignalDirection.Write;
+                default:
+                    return 0;
+            }
+        }
+
+        private static Common.AbstractModel.MeasurementType MeasurementTypeMap(DERMS.MeasurementType measurementType)
+        {
+            switch (measurementType)
+            {
+                case DERMS.MeasurementType.ActiveEnergy:
+                    return Common.AbstractModel.MeasurementType.ActiveEnergy;
+                case DERMS.MeasurementType.ActivePower:
+                    return Common.AbstractModel.MeasurementType.ActivePower;
+                case DERMS.MeasurementType.Discrete:
+                    return Common.AbstractModel.MeasurementType.Discrete;
+                case DERMS.MeasurementType.Humidity:
+                    return Common.AbstractModel.MeasurementType.Humidity;
+                case DERMS.MeasurementType.Money:
+                    return Common.AbstractModel.MeasurementType.Money;
+                case DERMS.MeasurementType.Percent:
+                    return Common.AbstractModel.MeasurementType.Percet;
+                case DERMS.MeasurementType.SkyCover:
+                    return Common.AbstractModel.MeasurementType.SkyCover;
+                case DERMS.MeasurementType.Status:
+                    return Common.AbstractModel.MeasurementType.Status;
+                case DERMS.MeasurementType.SunshineMinutes:
+                    return Common.AbstractModel.MeasurementType.SunshineMinutes;
+                case DERMS.MeasurementType.Temperature:
+                    return Common.AbstractModel.MeasurementType.Temperature;
+                case DERMS.MeasurementType.Time:
+                    return Common.AbstractModel.MeasurementType.Time;
+                case DERMS.MeasurementType.Unitless:
+                    return Common.AbstractModel.MeasurementType.Unitless;
+                case DERMS.MeasurementType.WindSpeed:
+                    return Common.AbstractModel.MeasurementType.WindSpeed;
+                default:
+                    return 0;
+            }
+        }
         #endregion Enums convert
     }
 }

@@ -17,7 +17,7 @@ namespace TransactionManager.TransactionPhases
         private static readonly int LOCKER_TIME_OUT = 600000 * 10; /// 10 minutes
         protected TransactionPhase nextPhase;
 
-        protected ReaderWriterLock transactionStateLocker;
+        protected ReaderWriterLockSlim transactionStateLocker;
         protected ReaderWriterLock phaseLocker;
 
         protected TransactionStateWrapper transactionStateWrapper;
@@ -26,7 +26,7 @@ namespace TransactionManager.TransactionPhases
 
         private readonly Dictionary<string, WCFClient<ITransaction>> services;
 
-        protected TransactionPhase(ReaderWriterLock transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore, Dictionary<string, WCFClient<ITransaction>> services)
+        protected TransactionPhase(ReaderWriterLockSlim transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore, Dictionary<string, WCFClient<ITransaction>> services)
         {
             this.transactionStateLocker = transactionStateLocker;
             this.phaseLocker = phaseLocker;
@@ -117,7 +117,7 @@ namespace TransactionManager.TransactionPhases
 
             try
             {
-                transactionStateLocker.AcquireWriterLock(LOCKER_TIME_OUT);
+                transactionStateLocker.EnterWriteLock();
 
                 if (successfulyExecuted)
                 {
@@ -125,7 +125,7 @@ namespace TransactionManager.TransactionPhases
                     services.Remove(serviceName);
                 }
 
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
             }
             catch (ApplicationException ae)
             {
@@ -135,7 +135,7 @@ namespace TransactionManager.TransactionPhases
             }
             catch (TransactionException te)
             {
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
 
                 DERMSLogger.Instance.Log(te.Message);
 
@@ -143,7 +143,7 @@ namespace TransactionManager.TransactionPhases
             }
             catch (Exception e)
             {
-                transactionStateLocker.ReleaseWriterLock();
+                transactionStateLocker.ExitWriteLock();
 
                 DERMSLogger.Instance.Log(e.Message);
 

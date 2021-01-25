@@ -1,5 +1,6 @@
 ﻿using Common.ServiceInterfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Common.AbstractModel;
 using Common.GDA;
@@ -36,8 +37,41 @@ namespace NetworkManagementService.Components
                 globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
                 class2PropertyIDs.Add(entityDmsType, propIds);
 
-                ri = new ResourceIterator(globalIds, class2PropertyIDs);
+                ri = new ResourceIterator(globalIds, class2PropertyIDs, this);
 
+                retVal = AddIterator(ri);
+                // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("Failed to get extent values for entity type = {0}. {1}", entityType, ex.Message);
+                throw new Exception(message);
+            }
+
+            return retVal;
+        }
+
+        public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)
+        {
+            // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} .", entityType);
+            int retVal = 0;
+            ResourceIterator ri = null;
+
+            try
+            {
+                List<long> globalIds = new List<long>();
+                Dictionary<DMSType, List<ModelCode>> class2PropertyIDs = new Dictionary<DMSType, List<ModelCode>>();
+
+                DMSType entityDmsType = ModelCodeHelper.GetTypeFromModelCode(entityType);
+
+                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
+                globalIds = globalIds.Intersect(gids).ToList();
+
+                class2PropertyIDs.Add(entityDmsType, propIds);
+
+                ri = new ResourceIterator(globalIds, class2PropertyIDs, this);
+
+                retVal = AddIterator(ri);
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, "Getting extent values for entity type = {0} succedded.", entityType);
             }
             catch (Exception ex)
@@ -72,7 +106,7 @@ namespace NetworkManagementService.Components
                     }
                 }
 
-                ri = new ResourceIterator(relatedGids, class2PropertyIDs);
+                ri = new ResourceIterator(relatedGids, class2PropertyIDs, this);
 
                 // LOG CommonTrace.WriteTrace(CommonTrace.TraceVerbose, String.Format("Getting related values for source = 0x{0:x16} succeeded.", source));
 
@@ -140,7 +174,18 @@ namespace NetworkManagementService.Components
 
         public List<ResourceDescription> IteratorNext(int n, int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<ResourceDescription> retVal = GetIterator(id).Next(n);
+
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("IteratorNext failed. Iterator ID = {0}. Resources to fetch count = {1}. {2} ", id, n, ex.Message);
+                
+                throw new Exception(message);
+            }
         }
 
         public int IteratorResourcesLeft(int id)

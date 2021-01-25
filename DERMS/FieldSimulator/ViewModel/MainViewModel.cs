@@ -29,6 +29,7 @@ namespace FieldSimulator.ViewModel
         public MainViewModel() : base("MainViewModel")
         {
             slave = new ModbusSlave(22222);
+            slave.StartServer();
             pointController = new PointController(slave);
             pointController.Initialize();
 

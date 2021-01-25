@@ -52,6 +52,17 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="GDA\GDAProxy.cs" />
+    <Compile Include="ServiceLocator\ServiceLocator.cs" />
+    <Compile Include="TransactionProcessing\Storage\IdentifiedObject.cs" />
+    <Compile Include="TransactionProcessing\Storage\IStorage.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\IStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\StorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\IStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\Storage\ITransactionStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Storage.cs" />
+    <Compile Include="TransactionProcessing\TransactionManager.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\StorageTransactionProcessor.cs" />
     <Compile Include="GDA\Association.cs" />
     <Compile Include="GDA\CompareHelper.cs" />
     <Compile Include="GDA\Delta.cs" />
@@ -63,9 +74,14 @@
     <Compile Include="Logger\DERMSLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCADA\FieldProcessor\ChangeRemotePointValueCommand.cs" />
+    <Compile Include="SCADA\FieldProcessor\Command.cs" />
+    <Compile Include="SCADA\FieldProcessor\ICommanding.cs" />
+    <Compile Include="SCADA\RemotePointFieldValue.cs" />
     <Compile Include="ServiceInterfaces\IModelPromotionParticipant.cs" />
     <Compile Include="ServiceInterfaces\INetworkModelDeltaContract.cs" />
     <Compile Include="ServiceInterfaces\INetworkModelGDAContract.cs" />
+    <Compile Include="ServiceInterfaces\NetworkDynamicsService\IFieldValuesProcessing.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
     <Compile Include="WeatherAPI\IWeatherClient.cs" />
@@ -75,5 +91,6 @@
     <Compile Include="WeatherAPI\WeatherDayXMLParser.cs" />
     <Compile Include="WeatherAPI\WeatherHourData.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
