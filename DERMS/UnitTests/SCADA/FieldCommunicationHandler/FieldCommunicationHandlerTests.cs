@@ -27,7 +27,7 @@ namespace UnitTests.SCADA.FieldCommunicationHandlerTests
         {
             // Assign
             BlockingQueue<byte[]> requestQueue = new BlockingQueue<byte[]>();
-            FieldCommunicationHandler handler = new FieldCommunicationHandler(requestQueue, arbitrator, client, sendDone);
+            FieldCommunicationHandler handler = new FieldCommunicationHandler(requestQueue, client, sendDone);
             byte[] sentData = new byte[] { 1, 2, 3, 4, 5 };
 
             client.When(x => x.Send(sentData))
