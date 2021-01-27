@@ -66,7 +66,7 @@ namespace Common.ComponentStorage
             return true;
         }
 
-        public bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, List<long>> neededGids)
+        public bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> neededGids)
         {
             foreach (var newEntitiesPerType in insertedEntities)
             {
@@ -86,11 +86,12 @@ namespace Common.ComponentStorage
 
                 if (!neededGids.ContainsKey(newEntitiesPerType.Key))
                 {
-                    neededGids[newEntitiesPerType.Key] = new List<long>(newEntitiesPerType.Value);
+                    neededGids[newEntitiesPerType.Key] = new HashSet<long>(newEntitiesPerType.Value);
                 }
 
-                AddAdditionalEntities(neededGids);
             }
+
+            AddAdditionalEntities(insertedEntities, neededGids);
 
             return true;
         }
@@ -98,7 +99,7 @@ namespace Common.ComponentStorage
         protected abstract List<DMSType> GetPrimaryTypes();
 
 
-        protected virtual void AddAdditionalEntities(Dictionary<DMSType, List<long>> newNeededGids)
+        protected virtual void AddAdditionalEntities(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> newNeededGids)
         {
             return;
         }

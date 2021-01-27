@@ -12,7 +12,7 @@ namespace Common.ComponentStorage
 
         bool Rollback();
 
-        bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, List<long>> newNeededGids);
+        bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> newNeededGids);
 
         Dictionary<ModelCode, List<ModelCode>> GetNeededProperties();
     }
