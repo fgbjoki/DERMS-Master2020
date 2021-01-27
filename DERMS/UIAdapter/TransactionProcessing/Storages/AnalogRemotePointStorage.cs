@@ -1,20 +1,16 @@
 ﻿using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.ComponentStorage.StorageItemCreator;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public class RemotePointStorage : Storage<RemotePoint>
+    public class AnalogRemotePointStorage : Storage<RemotePoint>
     {
-        public RemotePointStorage() : base("Remote Point Storage")
+        public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
         }
 
@@ -22,13 +18,12 @@ namespace UIAdapter.TransactionProcessing.Storages
         {
             Dictionary<DMSType, IStorageItemCreator> storageItemCreators = new Dictionary<DMSType, IStorageItemCreator>()
             {
-                { DMSType.MEASUREMENTANALOG, new AnalogRemotePointStorageItemCreator() },
-                { DMSType.MEASUREMENTDISCRETE, new DiscreteRemotePointStorageItemCreator() }
+                { DMSType.MEASUREMENTANALOG, new AnalogRemotePointStorageItemCreator() }
             };
 
             return new List<IStorageTransactionProcessor>()
             {
-                new RemotePointTransactionProcessor(this, storageItemCreators)
+                new AnalogRemotePointTransactionProcessor(this, storageItemCreators)
             };
         }
 

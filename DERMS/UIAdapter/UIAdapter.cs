@@ -4,11 +4,8 @@ using Common.ServiceInterfaces.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
-using System.Text;
-using System.Threading.Tasks;
 using UIAdapter.TransactionProcessing.Storages;
 
 namespace UIAdapter
@@ -21,16 +18,18 @@ namespace UIAdapter
 
         private TransactionManager transactionManager;
 
-        private RemotePointStorage remotePointStorage;
+        private AnalogRemotePointStorage analogRemotePointStorage;
+        private DiscreteRemotePointStorage discreteRemotePointStorage;
 
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
 
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            remotePointStorage = new RemotePointStorage();
+            analogRemotePointStorage = new AnalogRemotePointStorage();
+            discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { remotePointStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
         }
 
         private void LoadConfigurationFromAppConfig()

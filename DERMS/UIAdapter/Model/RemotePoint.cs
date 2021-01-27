@@ -1,13 +1,9 @@
 ﻿using Common.ComponentStorage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Common.UIDataTransferObject.RemotePoints;
 
 namespace UIAdapter.Model
 {
-    public class RemotePoint : IdentifiedObject
+    public abstract class RemotePoint : IdentifiedObject
     {
         public RemotePoint(long globalId) : base(globalId)
         {
@@ -15,18 +11,13 @@ namespace UIAdapter.Model
 
         public string Name { get; set; }
 
-        public string CurrentValue { get; protected set; }
-
         public int Address { get; set; }
 
-        public void PopulateValueField(float value)
+        public protected void PopulateDTO(RemotePointSummaryDTO dto)
         {
-            CurrentValue = value.ToString();
-        }
-
-        public void PopulateValueField(int value)
-        {
-            CurrentValue = value.ToString();
+            dto.Address = Address;
+            dto.GlobalId = GlobalId;
+            dto.Name = Name;
         }
     }
 }

@@ -1,23 +1,26 @@
-﻿namespace UIAdapter.Model
+﻿using Common.UIDataTransferObject.RemotePoints;
+
+namespace UIAdapter.Model
 {
     public class DiscreteRemotePoint : RemotePoint
     {
-        private int value;
-
         public DiscreteRemotePoint(long globalId) : base(globalId)
         {
         }
 
-        public int Value
-        {
-            get { return value; }
-            set
-            {
-                this.value = value;
-                PopulateValueField(value);
-            }
-        }
+        public int Value { get; set;}
 
         public int NormalValue { get; set; }
+
+        public DiscreteRemotePointSummaryDTO CreateDTO()
+        {
+            DiscreteRemotePointSummaryDTO dto = new DiscreteRemotePointSummaryDTO();
+
+            PopulateDTO(dto);
+            dto.Value = Value;
+            dto.NormalValue = NormalValue;
+
+            return dto;
+        }
     }
 }
