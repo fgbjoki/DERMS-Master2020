@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ModelBuilder.Common
+namespace ClientUI.Common
 {
     public class RelayCommand : ICommand
 	{

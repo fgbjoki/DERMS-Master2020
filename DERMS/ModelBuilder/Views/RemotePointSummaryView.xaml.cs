@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModelBuilder.Views
+namespace ClientUI.Views
 {
     /// <summary>
-    /// Interaction logic for StartupView.xaml
+    /// Interaction logic for RemotePointSummaryView.xaml
     /// </summary>
-    public partial class StartupView : Page
+    public partial class RemotePointSummaryView : UserControl
     {
-        public StartupView()
+        public RemotePointSummaryView()
         {
             InitializeComponent();
         }
