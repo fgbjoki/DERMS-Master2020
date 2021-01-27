@@ -9,27 +9,27 @@ namespace ClientUI.CustomControls
 {
     public class SummaryWrapper
     {
-        public SummaryWrapper(string summaryName, SummaryType summaryType, PackIconKind iconKind)
+        public SummaryWrapper(string summaryName, ContentType summaryType, PackIconKind iconKind)
         {
             SummaryType = summaryType;
             SummaryName = summaryName;
             IconKind = iconKind;
         }
 
-        public SummaryType SummaryType { get; private set; }
+        public ContentType SummaryType { get; private set; }
         public string SummaryName { get; private set; }
         public PackIconKind IconKind { get; set; }
     }
 
-    public class SummaryMenuViewModel : BaseViewModel
+    public class ContentMenuViewModel : BaseViewModel
     {
         private SummaryWrapper selectedItem;
 
-        public SummaryMenuViewModel()
+        public ContentMenuViewModel()
         {
             Summaries = new ObservableCollection<SummaryWrapper>()
             {
-                new SummaryWrapper("Remote Point", SummaryType.RemotePointSummary, PackIconKind.Arrow)
+                new SummaryWrapper("Remote Point", ContentType.RemotePointSummary, PackIconKind.Arrow)
             };
 
         }

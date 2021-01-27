@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientUI.SummaryCreator;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace ClientUI.ViewModels
 {
     public abstract class ContentViewModel : BaseViewModel
     {       
-        public ContentViewModel(string pageName)
+        public ContentViewModel(string pageName, ContentType contentType)
         {
             PageName = pageName;
+            ContentType = contentType;
         }
 
-        public string PageName { get; set; }
+        public ContentType ContentType { get; private set; }
+
+        public string PageName { get; private set; }
     }
 }

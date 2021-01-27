@@ -16,14 +16,14 @@ using System.Windows.Shapes;
 namespace ClientUI.CustomControls
 {
     /// <summary>
-    /// Interaction logic for SummaryMenu.xaml
+    /// Interaction logic for ContentMenu.xaml
     /// </summary>
-    public partial class SummaryMenu : UserControl
+    public partial class ContentMenu : UserControl
     {
-        public SummaryMenu()
+        public ContentMenu()
         {
             InitializeComponent();
-            DataContext = new SummaryMenuViewModel();
+            DataContext = new ContentMenuViewModel();
         }
 
         private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
