@@ -1,15 +1,15 @@
-﻿using Common.ComponentStorage;
-using System.Collections.Generic;
-using UIAdapter.Model;
-using Common.AbstractModel;
+﻿using Common.AbstractModel;
+using Common.ComponentStorage;
 using Common.ComponentStorage.StorageItemCreator;
 using Common.GDA;
+using System.Collections.Generic;
+using UIAdapter.Model;
 
 namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
 {
-    class RemotePointTransactionProcessor : StorageTransactionProcessor<RemotePoint>
+    public class DiscreteRemotePointTransactionProcessor : StorageTransactionProcessor<DiscreteRemotePoint>
     {
-        public RemotePointTransactionProcessor(IStorage<RemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
+        public DiscreteRemotePointTransactionProcessor(IStorage<DiscreteRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
         {
         }
 
@@ -17,7 +17,7 @@ namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
         {
             return new List<DMSType>()
             {
-                DMSType.MEASUREMENTANALOG, DMSType.MEASUREMENTDISCRETE
+                DMSType.MEASUREMENTDISCRETE
             };
         }
 
