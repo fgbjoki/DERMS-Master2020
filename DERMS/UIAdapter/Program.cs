@@ -11,7 +11,7 @@ namespace UIAdapter
     {
         static void Main()
         {
-            AsyncMain().GetAwaiter().GetResult();
+            TestMain().GetAwaiter().GetResult();
         }
 
 
@@ -21,6 +21,26 @@ namespace UIAdapter
 
             var endpointConfiguration = new EndpointConfiguration("UIAdapter");
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+
+            Console.WriteLine("Press Enter to exit...");
+            Console.ReadLine();
+
+            await endpointInstance.Stop().ConfigureAwait(false);
+        }
+
+        static async Task TestMain()
+        {
+            Console.Title = "Test UIAdapter";
+
+            var endpointConfiguration = new EndpointConfiguration("UIAdapter");
+            RemotePointValueChangedHandler handler = new RemotePointValueChangedHandler("Pera");
+            endpointConfiguration.RegisterComponents(
+            registration: configureComponents =>
+            {
+                configureComponents.RegisterSingleton(handler);
+            });
+            endpointConfiguration.UseTransport<LearningTransport>();
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 
             Console.WriteLine("Press Enter to exit...");

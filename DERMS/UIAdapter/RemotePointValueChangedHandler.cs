@@ -13,6 +13,14 @@ namespace UIAdapter
     {
         static ILog log = LogManager.GetLogger<RemotePointValueChangedHandler>();
 
+        private string name;
+
+        public RemotePointValueChangedHandler(string name)
+        {
+            log.Info("Consturctor oooooooooooooo");
+            this.name = name;
+        }
+
         public Task Handle(RemotePointValueChanged message, IMessageHandlerContext context)
         {
             log.Info($"Received RemotePointValueChanged, GID = {message.GID}, Value = {message.Value}");
