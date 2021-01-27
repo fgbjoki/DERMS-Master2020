@@ -3,11 +3,11 @@ namespace ClientUI.SummaryCreator
 {
     public class ChangeSummaryEventArgs
     {
-        public ChangeSummaryEventArgs(SummaryType summaryType)
+        public ChangeSummaryEventArgs(ContentType summaryType)
         {
             SummaryType = summaryType;
         }
 
-        public SummaryType SummaryType { get; set; }
+        public ContentType SummaryType { get; set; }
     }
 }

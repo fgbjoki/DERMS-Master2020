@@ -7,40 +7,43 @@ using System.Threading.Tasks;
 
 namespace ClientUI.SummaryCreator
 {
-    public enum SummaryType
+    public enum ContentType
     {
         RemotePointSummary
     }
 
     public class SummaryViewModelContainer
     {
-        private Dictionary<SummaryType, ContentViewModel> viewModelsCreated;
+        private Dictionary<ContentType, ContentViewModel> viewModelsCreated;
 
         public SummaryViewModelContainer()
         {
-            viewModelsCreated = new Dictionary<SummaryType, ContentViewModel>();
+            List<ContentViewModel> contentViewModels = CreateViewModels();
+            viewModelsCreated = new Dictionary<ContentType, ContentViewModel>(contentViewModels.Count);
+
+            foreach (var contentViewModel in contentViewModels)
+            {
+                viewModelsCreated.Add(contentViewModel.ContentType, contentViewModel);
+            }
         }
 
-        public ContentViewModel GetContent(SummaryType summaryType)
+        public ContentViewModel GetContent(ContentType summaryType)
         {
             ContentViewModel contentViewModel;
             if (!viewModelsCreated.TryGetValue(summaryType, out contentViewModel))
             {
-                contentViewModel = CreateViewModel(summaryType);
+                return null;
             }
 
             return contentViewModel;
         }
 
-        private ContentViewModel CreateViewModel(SummaryType summaryType)
+        private List<ContentViewModel> CreateViewModels()
         {
-            switch (summaryType)
+            return new List<ContentViewModel>()
             {
-                case SummaryType.RemotePointSummary:
-                    return new RemotePointSummaryViewModel();
-                default:
-                    return null;
-            }
+                new RemotePointSummaryViewModel()
+            };
         }
     }
 }

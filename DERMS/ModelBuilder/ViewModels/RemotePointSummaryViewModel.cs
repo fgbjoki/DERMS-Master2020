@@ -8,7 +8,7 @@ namespace ClientUI.ViewModels
 {
     public class RemotePointSummaryViewModel : ContentViewModel
     {
-        public RemotePointSummaryViewModel() : base("Remote Point Summary")
+        public RemotePointSummaryViewModel() : base("Remote Point Summary", SummaryCreator.ContentType.RemotePointSummary)
         {
 
         }

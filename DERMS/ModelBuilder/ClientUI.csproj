@@ -91,11 +91,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\RelayCommand.cs" />
-    <Compile Include="CustomControls\SummaryMenuControl\ListViewClickedCommand.cs" />
-    <Compile Include="CustomControls\SummaryMenuControl\SummaryMenu.xaml.cs">
-      <DependentUpon>SummaryMenu.xaml</DependentUpon>
+    <Compile Include="CustomControls\ContentMenu\ContentMenu.xaml.cs">
+      <DependentUpon>ContentMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControls\SummaryMenuControl\SummaryMenuViewModel.cs" />
+    <Compile Include="CustomControls\ContentMenu\ContentMenuViewModel.cs" />
     <Compile Include="SummaryCreator\ChangeSummaryEvent.cs" />
     <Compile Include="SummaryCreator\ChangeSummaryEventArgs.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
@@ -128,7 +127,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CustomControls\SummaryMenuControl\SummaryMenu.xaml">
+    <Page Include="CustomControls\ContentMenu\ContentMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

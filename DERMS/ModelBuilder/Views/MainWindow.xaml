@@ -31,7 +31,7 @@
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         
-        <customControls:SummaryMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
+        <customControls:ContentMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
         <ContentControl Content="{Binding ContentViewModel}" Grid.Column="1"/>
     </Grid>
 </Window>
