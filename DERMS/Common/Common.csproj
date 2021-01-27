@@ -84,6 +84,9 @@
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\IFieldValuesProcessing.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
+    <Compile Include="UIDataTransferObject\RemotePoints\AnalogRemotePointSummaryDTO.cs" />
+    <Compile Include="UIDataTransferObject\RemotePoints\DiscreteRemotePointSummaryDTO.cs" />
+    <Compile Include="UIDataTransferObject\RemotePoints\RemotePointSummaryDTO.cs" />
     <Compile Include="WeatherAPI\IWeatherClient.cs" />
     <Compile Include="WeatherAPI\WeatherApiClient.cs" />
     <Compile Include="WeatherAPI\WeatherDataEnumerator.cs" />
