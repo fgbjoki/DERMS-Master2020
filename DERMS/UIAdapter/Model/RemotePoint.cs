@@ -13,7 +13,7 @@ namespace UIAdapter.Model
 
         public int Address { get; set; }
 
-        public protected void PopulateDTO(RemotePointSummaryDTO dto)
+        protected void PopulateDTO(RemotePointSummaryDTO dto)
         {
             dto.Address = Address;
             dto.GlobalId = GlobalId;
