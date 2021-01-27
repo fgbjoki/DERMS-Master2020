@@ -20,7 +20,7 @@ namespace Common.ComponentStorage
 
         private GDAProxy gdaProxy;
 
-        private Dictionary<DMSType, List<long>> newNeededGids;
+        private Dictionary<DMSType, HashSet<long>> newNeededGids;
 
         public TransactionManager(string serviceName, string serviceEndpoint)
         {
@@ -34,7 +34,7 @@ namespace Common.ComponentStorage
 
         public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
         {
-            newNeededGids = new Dictionary<DMSType, List<long>>();
+            newNeededGids = new Dictionary<DMSType, HashSet<long>>();
             Dictionary<DMSType, List<long>> groupedEntities = insertedEntities.GroupBy(x => (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(x)).ToDictionary(x => x.Key, x => x.ToList());
 
             foreach (var transactionProcessor in transactionProcessors)
@@ -116,7 +116,7 @@ namespace Common.ComponentStorage
 
             foreach (var typeProperties in neededProperties)
             {
-                List<ResourceDescription> rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, newNeededGids[ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key)]);
+                List<ResourceDescription> rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, newNeededGids[ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key)].ToList());
 
                 if (rds?.Count > 0)
                 {

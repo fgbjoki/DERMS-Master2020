@@ -32,6 +32,7 @@
 	</cim:ConnectivityNode>
 	
 	<cim:Breaker rdf:ID="breaker0">
+		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Breaker</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>breaker0</cim:IdentifiedObject.mRID>
@@ -245,14 +246,12 @@
 	</cim:Analog>
 	
 	<cim:Discrete rdf:ID="BreakerState">
-		<tdms:Discrete.currentOpen>False</tdms:Discrete.currentOpen>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
-		<cim:Discrete.normalOpen>False</cim:Discrete.normalOpen>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#SubstationGrbavica"/>
+		<cim:Measurement.PowerSystemResource rdf:resource="#breaker0"/>
 		<cim:Measurement.Terminal rdf:resource="#ter_br0"/>
 		<cim:IdentifiedObject.description>Describes breaker state.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>BreakerState</cim:IdentifiedObject.mRID>

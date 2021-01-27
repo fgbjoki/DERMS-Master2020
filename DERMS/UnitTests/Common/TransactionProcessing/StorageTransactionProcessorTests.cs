@@ -27,7 +27,7 @@ namespace UnitTests.Common.TransactionProcessing
             DMSType dmsType = DMSType.ENERGYCONSUMER;
             List<long> newEntities = CreateGids(dmsType, 5);
 
-            Dictionary<DMSType, List<long>> neededEntities = new Dictionary<DMSType, List<long>>();
+            Dictionary<DMSType, HashSet<long>> neededEntities = new Dictionary<DMSType, HashSet<long>>();
             Dictionary<DMSType, List<long>> insertedEntities = new Dictionary<DMSType, List<long>>()
             {
                 { dmsType, newEntities },
@@ -52,7 +52,7 @@ namespace UnitTests.Common.TransactionProcessing
             DMSType dmsType = DMSType.ENERGYCONSUMER;
             List<long> newEntities = CreateGids(dmsType, 5);
 
-            Dictionary<DMSType, List<long>> neededEntities = new Dictionary<DMSType, List<long>>();
+            Dictionary<DMSType, HashSet<long>> neededEntities = new Dictionary<DMSType, HashSet<long>>();
             Dictionary<DMSType, List<long>> insertedEntities = new Dictionary<DMSType, List<long>>()
             {
                 { dmsType, newEntities },

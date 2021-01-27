@@ -111,6 +111,7 @@ namespace NetworkManagementService.DataModel.Measurement
                     break;
 
                 default:
+                    base.SetProperty(property);
                     break;
             }
         }

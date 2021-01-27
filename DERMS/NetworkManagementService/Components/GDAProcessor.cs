@@ -34,7 +34,7 @@ namespace NetworkManagementService.Components
 
                 DMSType entityDmsType = ModelCodeHelper.GetTypeFromModelCode(entityType);
 
-                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
+                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType, ModelAccessScope.ApplyDelta);
                 class2PropertyIDs.Add(entityDmsType, propIds);
 
                 ri = new ResourceIterator(globalIds, class2PropertyIDs, this);
@@ -64,7 +64,7 @@ namespace NetworkManagementService.Components
 
                 DMSType entityDmsType = ModelCodeHelper.GetTypeFromModelCode(entityType);
 
-                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType);
+                globalIds = storageComponent.GetEntitiesIdByDMSType(entityDmsType, ModelAccessScope.ApplyDelta);
                 globalIds = globalIds.Intersect(gids).ToList();
 
                 class2PropertyIDs.Add(entityDmsType, propIds);
@@ -130,7 +130,7 @@ namespace NetworkManagementService.Components
 
             try
             {
-                IdentifiedObject io = storageComponent.GetEntity(resourceId);
+                IdentifiedObject io = storageComponent.GetEntity(resourceId, ModelAccessScope.ApplyDelta);
 
                 ResourceDescription rd = new ResourceDescription(resourceId);
 
@@ -244,7 +244,7 @@ namespace NetworkManagementService.Components
                 association = new Association();
             }
 
-            IdentifiedObject io = storageComponent.GetEntity(source);
+            IdentifiedObject io = storageComponent.GetEntity(source, ModelAccessScope.ApplyDelta);
 
             if (!io.HasProperty(association.PropertyId))
             {
