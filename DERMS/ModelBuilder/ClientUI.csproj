@@ -121,6 +121,9 @@
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
+    <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
+    <Compile Include="ValidationRules\BinaryValueValidationRule.cs" />
+    <Compile Include="ValidationRules\IsTextNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
