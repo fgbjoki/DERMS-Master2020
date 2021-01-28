@@ -7,17 +7,19 @@
         xmlns:local="clr-namespace:ClientUI.ViewModels"
         xmlns:view="clr-namespace:ClientUI.Views"
         xmlns:viewModels="clr-namespace:ClientUI.ViewModels"
+        xmlns:analogRemotePointViewModel="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="700"
+        MinWidth="800"
+        Title="MainWindow" Height="700"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type viewModels:RemotePointSummaryViewModel}">
-            <view:RemotePointSummaryView/>
+        <DataTemplate DataType="{x:Type analogRemotePointViewModel:AnalogRemotePointSummaryViewModel}">
+            <view:AnalogRemotePointSummaryView/>
         </DataTemplate>
     </Window.Resources>
 
@@ -28,10 +30,17 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        
         <customControls:ContentMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
-        <ContentControl Content="{Binding ContentViewModel}" Grid.Column="1"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding ContentViewModel.PageName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+            <ContentControl Content="{Binding ContentViewModel}" Grid.Row="1"/>
+        </Grid>
+        
     </Grid>
 </Window>

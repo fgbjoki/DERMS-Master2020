@@ -1,5 +1,7 @@
 ﻿
-namespace ClientUI.SummaryCreator
+using ClientUI.SummaryCreator;
+
+namespace ClientUI.Events.ChangeSummary
 {
     public class ChangeSummaryEventArgs
     {

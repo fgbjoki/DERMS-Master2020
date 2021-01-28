@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientUI.SummaryCreator
+namespace ClientUI.Events.ChangeSummary
 {
     public class ChangeSummaryEvent : PubSubEvent<ChangeSummaryEventArgs>
     {
