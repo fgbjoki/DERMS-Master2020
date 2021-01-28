@@ -25,7 +25,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,12 +45,20 @@
       <HintPath>..\packages\MaterialDesignThemes.3.2.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.7.4.4\lib\net452\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=8.0.0.1909, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
@@ -72,6 +80,12 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -90,13 +104,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\AnalogRemotePointCommandingWindowHandler.cs" />
+    <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
+    <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="CustomControls\CommandWindow.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentMenu.xaml.cs">
       <DependentUpon>ContentMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\ContentMenu\ContentMenuViewModel.cs" />
-    <Compile Include="SummaryCreator\ChangeSummaryEvent.cs" />
-    <Compile Include="SummaryCreator\ChangeSummaryEventArgs.cs" />
+    <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
+    <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
+    <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEvent.cs" />
+    <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEventArgs.cs" />
+    <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEventArgs.cs" />
+    <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -104,14 +126,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\CommandingWindow\AnalogRemotePointCommandingViewModel.cs" />
+    <Compile Include="ViewModels\CommandingWindow\CommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\RemotePointSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\RemotePointSummaries\AnalogRemotePointSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\SummaryViewModel.cs" />
+    <Compile Include="Views\CommandingWindow\AnalogRemotePointCommandingWindowView.xaml.cs">
+      <DependentUpon>AnalogRemotePointCommandingWindowView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RemotePointSummaryView.xaml.cs">
-      <DependentUpon>RemotePointSummaryView.xaml</DependentUpon>
+    <Compile Include="Views\AnalogRemotePointSummaryView.xaml.cs">
+      <DependentUpon>AnalogRemotePointSummaryView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -124,10 +153,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="CustomControls\ContentMenu\ContentMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommandingWindow\AnalogRemotePointCommandingWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,10 +171,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RemotePointSummaryView.xaml">
+    <Page Include="Views\AnalogRemotePointSummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DynamicHandlers\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

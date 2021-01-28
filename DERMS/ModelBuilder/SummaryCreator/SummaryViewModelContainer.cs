@@ -1,15 +1,13 @@
 ﻿using ClientUI.ViewModels;
-using System;
+using ClientUI.ViewModels.Summaries.RemotePointSummaries;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClientUI.SummaryCreator
 {
     public enum ContentType
     {
-        RemotePointSummary
+        AnalogRemotePointSummary,
+        AnalogRemotePointCommandingWindow
     }
 
     public class SummaryViewModelContainer
@@ -19,6 +17,7 @@ namespace ClientUI.SummaryCreator
         public SummaryViewModelContainer()
         {
             List<ContentViewModel> contentViewModels = CreateViewModels();
+
             viewModelsCreated = new Dictionary<ContentType, ContentViewModel>(contentViewModels.Count);
 
             foreach (var contentViewModel in contentViewModels)
@@ -40,10 +39,18 @@ namespace ClientUI.SummaryCreator
 
         private List<ContentViewModel> CreateViewModels()
         {
-            return new List<ContentViewModel>()
-            {
-                new RemotePointSummaryViewModel()
-            };
+            return CreateSummaryViewModels();
+        }
+
+        private List<ContentViewModel> CreateSummaryViewModels()
+        {
+            List<ContentViewModel> summaries = new List<ContentViewModel>();
+            AnalogRemotePointSummaryViewModel analogSummaryView = new AnalogRemotePointSummaryViewModel();
+
+            summaries.Add(analogSummaryView);
+
+
+            return summaries;
         }
     }
 }

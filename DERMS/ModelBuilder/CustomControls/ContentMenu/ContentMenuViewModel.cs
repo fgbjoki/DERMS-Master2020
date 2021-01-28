@@ -1,4 +1,5 @@
 ﻿using ClientUI.Common;
+using ClientUI.Events.ChangeSummary;
 using ClientUI.SummaryCreator;
 using ClientUI.ViewModels;
 using MaterialDesignThemes.Wpf;
@@ -29,7 +30,7 @@ namespace ClientUI.CustomControls
         {
             Summaries = new ObservableCollection<SummaryWrapper>()
             {
-                new SummaryWrapper("Remote Point", ContentType.RemotePointSummary, PackIconKind.Arrow)
+                new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.Arrow)
             };
 
         }

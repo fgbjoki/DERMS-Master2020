@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ClientUI.Views
 {
     /// <summary>
-    /// Interaction logic for RemotePointSummaryView.xaml
+    /// Interaction logic for AnalogRemotePointSummaryView.xaml
     /// </summary>
-    public partial class RemotePointSummaryView : UserControl
+    public partial class AnalogRemotePointSummaryView : UserControl
     {
-        public RemotePointSummaryView()
+        public AnalogRemotePointSummaryView()
         {
             InitializeComponent();
         }

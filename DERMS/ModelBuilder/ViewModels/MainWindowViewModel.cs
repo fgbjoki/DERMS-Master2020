@@ -1,4 +1,5 @@
-﻿using ClientUI.SummaryCreator;
+﻿using ClientUI.Events.ChangeSummary;
+using ClientUI.SummaryCreator;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Events;
 using System;
