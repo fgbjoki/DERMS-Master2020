@@ -7,6 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientUI.ViewModels.CommandingWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
         mc:Ignorable="d"
         Title="AnalogRemotePointCommandingWindowView" Height="600" Width="500"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -55,7 +56,6 @@
                     <TextBlock Text="Commanding" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
 
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBox Width="150" Margin="0,0,30,0"/>
                             <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0">
                                 <TextBox.Text>
                                     <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
