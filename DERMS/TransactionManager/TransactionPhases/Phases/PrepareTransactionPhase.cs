@@ -60,14 +60,22 @@ namespace TransactionManager.TransactionPhases
 
                 isFunctionSuccessful = serviceClient.Proxy.Prepare();
 
+                phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
+
                 preparedServices.Add(serviceName, serviceClient);
 
-                enlistedServices.Remove(serviceName);
+                phaseLocker.ReleaseWriterLock();
             }
             catch
             {
                 isFunctionSuccessful = false;
             }
+
+            phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
+
+            enlistedServices.Remove(serviceName);
+
+            phaseLocker.ReleaseWriterLock();
 
             string messageAddition = isFunctionSuccessful == true ? "successful" : "unsuccessful";
             DERMSLogger.Instance.Log($"[ExecutePhases] Prepare phase on \"{serviceName}\" was {messageAddition}.");
