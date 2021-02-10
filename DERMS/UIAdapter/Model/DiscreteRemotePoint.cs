@@ -2,7 +2,7 @@
 
 namespace UIAdapter.Model
 {
-    public class DiscreteRemotePoint : RemotePoint
+    public class DiscreteRemotePoint : RemotePoint<DiscreteRemotePointSummaryDTO>
     {
         public DiscreteRemotePoint(long globalId) : base(globalId)
         {
@@ -12,15 +12,20 @@ namespace UIAdapter.Model
 
         public int NormalValue { get; set; }
 
-        public DiscreteRemotePointSummaryDTO CreateDTO()
+        public override DiscreteRemotePointSummaryDTO CreateDTO()
         {
             DiscreteRemotePointSummaryDTO dto = new DiscreteRemotePointSummaryDTO();
 
             PopulateDTO(dto);
+            
+            return dto;
+        }
+
+        protected override void PopulateDTO(DiscreteRemotePointSummaryDTO dto)
+        {
+            base.PopulateDTO(dto);
             dto.Value = Value;
             dto.NormalValue = NormalValue;
-
-            return dto;
         }
     }
 }

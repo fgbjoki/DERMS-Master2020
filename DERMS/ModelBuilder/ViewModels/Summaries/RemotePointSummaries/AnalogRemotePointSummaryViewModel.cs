@@ -4,39 +4,27 @@ using ClientUI.Common;
 using System.Windows.Input;
 using ClientUI.Events.OpenCommandingWindow;
 using System;
+using System.Timers;
+using Common.Communication;
+using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using ClientUI.Models.RemotePoints;
 
 namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
 {
-    public class AnalogRemotePointSummaryViewModel : CommandingSummaryViewModel<AnalogRemotePointSummaryDTO, AnalogRemotePointOpenCommandingWindowEvent, AnalogRemotePointOpenCommandingWindowEventArgs>
+    public class AnalogRemotePointSummaryViewModel : CommandingSummaryViewModel<AnalogRemotePointSummaryItem, AnalogRemotePointSummaryDTO, AnalogRemotePointOpenCommandingWindowEvent, AnalogRemotePointOpenCommandingWindowEventArgs>
     {
+        private WCFClient<IAnalogRemotePointSummaryJob> summaryJob;
+
         public AnalogRemotePointSummaryViewModel() : base("Analog Remote Point Summary", ContentType.AnalogRemotePointSummary)
         {
-            // TODO REMOVE THIS, GET ITEMS FROM UIADAPTER INSTEAD
-            CreateSampleItems();
+            summaryJob = new WCFClient<IAnalogRemotePointSummaryJob>("uiAdapterEndpoint");
 
             DataGridItemDoubleClicked = new RelayCommand(DataGridItemSelected, null);
         }
 
-        private void CreateSampleItems()
-        {
-            Items.Add(new AnalogRemotePointSummaryDTO() { GlobalId = 1, Name = "AnalogTest1", Address = 1, Value = 2 });
-            Items.Add(new AnalogRemotePointSummaryDTO() { GlobalId = 2, Name = "BrzaTacka", Address = 3, Value = 22 });
-            Items.Add(new AnalogRemotePointSummaryDTO() { GlobalId = 3, Name = "Spora Tacka", Address = 11, Value = 10 });
-            Items.Add(new AnalogRemotePointSummaryDTO() { GlobalId = 4, Name = "Wauuuuuuu", Address = 51, Value = 51 });
-        }
-
         public ICommand DataGridItemDoubleClicked { get; set; }
-
-        protected override AnalogRemotePointOpenCommandingWindowEventArgs TransformGridDataToEventArg(AnalogRemotePointSummaryDTO selectedItem)
-        {
-            return new AnalogRemotePointOpenCommandingWindowEventArgs()
-            {
-                GlobalId = selectedItem.GlobalId,
-                Address = selectedItem.Address,
-                Name = selectedItem.Name,
-                Value = selectedItem.Value
-            };
-        }
 
         private void DataGridItemSelected(object item)
         {
@@ -45,7 +33,35 @@ namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
                 return;
             }
 
-            RaiseEventForCommandingWindow(item as AnalogRemotePointSummaryDTO);
+            RaiseEventForCommandingWindow(item as AnalogRemotePointSummaryItem);
+        }
+
+        protected override List<AnalogRemotePointSummaryDTO> GetEntitiesFromService()
+        {
+            List<AnalogRemotePointSummaryDTO> items;
+            try
+            {
+                items = summaryJob.Proxy.GetAllEntities();
+            }
+            catch
+            {
+                items = new List<AnalogRemotePointSummaryDTO>();
+            }
+
+            // TODO CONVERT FROM DTO TO SUMMARYITEM
+
+            return items;
+        }
+
+        protected override AnalogRemotePointOpenCommandingWindowEventArgs TransformGridDataToEventArg(AnalogRemotePointSummaryItem selectedItem)
+        {
+            return new AnalogRemotePointOpenCommandingWindowEventArgs()
+            {
+                GlobalId = selectedItem.GlobalId,
+                Address = selectedItem.Address,
+                Name = selectedItem.Name,
+                Value = selectedItem.Value
+            };
         }
     }
 }

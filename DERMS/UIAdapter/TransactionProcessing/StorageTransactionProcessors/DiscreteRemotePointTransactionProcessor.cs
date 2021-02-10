@@ -3,13 +3,14 @@ using Common.ComponentStorage;
 using Common.ComponentStorage.StorageItemCreator;
 using Common.GDA;
 using System.Collections.Generic;
+using System.Threading;
 using UIAdapter.Model;
 
 namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
 {
-    public class DiscreteRemotePointTransactionProcessor : StorageTransactionProcessor<DiscreteRemotePoint>
+    public class DiscreteRemotePointTransactionProcessor : SummaryTransactionProcessor<DiscreteRemotePoint>
     {
-        public DiscreteRemotePointTransactionProcessor(IStorage<DiscreteRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
+        public DiscreteRemotePointTransactionProcessor(IStorage<DiscreteRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators, AutoResetEvent commitDone) : base(storage, storageItemCreators, commitDone)
         {
         }
 

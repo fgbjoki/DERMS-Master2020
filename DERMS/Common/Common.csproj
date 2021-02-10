@@ -53,6 +53,7 @@
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceLocator\ServiceLocator.cs" />
     <Compile Include="TransactionProcessing\Storage\IdentifiedObject.cs" />
     <Compile Include="TransactionProcessing\Storage\IStorage.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\IFieldValuesProcessing.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
+    <Compile Include="UIDataTransferObject\IdentifiedObjectDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\AnalogRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\DiscreteRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\RemotePointSummaryDTO.cs" />

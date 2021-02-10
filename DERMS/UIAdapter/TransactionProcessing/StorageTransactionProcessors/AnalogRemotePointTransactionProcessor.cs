@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UIAdapter.Model;
 using Common.AbstractModel;
 using Common.ComponentStorage.StorageItemCreator;
+using System.Threading;
 
 namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
 {
-    class AnalogRemotePointTransactionProcessor : StorageTransactionProcessor<RemotePoint>
+    class AnalogRemotePointTransactionProcessor : SummaryTransactionProcessor<AnalogRemotePoint>
     {
-        public AnalogRemotePointTransactionProcessor(IStorage<RemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
+        public AnalogRemotePointTransactionProcessor(IStorage<AnalogRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators, AutoResetEvent commitDone) : base(storage, storageItemCreators, commitDone)
         {
         }
 

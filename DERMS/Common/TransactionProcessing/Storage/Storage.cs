@@ -1,6 +1,7 @@
 ﻿using Common.Logger;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Common.ComponentStorage
 {
@@ -11,9 +12,17 @@ namespace Common.ComponentStorage
 
         protected string storageName;
 
+        protected ReaderWriterLockSlim locker;
+
+        protected AutoResetEvent commitDone;
+
         public Storage(string storageName)
         {
+            commitDone = new AutoResetEvent(false);
+
             this.storageName = storageName;
+
+            locker = new ReaderWriterLockSlim();
 
             items = new Dictionary<long, T>();
         }
@@ -32,30 +41,47 @@ namespace Common.ComponentStorage
                 return false;
             }
 
+            locker.EnterWriteLock();
             items.Add(item.GlobalId, item);
+            locker.ExitWriteLock();
 
             return true;
         }
 
         public List<T> GetAllEntities()
         {
-            return items.Values.ToList();
+            locker.EnterReadLock();
+            List<T> allEntities = items.Values.ToList();
+            locker.ExitReadLock();
+
+            return allEntities;
         }
 
         public T GetEntity(long globalId)
         {
+            locker.EnterReadLock();
+
             if (EntityExists(globalId))
             {
+                locker.ExitReadLock();
                 return items[globalId];
             }
+
+            locker.ExitReadLock();
 
             return null;
         }
 
         public bool EntityExists(long globalId)
-        {
-            return items.ContainsKey(globalId);
+        {       
+            locker.EnterReadLock();
+            bool entityExists = items.ContainsKey(globalId);
+            locker.ExitReadLock();
+
+            return entityExists;
         }
+
+        public AutoResetEvent Commited { get { return commitDone; } }
 
         public abstract List<IStorageTransactionProcessor> GetStorageTransactionProcessors();
 

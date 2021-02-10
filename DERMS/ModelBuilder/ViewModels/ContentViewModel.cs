@@ -19,5 +19,8 @@ namespace ClientUI.ViewModels
         public ContentType ContentType { get; private set; }
 
         public string PageName { get; private set; }
+
+        public abstract void StartProcessing();
+        public abstract void StopProcessing();
     }
 }

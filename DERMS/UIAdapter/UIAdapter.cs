@@ -1,17 +1,20 @@
 ﻿using Common.ComponentStorage;
 using Common.ServiceInterfaces;
 using Common.ServiceInterfaces.Transaction;
+using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using UIAdapter.TransactionProcessing.Storages;
+using Common.UIDataTransferObject.RemotePoints;
+using UIAdapter.SummaryJobs;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -20,6 +23,8 @@ namespace UIAdapter
 
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
+
+        private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
 
         public UIAdapter()
         {
@@ -30,6 +35,8 @@ namespace UIAdapter
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
             transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
+
+            InitializeJobs();
         }
 
         private void LoadConfigurationFromAppConfig()
@@ -67,6 +74,16 @@ namespace UIAdapter
         public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
         {
             return transactionManager.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
+        }
+
+        public List<AnalogRemotePointSummaryDTO> GetAllEntities()
+        {
+            return analogRemotePointSummaryJob.GetAllEntities();
+        }
+
+        private void InitializeJobs()
+        {
+            analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
         }
     }
 }

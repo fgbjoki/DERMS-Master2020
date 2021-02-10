@@ -5,7 +5,6 @@ using Common.AbstractModel;
 using Common.ComponentStorage.StorageItemCreator;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Common.Logger;
-using FieldProcessor.ValueExtractor;
 using Common.ServiceLocator;
 using FieldProcessor.RemotePointAddressCollector;
 
