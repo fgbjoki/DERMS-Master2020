@@ -8,7 +8,7 @@ using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public class AnalogRemotePointStorage : Storage<RemotePoint>
+    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>
     {
         public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
@@ -23,11 +23,11 @@ namespace UIAdapter.TransactionProcessing.Storages
 
             return new List<IStorageTransactionProcessor>()
             {
-                new AnalogRemotePointTransactionProcessor(this, storageItemCreators)
+                new AnalogRemotePointTransactionProcessor(this, storageItemCreators, commitDone)
             };
         }
 
-        public override bool ValidateEntity(RemotePoint entity)
+        public override bool ValidateEntity(AnalogRemotePoint entity)
         {
             return true;
         }

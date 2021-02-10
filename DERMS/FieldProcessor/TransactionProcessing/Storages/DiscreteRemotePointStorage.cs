@@ -7,7 +7,6 @@ using FieldProcessor.Model;
 using FieldProcessor.RemotePointAddressCollector;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using FieldProcessor.TransactionProcessing.TransactionProcessors;
-using FieldProcessor.ValueExtractor;
 using System.Collections.Generic;
 
 namespace FieldProcessor.TransactionProcessing.Storages

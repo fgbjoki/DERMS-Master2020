@@ -21,7 +21,14 @@ namespace ClientUI.ViewModels
 
         private void ChangeViewModel(ChangeSummaryEventArgs eventArgs)
         {
+            if (ContentViewModel != null)
+            {
+                ContentViewModel.StopProcessing();
+            }
+
             ContentViewModel = SummaryManager.Instance.ViewModelContainer.GetContent(eventArgs.SummaryType);
+
+            ContentViewModel.StartProcessing();
         }
 
         public ContentViewModel ContentViewModel

@@ -2,7 +2,7 @@
 
 namespace UIAdapter.Model
 {
-    public class AnalogRemotePoint : RemotePoint
+    public class AnalogRemotePoint : RemotePoint<AnalogRemotePointSummaryDTO>
     {
         public AnalogRemotePoint(long globalId) : base(globalId)
         {
@@ -10,14 +10,19 @@ namespace UIAdapter.Model
 
         public float Value { get; set; }
 
-        public AnalogRemotePointSummaryDTO CreateDTO()
+        public override AnalogRemotePointSummaryDTO CreateDTO()
         {
             AnalogRemotePointSummaryDTO dto = new AnalogRemotePointSummaryDTO();
 
             PopulateDTO(dto);
-            dto.Value = Value;
-
+           
             return dto;
+        }
+
+        protected override void PopulateDTO(AnalogRemotePointSummaryDTO dto)
+        {
+            base.PopulateDTO(dto);
+            dto.Value = Value;
         }
     }
 }

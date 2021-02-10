@@ -113,12 +113,17 @@
       <DependentUpon>ContentMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\ContentMenu\ContentMenuViewModel.cs" />
+    <Compile Include="CustomControls\GIDMappedObservableCollection.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEvent.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
+    <Compile Include="Models\IdentifiedObject.cs" />
+    <Compile Include="Models\RemotePoints\AnalogRemotePointSummaryItem.cs" />
+    <Compile Include="Models\RemotePoints\DiscreteRemotePointSummaryItem.cs" />
+    <Compile Include="Models\RemotePoints\RemotePointSummaryItem.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
@@ -181,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DynamicHandlers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />

@@ -23,7 +23,7 @@ namespace UIAdapter.TransactionProcessing.Storages
 
             return new List<IStorageTransactionProcessor>()
             {
-                new DiscreteRemotePointTransactionProcessor(this, storageItemCreators)
+                new DiscreteRemotePointTransactionProcessor(this, storageItemCreators, commitDone)
             };
         }
 
