@@ -8,5 +8,10 @@
         }
 
         public long GlobalId { get; private set; }
+
+        public virtual void Update(IdentifiedObject entity)
+        {
+
+        }
     }
 }

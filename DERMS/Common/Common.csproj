@@ -31,10 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.7.4.4\lib\net452\NServiceBus.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +59,7 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="DynamicMessages\AnalogRemotePointValueChanged.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceLocator\ServiceLocator.cs" />
@@ -96,6 +104,11 @@
     <Compile Include="WeatherAPI\WeatherDayXMLParser.cs" />
     <Compile Include="WeatherAPI\WeatherHourData.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

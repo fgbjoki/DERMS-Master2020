@@ -59,17 +59,18 @@ namespace Common.ComponentStorage
 
         public T GetEntity(long globalId)
         {
+            if (!EntityExists(globalId))
+            {
+                return null;
+            }
+
             locker.EnterReadLock();
 
-            if (EntityExists(globalId))
-            {
-                locker.ExitReadLock();
-                return items[globalId];
-            }
+            T entity =  items[globalId];
 
             locker.ExitReadLock();
 
-            return null;
+            return entity;
         }
 
         public bool EntityExists(long globalId)

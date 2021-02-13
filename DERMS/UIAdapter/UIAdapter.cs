@@ -10,6 +10,7 @@ using System.ServiceModel.Configuration;
 using UIAdapter.TransactionProcessing.Storages;
 using Common.UIDataTransferObject.RemotePoints;
 using UIAdapter.SummaryJobs;
+using UIAdapter.DynamicHandlers;
 
 namespace UIAdapter
 {
@@ -26,6 +27,8 @@ namespace UIAdapter
 
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
 
+        private DynamicHandlersManager dynamicHandlersManager;
+
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
@@ -37,23 +40,7 @@ namespace UIAdapter
             transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
 
             InitializeJobs();
-        }
-
-        private void LoadConfigurationFromAppConfig()
-        {
-            ServicesSection serviceSection = ConfigurationManager.GetSection("system.serviceModel/services") as ServicesSection;
-            ServiceEndpointElementCollection endpoints = serviceSection.Services[0].Endpoints;
-            string transactionAddition = String.Empty;
-            for (int i = 0; i < endpoints.Count; i++)
-            {
-                ServiceEndpointElement endpoint = endpoints[i];
-                if (endpoint.Contract.Equals(typeof(ITransaction).ToString()))
-                {
-                    transactionAddition = $"/{endpoint.Address.OriginalString}";
-                }
-            }
-
-            serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
+            InitializeDynamicHandlers();
         }
 
         public bool Prepare()
@@ -84,6 +71,32 @@ namespace UIAdapter
         private void InitializeJobs()
         {
             analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
+        }
+
+        private void InitializeDynamicHandlers()
+        {
+            dynamicHandlersManager = new DynamicHandlersManager();
+            dynamicHandlersManager.AddDynamicListeners(analogRemotePointStorage);
+            //dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
+
+            dynamicHandlersManager.StartListening();
+        }
+
+        private void LoadConfigurationFromAppConfig()
+        {
+            ServicesSection serviceSection = ConfigurationManager.GetSection("system.serviceModel/services") as ServicesSection;
+            ServiceEndpointElementCollection endpoints = serviceSection.Services[0].Endpoints;
+            string transactionAddition = String.Empty;
+            for (int i = 0; i < endpoints.Count; i++)
+            {
+                ServiceEndpointElement endpoint = endpoints[i];
+                if (endpoint.Contract.Equals(typeof(ITransaction).ToString()))
+                {
+                    transactionAddition = $"/{endpoint.Address.OriginalString}";
+                }
+            }
+
+            serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
         }
     }
 }
