@@ -3,7 +3,7 @@ using NServiceBus;
 
 namespace Common.DynamicMessages
 {
-    public class AnalogRemotePointValueChanged : /*ResourceDescription, */IEvent
+    public class AnalogRemotePointValueChanged : ResourceDescription, IEvent
     {
         
     }

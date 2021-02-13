@@ -19,7 +19,7 @@ namespace UIAdapter.TransactionProcessing.Storages
 
         public List<object> GetHandlers()
         {
-            return new List<object>() { /*new AnalogRemotePointChangedHandler(this)*/ };
+            return new List<object>() { new AnalogRemotePointChangedHandler(this) };
         }
 
         public override List<IStorageTransactionProcessor> GetStorageTransactionProcessors()
