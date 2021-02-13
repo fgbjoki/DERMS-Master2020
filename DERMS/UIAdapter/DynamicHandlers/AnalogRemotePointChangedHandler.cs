@@ -9,32 +9,32 @@ namespace UIAdapter.DynamicHandlers
 {
     public class AnalogRemotePointChangedHandler : IHandleMessages<AnalogRemotePointValueChanged>
     {
-        //private IStorage<AnalogRemotePoint> storage;
+        private IStorage<AnalogRemotePoint> storage;
 
-        //public AnalogRemotePointChangedHandler(IStorage<AnalogRemotePoint> storage)
-        //{
-        //    this.storage = storage;
-        //}
+        public AnalogRemotePointChangedHandler(IStorage<AnalogRemotePoint> storage)
+        {
+            this.storage = storage;
+        }
 
         public Task Handle(AnalogRemotePointValueChanged message, IMessageHandlerContext context)
         {
-            //if (message == null)
-            //{
-            //    // log
-            //    return Task.CompletedTask;
-            //}
+            if (message == null)
+            {
+                // log
+                return Task.CompletedTask;
+            }
 
-            //float value = message.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE).AsFloat();
+            float value = message.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE).AsFloat();
 
-            //AnalogRemotePoint remotePoint = storage.GetEntity(message.Id);
+            AnalogRemotePoint remotePoint = storage.GetEntity(message.Id);
 
-            //if (remotePoint == null)
-            //{
-            //    // log
-            //    return Task.CompletedTask;
-            //}
+            if (remotePoint == null)
+            {
+                // log
+                return Task.CompletedTask;
+            }
 
-            //remotePoint.Value = value;
+            remotePoint.Value = value;
             return Task.CompletedTask;
         }
     }
