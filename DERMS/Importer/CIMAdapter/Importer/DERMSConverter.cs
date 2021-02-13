@@ -637,6 +637,8 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     return Common.AbstractModel.MeasurementType.Unitless;
                 case DERMS.MeasurementType.WindSpeed:
                     return Common.AbstractModel.MeasurementType.WindSpeed;
+                case DERMS.MeasurementType.DeltaPower:
+                    return Common.AbstractModel.MeasurementType.DeltaPower;
                 default:
                     return 0;
             }

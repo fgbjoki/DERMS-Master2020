@@ -209,12 +209,12 @@
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>1</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#SubstationGrbavica"/>
 		<cim:Measurement.Terminal rdf:resource="#ter_solar1"/>
 		<cim:IdentifiedObject.description>Defines delta power of solar panel.</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>SolarActivePower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Active Power</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.mRID>SolarDeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Delta Power</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Analog rdf:ID="SolarActivePower">

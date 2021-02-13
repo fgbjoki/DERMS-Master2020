@@ -14,7 +14,8 @@
         Temperature = 10,
         Time = 11,
         Unitless = 12,
-        WindSpeed = 13
+        WindSpeed = 13,
+        DeltaPower = 14
     }
 
     public enum SignalDirection: short

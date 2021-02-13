@@ -635,6 +635,10 @@ This package contains the definition of primitive datatypes, including units of 
     <rdfs:label>SubGeographicalRegion</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
   </rdf:Description>
+  <rdf:Description rdf:about="#MeasurementType.DeltaPower">
+    <rdfs:label>DeltaPower</rdfs:label>
+    <rdf:type rdf:resource="#MeasurementType"/>
+  </rdf:Description>
   <rdf:Description rdf:about="#DER.setPoint">
     <cims:stereotype rdf:resource="http://langdale.com.au/2005/UML#attribute"/>
     <rdfs:label>setPoint</rdfs:label>
