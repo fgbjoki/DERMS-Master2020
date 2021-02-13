@@ -36,7 +36,7 @@ namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
             RaiseEventForCommandingWindow(item as AnalogRemotePointSummaryItem);
         }
 
-        protected override List<AnalogRemotePointSummaryDTO> GetEntitiesFromService()
+        protected override List<AnalogRemotePointSummaryItem> GetEntitiesFromService()
         {
             List<AnalogRemotePointSummaryDTO> items;
             try
@@ -48,9 +48,17 @@ namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
                 items = new List<AnalogRemotePointSummaryDTO>();
             }
 
-            // TODO CONVERT FROM DTO TO SUMMARYITEM
+            List<AnalogRemotePointSummaryItem> summaryItems = new List<AnalogRemotePointSummaryItem>(items.Count);
 
-            return items;
+            foreach (var item in items)
+            {
+                AnalogRemotePointSummaryItem summaryItem = new AnalogRemotePointSummaryItem();
+                summaryItem.Update(item);
+
+                summaryItems.Add(summaryItem);
+            }
+
+            return summaryItems;
         }
 
         protected override AnalogRemotePointOpenCommandingWindowEventArgs TransformGridDataToEventArg(AnalogRemotePointSummaryItem selectedItem)

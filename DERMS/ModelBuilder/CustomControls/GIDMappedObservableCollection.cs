@@ -13,27 +13,31 @@ namespace ClientUI.CustomControls
         where T : IdentifiedObject
     {
         private Dictionary<long, int> gidToIndexMap;
+        private Dictionary<int, long> indexToGidMap;
 
         public GIDMappedObservableCollection() : base()
         {
             gidToIndexMap = new Dictionary<long, int>();
+            indexToGidMap = new Dictionary<int, long>();
         }
 
         public GIDMappedObservableCollection(IEnumerable<T> collection) : base(collection)
         {
             gidToIndexMap = new Dictionary<long, int>();
+            indexToGidMap = new Dictionary<int, long>();
         }
 
         protected override void InsertItem(int index, T item)
         {
-            if (gidToIndexMap.ContainsKey(item.GlobalId))
+            if (gidToIndexMap.ContainsKey(item.GlobalId) || indexToGidMap.ContainsKey(index))
             {
-                throw new ArgumentException($"Entity with gid {item.GlobalId:8X} already exists!");
+                return;
             }
 
             base.InsertItem(index, item);
 
             gidToIndexMap.Add(item.GlobalId, index);
+            indexToGidMap.Add(index, item.GlobalId);
         }
 
         public void AddOrUpdateEntity(T item)

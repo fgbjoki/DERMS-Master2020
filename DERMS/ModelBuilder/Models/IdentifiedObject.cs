@@ -20,6 +20,7 @@ namespace ClientUI.Models
         protected virtual void UpdateProperties(IdentifiedObjectDTO entity)
         {
             this.Name = entity.Name;
+            this.GlobalId = entity.GlobalId;
         }
     }
 }

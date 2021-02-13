@@ -15,8 +15,6 @@ namespace TransactionManager
     /// </summary>
     internal class TransactionProcessor : ITransactionManager
     {
-        private static readonly int TIME_OUT_PERIOD = 60000 * 10;
-
         private static readonly NetTcpBinding netTcpBinding = new NetTcpBinding();
 
         private Dictionary<string, WCFClient<ITransaction>> servicesInTransaction;
