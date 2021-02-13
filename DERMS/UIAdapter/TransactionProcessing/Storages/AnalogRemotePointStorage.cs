@@ -5,13 +5,21 @@ using System.Collections.Generic;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
+using NServiceBus;
+using System;
+using UIAdapter.DynamicHandlers;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>
+    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>, INServiceBusStorage
     {
         public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
+        }
+
+        public List<object> GetHandlers()
+        {
+            return new List<object>() { /*new AnalogRemotePointChangedHandler(this)*/ };
         }
 
         public override List<IStorageTransactionProcessor> GetStorageTransactionProcessors()
