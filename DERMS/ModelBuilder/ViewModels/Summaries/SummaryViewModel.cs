@@ -1,9 +1,11 @@
 ﻿using ClientUI.CustomControls;
 using ClientUI.Models;
 using ClientUI.SummaryCreator;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Timers;
+using System.Windows;
 
 namespace ClientUI.ViewModels.Summaries
 {
@@ -64,17 +66,17 @@ namespace ClientUI.ViewModels.Summaries
                 return;
             }
 
-            foreach (var entity in entities)
-            {
-                Items.AddOrUpdateEntity(entity);
-            }
+            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateEntities(entities)));         
         }
 
         protected abstract List<T> GetEntitiesFromService();
 
-        private void UpdateEntities()
+        private void UpdateEntities(List<T> entities)
         {
-
+            foreach (var entity in entities)
+            {
+                Items.AddOrUpdateEntity(entity);
+            }
         }
     }
 }
