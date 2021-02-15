@@ -75,16 +75,16 @@ namespace TransactionManager.TransactionPhases
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                DERMSLogger.Instance.Log("[ExecutePhases] Waiting for a new transaction.");
+                Logger.Instance.Log("[ExecutePhases] Waiting for a new transaction.");
                 semaphore.WaitOne();
 
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    DERMSLogger.Instance.Log("[ExecutePhases] Closing executor.");
+                    Logger.Instance.Log("[ExecutePhases] Closing executor.");
                     break;
                 }
 
-                DERMSLogger.Instance.Log("[ExecutePhases] New transaction started.");
+                Logger.Instance.Log("[ExecutePhases] New transaction started.");
 
                 while (currentPhase != null)
                 {
@@ -92,7 +92,7 @@ namespace TransactionManager.TransactionPhases
                     currentPhase = currentPhase.NextPhase;
                 }
 
-                DERMSLogger.Instance.Log("[ExecutePhases] Transaction finished.");
+                Logger.Instance.Log("[ExecutePhases] Transaction finished.");
             }
         }
     }

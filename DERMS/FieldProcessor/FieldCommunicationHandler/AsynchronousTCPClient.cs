@@ -71,7 +71,7 @@ namespace FieldProcessor.TCPCommunicationHandler
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e.Message);
             }
         }
 
@@ -92,7 +92,7 @@ namespace FieldProcessor.TCPCommunicationHandler
             catch (Exception e)
             {
                 connectionFailed.Set();
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e.Message);
             }
         }
 
@@ -110,11 +110,12 @@ namespace FieldProcessor.TCPCommunicationHandler
             }
             catch (SocketException se)
             {
+                Logger.Instance.Log(se);
                 connectionStateNotifier.Disconnected();
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e);
             }
         }
 
@@ -145,7 +146,7 @@ namespace FieldProcessor.TCPCommunicationHandler
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e.Message);
             }
         }
 
@@ -164,12 +165,13 @@ namespace FieldProcessor.TCPCommunicationHandler
             }
             catch (SocketException se)
             {
+                Logger.Instance.Log(se);
                 connectionStateNotifier.Disconnected();
                 connectionFailed.Set();
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e);
             }
             finally
             {
@@ -185,7 +187,7 @@ namespace FieldProcessor.TCPCommunicationHandler
 
                 if (!token.IsCancellationRequested)
                 {
-                    DERMSLogger.Instance.Log($"[{this.GetType().Name}] Connection restored!");
+                    Logger.Instance.Log($"[{this.GetType().Name}] Connection restored!");
                     connectionStateNotifier.Connected();
                 }
             }
@@ -198,7 +200,7 @@ namespace FieldProcessor.TCPCommunicationHandler
                 StartClient();
 
                 connectionFailed.WaitOne();
-                DERMSLogger.Instance.Log($"[{this.GetType().Name}] Connection failed!");
+                Logger.Instance.Log($"[{this.GetType().Name}] Connection failed!");
             }
         }
     }

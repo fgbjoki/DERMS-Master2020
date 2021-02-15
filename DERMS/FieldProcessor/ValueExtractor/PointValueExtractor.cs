@@ -26,7 +26,7 @@ namespace FieldProcessor.ValueExtractor
 
             if (!extractValueProcessors.TryGetValue(request.FunctionCode, out processor))
             {
-                DERMSLogger.Instance.Log($"Cannot find extract value processor for function code {request.FunctionCode.ToString()}!");
+                Logger.Instance.Log($"Cannot find extract value processor for function code {request.FunctionCode.ToString()}!");
                 return;
             }
 

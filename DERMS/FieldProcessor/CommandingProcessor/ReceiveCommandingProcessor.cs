@@ -1,10 +1,10 @@
 ﻿using Common.AbstractModel;
 using Common.SCADA.FieldProcessor;
 using System.Collections.Generic;
-using Common.Logger;
 using FieldProcessor.MessageValidation;
 using FieldProcessor.ModbusMessages;
 using Common.ComponentStorage;
+using Common.Logger;
 using FieldProcessor.Model;
 
 namespace FieldProcessor.CommandingProcessor
@@ -28,7 +28,7 @@ namespace FieldProcessor.CommandingProcessor
             RequestCommandCreator commandCreator;
             if (!commandCreators.TryGetValue(dmsType, out commandCreator))
             {
-                DERMSLogger.Instance.Log($"Cannot find command creator for DMSType: {dmsType.ToString()}. Skipping command.");
+                Logger.Instance.Log($"Cannot find command creator for DMSType: {dmsType.ToString()}. Skipping command.");
                 return false;
             }
 
@@ -36,11 +36,11 @@ namespace FieldProcessor.CommandingProcessor
 
             if (modbusCommand == null)
             {
-                DERMSLogger.Instance.Log($"Protocol specific command couldn't be created! Skipping command.");
+                Logger.Instance.Log($"Protocol specific command couldn't be created! Skipping command.");
                 return false;
             }
 
-            DERMSLogger.Instance.Log($"Successfuly created protocol specific command!");
+            Logger.Instance.Log($"Successfuly created protocol specific command!");
 
             return commandSender.SendCommand(modbusCommand);
         }

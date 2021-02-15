@@ -61,14 +61,14 @@ namespace TransactionManager.TransactionPhases
             }
             catch (ApplicationException ae)
             {
-                DERMSLogger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
-
+                Logger.Instance.Log(ae);
+                Logger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
                 return;
             }
             catch (Exception e)
             {
+                Logger.Instance.Log(e);
                 phaseLocker.ReleaseReaderLock();
-
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace TransactionManager.TransactionPhases
             }
             catch (ApplicationException ae)
             {
-                DERMSLogger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
+                Logger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
 
                 successfulyExecuted = false;
             }
@@ -137,7 +137,7 @@ namespace TransactionManager.TransactionPhases
             {
                 transactionStateLocker.ExitWriteLock();
 
-                DERMSLogger.Instance.Log(te.Message);
+                Logger.Instance.Log(te.Message);
 
                 successfulyExecuted = false;
             }
@@ -145,7 +145,7 @@ namespace TransactionManager.TransactionPhases
             {
                 transactionStateLocker.ExitWriteLock();
 
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e.Message);
 
                 successfulyExecuted = false;
             }

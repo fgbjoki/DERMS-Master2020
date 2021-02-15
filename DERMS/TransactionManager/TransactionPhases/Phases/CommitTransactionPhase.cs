@@ -32,7 +32,7 @@ namespace TransactionManager.TransactionPhases
 
             try
             {
-                DERMSLogger.Instance.Log($"[ExecutePhases] Executing commit phase on \"{serviceName}\".");
+                Logger.Instance.Log($"[ExecutePhases] Executing commit phase on \"{serviceName}\".");
                 isFunctionSuccessful = serviceClient.Proxy.Commit();
             }
             catch
@@ -41,7 +41,7 @@ namespace TransactionManager.TransactionPhases
             }
 
             string messageAddition = isFunctionSuccessful == true ? "successful" : "unsuccessful";
-            DERMSLogger.Instance.Log($"[ExecutePhases] Commit phase on \"{serviceName}\" was {messageAddition}.");
+            Logger.Instance.Log($"[ExecutePhases] Commit phase on \"{serviceName}\" was {messageAddition}.");
 
             return isFunctionSuccessful;
         }

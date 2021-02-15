@@ -56,7 +56,7 @@ namespace TransactionManager.TransactionPhases
 
             try
             {
-                DERMSLogger.Instance.Log($"[ExecutePhases] Executing prepare phase on \"{serviceName}\".");
+                Logger.Instance.Log($"[ExecutePhases] Executing prepare phase on \"{serviceName}\".");
 
                 isFunctionSuccessful = serviceClient.Proxy.Prepare();
 
@@ -70,7 +70,7 @@ namespace TransactionManager.TransactionPhases
             }
 
             string messageAddition = isFunctionSuccessful == true ? "successful" : "unsuccessful";
-            DERMSLogger.Instance.Log($"[ExecutePhases] Prepare phase on \"{serviceName}\" was {messageAddition}.");
+            Logger.Instance.Log($"[ExecutePhases] Prepare phase on \"{serviceName}\" was {messageAddition}.");
 
             return isFunctionSuccessful;
         }

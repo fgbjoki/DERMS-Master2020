@@ -76,7 +76,7 @@ namespace FieldProcessor.MessageValidation
 
             if (sentMessages.ContainsKey(command.TransactionIdentifier))
             {
-                DERMSLogger.Instance.Log($"Command with transction identifier \'{command.TransactionIdentifier}\' already sent! Skipping further processing of this command.");
+                Logger.Instance.Log($"Command with transction identifier \'{command.TransactionIdentifier}\' already sent! Skipping further processing of this command.");
                 commandSent = false;
 
                 locker.ReleaseReaderLock();
@@ -94,7 +94,7 @@ namespace FieldProcessor.MessageValidation
 
             if (commandSent)
             {
-                DERMSLogger.Instance.Log($"Command with transaction identifier \'{command.TransactionIdentifier}\' is now queued for data transmission.");
+                Logger.Instance.Log($"Command with transaction identifier \'{command.TransactionIdentifier}\' is now queued for data transmission.");
             }
             else if (sentMessages.ContainsKey(command.TransactionIdentifier))
             {
@@ -149,7 +149,7 @@ namespace FieldProcessor.MessageValidation
 
                 if (!sentMessages.TryGetValue(validationHeader.TransactionIdentifier, out requestCommand))
                 {
-                    DERMSLogger.Instance.Log($"Response message received with invalid \'transaction identifier\' ({validationHeader.TransactionIdentifier})");
+                    Logger.Instance.Log($"Response message received with invalid \'transaction identifier\' ({validationHeader.TransactionIdentifier})");
 
                     locker.ReleaseReaderLock();
 
@@ -175,7 +175,7 @@ namespace FieldProcessor.MessageValidation
             IResponseCommandCreator commandCreator;
             if (!responseCreators.TryGetValue(validationHeader.FunctionCode, out commandCreator))
             {
-                DERMSLogger.Instance.Log($"Non existent commanding processor with function code : \'{validationHeader.FunctionCode.ToString()}\'. Command will be skipped!");
+                Logger.Instance.Log($"Non existent commanding processor with function code : \'{validationHeader.FunctionCode.ToString()}\'. Command will be skipped!");
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace FieldProcessor.MessageValidation
             // invalid command response
             if (responseCommand == null)
             {
-                DERMSLogger.Instance.Log($"Invalid command with transaction id: {responseCommand.TransactionIdentifier} and function code {responseCommand.FunctionCode.ToString()}. Command will be skipped!");
+                Logger.Instance.Log($"Invalid command with transaction id: {responseCommand.TransactionIdentifier} and function code {responseCommand.FunctionCode.ToString()}. Command will be skipped!");
                 return;
             }
 

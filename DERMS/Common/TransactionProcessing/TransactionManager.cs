@@ -106,6 +106,7 @@ namespace Common.ComponentStorage
             }
             catch (Exception e)
             {
+                Common.Logger.Logger.Instance.Log(e);
                 return false;
             }
         }

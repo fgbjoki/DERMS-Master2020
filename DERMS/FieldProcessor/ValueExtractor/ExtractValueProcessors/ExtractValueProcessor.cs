@@ -39,7 +39,7 @@ namespace FieldProcessor.ValueExtractor
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log($"[{GetType().ToString()}] {e.Message}.");
+                Logger.Instance.Log($"[{GetType().ToString()}] {e.Message}.");
                 return null;
             }
 
@@ -56,7 +56,7 @@ namespace FieldProcessor.ValueExtractor
 
                 if (remotePoint.Address != startingAddress + counter)
                 {
-                    DERMSLogger.Instance.Log($"Remote point with address {startingAddress + counter} of type {this.remotePointType.ToString()} does not exist!");
+                    Logger.Instance.Log($"Remote point with address {startingAddress + counter} of type {this.remotePointType.ToString()} does not exist!");
                     break;
                 }
 

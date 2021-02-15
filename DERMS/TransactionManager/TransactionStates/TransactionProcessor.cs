@@ -44,13 +44,14 @@ namespace TransactionManager
                 transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.StartEnlist();
-                DERMSLogger.Instance.Log("Start enlist successfuly called.");
+                Logger.Instance.Log("Start enlist successfuly called.");
 
                 transactionStateLocker.ExitWriteLock();
             }
             catch (ApplicationException ae)
             {
-                DERMSLogger.Instance.Log("Start enlist failed due to timeout while waiting for reader lock.");
+                Logger.Instance.Log(ae);
+                Logger.Instance.Log("Start enlist failed due to timeout while waiting for reader lock.");
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -61,7 +62,7 @@ namespace TransactionManager
             }
             catch (TransactionException te)
             {
-                DERMSLogger.Instance.Log(te.Message);
+                Logger.Instance.Log(te);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -72,7 +73,7 @@ namespace TransactionManager
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -102,18 +103,18 @@ namespace TransactionManager
 
                 transactionStateLocker.ExitWriteLock();
 
-                DERMSLogger.Instance.Log($"\"{serviceName}\" enlisted.");
+                Logger.Instance.Log($"\"{serviceName}\" enlisted.");
 
             }
             catch (ApplicationException ae)
             {
-                DERMSLogger.Instance.Log("Enlist service failed due to timeout while waiting for reader lock.");
+                Logger.Instance.Log("Enlist service failed due to timeout while waiting for reader lock.");
 
                 isCommandSuccessful = false;
             }
             catch (TransactionException te)
             {
-                DERMSLogger.Instance.Log(te.Message);
+                Logger.Instance.Log(te.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -124,7 +125,7 @@ namespace TransactionManager
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -136,7 +137,7 @@ namespace TransactionManager
 
             if (!isCommandSuccessful)
             {
-                DERMSLogger.Instance.Log($"\"{serviceName}\" couldn't enlist.");
+                Logger.Instance.Log($"\"{serviceName}\" couldn't enlist.");
             }
 
             return isCommandSuccessful;
@@ -154,28 +155,29 @@ namespace TransactionManager
 
                 transactionStateLocker.ExitWriteLock();
 
-                DERMSLogger.Instance.Log($"EndEnlist called with {allServicesEnlisted == true}.");
+                Logger.Instance.Log($"EndEnlist called with {allServicesEnlisted == true}.");
 
                 if (allServicesEnlisted)
                 {
-                    DERMSLogger.Instance.Log($"EndEnlist going into Prepare phase.");
+                    Logger.Instance.Log($"EndEnlist going into Prepare phase.");
                     phaseExecutor.SchedulePreparePhase(servicesInTransaction, transactionStateWrapper);
                 }
                 else
                 {
-                    DERMSLogger.Instance.Log($"EndEnlist going into Rollback phase.");
+                    Logger.Instance.Log($"EndEnlist going into Rollback phase.");
                     phaseExecutor.ScheduleRollbackPhase(servicesInTransaction, transactionStateWrapper);
                 }
             }
             catch (ApplicationException ae)
             {
-                DERMSLogger.Instance.Log("End enlist failed due to timeout while waiting for reader lock.");
+                Logger.Instance.Log(ae);
+                Logger.Instance.Log("End enlist failed due to timeout while waiting for reader lock.");
 
                 isCommandSuccessful = false;
             }
             catch (TransactionException te)
             {
-                DERMSLogger.Instance.Log(te.Message);
+                Logger.Instance.Log(te);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -186,7 +188,7 @@ namespace TransactionManager
             }
             catch (Exception e)
             {
-                DERMSLogger.Instance.Log(e.Message);
+                Logger.Instance.Log(e);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {

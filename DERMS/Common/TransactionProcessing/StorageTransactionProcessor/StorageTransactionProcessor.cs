@@ -1,7 +1,6 @@
 ﻿using Common.AbstractModel;
 using Common.ComponentStorage.StorageItemCreator;
 using Common.GDA;
-using Common.Logger;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +32,7 @@ namespace Common.ComponentStorage
             {
                 if (!storage.AddEntity(preparedObject))
                 {
-                    DERMSLogger.Instance.Log($"[{this.GetType().Name}] Failed on Commit!");
+                    Common.Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on Commit!");
                     commited = false;
                     break;
                 }
@@ -79,7 +78,7 @@ namespace Common.ComponentStorage
                 {
                     if (storage.EntityExists(newGid))
                     {
-                        DERMSLogger.Instance.Log($"[{this.GetType().Name}] Failed on apply changes! Entity with given GID already exists.");
+                        Common.Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on apply changes! Entity with given GID already exists.");
                         return false;
                     }
                 }

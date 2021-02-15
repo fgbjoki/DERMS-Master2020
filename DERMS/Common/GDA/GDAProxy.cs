@@ -41,6 +41,7 @@ namespace Common.GDA
             }
             catch (Exception e)
             {
+                Common.Logger.Logger.Instance.Log(e);
                 return null;
             }
 

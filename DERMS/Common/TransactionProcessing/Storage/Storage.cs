@@ -1,5 +1,4 @@
-﻿using Common.Logger;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -31,13 +30,13 @@ namespace Common.ComponentStorage
         {
             if (item == null)
             {
-                DERMSLogger.Instance.Log($"[{storageName}] Cannot add null to storage!");
+                Common.Logger.Logger.Instance.Log($"[{storageName}] Cannot add null to storage!");
                 return false;
             }
 
             if (EntityExists(item.GlobalId))
             {
-                DERMSLogger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:8X}");
+                Common.Logger.Logger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:8X}");
                 return false;
             }
 

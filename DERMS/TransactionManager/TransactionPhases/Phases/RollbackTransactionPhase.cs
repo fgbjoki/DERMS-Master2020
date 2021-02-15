@@ -33,7 +33,7 @@ namespace TransactionManager.TransactionPhases
 
             try
             {
-                DERMSLogger.Instance.Log($"[ExecutePhases] Executing rollback phase on \"{serviceName}\".");
+                Logger.Instance.Log($"[ExecutePhases] Executing rollback phase on \"{serviceName}\".");
 
                 isFunctionSuccessful = serviceClient.Proxy.Rollback();
             }
@@ -44,7 +44,7 @@ namespace TransactionManager.TransactionPhases
 
 
             string messageAddition = isFunctionSuccessful == true ? "successful" : "unsuccessful";
-            DERMSLogger.Instance.Log($"[ExecutePhases] Rollback phase on \"{serviceName}\" was {messageAddition}.");
+            Logger.Instance.Log($"[ExecutePhases] Rollback phase on \"{serviceName}\" was {messageAddition}.");
 
             return isFunctionSuccessful;
         }

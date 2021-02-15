@@ -1,7 +1,7 @@
 ﻿using Common.SCADA.FieldProcessor;
 using FieldProcessor.Model;
-using Common.Logger;
 using Common.ComponentStorage;
+using Common.Logger;
 
 namespace FieldProcessor.CommandingProcessor
 {
@@ -20,13 +20,13 @@ namespace FieldProcessor.CommandingProcessor
 
             if (remotePoint == null)
             {
-                DERMSLogger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:8X}.");
+                Logger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:8X}.");
                 return null;
             }
 
             if (remotePoint.Type != RemotePointType.Coil)
             {
-                DERMSLogger.Instance.Log($"Cannot command {remotePoint.Type.ToString()} remote point type.");
+                Logger.Instance.Log($"Cannot command {remotePoint.Type.ToString()} remote point type.");
                 return null;
             }
 
@@ -44,7 +44,7 @@ namespace FieldProcessor.CommandingProcessor
             }
             else
             {
-                DERMSLogger.Instance.Log($"Failed to create command for {typeof(SingleWriteCoilRequestCommandCreator).ToString()}, value {command.CommandingValue} cannot be stored in coil! Skipping command!");
+                Logger.Instance.Log($"Failed to create command for {typeof(SingleWriteCoilRequestCommandCreator).ToString()}, value {command.CommandingValue} cannot be stored in coil! Skipping command!");
                 return null;
             }
 

@@ -21,13 +21,13 @@ namespace FieldProcessor.CommandingProcessor
 
             if (remotePoint == null)
             {
-                DERMSLogger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:8X}.");
+                Logger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:8X}.");
                 return null;
             }
 
             if (remotePoint.Type != RemotePointType.HoldingRegister)
             {
-                DERMSLogger.Instance.Log($"Cannot command {remotePoint.Type.ToString()} remote point type.");
+                Logger.Instance.Log($"Cannot command {remotePoint.Type.ToString()} remote point type.");
                 return null;
             }
 

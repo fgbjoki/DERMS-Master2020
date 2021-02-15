@@ -36,13 +36,13 @@ namespace FieldProcessor.TransactionProcessing.Storages
         {
             if (item == null)
             {
-                DERMSLogger.Instance.Log($"[{storageName}] Cannot add null to storage!");
+                Logger.Instance.Log($"[{storageName}] Cannot add null to storage!");
                 return false;
             }
 
             if (!usedAddresses.Add(item.Address))
             {
-                DERMSLogger.Instance.Log($"[{storageName}] Remote point with address : {item.Address} already exists!");
+                Logger.Instance.Log($"[{storageName}] Remote point with address : {item.Address} already exists!");
                 return false;
             }
 
