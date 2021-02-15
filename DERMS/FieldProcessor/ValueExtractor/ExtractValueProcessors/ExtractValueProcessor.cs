@@ -63,6 +63,7 @@ namespace FieldProcessor.ValueExtractor
                 RemotePointFieldValue remotePointFieldValue = new RemotePointFieldValue(remotePoint.GlobalId, value);
 
                 remotePointFieldValues.Add(remotePointFieldValue);
+                counter++;
             }
 
             return remotePointFieldValues;
