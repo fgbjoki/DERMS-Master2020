@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:cim="http://iec.ch/TC57/2010/CIM-schema-cim15#"
+	xmlns:ftn="http://www.ftnydro.com/CIM15/2010/extension#"
+	xmlns:tdms="http://www.ftnydro.com/CIM15/2010/extension#">
+	
+	<cim:GeographicalRegion rdf:ID="GeographicalRegionVojvodina">
+		<cim:IdentifiedObject.description>Defines Geographical Region Vojvodina</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>GeographicalRegionVojvodina</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Vojvodina</ftn:IdentifiedObject.name>
+	</cim:GeographicalRegion>
+
+	<cim:SubGeographicalRegion rdf:ID="SubGeographicalRegionNoviSad">
+		<cim:SubGeographicalRegion.Region rdf:resource="#GeographicalRegionVojvodina"/>
+		<cim:IdentifiedObject.description>Defines subregion Novi Sad</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SubGeographicalRegionNoviSad</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Novi Sad</ftn:IdentifiedObject.name>
+	</cim:SubGeographicalRegion>
+
+	<cim:Substation rdf:ID="SubstationGrbavica">
+		<cim:Substation.Region rdf:resource="#SubGeographicalRegionNoviSad"/>
+		<cim:IdentifiedObject.description>Defines Grbavica Substation</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SubstationGrbavica</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Grbavica</ftn:IdentifiedObject.name>
+	</cim:Substation>
+	
+	<!-- Energy Source -->
+	
+	<cim:EnergySource rdf:ID="EnergySourceGrbavica">
+		<cim:EnergySource.activePower>1000</cim:EnergySource.activePower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Energy Source Grbavica</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergySourceGrbavica</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Energy Source on Grbavica</ftn:IdentifiedObject.name>
+	</cim:EnergySource>
+	
+	<cim:Breaker rdf:ID="breaker_energySource1">
+		<cim:Switch.normalOpen>true</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>breaker0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Energy Source breaker</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:ConnectivityNode rdf:ID="conn_br0">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects energy source with breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_br0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode0</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_es1">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergySourceGrbavica"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br0"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_br1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Energy Source 1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Terminal rdf:ID="ter_br_es_0">
+		<cim:Terminal.ConductingEquipment rdf:resource="#breaker_energySource1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br0"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_br0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal breaker Energy Source 10</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="conn_br1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects breaker with distributed network.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_br0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode0</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_br_es_1">
+		<cim:Terminal.ConductingEquipment rdf:resource="#breaker_energySource1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_br0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal breaker Energy Source 11</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLineSegment1_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLineSegment1_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment1_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="ter_acl_10">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment1_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_acl_10</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 1_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<!-- Energy Source -->
+	
+	<!-- ACLineSegment 1_1 -->
+	
+	<cim:ConnectivityNode rdf:ID="conn_acl1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment1_1 with distributed network.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_acl1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNodeACL1</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_acl_11">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment1_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_acl_11</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 1_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<!-- ACLineSegment 1_1 -->
+	
+	<cim:Terminal rdf:ID="ter_ac2_10">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment2_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac2_10</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 2_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="conn_acl2_1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment2_1 with distributed network.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_acl2_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNodeACL2_1</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:ACLineSegment rdf:ID="ACLineSegment2_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLineSegment2_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment2_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="ter_ac2_11">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment2_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac2_11</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 2_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="EnergyConsumer2_1_0">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer2_1_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:ID="ter_c2_1_0">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer2_1_0"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c2_1_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 2_1_0</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="EnergyConsumer2_1_1">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Decribes MOJ STAN 2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer2_1_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Moj stan hehe 2</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:ID="ter_c2_1_1">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer2_1_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c2_1_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 2_1_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLineSegment2_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLineSegment2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment2_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="ter_ac2_21">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment2_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac2_21</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 2_21</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="conn_acl2_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment2_2 with DER Group.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_acl2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNodeACL2_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_ac2_22">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment2_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac2_22</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 2_22</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EnergyStorage2_2">
+		<cim:EnergyStorage.capacity>10</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#SolarPanel2_2"/>
+		<cim:DER.nominalPower>10</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Energy Source for solar panel</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Energy Storage 1</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:SolarGenerator rdf:ID="SolarPanel2_2">
+		<cim:Generator.Storage rdf:resource="#EnergyStorage2_2"/>
+		<cim:DER.nominalPower>8</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Solar Panel for Grbavica</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SolarPanel2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Solar Panel 1</ftn:IdentifiedObject.name>
+	</cim:SolarGenerator>
+	
+	<cim:Terminal rdf:ID="ter_est2_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage2_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_est2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Energy Storage 2_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Terminal rdf:ID="ter_sp2_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#SolarPanel2_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac2_22</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Solar Panel 2_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<!-- ACLineSegment 2_2 DER GROUP -->
+	
+	<!-- ACLineSegment 3_1 -->
+	
+	<cim:ACLineSegment rdf:ID="ACLineSegment3_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLineSegment3_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment3_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="ter_ac3_11">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment3_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac3_11</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 3_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="conn_acl3_1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment2_2 with consumers.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_acl3_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNodeACL3_1</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_ac3_12">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment3_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_ac3_12</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 3_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="EnergyConsumer3_1_0">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:ID="ter_c3_1_0">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_1_0"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c3_1_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 3_1_0</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="EnergyConsumer3_1_1">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Decribes MOJ STAN 2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Moj stan hehe 2</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:ID="ter_c3_1_1">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_1_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c3_1_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 3_1_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<!-- ACLineSegment 3_1 -->
+	
+	<!-- ACLineSegment 3_2 -->
+	
+	<cim:ACLineSegment rdf:ID="ACLineSegment3_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLineSegment3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment3_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="ter_c3_2_1">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment3_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_1"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c3_2_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 3_2_1</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="conn_acl3_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment3_2 with DER Group and Consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>conn_acl3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNodeACL3_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="ter_c3_2_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLineSegment3_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c3_2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLineSegment 3_2_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="EnergyConsumer3_2_0">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_2_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Terminal rdf:ID="ter_c3_2_0">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_2_0"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_c3_2_0</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 3_2_0</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:WindGenerator rdf:ID="WindGenerator3_2">
+		<cim:WindGenerator.cutOutSpeed>15</cim:WindGenerator.cutOutSpeed>
+		<cim:WindGenerator.nominalSpeed>10</cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
+		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#EnergyStorage3_2"/>
+		<cim:DER.activePower>0</cim:DER.activePower>
+		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
+		<cim:DER.setPoint>0</cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Wind generator on ACLineSegment 3_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WindGenerator3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator3_2</ftn:IdentifiedObject.name>
+	</cim:WindGenerator>
+	
+	<cim:EnergyStorage rdf:ID="EnergyStorage3_2">
+		<cim:EnergyStorage.capacity>10</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#WindGenerator3_2"/>
+		<cim:DER.nominalPower>10</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:IdentifiedObject.description>Energy Source for wind generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Energy Storage 2</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Terminal rdf:ID="ter_wg3_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#WindGenerator3_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_wg3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Wind Generator 3_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Terminal rdf:ID="ter_est3_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage3_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_est3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Energy Storage 3_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<!-- ACLineSegment 3_2 -->
+	
+</rdf:RDF>

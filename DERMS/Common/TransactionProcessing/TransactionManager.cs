@@ -117,7 +117,17 @@ namespace Common.ComponentStorage
 
             foreach (var typeProperties in neededProperties)
             {
-                List<ResourceDescription> rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, newNeededGids[ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key)].ToList());
+                List<ResourceDescription> rds = null;
+
+                DMSType neededDMSType = ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key);
+
+                HashSet<long> neededGids;
+                if (!newNeededGids.TryGetValue(neededDMSType, out neededGids))
+                {
+                    continue;
+                }
+
+                rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, neededGids.ToList());
 
                 if (rds?.Count > 0)
                 {

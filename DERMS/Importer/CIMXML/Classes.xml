@@ -94,21 +94,21 @@
 		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
 	</cim:SolarGenerator>
-
-	<cim:windgenerator rdf:id=" ">
-		<cim:windgenerator.cutoutspeed> </cim:windgenerator.cutoutspeed>
-		<cim:windgenerator.nominalspeed> </cim:windgenerator.nominalspeed>
-		<cim:windgenerator.startupspeed> </cim:windgenerator.startupspeed>
-		<cim:generator.deltapower> </cim:generator.deltapower>
-		<cim:generator.storage rdf:resource="#"/>
-		<cim:der.activepower> </cim:der.activepower>
-		<cim:der.nominalpower> </cim:der.nominalpower>
-		<cim:der.setpoint> </cim:der.setpoint>
-		<cim:equipment.equipmentcontainer rdf:resource="#"/>
-		<cim:identifiedobject.description> </cim:identifiedobject.description>
-		<cim:identifiedobject.mrid> </cim:identifiedobject.mrid>
-		<ftn:identifiedobject.name> </ftn:identifiedobject.name>
-	</cim:windgenerator>
+	
+	<cim:WindGenerator rdf:ID=" ">
+		<cim:WindGenerator.cutOutSpeed> </cim:WindGenerator.cutOutSpeed>
+		<cim:WindGenerator.nominalSpeed> </cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.startUpSpeed> </cim:WindGenerator.startUpSpeed>
+		<cim:Generator.deltaPower> </cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#"/>
+		<cim:DER.activePower> </cim:DER.activePower>
+		<cim:DER.nominalPower> </cim:DER.nominalPower>
+		<cim:DER.setPoint> </cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:WindGenerator>
 	
 	<cim:Analog rdf:ID=" ">
 		<tdms:Analog.currentValue> </tdms:Analog.currentValue>
