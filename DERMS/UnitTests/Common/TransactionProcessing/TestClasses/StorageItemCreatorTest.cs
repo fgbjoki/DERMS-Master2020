@@ -8,7 +8,7 @@ namespace UnitTests.Common.TransactionProcessing.TestClasses
 {
     public class StorageItemCreatorTest : StorageItemCreator
     {
-        public StorageItemCreatorTest(Dictionary<ModelCode, List<ModelCode>> propertiesPerType) : base(propertiesPerType)
+        public StorageItemCreatorTest(Dictionary<DMSType, List<ModelCode>> propertiesPerType) : base(propertiesPerType)
         {
         }
 

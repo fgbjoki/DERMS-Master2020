@@ -31,11 +31,11 @@ namespace FieldProcessor.TransactionProcessing.StorageItemCreators
             return remotePoint;
         }
 
-        private static Dictionary<ModelCode, List<ModelCode>> CreatePropertiesPerType()
+        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
         {
-            return new Dictionary<ModelCode, List<ModelCode>>()
+            return new Dictionary<DMSType, List<ModelCode>>()
             {
-                { ModelCode.MEASUREMENTANALOG, new List<ModelCode>()
+                { DMSType.MEASUREMENTANALOG, new List<ModelCode>()
                     {
                         ModelCode.IDOBJ_GID,
                         ModelCode.MEASUREMENT_ADDRESS,

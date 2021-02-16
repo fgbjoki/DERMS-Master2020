@@ -59,5 +59,15 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
         {
             return Channel.GetExtentValues(entityType, propIds, gids);
         }
+
+        public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds, List<long> gids)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

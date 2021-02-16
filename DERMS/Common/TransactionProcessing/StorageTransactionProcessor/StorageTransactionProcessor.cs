@@ -142,12 +142,12 @@ namespace Common.ComponentStorage
             return true;
         }
 
-        public Dictionary<ModelCode, List<ModelCode>> GetNeededProperties()
+        public Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
-            Dictionary<ModelCode, HashSet<ModelCode>> neededPropeties = new Dictionary<ModelCode, HashSet<ModelCode>>();
+            Dictionary<DMSType, HashSet<ModelCode>> neededPropeties = new Dictionary<DMSType, HashSet<ModelCode>>();
             foreach (var storageItemCreator in storageItemCreators.Values)
             {
-                Dictionary<ModelCode, List<ModelCode>> propertyPerCreator = storageItemCreator.GetNeededProperties();
+                Dictionary<DMSType, List<ModelCode>> propertyPerCreator = storageItemCreator.GetNeededProperties();
 
                 foreach (var properties in propertyPerCreator)
                 {
@@ -166,7 +166,7 @@ namespace Common.ComponentStorage
                 }
             }
 
-            Dictionary<ModelCode, List<ModelCode>> returnValue = new Dictionary<ModelCode, List<ModelCode>>();
+            Dictionary<DMSType, List<ModelCode>> returnValue = new Dictionary<DMSType, List<ModelCode>>();
 
             foreach (var property in neededPropeties)
             {

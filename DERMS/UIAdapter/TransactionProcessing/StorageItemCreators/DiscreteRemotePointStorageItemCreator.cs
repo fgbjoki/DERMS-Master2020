@@ -45,11 +45,11 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
             }
         }
 
-        private static Dictionary<ModelCode, List<ModelCode>> CreatePropertiesPerType()
+        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
         {
-            return new Dictionary<ModelCode, List<ModelCode>>()
+            return new Dictionary<DMSType, List<ModelCode>>()
             {
-                {   ModelCode.MEASUREMENTDISCRETE,
+                {   DMSType.MEASUREMENTDISCRETE,
                     new List<ModelCode>()
                     {
                         ModelCode.IDOBJ_NAME,
@@ -59,7 +59,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
                     }
                 },
 
-                {   ModelCode.BREAKER,
+                {   DMSType.BREAKER,
                     new List<ModelCode>()
                     {
                         ModelCode.SWITCH_NORMALOPEN
