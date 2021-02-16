@@ -14,6 +14,6 @@ namespace Common.ComponentStorage
 
         bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> newNeededGids);
 
-        Dictionary<ModelCode, List<ModelCode>> GetNeededProperties();
+        Dictionary<DMSType, List<ModelCode>> GetNeededProperties();
     }
 }

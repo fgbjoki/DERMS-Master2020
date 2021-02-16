@@ -37,6 +37,25 @@ namespace Common.ServiceInterfaces
         int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids);
 
         /// <summary>
+        /// Gets id of the resource iterator that holds descriptions for all entities of the specified type.
+        /// </summary>		
+        /// <param name="dmsType">Type code of entity that is requested</param>
+        /// <param name="propIds">List of requested property codes</param>
+        /// <returns>Id of resource iterator for the requested entities</returns>
+        [OperationContract(Name = "GetExtentValuesWithDMSType")]
+        int GetExtentValues(DMSType dmsType, List<ModelCode> propIds);
+
+        /// <summary>
+        /// Gets id of the resource iterator that holds descriptions for all entities of the specified type.
+        /// </summary>		
+        /// <param name="dmsType">Type code of entity that is requested</param>
+        /// <param name="propIds">List of requested property codes</param>
+        /// <param name="gids">List of wanted entities</param>
+        /// <returns>Id of resource iterator for the requested entities</returns>
+        [OperationContract(Name = "GetExtentValuesWithDMSTypeGids")]
+        int GetExtentValues(DMSType dmsType, List<ModelCode> propIds, List<long> gids);
+
+        /// <summary>
         /// Gets id of the resource iterator that holds descriptions for all entities related to specified source.
         /// </summary>
         /// <param name="source">Resource id of entity that is start for association search</param>

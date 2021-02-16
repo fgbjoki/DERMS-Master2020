@@ -6,7 +6,7 @@ namespace Common.ComponentStorage.StorageItemCreator
 {
     public interface IStorageItemCreator
     {
-        Dictionary<ModelCode, List<ModelCode>> GetNeededProperties();
+        Dictionary<DMSType, List<ModelCode>> GetNeededProperties();
         IdentifiedObject CreateStorageItem(ResourceDescription rd, Dictionary<DMSType, List<ResourceDescription>> affectedEntities);
     }
 }

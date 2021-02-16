@@ -126,5 +126,15 @@ namespace NetworkManagementService
         {
             return gdaProcessor.GetExtentValues(entityType, propIds, gids);
         }
+
+        public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds)
+        {
+            return gdaProcessor.GetExtentValues(dmsType, propIds);
+        }
+
+        public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds, List<long> gids)
+        {
+            return gdaProcessor.GetExtentValues(dmsType, propIds, gids);
+        }
     }
 }
