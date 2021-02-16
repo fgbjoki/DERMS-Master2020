@@ -16,7 +16,6 @@ namespace Common.Logger
         private Logger()
         {
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
-
             log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         }
 
