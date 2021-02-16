@@ -26,6 +26,13 @@ namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
         {
             GDAProxy gdaProxy = new GDAProxy("gdaQueryEndpoint");
 
+            List<long> newDiscretePoints;
+
+            if (!insertedEntities.TryGetValue(DMSType.MEASUREMENTDISCRETE, out newDiscretePoints))
+            {
+                return;
+            }
+
             List<ResourceDescription> rds = gdaProxy.GetExtentValues(ModelCode.MEASUREMENTDISCRETE, new List<ModelCode>() { ModelCode.MEASUREMENT_PSR });
 
             if (rds?.Count == 0)
