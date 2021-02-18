@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
-using NServiceBus;
 using System;
 using UIAdapter.DynamicHandlers;
 
@@ -35,9 +34,9 @@ namespace UIAdapter.TransactionProcessing.Storages
             };
         }
 
-        public override bool ValidateEntity(AnalogRemotePoint entity)
+        protected override IStorage<AnalogRemotePoint> CreateNewStorage()
         {
-            return true;
+            return new AnalogRemotePointStorage();
         }
     }
 }

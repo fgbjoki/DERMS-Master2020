@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
+using System;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
@@ -27,9 +28,9 @@ namespace UIAdapter.TransactionProcessing.Storages
             };
         }
 
-        public override bool ValidateEntity(DiscreteRemotePoint entity)
+        protected override IStorage<DiscreteRemotePoint> CreateNewStorage()
         {
-            return true;
+            return new DiscreteRemotePointStorage();
         }
     }
 }

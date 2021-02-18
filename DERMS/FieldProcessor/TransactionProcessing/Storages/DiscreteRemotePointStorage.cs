@@ -8,6 +8,7 @@ using FieldProcessor.RemotePointAddressCollector;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using FieldProcessor.TransactionProcessing.TransactionProcessors;
 using System.Collections.Generic;
+using System;
 
 namespace FieldProcessor.TransactionProcessing.Storages
 {
@@ -59,8 +60,13 @@ namespace FieldProcessor.TransactionProcessing.Storages
 
         public override bool ValidateEntity(RemotePoint entity)
         {
-            return entity != null && !usedAddresses.Contains(entity.Address) &&
+            return base.ValidateEntity(entity) && !usedAddresses.Contains(entity.Address) &&
                 (entity.Type == RemotePointType.Coil || entity.Type == RemotePointType.DiscreteInput);
+        }
+
+        protected override IStorage<RemotePoint> CreateNewStorage()
+        {
+            return new DiscreteRemotePointStorage();
         }
     }
 }

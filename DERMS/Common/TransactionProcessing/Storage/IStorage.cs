@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Common.ComponentStorage
 {
-    public interface IStorage<T>
+    public interface IStorage<T> : ICloneable
     {
         bool AddEntity(T entity);
 
@@ -13,5 +14,7 @@ namespace Common.ComponentStorage
         T GetEntity(long globalId);
 
         bool ValidateEntity(T entity);
+
+        void ShallowCopyEntities(IStorage<T> storage);
     }
 }
