@@ -102,6 +102,7 @@ namespace UnitTests.Common.TransactionProcessing
             }
 
             storage.ValidateEntity(Arg.Compat.Any<TestObject>()).Returns(true);
+            storage.Clone().Returns(storage);
 
             StorageTransactionProcessorTestClass testingClass = new StorageTransactionProcessorTestClass(storage, new Dictionary<DMSType, IStorageItemCreator>() { { dmsType, itemCreator } });
 
@@ -140,6 +141,7 @@ namespace UnitTests.Common.TransactionProcessing
             }
 
             storage.ValidateEntity(Arg.Compat.Any<TestObject>()).Returns(false);
+            storage.Clone().Returns(storage);
 
             StorageTransactionProcessorTestClass testingClass = new StorageTransactionProcessorTestClass(storage, new Dictionary<DMSType, IStorageItemCreator>() { { dmsType, itemCreator } });
 
