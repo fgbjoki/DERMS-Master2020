@@ -14,7 +14,7 @@ namespace TransactionManager
 
         private static string AdditionalExceptionMessage(string message)
         {
-            return message.Trim() == String.Empty ? $"Additional info: {message}" : String.Empty;
+            return message.Trim() == String.Empty ? String.Empty : $"Additional info: {message}";
         }
     }
 }
