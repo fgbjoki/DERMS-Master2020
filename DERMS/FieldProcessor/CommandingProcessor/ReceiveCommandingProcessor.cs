@@ -40,7 +40,7 @@ namespace FieldProcessor.CommandingProcessor
                 return false;
             }
 
-            Logger.Instance.Log($"Successfuly created protocol specific command!");
+            Logger.Instance.Log($"Successfully created protocol specific command!");
 
             return commandSender.SendCommand(modbusCommand);
         }

@@ -90,7 +90,7 @@ namespace TransactionManager.TransactionPhases
         /// <summary>
         /// Depending on the current phase and the outcome of the phase, next <see cref="TransactionPhase"/> will be returned.
         /// </summary>
-        /// <param name="isTransactionSuccessful">Indicates is the current phase successfuly executed.</param>
+        /// <param name="isTransactionSuccessful">Indicates is the current phase successfully executed.</param>
         /// <returns>Next <see cref="TransactionPhase"/>.</returns>
         protected abstract TransactionPhase GetNextPhase(bool isTransactionSuccessful);
 
@@ -111,15 +111,15 @@ namespace TransactionManager.TransactionPhases
 
         private bool ExecuteAction(string serviceName, WCFClient<ITransaction> clientService)
         {
-            bool successfulyExecuted = true;
+            bool successfullyExecuted = true;
 
-            successfulyExecuted = ExecutePhaseFunction(serviceName, clientService);
+            successfullyExecuted = ExecutePhaseFunction(serviceName, clientService);
 
             try
             {
                 transactionStateLocker.EnterWriteLock();
 
-                if (successfulyExecuted)
+                if (successfullyExecuted)
                 {
                     transactionStateWrapper.CurrentState = ChangeTransactionState(serviceName);
                     services.Remove(serviceName);
@@ -131,7 +131,7 @@ namespace TransactionManager.TransactionPhases
             {
                 Logger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
 
-                successfulyExecuted = false;
+                successfullyExecuted = false;
             }
             catch (TransactionException te)
             {
@@ -139,7 +139,7 @@ namespace TransactionManager.TransactionPhases
 
                 Logger.Instance.Log(te.Message);
 
-                successfulyExecuted = false;
+                successfullyExecuted = false;
             }
             catch (Exception e)
             {
@@ -147,10 +147,10 @@ namespace TransactionManager.TransactionPhases
 
                 Logger.Instance.Log(e.Message);
 
-                successfulyExecuted = false;
+                successfullyExecuted = false;
             }
 
-            return successfulyExecuted;
+            return successfullyExecuted;
         }
     }
 }
