@@ -23,7 +23,7 @@ namespace Common.ServiceInterfaces.Transaction
         bool Commit();
 
         /// <summary>
-        /// Perform prepare phase.
+        /// Perform rollback phase.
         /// </summary>
         /// <returns><b>True</b> if the rollback phase goes trough, otherwise <b>false</b>.</returns>
         [OperationContract]

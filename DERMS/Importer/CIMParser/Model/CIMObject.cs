@@ -443,7 +443,7 @@ namespace CIM.Model
         /// MyDuplicateAttributes list.</para>
         /// </summary>
         /// <param name="attr">object attribute</param>
-        /// <returns>true if attribute has been successfuly added, false if there was duplicate attribute</returns>
+        /// <returns>true if attribute has been successfully added, false if there was duplicate attribute</returns>
 		public bool AddAttribute(ObjectAttribute attr)
 		{
 			bool success = false;

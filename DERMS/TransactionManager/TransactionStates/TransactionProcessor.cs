@@ -44,7 +44,7 @@ namespace TransactionManager
                 transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.StartEnlist();
-                Logger.Instance.Log("Start enlist successfuly called.");
+                Logger.Instance.Log("Start enlist successfully called.");
 
                 transactionStateLocker.ExitWriteLock();
             }
