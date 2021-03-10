@@ -24,7 +24,7 @@ namespace TransactionManager.TransactionPhases
         }
 
         /// <summary>
-        /// Depending on the outcome of the prepare phase returns either <see cref="TransactionRollbackState"/> or <see cref="CommitTransactionPhase"/>.
+        /// Depending on the outcome of the prepare phase returns either <see cref="RollbackTransactionPhase"/> or <see cref="CommitTransactionPhase"/>.
         /// </summary>
         /// <param name="isTransactionSuccessful">Indicates if the prepare phase was successful.</param>
         /// <returns>Returns <see cref="CommitTransactionPhase"/>if the prepare phase was successful, otherwise <see cref="RollbackTransactionPhase"/>.</returns>

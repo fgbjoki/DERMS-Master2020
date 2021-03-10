@@ -61,14 +61,25 @@ namespace TransactionManager.TransactionPhases
             }
             catch (ApplicationException ae)
             {
-                Logger.Instance.Log(ae);
+                Logger.Instance.Log(ae.Message);
                 Logger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
+
+                if(phaseLocker.IsReaderLockHeld)
+                {
+                    phaseLocker.ReleaseReaderLock();
+                }
+
                 return;
             }
             catch (Exception e)
             {
-                Logger.Instance.Log(e);
-                phaseLocker.ReleaseReaderLock();
+                Logger.Instance.Log(e.Message);
+
+                if (phaseLocker.IsReaderLockHeld)
+                {
+                    phaseLocker.ReleaseReaderLock();
+                }
+
                 return;
             }
 
@@ -129,23 +140,35 @@ namespace TransactionManager.TransactionPhases
             }
             catch (ApplicationException ae)
             {
+                Logger.Instance.Log(ae.Message);
                 Logger.Instance.Log($"[ExecutePhase] Transaction phase {this.GetType().ToString()} failed due to locker time out.");
+
+                if(transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
 
                 successfullyExecuted = false;
             }
             catch (TransactionException te)
             {
-                transactionStateLocker.ExitWriteLock();
-
                 Logger.Instance.Log(te.Message);
+
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
 
                 successfullyExecuted = false;
             }
             catch (Exception e)
             {
-                transactionStateLocker.ExitWriteLock();
-
                 Logger.Instance.Log(e.Message);
+
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
 
                 successfullyExecuted = false;
             }

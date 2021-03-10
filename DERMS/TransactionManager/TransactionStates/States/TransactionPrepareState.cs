@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Common.Logger;
+using System.Collections.Generic;
 
 namespace TransactionManager.TransactionStates
 {
@@ -18,23 +19,31 @@ namespace TransactionManager.TransactionStates
         {
             if (preparedServices.Count != enlistedServices.Count)
             {
-                throw new TransactionException(State, State, "Not all services are prepared.");
+                throw new TransactionException(State, TransactionStateEnum.Commit, "Not all services are prepared.");
             }
 
             foreach (string preparedService in preparedServices)
             {
                 if (!enlistedServices.Contains(preparedService))
                 {
-                    throw new TransactionException(State, State, "Not all services are prepared.");
+                    throw new TransactionException(State, TransactionStateEnum.Commit, "Not all services are prepared.");
                 }
             }
 
+            // Q: enlistedServices or preparedServices ?
             return new TransactionCommitState(enlistedServices).Commit(serviceName);
         }
 
         public override TransactionState EndEnlist(bool successful)
         {
-            throw new TransactionException(State, TransactionStateEnum.Enlist);
+            if(successful)
+            {
+                throw new TransactionException(State, TransactionStateEnum.Prepare);
+            }
+            else
+            {
+                throw new TransactionException(State, TransactionStateEnum.Rollback);
+            }
         }
 
         public override TransactionState Enlist(string serviceName)
@@ -57,9 +66,12 @@ namespace TransactionManager.TransactionStates
             if (enlistedServices.Count == 0 && preparedServices.Count == 0)
             {
                 // log no rollback needed.
+                Logger.Instance.Log("No rollback needed.");
+
                 return new TransactionIdleState();
             }
 
+            // Q: enlistedServices or preparedServices ?
             return new TransactionRollbackState(enlistedServices).Rollback(serviceName);
         }
 
