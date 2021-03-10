@@ -15,7 +15,14 @@
 
         public override TransactionState EndEnlist(bool successful)
         {
-            throw new TransactionException(State, TransactionStateEnum.Idle, "Transaction is not in progress.");
+            if(successful)
+            {
+                throw new TransactionException(State, TransactionStateEnum.Prepare, "Transaction is not in progress.");
+            }
+            else
+            {
+                throw new TransactionException(State, TransactionStateEnum.Rollback, "Transaction is not in progress.");
+            }
         }
 
         public override TransactionState Enlist(string serviceName)
@@ -30,7 +37,7 @@
 
         public override TransactionState Rollback(string serviceName)
         {
-            throw new TransactionException(State, TransactionStateEnum.Prepare);
+            throw new TransactionException(State, TransactionStateEnum.Rollback);
         }
 
         public override TransactionState StartEnlist()

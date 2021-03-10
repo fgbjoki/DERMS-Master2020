@@ -19,7 +19,14 @@ namespace TransactionManager.TransactionStates
 
         public override TransactionState EndEnlist(bool successful)
         {
-            throw new TransactionException(State, TransactionStateEnum.Rollback);
+            if (successful)
+            {
+                throw new TransactionException(State, TransactionStateEnum.Prepare);
+            }
+            else
+            {
+                throw new TransactionException(State, TransactionStateEnum.Rollback);
+            }
         }
 
         public override TransactionState Enlist(string serviceName)

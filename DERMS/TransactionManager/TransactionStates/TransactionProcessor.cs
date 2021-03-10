@@ -39,18 +39,20 @@ namespace TransactionManager
         public bool StartEnlist()
         {
             bool isCommandSuccessful = true;
+
             try
             {
                 transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.StartEnlist();
-                Logger.Instance.Log("Start enlist successfully called.");
 
                 transactionStateLocker.ExitWriteLock();
+
+                Logger.Instance.Log("Start enlist successfully called.");
             }
             catch (ApplicationException ae)
             {
-                Logger.Instance.Log(ae);
+                Logger.Instance.Log(ae.Message);
                 Logger.Instance.Log("Start enlist failed due to timeout while waiting for reader lock.");
 
                 if (transactionStateLocker.IsWriteLockHeld)
@@ -62,7 +64,7 @@ namespace TransactionManager
             }
             catch (TransactionException te)
             {
-                Logger.Instance.Log(te);
+                Logger.Instance.Log(te.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -73,7 +75,7 @@ namespace TransactionManager
             }
             catch (Exception e)
             {
-                Logger.Instance.Log(e);
+                Logger.Instance.Log(e.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -98,7 +100,6 @@ namespace TransactionManager
                 transactionStateLocker.EnterWriteLock();
 
                 transactionStateWrapper.CurrentState = transactionStateWrapper.CurrentState.Enlist(serviceName);
-
                 servicesInTransaction.Add(serviceName, wcfClient);
 
                 transactionStateLocker.ExitWriteLock();
@@ -108,7 +109,13 @@ namespace TransactionManager
             }
             catch (ApplicationException ae)
             {
+                Logger.Instance.Log(ae.Message);
                 Logger.Instance.Log("Enlist service failed due to timeout while waiting for reader lock.");
+
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
 
                 isCommandSuccessful = false;
             }
@@ -147,6 +154,7 @@ namespace TransactionManager
         public bool EndEnlist(bool allServicesEnlisted)
         {
             bool isCommandSuccessful = true;
+
             try
             {
                 transactionStateLocker.EnterWriteLock();
@@ -170,14 +178,19 @@ namespace TransactionManager
             }
             catch (ApplicationException ae)
             {
-                Logger.Instance.Log(ae);
+                Logger.Instance.Log(ae.Message);
                 Logger.Instance.Log("End enlist failed due to timeout while waiting for reader lock.");
+
+                if (transactionStateLocker.IsWriteLockHeld)
+                {
+                    transactionStateLocker.ExitWriteLock();
+                }
 
                 isCommandSuccessful = false;
             }
             catch (TransactionException te)
             {
-                Logger.Instance.Log(te);
+                Logger.Instance.Log(te.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {
@@ -188,7 +201,7 @@ namespace TransactionManager
             }
             catch (Exception e)
             {
-                Logger.Instance.Log(e);
+                Logger.Instance.Log(e.Message);
 
                 if (transactionStateLocker.IsWriteLockHeld)
                 {

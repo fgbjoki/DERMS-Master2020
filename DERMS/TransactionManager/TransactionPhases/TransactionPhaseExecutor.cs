@@ -10,7 +10,7 @@ using TransactionManager.TransactionStates;
 namespace TransactionManager.TransactionPhases
 {
     /// <summary>
-    /// Unit resposible for executing each distributed transactin phase
+    /// Unit resposible for executing each distributed transaction phase.
     /// </summary>
     class TransactionPhaseExecutor : IDisposable
     {
