@@ -29,9 +29,8 @@ namespace TransactionManager.TransactionStates
                     throw new TransactionException(State, TransactionStateEnum.Commit, "Not all services are prepared.");
                 }
             }
-
-            // Q: enlistedServices or preparedServices ?
-            return new TransactionCommitState(enlistedServices).Commit(serviceName);
+            
+            return new TransactionCommitState(preparedServices).Commit(serviceName);
         }
 
         public override TransactionState EndEnlist(bool successful)
@@ -66,12 +65,10 @@ namespace TransactionManager.TransactionStates
             if (enlistedServices.Count == 0 && preparedServices.Count == 0)
             {
                 // log no rollback needed.
-                Logger.Instance.Log("No rollback needed.");
 
                 return new TransactionIdleState();
             }
-
-            // Q: enlistedServices or preparedServices ?
+            
             return new TransactionRollbackState(enlistedServices).Rollback(serviceName);
         }
 
