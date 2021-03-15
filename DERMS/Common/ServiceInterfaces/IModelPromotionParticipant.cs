@@ -10,7 +10,7 @@ namespace Common.ServiceInterfaces
     public interface IModelPromotionParticipant
     {
         /// <summary>
-        /// Defines GIDs of inserted, updater and deleted entities and validates given lists.
+        /// Defines GIDs of inserted, updated and deleted entities and validates given lists.
         /// </summary>
         /// <param name="insertedEntities">GIDs of inserted entities.</param>
         /// <param name="updatedEntities">GIDs of updated entities.</param>
