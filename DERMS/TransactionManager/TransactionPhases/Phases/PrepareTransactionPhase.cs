@@ -16,8 +16,7 @@ namespace TransactionManager.TransactionPhases
         public PrepareTransactionPhase(ReaderWriterLockSlim transactionStateLocker,
                                         ReaderWriterLock phaseLocker,
                                         TransactionStateWrapper transactionStateWrapper, 
-                                        Semaphore semaphore,
-                                        Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services)
+                                        Dictionary<string, WCFClient<ITransaction>> services) : base(transactionStateLocker, phaseLocker, transactionStateWrapper, services)
         {
             preparedServices = new Dictionary<string, WCFClient<ITransaction>>(services.Count);
             enlistedServices = services;
@@ -32,7 +31,7 @@ namespace TransactionManager.TransactionPhases
         {
             if (isTransactionSuccessful)
             {
-                return new CommitTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, preparedServices);
+                return new CommitTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, preparedServices);
             }
             else
             {
@@ -43,7 +42,7 @@ namespace TransactionManager.TransactionPhases
                     servicesToRollBack.Add(enlistService.Key, enlistService.Value);
                 }
 
-                return new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, servicesToRollBack);
+                return new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, servicesToRollBack);
             }
         }
 

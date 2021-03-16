@@ -26,12 +26,11 @@ namespace TransactionManager.TransactionPhases
 
         private readonly Dictionary<string, WCFClient<ITransaction>> services;
 
-        protected TransactionPhase(ReaderWriterLockSlim transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Semaphore semaphore, Dictionary<string, WCFClient<ITransaction>> services)
+        protected TransactionPhase(ReaderWriterLockSlim transactionStateLocker, ReaderWriterLock phaseLocker, TransactionStateWrapper transactionStateWrapper, Dictionary<string, WCFClient<ITransaction>> services)
         {
             this.transactionStateLocker = transactionStateLocker;
             this.phaseLocker = phaseLocker;
             this.transactionStateWrapper = transactionStateWrapper;
-            this.semaphore = semaphore;
             this.services = services;
         }
 

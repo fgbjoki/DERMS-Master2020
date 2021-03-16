@@ -50,7 +50,7 @@ namespace TransactionManager.TransactionPhases
         public void SchedulePreparePhase(Dictionary<string, WCFClient<ITransaction>> services, TransactionStateWrapper transactionStateWrapper)
         {
             phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
-            currentPhase = new PrepareTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services);
+            currentPhase = new PrepareTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, services);
             phaseLocker.ReleaseWriterLock();
 
             semaphore.Release();
@@ -59,7 +59,7 @@ namespace TransactionManager.TransactionPhases
         public void ScheduleRollbackPhase(Dictionary<string, WCFClient<ITransaction>> services, TransactionStateWrapper transactionStateWrapper)
         {
             phaseLocker.AcquireWriterLock(LOCKER_TIME_OUT);
-            currentPhase = new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, semaphore, services);
+            currentPhase = new RollbackTransactionPhase(transactionStateLocker, phaseLocker, transactionStateWrapper, services);
             phaseLocker.ReleaseWriterLock();
 
             semaphore.Release();
