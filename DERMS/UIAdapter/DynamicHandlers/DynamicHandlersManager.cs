@@ -20,7 +20,7 @@ namespace UIAdapter.DynamicHandlers
             endpointInstance.Stop().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-        public void AddDynamicListeners(INServiceBusStorage storage)
+        public void AddDynamicListeners(INServiceBusHandlerCreator storage)
         {
             foreach (object handler in storage.GetHandlers())
             {

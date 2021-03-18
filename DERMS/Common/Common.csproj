@@ -63,7 +63,8 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
-    <Compile Include="DynamicMessages\AnalogRemotePointValueChanged.cs" />
+    <Compile Include="PubSub\Messages\SchemaGraphChanged.cs" />
+    <Compile Include="PubSub\Messages\AnalogRemotePointValueChanged.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceLocator\ServiceLocator.cs" />
@@ -114,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ServiceInterfaces\CalculationEngine\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

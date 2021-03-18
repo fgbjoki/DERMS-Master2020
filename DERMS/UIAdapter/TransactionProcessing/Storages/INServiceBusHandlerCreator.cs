@@ -1,9 +1,8 @@
-﻿using NServiceBus;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public interface INServiceBusStorage
+    public interface INServiceBusHandlerCreator
     {
         List<object> GetHandlers();
     }

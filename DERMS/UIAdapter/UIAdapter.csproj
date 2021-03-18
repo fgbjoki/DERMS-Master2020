@@ -65,7 +65,7 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteRemotePointStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
-    <Compile Include="TransactionProcessing\Storages\INServiceBusStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\INServiceBusHandlerCreator.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\SummaryTransactionProcessor.cs" />

@@ -10,7 +10,7 @@ using UIAdapter.DynamicHandlers;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>, INServiceBusStorage
+    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>, INServiceBusHandlerCreator
     {
         public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
