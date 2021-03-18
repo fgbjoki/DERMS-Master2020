@@ -56,20 +56,7 @@ namespace Common.GDA
             {
                 iteratorId = gdaProxy.Proxy.GetExtentValues(type, propertyIds, gids);
 
-                if (iteratorId == 0)
-                {
-                    return resultRds;
-                }
-
-                while (gdaProxy.Proxy.IteratorResourcesLeft(iteratorId) > 0)
-                {
-                    List<ResourceDescription> rds = gdaProxy.Proxy.IteratorNext(iteratorGetResources, iteratorId);
-
-                    if (rds.Count > 0)
-                    {
-                        resultRds.AddRange(rds);
-                    }
-                }
+                IterateThroughEntities(iteratorId, resultRds);
             }
             catch (Exception e)
             {
@@ -87,11 +74,43 @@ namespace Common.GDA
             {
                 iteratorId = gdaProxy.Proxy.GetExtentValues(type, propertyIds, gids);
 
-                if (iteratorId == 0)
-                {
-                    return resultRds;
-                }
+                IterateThroughEntities(iteratorId, resultRds);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
 
+            return resultRds;
+        }
+
+        public List<ResourceDescription> GetRelatedValues(long source, List<ModelCode> propIds, Association association)
+        {
+            List<ResourceDescription> resultRds = new List<ResourceDescription>();
+            int iteratorId = 0;
+            try
+            {
+                iteratorId = gdaProxy.Proxy.GetRelatedValues(source, propIds, association);
+
+                IterateThroughEntities(iteratorId, resultRds);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            return resultRds;
+        }
+
+        private void IterateThroughEntities(int iteratorId, List<ResourceDescription> resultRds)
+        {
+            if (iteratorId == 0)
+            {
+                return;
+            }
+
+            try
+            {
                 while (gdaProxy.Proxy.IteratorResourcesLeft(iteratorId) > 0)
                 {
                     List<ResourceDescription> rds = gdaProxy.Proxy.IteratorNext(iteratorGetResources, iteratorId);
@@ -102,12 +121,10 @@ namespace Common.GDA
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
-                return null;
+                throw;
             }
-
-            return resultRds;
         }
     }
 }

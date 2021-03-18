@@ -120,6 +120,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lib\DERMSCIMProfile.dll" />
     <Content Include="Lib\PowerTransformerCIMProfile_Labs.dll" />
   </ItemGroup>
   <ItemGroup />
