@@ -21,7 +21,7 @@ namespace FieldProcessor.CommandingProcessor
 
             if (remotePoint == null)
             {
-                Logger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:8X}.");
+                Logger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:X16}.");
                 return null;
             }
 

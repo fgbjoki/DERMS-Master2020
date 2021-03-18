@@ -74,23 +74,24 @@ namespace Common.AbstractModel
 
         CONDUCTINGEQ                = 0x1121000000000000,
         CONDUCTINGEQ_TERMINALS      = 0x1121000000000119,
+        CONDUCTINGEQ_TERMINALS_TEMP = 0x1121000000000119,
 
-        ENERGYCONSUMER              = 0x11220000000B0000,
-        ENERGYCONSUMER_PFIXED       = 0x11220000000B0105,
+        ENERGYCONSUMER              = 0x11212000000B0000,
+        ENERGYCONSUMER_PFIXED       = 0x11212000000B0105,
 
-        ENERGYSOURCE                = 0x11230000000C0000,
-        ENERGYSOURCE_ACTIVEPOWER    = 0x11230000000C0105,
+        ENERGYSOURCE                = 0x11213000000C0000,
+        ENERGYSOURCE_ACTIVEPOWER    = 0x11213000000C0105,
 
-        CONDUCTOR                   = 0x1124000000000000,
+        CONDUCTOR                   = 0x1121400000000000,
 
-        ACLINESEG                   = 0x11241000000D0000,
+        ACLINESEG                   = 0x11214100000D0000,
 
-        SWITCH                      = 0x1125000000000000,
-        SWITCH_NORMALOPEN           = 0x1125000000000101,
+        SWITCH                      = 0x1121500000000000,
+        SWITCH_NORMALOPEN           = 0x1121500000000101,
 
-        PROTSWITCH                  = 0x1125100000000000,
+        PROTSWITCH                  = 0x1121510000000000,
 
-        BREAKER                     = 0x11251100000E0000,
+        BREAKER                     = 0x11215110000E0000,
 
         DER                         = 0x1121100000000000,
         DER_SETPOINT                = 0x1121100000000105,

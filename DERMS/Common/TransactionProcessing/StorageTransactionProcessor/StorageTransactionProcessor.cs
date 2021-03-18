@@ -137,6 +137,7 @@ namespace Common.ComponentStorage
                     }
 
                     temporaryTransactionStorage.AddEntity(newItem);
+                    preparedObjects.Add(newItem.GlobalId, newItem);
                 }
             }
 

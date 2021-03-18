@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -37,7 +36,7 @@ namespace Common.ComponentStorage
 
             if (EntityExists(item.GlobalId))
             {
-                Logger.Logger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:8X}");
+                Logger.Logger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:X16}");
                 return false;
             }
 
