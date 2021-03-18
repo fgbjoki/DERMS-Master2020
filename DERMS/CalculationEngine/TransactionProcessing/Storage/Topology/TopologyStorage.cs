@@ -12,6 +12,7 @@ using CalculationEngine.Graphs;
 using CalculationEngine.Graphs.GraphProcessors;
 using CalculationEngine.Model.Topology.Graph.Topology;
 using CalculationEngine.Model.Topology.Graph.Schema;
+using System.Linq;
 
 namespace CalculationEngine.TransactionProcessing.Storage.Topology
 {
@@ -23,9 +24,9 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
         private ModelResourcesDesc modelResourceDesc;
 
         private IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis;
-        private IGraphProcessor<ISingleRootGraph<SchemaGraphNode>> schema;
+        private IGraphProcessor<ISchemaGraph> schema;
 
-        public TopologyStorage(BreakerMessageMapping breakerMessageMapping, GraphBranchManipulator graphManipulator, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis, IGraphProcessor<ISingleRootGraph<SchemaGraphNode>> schema)
+        public TopologyStorage(BreakerMessageMapping breakerMessageMapping, GraphBranchManipulator graphManipulator, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis, IGraphProcessor<ISchemaGraph> schema)
         {
             this.breakerMessageMapping = breakerMessageMapping;
             this.topologyAnalysis = topologyAnalysis;
@@ -34,7 +35,6 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
             modelResourceDesc = new ModelResourcesDesc();
             referenceResolver = new ReferenceResolver();
 
-            // TODO ADD TOPOLOGY ANALYSIS AND SCHEMA
             graphCreationStorage = new GraphsCreationProcessor(modelResourceDesc, schema, topologyAnalysis);
 
             TerminalStorage = new TerminalStorage(referenceResolver);
@@ -133,8 +133,10 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
 
         public List<ConnectivityObject> GetAllEntities()
         {
-            // TODO FIX THIS
-            return new List<ConnectivityObject>();
+            return ConnectivityNodeStorage.GetAllEntities().Cast<ConnectivityObject>().
+                Concat(EnergySourceStorage.GetAllEntities()).
+                Concat(TerminalStorage.GetAllEntities()).
+                Concat(ConductingEquipment.GetAllEntities()).ToList();
         }
 
         public ConnectivityObject GetEntity(long globalId)

@@ -1,6 +1,7 @@
 ﻿using Common.AbstractModel;
 using Common.ComponentStorage;
-using Common.DynamicMessages;
+using Common.Logger;
+using Common.PubSub.Messages;
 using NServiceBus;
 using System.Threading.Tasks;
 using UIAdapter.Model;
@@ -20,7 +21,7 @@ namespace UIAdapter.DynamicHandlers
         {
             if (message == null)
             {
-                // log
+                Logger.Instance.Log($"[{this.GetType()}] There was no data published. Skipping further processing!");
                 return Task.CompletedTask;
             }
 
@@ -30,7 +31,7 @@ namespace UIAdapter.DynamicHandlers
 
             if (remotePoint == null)
             {
-                // log
+                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {message.Id:X16}. Skipping further processing!");
                 return Task.CompletedTask;
             }
 
