@@ -23,13 +23,13 @@ namespace CalculationEngine.Graphs
 
         private ConnectivityGraphCreator connectivityGraphCreator;
 
-        private List<ISingleRootGraph<SchemaGraphNode>> schemaGraphs;
+        private List<ISchemaGraph> schemaGraphs;
         private List<IMultipleRootGraph<TopologyGraphNode>> topologyGraphs;
 
-        private IGraphProcessor<ISingleRootGraph<SchemaGraphNode>> schema;
+        private IGraphProcessor<ISchemaGraph> schema;
         private IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis;
 
-        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IGraphProcessor<ISingleRootGraph<SchemaGraphNode>> schema, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis)
+        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis)
         {
             this.schema = schema;
             this.topologyAnalysis = topologyAnalysis;
@@ -104,9 +104,9 @@ namespace CalculationEngine.Graphs
             return topologyGraphs;
         }
 
-        private List<ISingleRootGraph<SchemaGraphNode>> CreateSchemaGraphs(List<ConnectivityGraph> connectivityGraphs)
+        private List<ISchemaGraph> CreateSchemaGraphs(List<ConnectivityGraph> connectivityGraphs)
         {
-            List<ISingleRootGraph<SchemaGraphNode>> schemaGraphs = new List<ISingleRootGraph<SchemaGraphNode>>(connectivityGraphs.Count);
+            List<ISchemaGraph> schemaGraphs = new List<ISchemaGraph>(connectivityGraphs.Count);
 
             foreach (var connectivityGraph in connectivityGraphs)
             {

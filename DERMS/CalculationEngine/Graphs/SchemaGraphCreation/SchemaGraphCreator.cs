@@ -9,7 +9,7 @@ using CalculationEngine.Model.Topology.Graph.Connectivity;
 
 namespace CalculationEngine.Graphs.SchemaGraphCreation
 {
-    public class SchemaGraphCreator : BaseDepedentGraphCreator<ISingleRootGraph<SchemaGraphNode>, SchemaGraphNode, IMultipleRootGraph<ConnectivityGraphNode>, ConnectivityGraphNode>
+    public class SchemaGraphCreator : BaseDepedentGraphCreator<ISchemaGraph, SchemaGraphNode, IMultipleRootGraph<ConnectivityGraphNode>, ConnectivityGraphNode>
     {
         private SchemaGraphBranchManipulator graphBranchManipulator;
         private ConnectivityBreakerNodeFinder connectivityBreakerFinder;
@@ -77,28 +77,30 @@ namespace CalculationEngine.Graphs.SchemaGraphCreation
             return new SchemaGraphNode(dependentNode.Item);
         }
 
-        protected override ISingleRootGraph<SchemaGraphNode> InstantiateNewGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
+        protected override ISchemaGraph InstantiateNewGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
         {
             return new SchemaGraph();
         }
 
-        public override IEnumerable<ISingleRootGraph<SchemaGraphNode>> CreateGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
+        public override IEnumerable<ISchemaGraph> CreateGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
         {
-            List<ISingleRootGraph<SchemaGraphNode>> graphs = new List<ISingleRootGraph<SchemaGraphNode>>(graph.GetRoots().Count());
+            List<ISchemaGraph> graphs = new List<ISchemaGraph>(graph.GetRoots().Count());
 
             foreach (var root in graph.GetRoots())
             {
-                ISingleRootGraph<SchemaGraphNode> newGraph = InstantiateNewGraph(graph);
+                ISchemaGraph newGraph = InstantiateNewGraph(graph);
 
                 CreateSubNetworkGraph(root, newGraph);
 
                 ApplyReductionRules(newGraph);
+
+                graphs.Add(newGraph);
             }
 
             return graphs;
         }
 
-        private void CreateSubNetworkGraph(ConnectivityGraphNode root, ISingleRootGraph<SchemaGraphNode> newGraph)
+        private void CreateSubNetworkGraph(ConnectivityGraphNode root, ISchemaGraph newGraph)
         {
             long connectivityBreakerGid = connectivityBreakerFinder.FindConnectivityBreaker(root);
 
@@ -125,6 +127,8 @@ namespace CalculationEngine.Graphs.SchemaGraphCreation
                     nodesToProcess.Enqueue(childNode);
                 }
             }
+
+            newGraph.MarkInterConnectedBreaker(connectivityBreakerGid);
         }
     }
 }
