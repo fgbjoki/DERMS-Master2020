@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Common.AbstractModel;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CalculationEngine.Model.Topology.Graph.Schema
 {
-    public class SchemaGraph : Graph<SchemaGraphNode>, ISingleRootGraph<SchemaGraphNode>
+    public class SchemaGraph : Graph<SchemaGraphNode>, ISchemaGraph
     {
         private SchemaGraphNode root;
+        private long interConnectedBreakerGid;
 
         public override bool AddNode(SchemaGraphNode node)
         {
-            if (node.DMSType == Common.AbstractModel.DMSType.ENERGYSOURCE)
+            if (node.DMSType == DMSType.ENERGYSOURCE)
             {
                 if (root != null)
                 {
@@ -69,6 +71,25 @@ namespace CalculationEngine.Model.Topology.Graph.Schema
         public SchemaGraphNode GetRoot()
         {
             return root;
+        }
+
+        public long GetInterConnectedBreakerGid()
+        {
+            return interConnectedBreakerGid;
+        }
+
+        public bool MarkInterConnectedBreaker(long breakerGid)
+        {
+            SchemaGraphNode breaker = GetNode(breakerGid);
+
+            if (breaker == null)
+            {
+                return false;
+            }
+
+            interConnectedBreakerGid = breakerGid;
+
+            return true;
         }
     }
 }

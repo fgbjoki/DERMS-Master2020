@@ -50,6 +50,7 @@
     <Compile Include="Graphs\BaseDepedentGraphCreator.cs" />
     <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
     <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
+    <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
     <Compile Include="Schema\SchemaRepresentation.cs" />
     <Compile Include="TopologyAnalysis\TopologyAnalysis.cs" />
     <Compile Include="Graphs\GraphsCreationProcessor.cs" />
