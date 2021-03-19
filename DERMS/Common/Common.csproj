@@ -64,8 +64,10 @@
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
     <Compile Include="DynamicMessages\AnalogRemotePointValueChanged.cs" />
+    <Compile Include="DynamicMessages\DiscreteRemotePointValueChanged.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDiscreteRemotePointSummaryJob.cs" />
     <Compile Include="ServiceLocator\ServiceLocator.cs" />
     <Compile Include="TransactionProcessing\Storage\IdentifiedObject.cs" />
     <Compile Include="TransactionProcessing\Storage\IStorage.cs" />

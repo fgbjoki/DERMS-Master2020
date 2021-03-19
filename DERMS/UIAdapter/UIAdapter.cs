@@ -15,7 +15,7 @@ using UIAdapter.DynamicHandlers;
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -26,6 +26,7 @@ namespace UIAdapter
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
+        private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
 
         private DynamicHandlersManager dynamicHandlersManager;
 
@@ -62,22 +63,19 @@ namespace UIAdapter
         {
             return transactionManager.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
         }
-
-        public List<AnalogRemotePointSummaryDTO> GetAllEntities()
-        {
-            return analogRemotePointSummaryJob.GetAllEntities();
-        }
+        
 
         private void InitializeJobs()
         {
             analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
+            discreteRemotePointSummaryJob = new DiscreteRemotePointSummaryJob(discreteRemotePointStorage);
         }
 
         private void InitializeDynamicHandlers()
         {
             dynamicHandlersManager = new DynamicHandlersManager();
             dynamicHandlersManager.AddDynamicListeners(analogRemotePointStorage);
-            //dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
+            dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
 
             dynamicHandlersManager.StartListening();
         }
@@ -97,6 +95,17 @@ namespace UIAdapter
             }
 
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
+        }
+
+
+        public List<AnalogRemotePointSummaryDTO> GetAllAnalogEntities()
+        {
+            return analogRemotePointSummaryJob.GetAllEntities();
+        }
+
+        public List<DiscreteRemotePointSummaryDTO> GetAllDiscreteEntities()
+        {
+            return discreteRemotePointSummaryJob.GetAllEntities();
         }
     }
 }

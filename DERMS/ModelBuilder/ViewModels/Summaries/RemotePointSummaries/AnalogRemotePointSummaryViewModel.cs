@@ -19,7 +19,7 @@ namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
 
         public AnalogRemotePointSummaryViewModel() : base("Analog Remote Point Summary", ContentType.AnalogRemotePointSummary)
         {
-            summaryJob = new WCFClient<IAnalogRemotePointSummaryJob>("uiAdapterEndpoint");
+            summaryJob = new WCFClient<IAnalogRemotePointSummaryJob>("uiAdapterEndpointAnalog");
 
             DataGridItemDoubleClicked = new RelayCommand(DataGridItemSelected, null);
         }
@@ -41,7 +41,7 @@ namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
             List<AnalogRemotePointSummaryDTO> items;
             try
             {
-                items = summaryJob.Proxy.GetAllEntities();
+                items = summaryJob.Proxy.GetAllAnalogEntities();
             }
             catch
             {

@@ -7,7 +7,10 @@ namespace ClientUI.SummaryCreator
     public enum ContentType
     {
         AnalogRemotePointSummary,
-        AnalogRemotePointCommandingWindow
+        AnalogRemotePointCommandingWindow,
+        // not sure
+        DiscreteRemotePointSummary,
+        DiscreteRemotePointCommandingWindow
     }
 
     public class SummaryViewModelContainer
@@ -45,9 +48,14 @@ namespace ClientUI.SummaryCreator
         private List<ContentViewModel> CreateSummaryViewModels()
         {
             List<ContentViewModel> summaries = new List<ContentViewModel>();
+
             AnalogRemotePointSummaryViewModel analogSummaryView = new AnalogRemotePointSummaryViewModel();
+            // not sure
+            DiscreteRemotePointSummaryViewModel discreteSummaryView = new DiscreteRemotePointSummaryViewModel();
 
             summaries.Add(analogSummaryView);
+            // not sure
+            summaries.Add(discreteSummaryView);
 
 
             return summaries;

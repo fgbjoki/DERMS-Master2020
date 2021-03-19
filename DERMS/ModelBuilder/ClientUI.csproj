@@ -106,6 +106,7 @@
     </ApplicationDefinition>
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\AnalogRemotePointCommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
+    <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\DiscreteRemotePointCommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="CustomControls\CommandWindow.cs" />
@@ -118,6 +119,8 @@
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEvent.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEventArgs.cs" />
+    <Compile Include="Events\OpenCommandingWindow\DiscreteRemotePointOpenCommandingWindowEvent.cs" />
+    <Compile Include="Events\OpenCommandingWindow\DiscreteRemotePointOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
     <Compile Include="Models\IdentifiedObject.cs" />
@@ -136,13 +139,21 @@
     </Compile>
     <Compile Include="ViewModels\CommandingWindow\AnalogRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\CommandingViewModel.cs" />
+    <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\AnalogRemotePointSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\RemotePointSummaries\DiscreteRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\SummaryViewModel.cs" />
     <Compile Include="Views\CommandingWindow\AnalogRemotePointCommandingWindowView.xaml.cs">
       <DependentUpon>AnalogRemotePointCommandingWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml.cs">
+      <DependentUpon>DiscreteRemotePointCommandingWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiscreteRemotePointSummaryView.xaml.cs">
+      <DependentUpon>DiscreteRemotePointSummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -172,6 +183,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommandingWindow\AnalogRemotePointCommandingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DiscreteRemotePointSummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
