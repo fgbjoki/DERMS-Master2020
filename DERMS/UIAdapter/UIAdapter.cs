@@ -10,7 +10,7 @@ using System.ServiceModel.Configuration;
 using UIAdapter.TransactionProcessing.Storages;
 using Common.UIDataTransferObject.RemotePoints;
 using UIAdapter.SummaryJobs;
-using UIAdapter.DynamicHandlers;
+using Common.PubSub;
 
 namespace UIAdapter
 {
@@ -75,7 +75,7 @@ namespace UIAdapter
 
         private void InitializeDynamicHandlers()
         {
-            dynamicHandlersManager = new DynamicHandlersManager();
+            dynamicHandlersManager = new DynamicHandlersManager("UIAdapter");
             dynamicHandlersManager.AddDynamicListeners(analogRemotePointStorage);
             //dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
 
