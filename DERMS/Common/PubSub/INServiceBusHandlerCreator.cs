@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UIAdapter.TransactionProcessing.Storages
+namespace Common.PubSub
 {
     public interface INServiceBusHandlerCreator
     {

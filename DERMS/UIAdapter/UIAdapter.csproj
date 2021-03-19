@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicHandlers\AnalogRemotePointChangedHandler.cs" />
-    <Compile Include="DynamicHandlers\DynamicHandlersManager.cs" />
     <Compile Include="Model\AnalogRemotePoint.cs" />
     <Compile Include="Model\DiscreteRemotePoint.cs" />
     <Compile Include="Model\RemotePoint.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteRemotePointStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
-    <Compile Include="TransactionProcessing\Storages\INServiceBusHandlerCreator.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\SummaryTransactionProcessor.cs" />

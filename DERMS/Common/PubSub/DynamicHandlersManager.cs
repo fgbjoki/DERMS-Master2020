@@ -1,17 +1,20 @@
 ﻿using NServiceBus;
 using System;
 using System.Collections.Generic;
-using UIAdapter.TransactionProcessing.Storages;
 
-namespace UIAdapter.DynamicHandlers
+namespace Common.PubSub
 {
     public class DynamicHandlersManager : IDisposable
     {
+        private string endpointName;
+
         private Dictionary<Type, object> handlers;
         private IEndpointInstance endpointInstance;
 
-        public DynamicHandlersManager()
+        public DynamicHandlersManager(string endpointName)
         {
+            this.endpointName = endpointName;
+
             handlers = new Dictionary<Type, object>();
         }
 
@@ -30,10 +33,8 @@ namespace UIAdapter.DynamicHandlers
 
         public async void StartListening()
         {
-
+            var endpointConfiguration = new EndpointConfiguration(endpointName);
             //ConfigureEndpoint(endpointConfiguration);
-
-            var endpointConfiguration = new EndpointConfiguration("UIAdapter");
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
         }

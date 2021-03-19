@@ -63,6 +63,10 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="PubSub\DynamicHandlersManager.cs" />
+    <Compile Include="PubSub\DynamicPublisher.cs" />
+    <Compile Include="PubSub\IDynamicPublisher.cs" />
+    <Compile Include="PubSub\INServiceBusHandlerCreator.cs" />
     <Compile Include="PubSub\Messages\SchemaGraphChanged.cs" />
     <Compile Include="PubSub\Messages\AnalogRemotePointValueChanged.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
