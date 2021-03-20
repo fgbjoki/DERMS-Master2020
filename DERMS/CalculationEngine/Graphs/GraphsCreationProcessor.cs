@@ -12,6 +12,7 @@ using CalculationEngine.Model.Topology.Graph.Topology;
 using System.Collections.Generic;
 using CalculationEngine.Model.Topology.Graph.Connectivity;
 using Common.Logger;
+using Common.PubSub;
 
 namespace CalculationEngine.Graphs
 {
@@ -75,7 +76,7 @@ namespace CalculationEngine.Graphs
             }
             catch (Exception e)
             {
-                Logger.Instance.Log($"[{this.GetType()}] Failed to commit graphs. More info: {e.Message}");
+                Logger.Instance.Log($"[{this.GetType()}] Failed to commit graphs. More info: {e.Message}\nStack trace: {e.StackTrace}");
 
                 commited = false;
             }

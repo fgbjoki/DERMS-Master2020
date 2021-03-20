@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -51,6 +52,7 @@
     <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
     <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
     <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
+    <Compile Include="Schema\SchemaMessageConverter.cs" />
     <Compile Include="Schema\SchemaRepresentation.cs" />
     <Compile Include="TopologyAnalysis\TopologyAnalysis.cs" />
     <Compile Include="Graphs\GraphsCreationProcessor.cs" />

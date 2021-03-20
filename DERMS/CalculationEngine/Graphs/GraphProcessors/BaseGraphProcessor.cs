@@ -14,7 +14,7 @@ namespace CalculationEngine.Graphs.GraphProcessors
             graphs = new Dictionary<long, GraphType>();
         }
 
-        public bool AddGraph(GraphType graph)
+        public virtual bool AddGraph(GraphType graph)
         {
             foreach (var rootGlobalId in GetRootsGlobalId(graph))
             {
