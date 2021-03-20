@@ -1,9 +1,11 @@
-﻿using CalculationEngine.Graphs.ConnectivityGraphCreation;
+﻿using CalculationEngine.Graphs;
 using CalculationEngine.Model.Topology;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Schema;
 using CalculationEngine.TransactionProcessing.Storage.Topology;
+using Common.AbstractModel;
 using Common.ComponentStorage;
+using Common.PubSub;
 using Common.ServiceInterfaces;
 using Common.ServiceInterfaces.Transaction;
 using System;
@@ -20,6 +22,8 @@ namespace CalculationEngine
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
 
+        private ModelResourcesDesc modelResourcesDesc;
+
         private GraphBranchManipulator graphManipulator;
 
         private BreakerMessageMapping breakerMessageMapping;
@@ -32,9 +36,13 @@ namespace CalculationEngine
 
         private SchemaRepresentation schemaRepresentation;
 
+        private IDynamicPublisher dynamicPublisher;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
+
+            InitializeDynamicPublisher();
 
             InitializeGraphs();
 
@@ -46,7 +54,7 @@ namespace CalculationEngine
         private void InitializeGraphs()
         {
             topologyAnalysis = new TopologyAnalysis.TopologyAnalysis();
-            schemaRepresentation = new SchemaRepresentation();
+            schemaRepresentation = new SchemaRepresentation(dynamicPublisher);
         }
 
         public bool Prepare()
@@ -75,17 +83,24 @@ namespace CalculationEngine
 
             breakerMessageMapping = new BreakerMessageMapping();
             graphManipulator = new GraphBranchManipulator();
+            modelResourcesDesc = new ModelResourcesDesc();
         }
 
         private void InitializeStorages()
         {
-            topologyStorage = new TopologyStorage(breakerMessageMapping, graphManipulator, topologyAnalysis, schemaRepresentation);
+            GraphsCreationProcessor graphsCreationProcessor = new GraphsCreationProcessor(modelResourcesDesc, schemaRepresentation, topologyAnalysis);
+            topologyStorage = new TopologyStorage(breakerMessageMapping, graphManipulator, graphsCreationProcessor, modelResourcesDesc);
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
             transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { topologyStorage });
+        }
+
+        private void InitializeDynamicPublisher()
+        {
+            dynamicPublisher = new DynamicPublisher(serviceName);
         }
 
         private void LoadConfigurationFromAppConfig()

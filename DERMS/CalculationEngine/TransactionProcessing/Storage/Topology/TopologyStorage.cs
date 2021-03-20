@@ -9,9 +9,6 @@ using Common.AbstractModel;
 using Common.Logger;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Graphs;
-using CalculationEngine.Graphs.GraphProcessors;
-using CalculationEngine.Model.Topology.Graph.Topology;
-using CalculationEngine.Model.Topology.Graph.Schema;
 using System.Linq;
 
 namespace CalculationEngine.TransactionProcessing.Storage.Topology
@@ -23,31 +20,25 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
         private GraphsCreationProcessor graphCreationStorage;
         private ModelResourcesDesc modelResourceDesc;
 
-        private IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis;
-        private IGraphProcessor<ISchemaGraph> schema;
-
-        public TopologyStorage(BreakerMessageMapping breakerMessageMapping, GraphBranchManipulator graphManipulator, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis, IGraphProcessor<ISchemaGraph> schema)
+        public TopologyStorage(BreakerMessageMapping breakerMessageMapping, GraphBranchManipulator graphManipulator, GraphsCreationProcessor graphCreationStorage, ModelResourcesDesc modelResourceDesc)
         {
             this.breakerMessageMapping = breakerMessageMapping;
-            this.topologyAnalysis = topologyAnalysis;
-            this.schema = schema;
+            this.graphCreationStorage = graphCreationStorage;
+            this.modelResourceDesc = modelResourceDesc;
 
-            modelResourceDesc = new ModelResourcesDesc();
             referenceResolver = new ReferenceResolver();
-
-            graphCreationStorage = new GraphsCreationProcessor(modelResourceDesc, schema, topologyAnalysis);
-
             TerminalStorage = new TerminalStorage(referenceResolver);
             EnergySourceStorage = new EnergySourceStorage(referenceResolver);
             ConnectivityNodeStorage = new ConnectivityNodeStorage(referenceResolver);
             ConductingEquipment = new ConductingEquipmentStorage(referenceResolver, breakerMessageMapping);
         }
 
-        protected TopologyStorage(BreakerMessageMapping breakerMessageMapping, ReferenceResolver referenceResolver, GraphsCreationProcessor graphCreationStorage)
+        protected TopologyStorage(BreakerMessageMapping breakerMessageMapping, ReferenceResolver referenceResolver, GraphsCreationProcessor graphCreationStorage, ModelResourcesDesc modelResourceDesc)
         {
             this.referenceResolver = referenceResolver;
             this.breakerMessageMapping = breakerMessageMapping;
             this.graphCreationStorage = graphCreationStorage;
+            this.modelResourceDesc = modelResourceDesc;
 
             TerminalStorage = new TerminalStorage(referenceResolver);
             EnergySourceStorage = new EnergySourceStorage(referenceResolver);
@@ -171,7 +162,7 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
 
         public object Clone()
         {
-            return new TopologyStorage(breakerMessageMapping, referenceResolver, graphCreationStorage);
+            return new TopologyStorage(breakerMessageMapping, referenceResolver, graphCreationStorage, modelResourceDesc);
         }
 
         public void ShallowCopyEntities(IStorage<ConnectivityObject> storage)
