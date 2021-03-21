@@ -51,7 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicHandlers\AnalogRemotePointChangedHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
     <Compile Include="Model\AnalogRemotePoint.cs" />
     <Compile Include="Model\DiscreteRemotePoint.cs" />
     <Compile Include="Model\RemotePoint.cs" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

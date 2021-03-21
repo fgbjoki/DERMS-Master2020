@@ -1,24 +1,20 @@
 ﻿using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.ComponentStorage.StorageItemCreator;
+using Common.PubSub;
 using System.Collections.Generic;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
-using UIAdapter.DynamicHandlers;
-using Common.PubSub;
+using Common.PubSub.Subscriptions;
+using UIAdapter.PubSub.DynamicHandlers;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
-    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>, INServiceBusHandlerCreator
+    public class AnalogRemotePointStorage : Storage<AnalogRemotePoint>, ISubscriber
     {
         public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
-        }
-
-        public List<object> GetHandlers()
-        {
-            return new List<object>() { new AnalogRemotePointChangedHandler(this) };
         }
 
         public override List<IStorageTransactionProcessor> GetStorageTransactionProcessors()
@@ -31,6 +27,14 @@ namespace UIAdapter.TransactionProcessing.Storages
             return new List<IStorageTransactionProcessor>()
             {
                 new AnalogRemotePointTransactionProcessor(this, storageItemCreators, commitDone)
+            };
+        }
+
+        public IEnumerable<ISubscription> GetSubscriptions()
+        {
+            return new List<ISubscription>(1)
+            {
+                new Subscription(Topic.AnalogRemotePointChange, new AnalogRemotePointStorageDynamicHandler(this))
             };
         }
 
