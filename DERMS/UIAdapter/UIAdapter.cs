@@ -11,6 +11,7 @@ using UIAdapter.TransactionProcessing.Storages;
 using Common.UIDataTransferObject.RemotePoints;
 using UIAdapter.SummaryJobs;
 using Common.PubSub;
+using UIAdapter.PubSub.DynamicHandlers;
 
 namespace UIAdapter
 {
@@ -27,20 +28,19 @@ namespace UIAdapter
 
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
 
-        private DynamicHandlersManager dynamicHandlersManager;
+        private DynamicListenersManager dynamicListenerManager;
 
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
 
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            analogRemotePointStorage = new AnalogRemotePointStorage();
-            discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
+            InitializeTransactionStorages();
 
             InitializeJobs();
-            InitializeDynamicHandlers();
+
+            InitializePubSub();
         }
 
         public bool Prepare()
@@ -75,11 +75,37 @@ namespace UIAdapter
 
         private void InitializeDynamicHandlers()
         {
-            dynamicHandlersManager = new DynamicHandlersManager("UIAdapter");
-            dynamicHandlersManager.AddDynamicListeners(analogRemotePointStorage);
-            //dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
+            dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
+        }
 
-            dynamicHandlersManager.StartListening();
+        private void InitializeDynamicListeners()
+        {
+            dynamicListenerManager = new DynamicListenersManager("UIAdapter");
+            List<IDynamicListener> listeners = new List<IDynamicListener>()
+            {
+                new AnalogRemotePointChangedListener()
+            };
+
+            foreach (var listener in listeners)
+            {
+                dynamicListenerManager.AddDynamicHandlers(listener.Topic, listener);
+            }
+        }
+
+        private void InitializePubSub()
+        {
+            InitializeDynamicListeners();
+            InitializeDynamicHandlers();
+
+            dynamicListenerManager.StartListening();
+        }
+
+        private void InitializeTransactionStorages()
+        {
+            analogRemotePointStorage = new AnalogRemotePointStorage();
+            discreteRemotePointStorage = new DiscreteRemotePointStorage();
+
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
         }
 
         private void LoadConfigurationFromAppConfig()

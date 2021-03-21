@@ -1,21 +1,22 @@
-﻿using NServiceBus;
+﻿using Common.PubSub.Subscriptions;
+using NServiceBus;
 using System;
 using System.Collections.Generic;
 
 namespace Common.PubSub
 {
-    public class DynamicHandlersManager : IDisposable
+    public class DynamicListenersManager : IDisposable
     {
         private string endpointName;
 
-        private Dictionary<Type, object> handlers;
+        private Dictionary<Topic, IDynamicListener> listeners;
         private IEndpointInstance endpointInstance;
 
-        public DynamicHandlersManager(string endpointName)
+        public DynamicListenersManager(string endpointName)
         {
             this.endpointName = endpointName;
 
-            handlers = new Dictionary<Type, object>();
+            listeners = new Dictionary<Topic, IDynamicListener>();
         }
 
         public void Dispose()
@@ -23,11 +24,22 @@ namespace Common.PubSub
             endpointInstance.Stop().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
-        public void AddDynamicListeners(INServiceBusHandlerCreator storage)
+        public void AddDynamicHandlers(Topic topic, IDynamicListener handler)
         {
-            foreach (object handler in storage.GetHandlers())
+            listeners.Add(topic, handler);
+        }
+
+        public void ConfigureSubscriptions(IEnumerable<ISubscription> subscriptions)
+        {
+            foreach (var subscription in subscriptions)
             {
-                handlers.Add(handler.GetType(), handler);
+                IDynamicListener listener;
+                if (!listeners.TryGetValue(subscription.Topic, out listener))
+                {
+                    Logger.Logger.Instance.Log($"[{this.GetType()}] Subscription with subscriber \'{subscription.Subscriber.GetType().Name}\' cannot find it's dynamic listener. Subscription rejected.");
+                }
+
+                listener.Subscribe(subscription);
             }
         }
 
