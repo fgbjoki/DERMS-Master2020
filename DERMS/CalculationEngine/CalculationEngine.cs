@@ -7,17 +7,19 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.PubSub;
 using Common.ServiceInterfaces;
+using Common.ServiceInterfaces.CalculationEngine;
 using Common.ServiceInterfaces.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
+using Common.DataTransferObjects.CalculationEngine;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -118,6 +120,16 @@ namespace CalculationEngine
             }
 
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
+        }
+
+        public IEnumerable<long> GetSchemaSources()
+        {
+            return schemaRepresentation.GetSchemaSources();
+        }
+
+        public SchemaGraphChanged GetSchema(long sourceId)
+        {
+            return schemaRepresentation.GetSchema(sourceId);
         }
     }
 }

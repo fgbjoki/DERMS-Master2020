@@ -7,7 +7,7 @@ namespace CalculationEngine.Graphs.GraphProcessors
         /// <summary>
         /// Key: globalId of root, Value: roots graph
         /// </summary>
-        Dictionary<long, GraphType> graphs;
+        protected Dictionary<long, GraphType> graphs;
 
         protected BaseGraphProcessor()
         {

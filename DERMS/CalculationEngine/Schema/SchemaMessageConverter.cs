@@ -1,5 +1,5 @@
 ﻿using CalculationEngine.Model.Topology.Graph.Schema;
-using Common.PubSub.Messages;
+using Common.DataTransferObjects.CalculationEngine;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +30,7 @@ namespace CalculationEngine.Schema
                 parentToChildRelation.Add(currentNode.Item, children);
             }
 
-            return new SchemaGraphChanged(parentToChildRelation, graph.GetInterConnectedBreakerGid());
+            return new SchemaGraphChanged(parentToChildRelation, graph.GetRoot().Item, graph.GetInterConnectedBreakerGid());
         }
     }
 }
