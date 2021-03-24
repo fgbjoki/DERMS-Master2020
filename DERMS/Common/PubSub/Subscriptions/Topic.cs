@@ -4,6 +4,5 @@
     {
         AnalogRemotePointChange,
         DiscreteRemotePointChange,
-        SchemaChange
     }
 }
