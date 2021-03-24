@@ -28,7 +28,6 @@ namespace Common.PubSub
                 return Task.CompletedTask;
             }
 
-
             foreach (var subscriber in subscribers)
             {
                 try

@@ -7,9 +7,9 @@ using System.Threading;
 
 namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
 {
-    class AnalogRemotePointTransactionProcessor : SummaryTransactionProcessor<AnalogRemotePoint>
+    class AnalogRemotePointTransactionProcessor : StorageTransactionProcessor<AnalogRemotePoint>
     {
-        public AnalogRemotePointTransactionProcessor(IStorage<AnalogRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators, AutoResetEvent commitDone) : base(storage, storageItemCreators, commitDone)
+        public AnalogRemotePointTransactionProcessor(IStorage<AnalogRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
         {
         }
 

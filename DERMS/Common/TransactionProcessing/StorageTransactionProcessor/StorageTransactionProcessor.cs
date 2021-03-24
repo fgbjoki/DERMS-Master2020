@@ -3,6 +3,7 @@ using Common.ComponentStorage.StorageItemCreator;
 using Common.GDA;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Common.ComponentStorage
 {
@@ -15,6 +16,8 @@ namespace Common.ComponentStorage
 
         private List<DMSType> primaryTypes;
 
+        private AutoResetEvent commitDone;
+
         protected Dictionary<long, T> preparedObjects;
 
         protected IStorage<T> storage;
@@ -25,6 +28,8 @@ namespace Common.ComponentStorage
             this.storage = storage;
             this.storageItemCreators = storageItemCreators;
 
+            commitDone = storage.Commited;
+
             primaryTypes = GetPrimaryTypes();
         }
 
@@ -33,6 +38,8 @@ namespace Common.ComponentStorage
             bool commited = true;
 
             storage.ShallowCopyEntities(temporaryTransactionStorage);
+
+            commitDone.Set();
 
             DisposeTransactionResources();
 

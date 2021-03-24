@@ -36,7 +36,7 @@ namespace Common.PubSub
                 IDynamicListener listener;
                 if (!listeners.TryGetValue(subscription.Topic, out listener))
                 {
-                    Logger.Logger.Instance.Log($"[{this.GetType()}] Subscription with subscriber \'{subscription.Subscriber.GetType().Name}\' cannot find it's dynamic listener. Subscription rejected.");
+                    Logger.Logger.Instance.Log($"[{this.GetType().Name}] Subscription with subscriber \'{subscription.Subscriber.GetType().Name}\' cannot find it's dynamic listener. Subscription rejected.");
                 }
 
                 listener.Subscribe(subscription);

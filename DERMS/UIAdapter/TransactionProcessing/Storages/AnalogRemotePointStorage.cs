@@ -26,7 +26,7 @@ namespace UIAdapter.TransactionProcessing.Storages
 
             return new List<IStorageTransactionProcessor>()
             {
-                new AnalogRemotePointTransactionProcessor(this, storageItemCreators, commitDone)
+                new AnalogRemotePointTransactionProcessor(this, storageItemCreators)
             };
         }
 
