@@ -7,7 +7,7 @@ namespace Common.ComponentStorage
     public abstract class Storage<T> : ITransactionStorage, IStorage<T>
         where T : IdentifiedObject
     {
-        private Dictionary<long, T> items;
+        protected Dictionary<long, T> items;
 
         protected string storageName;
 

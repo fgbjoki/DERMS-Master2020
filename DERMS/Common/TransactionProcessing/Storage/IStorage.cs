@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Common.ComponentStorage
 {
@@ -16,5 +17,7 @@ namespace Common.ComponentStorage
         bool ValidateEntity(T entity);
 
         void ShallowCopyEntities(IStorage<T> storage);
+
+        AutoResetEvent Commited { get; }
     }
 }

@@ -10,6 +10,8 @@ using Common.Logger;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Graphs;
 using System.Linq;
+using System;
+using System.Threading;
 
 namespace CalculationEngine.TransactionProcessing.Storage.Topology
 {
@@ -50,6 +52,15 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
         public IStorage<EnergySource> EnergySourceStorage { get; private set; }
         public IStorage<ConductingEquipment> ConductingEquipment { get; private set; }
         public IStorage<ConnectivityNode> ConnectivityNodeStorage { get; private set; }
+
+        public AutoResetEvent Commited
+        {
+            get
+            {
+                // last storage
+                return ConnectivityNodeStorage.Commited;
+            }
+        }
 
         public bool AddEntity(ConnectivityObject item)
         {
