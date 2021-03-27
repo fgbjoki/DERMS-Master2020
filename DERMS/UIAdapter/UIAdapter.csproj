@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BreakerMessageMapping.cs" />
+    <Compile Include="Model\Schema\Breaker.cs" />
+    <Compile Include="Model\Schema\EnergySource.cs" />
     <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
     <Compile Include="Model\AnalogRemotePoint.cs" />
@@ -58,15 +61,34 @@
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema\NodeStateChangePropagator.cs" />
+    <Compile Include="Schema\SchemaAligner.cs" />
+    <Compile Include="Schema\SchemaGraphToDTOConverter.cs" />
+    <Compile Include="Schema\StateController\EquipmentState.cs" />
+    <Compile Include="Schema\DynamicSchemaToGraphSchemaConverter.cs" />
+    <Compile Include="Schema\GraphSchemaController.cs" />
+    <Compile Include="Schema\Graph\SchemaBreakerGraphNode.cs" />
+    <Compile Include="Schema\Graph\SchemaGraph.cs" />
+    <Compile Include="Schema\Graph\SchemaGraphBranch.cs" />
+    <Compile Include="Schema\Graph\SchemaGraphNode.cs" />
+    <Compile Include="Schema\SchemaRepresentation.cs" />
+    <Compile Include="Schema\StateController\EquipmentStateCreator.cs" />
+    <Compile Include="Schema\StateController\GraphState.cs" />
     <Compile Include="SummaryJobs\AnalogRemotePointSummaryJob.cs" />
     <Compile Include="SummaryJobs\SummaryItem.cs" />
     <Compile Include="SummaryJobs\SummaryJob.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\AnalogRemotePointStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteRemotePointStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Schema\BreakerStateStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Schema\EnergySourceItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\Schema\BreakerStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\Schema\EnergySourceStorage.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\DiscreteRemotePointTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\Schema\BreakerStateTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\Schema\EnergySourceTransactionProcessor.cs" />
     <Compile Include="UIAdapter.cs" />
   </ItemGroup>
   <ItemGroup>

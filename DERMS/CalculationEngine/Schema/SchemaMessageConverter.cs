@@ -25,6 +25,7 @@ namespace CalculationEngine.Schema
                 foreach (var child in currentNode.ChildBranches.Select(x => x.DownStream).Cast<SchemaGraphNode>())
                 {
                     children.Add(child.Item);
+                    nodesToProcess.Enqueue(child);
                 }
 
                 parentToChildRelation.Add(currentNode.Item, children);

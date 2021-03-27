@@ -70,7 +70,7 @@ namespace NetworkManagementService.DataModel.DER_Specific
                     ActivePower = property.AsFloat();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }

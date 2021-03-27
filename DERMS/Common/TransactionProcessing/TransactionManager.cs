@@ -151,13 +151,11 @@ namespace Common.ComponentStorage
                     {
                         distinctProperties[properties.Key] = new HashSet<ModelCode>(properties.Value);
                     }
-                    else
+
+                    HashSet<ModelCode> hashSet = distinctProperties[properties.Key];
+                    foreach (var property in properties.Value)
                     {
-                        HashSet<ModelCode> hashSet = distinctProperties[properties.Key];
-                        foreach (var property in properties.Value)
-                        {
-                            hashSet.Add(property);
-                        }
+                        hashSet.Add(property);
                     }
                 }
             }

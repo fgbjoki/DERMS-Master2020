@@ -11,17 +11,24 @@ using UIAdapter.TransactionProcessing.Storages;
 using Common.UIDataTransferObject.RemotePoints;
 using UIAdapter.SummaryJobs;
 using Common.PubSub;
-using UIAdapter.PubSub.DynamicHandlers;
+using UIAdapter.PubSub.DynamicListeners;
+using UIAdapter.Schema;
+using UIAdapter.TransactionProcessing.Storages.Schema;
+using Common.ServiceInterfaces.UIAdapter;
+using Common.UIDataTransferObject.Schema;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, ISchema
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
 
         private TransactionManager transactionManager;
+
+        private EnergySourceStorage schemaEnergySourceStorage;
+        private BreakerStorage schemaBreakerStorage;
 
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
@@ -29,6 +36,8 @@ namespace UIAdapter
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
 
         private DynamicListenersManager dynamicListenerManager;
+
+        private SchemaRepresentation schemaRepresentation;
 
         public UIAdapter()
         {
@@ -38,9 +47,16 @@ namespace UIAdapter
 
             InitializeTransactionStorages();
 
+            InitializeSchemaRepresentation();
+
             InitializeJobs();
 
             InitializePubSub();
+        }
+
+        private void InitializeSchemaRepresentation()
+        {
+            schemaRepresentation = new SchemaRepresentation(schemaEnergySourceStorage, schemaBreakerStorage);
         }
 
         public bool Prepare()
@@ -80,10 +96,10 @@ namespace UIAdapter
 
         private void InitializeDynamicListeners()
         {
-            dynamicListenerManager = new DynamicListenersManager("UIAdapter");
+            dynamicListenerManager = new DynamicListenersManager(serviceName);
             List<IDynamicListener> listeners = new List<IDynamicListener>()
             {
-                new AnalogRemotePointChangedListener()
+                new AnalogRemotePointChangedListener(),
             };
 
             foreach (var listener in listeners)
@@ -97,7 +113,7 @@ namespace UIAdapter
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
 
-            dynamicListenerManager.StartListening();
+            //dynamicListenerManager.StartListening();
         }
 
         private void InitializeTransactionStorages()
@@ -105,7 +121,10 @@ namespace UIAdapter
             analogRemotePointStorage = new AnalogRemotePointStorage();
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
+            schemaEnergySourceStorage = new EnergySourceStorage();
+            schemaBreakerStorage = new BreakerStorage();
+
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage });
         }
 
         private void LoadConfigurationFromAppConfig()
@@ -123,6 +142,21 @@ namespace UIAdapter
             }
 
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
+        }
+
+        public SubSchemaDTO GetSchema(long energySourceId)
+        {
+            return schemaRepresentation.GetSchema(energySourceId);
+        }
+
+        public SubSchemaConductingEquipmentEnergized GetEquipmentStates(long energySourceId)
+        {
+            return schemaRepresentation.GetEquipmentStates(energySourceId);
+        }
+
+        public List<EnergySourceDTO> GetSubstations()
+        {
+            return schemaRepresentation.GetSubstations();
         }
     }
 }

@@ -108,6 +108,10 @@
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Converters\ImagePathToImageConverter.cs" />
+    <Compile Include="Converters\Schema\EquipmentConductionToColorConverter.cs" />
+    <Compile Include="Converters\Schema\HorizontalLineConverter.cs" />
+    <Compile Include="Converters\Schema\VerticalLineConverter.cs" />
     <Compile Include="CustomControls\CommandWindow.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentMenu.xaml.cs">
       <DependentUpon>ContentMenu.xaml</DependentUpon>
@@ -124,6 +128,18 @@
     <Compile Include="Models\RemotePoints\AnalogRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\DiscreteRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\RemotePointSummaryItem.cs" />
+    <Compile Include="Models\Schema\NodeCreators\BreakerSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\ConnectivityNodeSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\EnergyStorageSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\GeneratorSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\InterConnectedBreakerSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\NonClicableSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\SchemaCreator.cs" />
+    <Compile Include="Models\Schema\SchemaGraphWrapper.cs" />
+    <Compile Include="Models\Schema\SchemaNode.cs" />
+    <Compile Include="Models\Schema\NodeCreators\SchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\EnergySourceBrowseSchemaItem.cs" />
+    <Compile Include="Models\Schema\UINode.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
@@ -138,6 +154,8 @@
     <Compile Include="ViewModels\CommandingWindow\CommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
+    <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\AnalogRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\SummaryViewModel.cs" />
@@ -149,6 +167,12 @@
     </Compile>
     <Compile Include="Views\AnalogRemotePointSummaryView.xaml.cs">
       <DependentUpon>AnalogRemotePointSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowseSchemaView.xaml.cs">
+      <DependentUpon>BrowseSchemaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SchemaView.xaml.cs">
+      <DependentUpon>SchemaView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +195,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomStyles\SchemaGraphNodeStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommandingWindow\AnalogRemotePointCommandingWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,12 +211,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BrowseSchemaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SchemaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DynamicHandlers\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\switch-symbol-circuit-electric-97624.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />

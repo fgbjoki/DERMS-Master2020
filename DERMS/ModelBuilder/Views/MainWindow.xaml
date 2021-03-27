@@ -8,6 +8,7 @@
         xmlns:view="clr-namespace:ClientUI.Views"
         xmlns:viewModels="clr-namespace:ClientUI.ViewModels"
         xmlns:analogRemotePointViewModel="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
+        xmlns:browseSchemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
         mc:Ignorable="d"
         MinWidth="800"
@@ -21,6 +22,9 @@
         <DataTemplate DataType="{x:Type analogRemotePointViewModel:AnalogRemotePointSummaryViewModel}">
             <view:AnalogRemotePointSummaryView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type browseSchemaViewModel:BrowseSchemaViewModel}">
+            <view:BrowseSchemaView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -33,13 +37,15 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <customControls:ContentMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="0,0,30,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding ContentViewModel.PageName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-            <ContentControl Content="{Binding ContentViewModel}" Grid.Row="1"/>
+            <Separator Grid.Row="1" Visibility="{Binding ContentVisible}"/>
+            <ContentControl Content="{Binding ContentViewModel}" Grid.Row="2"/>
         </Grid>
         
     </Grid>

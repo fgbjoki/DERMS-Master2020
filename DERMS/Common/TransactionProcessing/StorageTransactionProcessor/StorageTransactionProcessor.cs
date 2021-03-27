@@ -164,14 +164,13 @@ namespace Common.ComponentStorage
                     {
                         neededPropeties[properties.Key] = new HashSet<ModelCode>(properties.Value);
                     }
-                    else
+
+                    HashSet<ModelCode> hashSet = neededPropeties[properties.Key];
+                    foreach (var property in properties.Value)
                     {
-                        HashSet<ModelCode> hashSet = neededPropeties[properties.Key];
-                        foreach (var property in properties.Value)
-                        {
-                            hashSet.Add(property);
-                        }
+                        hashSet.Add(property);
                     }
+
                 }
             }
 
