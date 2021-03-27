@@ -1,4 +1,5 @@
 ﻿using Common.UIDataTransferObject;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,22 @@ using System.Threading.Tasks;
 
 namespace ClientUI.Models
 {
-    public abstract class IdentifiedObject
+    public abstract class IdentifiedObject : BindableBase
     {
-        public long GlobalId { get; set; }
-        public string Name { get; set; }
+        private long globalId;
+        private string name;
+
+        public long GlobalId
+        {
+            get { return globalId; }
+            set { SetProperty(ref globalId, value); }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
 
         public void Update(IdentifiedObjectDTO entity)
         {

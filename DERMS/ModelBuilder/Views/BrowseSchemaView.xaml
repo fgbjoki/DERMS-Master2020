@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ClientUI.Views.BrowseSchemaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views"
+             xmlns:model="clr-namespace:ClientUI.Models.Schema"
+             xmlns:schemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
+             xmlns:schemaView="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type schemaViewModel:SchemaViewModel}">
+            <schemaView:SchemaView/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Substations" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" ItemsSource="{Binding EnergySources}" DisplayMemberPath="SubstationName" SelectedItem="{Binding SelectedEnergySource}"/>
+            <Button Grid.Column="2" Command="{Binding GetSchemaCommand}" HorizontalAlignment="Left" Margin="10,0,0,0">Display</Button>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <!-- Schema -->
+            <ContentControl Content="{Binding SchemaViewModel}"/>
+        </Grid>
+    </Grid>
+
+</UserControl>

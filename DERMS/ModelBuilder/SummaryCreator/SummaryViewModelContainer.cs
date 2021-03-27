@@ -1,4 +1,5 @@
 ﻿using ClientUI.ViewModels;
+using ClientUI.ViewModels.Schema;
 using ClientUI.ViewModels.Summaries.RemotePointSummaries;
 using System.Collections.Generic;
 
@@ -7,7 +8,8 @@ namespace ClientUI.SummaryCreator
     public enum ContentType
     {
         AnalogRemotePointSummary,
-        AnalogRemotePointCommandingWindow
+        AnalogRemotePointCommandingWindow,
+        BrowseSchema
     }
 
     public class SummaryViewModelContainer
@@ -39,18 +41,24 @@ namespace ClientUI.SummaryCreator
 
         private List<ContentViewModel> CreateViewModels()
         {
-            return CreateSummaryViewModels();
+            List<ContentViewModel> viewModels = new List<ContentViewModel>();
+
+            CreateSummaryViewModels(viewModels);
+            CreateSchemaViewModels(viewModels);
+
+            return viewModels;
         }
 
-        private List<ContentViewModel> CreateSummaryViewModels()
+        private void CreateSchemaViewModels(List<ContentViewModel> viewModels)
         {
-            List<ContentViewModel> summaries = new List<ContentViewModel>();
+            viewModels.Add(new BrowseSchemaViewModel());
+        }
+
+        private void CreateSummaryViewModels(List<ContentViewModel> viewModels)
+        {
             AnalogRemotePointSummaryViewModel analogSummaryView = new AnalogRemotePointSummaryViewModel();
 
-            summaries.Add(analogSummaryView);
-
-
-            return summaries;
+            viewModels.Add(analogSummaryView);
         }
     }
 }

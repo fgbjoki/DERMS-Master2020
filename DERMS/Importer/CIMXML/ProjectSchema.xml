@@ -24,6 +24,13 @@
 		<ftn:IdentifiedObject.name>Grbavica</ftn:IdentifiedObject.name>
 	</cim:Substation>
 	
+	<cim:Substation rdf:ID="SubstationLiman">
+		<cim:Substation.Region rdf:resource="#SubGeographicalRegionNoviSad"/>
+		<cim:IdentifiedObject.description>Defines Liman Substation</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SubstationLiman</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Liman</ftn:IdentifiedObject.name>
+	</cim:Substation>
+	
 	<!-- Energy Source -->
 	
 	<cim:EnergySource rdf:ID="EnergySourceGrbavica">
@@ -540,7 +547,7 @@
 	
 	<cim:EnergySource rdf:ID="EnergySourceLiman">
 		<cim:EnergySource.activePower>1000</cim:EnergySource.activePower>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Energy Source Liman</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergySourceLiman</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Source on Liman</ftn:IdentifiedObject.name>
@@ -548,7 +555,7 @@
 	
 	<cim:Breaker rdf:ID="breaker_energySource2">
 		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Breaker</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>breaker_energySource2</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Source breaker 2</ftn:IdentifiedObject.name>
@@ -568,7 +575,7 @@
 	</cim:Discrete>
 
 	<cim:ConnectivityNode rdf:ID="conn_br2">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Connects energy source 2 with breaker</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_br2</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNode2</ftn:IdentifiedObject.name>
@@ -591,7 +598,7 @@
 	</cim:Terminal>
 	
 	<cim:ConnectivityNode rdf:ID="conn_br3">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Connects breaker 2 with distributed network.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_br3</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNode3</ftn:IdentifiedObject.name>
@@ -606,7 +613,7 @@
 	</cim:Terminal>
 	
 	<cim:ACLineSegment rdf:ID="ACLineSegment9_1">
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ACLineSegment9_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ACLineSegment9_1</ftn:IdentifiedObject.name>
@@ -625,7 +632,7 @@
 	<!-- ACLineSegment 9_1 -->
 	
 	<cim:ConnectivityNode rdf:ID="conn_acl9">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Connects ACLineSegment9_1 with distributed network.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_acl9</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNodeACL9</ftn:IdentifiedObject.name>
@@ -645,7 +652,7 @@
 	<!-- ACLineSegment 10_1 -->
 	
 	<cim:ACLineSegment rdf:ID="ACLineSegment10_1">
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ACLineSegment10_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ACLineSegment10_1</ftn:IdentifiedObject.name>
@@ -664,7 +671,7 @@
 	<!-- First ConnectivityNode -->
 	
 	<cim:ConnectivityNode rdf:ID="conn_acl10_1">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Represents the beggining of ACLineSegment10.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_acl10_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNode10_1</ftn:IdentifiedObject.name>
@@ -688,7 +695,7 @@
 	
 	<cim:EnergyConsumer rdf:ID="EnergyConsumer10_1">
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyConsumer10_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
@@ -702,7 +709,7 @@
 	<!-- ACLineSegment 11_1 -->
 	
 	<cim:ACLineSegment rdf:ID="ACLineSegment11_1">
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>ACLineSegment11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ACLineSegment11_1</ftn:IdentifiedObject.name>
@@ -729,7 +736,7 @@
 	<!-- First ConnectivityNode -->
 	
 	<cim:ConnectivityNode rdf:ID="conn_acl11_1">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Represents the beggining of ACLineSegment11.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_acl11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNode11_1</ftn:IdentifiedObject.name>
@@ -737,7 +744,7 @@
 	
 	<cim:EnergyConsumer rdf:ID="EnergyConsumer11_1">
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyConsumer11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
@@ -761,7 +768,7 @@
 	
 	<cim:Breaker rdf:ID="breaker_11_1_0">
 		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Breaker</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>breaker_11_1_0</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Generator breaker</ftn:IdentifiedObject.name>
@@ -789,7 +796,7 @@
 	</cim:Terminal>
 	
 	<cim:ConnectivityNode rdf:ID="conn_br11_1">
-		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Breaker11.</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>conn_br11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>ConnectivityNodeVreaker11_1</ftn:IdentifiedObject.name>
@@ -812,7 +819,7 @@
 		<cim:DER.activePower>0</cim:DER.activePower>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:DER.setPoint>0</cim:DER.setPoint>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Wind generator on ACLineSegment 11_1</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>WindGenerator11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>WindGenerator11_1</ftn:IdentifiedObject.name>
@@ -830,7 +837,7 @@
 		<cim:EnergyStorage.capacity>10</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WindGenerator11_1"/>
 		<cim:DER.nominalPower>10</cim:DER.nominalPower>
-		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Energy Source for solar panel</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Storage 11</ftn:IdentifiedObject.name>

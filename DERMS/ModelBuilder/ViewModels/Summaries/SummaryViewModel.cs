@@ -49,6 +49,7 @@ namespace ClientUI.ViewModels.Summaries
 
         public override void StartProcessing()
         {
+            FetchSummaryItems(this, null);
             timer.Enabled = true;
         }
 

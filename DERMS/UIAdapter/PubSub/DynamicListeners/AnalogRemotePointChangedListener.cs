@@ -1,7 +1,7 @@
 ﻿using Common.PubSub;
 using Common.PubSub.Messages;
 
-namespace UIAdapter.PubSub.DynamicHandlers
+namespace UIAdapter.PubSub.DynamicListeners
 {
     public class AnalogRemotePointChangedListener : BaseMessageListener<AnalogRemotePointValueChanged>
     {
