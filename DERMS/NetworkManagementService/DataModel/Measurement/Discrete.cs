@@ -22,6 +22,8 @@ namespace NetworkManagementService.DataModel.Measurement
 
         public int CurrentValue { get; set; }
 
+        public int DOM { get; set; }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -40,6 +42,9 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
                     CurrentValue = property.AsInt();
                     break;
+                case ModelCode.MEASUREMENTDISCRETE_DOM:
+                    DOM = property.AsInt();
+                    break;
                 default:
                     base.SetProperty(property);
                     break;
@@ -53,6 +58,7 @@ namespace NetworkManagementService.DataModel.Measurement
                 case ModelCode.MEASUREMENTDISCRETE_MAXVALUE:
                 case ModelCode.MEASUREMENTDISCRETE_MINVALUE:
                 case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
+                case ModelCode.MEASUREMENTDISCRETE_DOM:
                     return true;
                 default:
                     return base.HasProperty(property);
@@ -71,6 +77,9 @@ namespace NetworkManagementService.DataModel.Measurement
                     break;
                 case ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE:
                     property.SetValue(CurrentValue);
+                    break;
+                case ModelCode.MEASUREMENTDISCRETE_DOM:
+                    property.SetValue(DOM);
                     break;
                 default:
                     base.GetProperty(property);

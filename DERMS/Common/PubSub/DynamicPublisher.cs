@@ -13,6 +13,11 @@ namespace Common.PubSub
 
         public void Publish(IEvent message)
         {
+            if (message == null)
+            {
+                return;
+            }
+
             endpointInstance.Publish(message).ConfigureAwait(false);
         }
 
