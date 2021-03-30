@@ -1,9 +1,10 @@
 ﻿using NServiceBus;
+using System.Threading.Tasks;
 
 namespace Common.PubSub
 {
     public interface IDynamicPublisher
     {
-        void Publish(IEvent message);
+        Task Publish(IEvent message);
     }
 }

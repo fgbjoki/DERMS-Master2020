@@ -1,70 +1,35 @@
 ﻿using Common.ComponentStorage;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace UIAdapter.SummaryJobs
 {
     public abstract class SummaryJob<TSummaryType, TDTOType>
         where TSummaryType : SummaryItem<TDTOType>
     {
-        private Dictionary<long, TDTOType> entities;
-        private ReaderWriterLockSlim locker;
-
         private Storage<TSummaryType> storage;
-        private AutoResetEvent commited;
-
-        private CancellationTokenSource tokenSource;
-        private Thread getNewEntitiesWorker;
 
         public SummaryJob(Storage<TSummaryType> storage)
         {
-            locker = new ReaderWriterLockSlim();
-            entities = new Dictionary<long, TDTOType>();
 
             this.storage = storage;
-            commited = storage.Commited;
-
-            tokenSource = new CancellationTokenSource();
-            getNewEntitiesWorker = new Thread(() => AddNewEntities(tokenSource));
-            getNewEntitiesWorker.Start();
         }    
 
         public List<TDTOType> GetAllEntities()
         {
-            locker.EnterReadLock();
-            List<TDTOType> entities = this.entities.Values.ToList();
-            locker.ExitReadLock();
+            List<TSummaryType> entities = storage.GetAllEntities();
 
-            return entities;
+            return ConvertEntities(entities);
         }
 
-        private void AddNewEntities(CancellationTokenSource tokenSource)
+        private List<TDTOType> ConvertEntities(List<TSummaryType> allEntities)
         {
-            while (!tokenSource.IsCancellationRequested)
+            List<TDTOType> entities = new List<TDTOType>(allEntities.Count);
+            foreach (var entity in allEntities)
             {
-                commited.WaitOne();
-
-                if (tokenSource.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                List<TSummaryType> allEntities = storage.GetAllEntities();
-
-                locker.EnterWriteLock();
-
-                foreach (var entity in allEntities)
-                {
-                    if (!entities.ContainsKey(entity.GlobalId))
-                    {
-                        TDTOType dtoItem = entity.CreateDTO();
-                        entities.Add(entity.GlobalId, dtoItem);
-                    }
-                }
-
-                locker.ExitWriteLock();
+                entities.Add(entity.CreateDTO());
             }
+
+            return entities;
         }
     }
 }

@@ -10,7 +10,13 @@ namespace ClientUI.Models.RemotePoints
 {
     public abstract class RemotePointSummaryItem : IdentifiedObject
     {
-        public int Address { get; set; }
+        private int address;
+
+        public int Address
+        {
+            get { return address; }
+            set { SetProperty(ref address, value); }
+        }
 
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {

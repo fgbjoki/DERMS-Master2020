@@ -14,7 +14,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
         {
         }
 
-        protected override ResourceDescription ApplyChanges(DiscreteRemotePoint remotePoint, ushort rawValue)
+        protected override ResourceDescription ApplyChanges(DiscreteRemotePoint remotePoint, int rawValue)
         {
             ResourceDescription changes = new ResourceDescription(remotePoint.GlobalId);
 
@@ -40,14 +40,14 @@ namespace NetworkDynamicsService.RemotePointProcessors
             return null;
         }
 
-        protected override bool HasValueChanged(DiscreteRemotePoint remotePoint, ushort rawValue)
+        protected override bool HasValueChanged(DiscreteRemotePoint remotePoint, int rawValue)
         {
             int fieldValue = ReadFieldValue(rawValue);
 
             return remotePoint.CurrentValue != fieldValue;
         }
 
-        private int ReadFieldValue(ushort rawValue)
+        private int ReadFieldValue(int rawValue)
         {
             if (rawValue == 0xFF00)
             {

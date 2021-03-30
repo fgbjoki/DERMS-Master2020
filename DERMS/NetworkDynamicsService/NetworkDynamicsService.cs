@@ -11,6 +11,7 @@ using System.ServiceModel.Configuration;
 using System.Configuration;
 using Common.ServiceInterfaces.Transaction;
 using Common.ServiceInterfaces;
+using Common.PubSub.Messages;
 
 namespace NetworkDynamicsService
 {

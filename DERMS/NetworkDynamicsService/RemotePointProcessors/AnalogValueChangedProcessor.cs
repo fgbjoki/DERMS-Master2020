@@ -15,7 +15,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
         {
         }
 
-        protected override ResourceDescription ApplyChanges(AnalogRemotePoint remotePoint, ushort rawValue)
+        protected override ResourceDescription ApplyChanges(AnalogRemotePoint remotePoint, int rawValue)
         {
             AnalogRemotePointValueChanged changes = new AnalogRemotePointValueChanged() { Id = remotePoint.GlobalId };
 
@@ -37,14 +37,14 @@ namespace NetworkDynamicsService.RemotePointProcessors
             return changes as AnalogRemotePointValueChanged;
         }
 
-        protected override bool HasValueChanged(AnalogRemotePoint remotePoint, ushort rawValue)
+        protected override bool HasValueChanged(AnalogRemotePoint remotePoint, int rawValue)
         {
             float fieldValue = ReadFieldValue(rawValue);
 
             return remotePoint.CurrentValue != fieldValue;
         }
 
-        private float ReadFieldValue(ushort rawValue)
+        private float ReadFieldValue(int rawValue)
         {
             float value;
             unsafe

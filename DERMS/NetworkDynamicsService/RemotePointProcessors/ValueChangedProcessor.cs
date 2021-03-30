@@ -57,9 +57,9 @@ namespace NetworkDynamicsService.RemotePointProcessors
         /// Applies all needed changes on <paramref name="remotePoint"/>.
         /// </summary>
         /// <returns><b>True</b> if the remote point was changes, otherwise <b>false</b>.</returns>
-        protected abstract bool HasValueChanged(RemotePointType remotePoint, ushort rawValue);
+        protected abstract bool HasValueChanged(RemotePointType remotePoint, int rawValue);
 
-        protected abstract ResourceDescription ApplyChanges(RemotePointType remotePoint, ushort rawValue);
+        protected abstract ResourceDescription ApplyChanges(RemotePointType remotePoint, int rawValue);
 
         protected abstract IEvent GetPublication(ResourceDescription changes);
 

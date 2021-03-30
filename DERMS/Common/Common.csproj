@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Executables\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -74,6 +74,7 @@
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
     <Compile Include="PubSub\Messages\AnalogRemotePointValueChanged.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
+    <Compile Include="PubSub\Messages\TRALALALA.cs" />
     <Compile Include="PubSub\Subscriptions\ISubscription.cs" />
     <Compile Include="PubSub\Subscriptions\Subscription.cs" />
     <Compile Include="PubSub\Subscriptions\Topic.cs" />
@@ -133,9 +134,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y $(ProjectDir)\Logger\log4net.config $(SolutionDir)Executables</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

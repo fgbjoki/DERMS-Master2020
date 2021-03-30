@@ -25,6 +25,16 @@ namespace ClientUI.Models
             set { SetProperty(ref name, value); }
         }
 
+        public void Update(IdentifiedObject entity)
+        {
+            UpdateProperties(entity);
+        }
+
+        protected virtual void UpdateProperties(IdentifiedObject entity)
+        {
+            this.Name = entity.Name;
+        }
+
         public void Update(IdentifiedObjectDTO entity)
         {
             UpdateProperties(entity);

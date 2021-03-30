@@ -58,7 +58,7 @@ namespace Common.PubSub
             {
                 foreach (var listener in listeners)
                 {
-                    configureComponents.RegisterSingleton(listener.GetType(), listener.Value);
+                    configureComponents.RegisterSingleton(listener.Value.GetType(), listener.Value);
                 }
             });
         }

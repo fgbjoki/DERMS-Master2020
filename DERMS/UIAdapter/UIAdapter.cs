@@ -16,6 +16,7 @@ using UIAdapter.Schema;
 using UIAdapter.TransactionProcessing.Storages.Schema;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
+using Common.ServiceLocator;
 
 namespace UIAdapter
 {

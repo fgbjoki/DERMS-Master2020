@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Common.PubSub
 {
     public abstract class BaseMessageListener<T> : IHandleMessages<T>, IDynamicListener
+        where T : IEvent
     {
         private ICollection<IDynamicHandler> subscribers;
 
@@ -33,7 +34,7 @@ namespace Common.PubSub
             {
                 try
                 {
-                    ThreadPool.QueueUserWorkItem(subscriber.ProcessChanges, message);
+                    subscriber.ProcessChanges(message);
                 }
                 catch (Exception e)
                 {
