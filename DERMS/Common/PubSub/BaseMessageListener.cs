@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Common.PubSub
 {
     public abstract class BaseMessageListener<T> : IHandleMessages<T>, IDynamicListener
+        where T : IEvent
     {
         private ICollection<IDynamicHandler> subscribers;
 
@@ -22,6 +23,7 @@ namespace Common.PubSub
 
         public virtual Task Handle(T message, IMessageHandlerContext context)
         {
+            Logger.Logger.Instance.Log($"[{GetType()}] New publication.");
             if (message == null)
             {
                 Logger.Logger.Instance.Log($"[{this.GetType()}] There was no data published. Skipping further processing!");
@@ -32,7 +34,7 @@ namespace Common.PubSub
             {
                 try
                 {
-                    ThreadPool.QueueUserWorkItem(subscriber.ProcessChanges, message);
+                    subscriber.ProcessChanges(message);
                 }
                 catch (Exception e)
                 {

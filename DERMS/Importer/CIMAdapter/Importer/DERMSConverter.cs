@@ -507,6 +507,8 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 {
                     rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE, discrete.CurrentValue));
                 }
+
+                rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_DOM, (int)0));
             }
         }
 

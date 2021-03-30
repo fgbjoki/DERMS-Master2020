@@ -282,7 +282,7 @@
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#breaker_SolarPanel2_2"/>
 		<cim:IdentifiedObject.description>Defines breaker state of wind generator 3_2 breaker.</cim:IdentifiedObject.description>
@@ -477,7 +477,7 @@
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>3</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#breaker_WindGenerator3_2"/>
 		<cim:IdentifiedObject.description>Defines breaker state of wind generator 3_2 breaker.</cim:IdentifiedObject.description>
@@ -566,7 +566,7 @@
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#breaker_energySource2"/>
 		<cim:IdentifiedObject.description>Defines breaker state of energy source 2 breaker.</cim:IdentifiedObject.description>
@@ -779,7 +779,7 @@
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>5</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#breaker_11_1_0"/>
 		<cim:IdentifiedObject.description>Defines breaker state of wind generator 11_1 breaker.</cim:IdentifiedObject.description>
@@ -824,6 +824,19 @@
 		<cim:IdentifiedObject.mRID>WindGenerator11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>WindGenerator11_1</ftn:IdentifiedObject.name>
 	</cim:WindGenerator>
+	
+	<cim:Analog rdf:ID="WindGenerator11_1_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActiveEnergy</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator11_1"/>
+		<cim:IdentifiedObject.description>WindGenerator11_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WindGenerator11_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator11_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_est11_1">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage11_1"/>

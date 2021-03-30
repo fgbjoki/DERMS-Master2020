@@ -1,4 +1,5 @@
 ﻿using NServiceBus;
+using System.Threading.Tasks;
 
 namespace Common.PubSub
 {
@@ -11,9 +12,14 @@ namespace Common.PubSub
             ConfigureEndpointInstance(endpointName);
         }
 
-        public void Publish(IEvent message)
+        public async Task Publish(IEvent message)
         {
-            endpointInstance.Publish(message).ConfigureAwait(false);
+            if (message == null)
+            {
+                return;
+            }
+
+            await endpointInstance.Publish(message);
         }
 
         public void Dispose()

@@ -46,21 +46,21 @@ namespace Common.PubSub
         public async void StartListening()
         {
             var endpointConfiguration = new EndpointConfiguration(endpointName);
-            //ConfigureEndpoint(endpointConfiguration);
+            ConfigureEndpoint(endpointConfiguration);
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
         }
 
         private void ConfigureEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            //endpointConfiguration.RegisterComponents(
-            //registration: configureComponents =>
-            //{
-            //    foreach (var handler in handlers)
-            //    {
-            //        configureComponents.RegisterSingleton(handler.Key, handler.Value);
-            //    }
-            //});
+            endpointConfiguration.RegisterComponents(
+            registration: configureComponents =>
+            {
+                foreach (var listener in listeners)
+                {
+                    configureComponents.RegisterSingleton(listener.Value.GetType(), listener.Value);
+                }
+            });
         }
     }
 }

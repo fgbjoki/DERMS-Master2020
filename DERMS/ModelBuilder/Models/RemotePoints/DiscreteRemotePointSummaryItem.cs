@@ -10,9 +10,20 @@ namespace ClientUI.Models.RemotePoints
 {
     public class DiscreteRemotePointSummaryItem : RemotePointSummaryItem
     {
-        public int Value { get; set; }
+        private int value;
+        private int normalValue;
 
-        public int NormalValue { get; set; }
+        public int Value
+        {
+            get { return value; }
+            set { SetProperty(ref this.value, value); }
+        }
+
+        public int NormalValue
+        {
+            get { return normalValue; }
+            set { SetProperty(ref normalValue, value); }
+        }
 
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {
@@ -21,6 +32,14 @@ namespace ClientUI.Models.RemotePoints
             DiscreteRemotePointSummaryDTO item = entity as DiscreteRemotePointSummaryDTO;
             Value = item.Value;
             NormalValue = item.NormalValue;
+        }
+
+        protected override void UpdateProperties(IdentifiedObject entity)
+        {
+            base.UpdateProperties(entity);
+
+            DiscreteRemotePointSummaryItem item = entity as DiscreteRemotePointSummaryItem;
+            Value = item.Value;
         }
     }
 }

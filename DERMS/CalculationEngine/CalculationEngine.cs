@@ -56,7 +56,7 @@ namespace CalculationEngine
         private void InitializeGraphs()
         {
             topologyAnalysis = new TopologyAnalysis.TopologyAnalysis();
-            schemaRepresentation = new SchemaRepresentation(dynamicPublisher);
+            schemaRepresentation = new SchemaRepresentation();
         }
 
         public bool Prepare()

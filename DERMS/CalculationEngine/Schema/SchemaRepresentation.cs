@@ -10,13 +10,10 @@ namespace CalculationEngine.Schema
 {
     public class SchemaRepresentation : BaseGraphProcessor<ISchemaGraph>, ISchemaRepresentation
     {
-        private IDynamicPublisher dynamicPublisher;
         private SchemaMessageConverter graphConverter;
 
-        public SchemaRepresentation(IDynamicPublisher dynamicPublisher)
+        public SchemaRepresentation()
         {
-            this.dynamicPublisher = dynamicPublisher;
-
             graphConverter = new SchemaMessageConverter();
         }
 

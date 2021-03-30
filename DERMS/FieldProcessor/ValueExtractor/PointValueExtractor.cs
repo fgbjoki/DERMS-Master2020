@@ -17,7 +17,7 @@ namespace FieldProcessor.ValueExtractor
         public PointValueExtractor(IRemotePointSortedAddressCollector remotePointAddressCollector)
         {
             InitializeProcessors(remotePointAddressCollector);
-            fieldValueProcessing = new WCFClient<IFieldValuesProcessing>();
+            fieldValueProcessing = new WCFClient<IFieldValuesProcessing>("valueExtractorEndpoint");
         }
 
         public void ExtractValues(ModbusMessageHeader request, ModbusMessageHeader response)
@@ -32,7 +32,7 @@ namespace FieldProcessor.ValueExtractor
 
             IEnumerable<RemotePointFieldValue> fieldValues = processor.ExtractValues(request, response);
 
-            //fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
+            fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
         }
 
         private void InitializeProcessors(IRemotePointSortedAddressCollector remotePointAddressCollector)
