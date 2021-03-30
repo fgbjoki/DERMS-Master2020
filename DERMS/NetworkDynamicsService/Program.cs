@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace NetworkDynamicsService
 {
@@ -10,6 +7,13 @@ namespace NetworkDynamicsService
     {
         static void Main(string[] args)
         {
+            NetworkDynamicsService networkDynamicsService = new NetworkDynamicsService();
+
+            ServiceHost serviceHost = new ServiceHost(networkDynamicsService);
+            serviceHost.Open();
+
+            Console.WriteLine("Network dynamics service ready...");
+            Console.ReadLine();
         }
     }
 }

@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,8 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Executables\NServiceBus.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +50,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FieldValueProcessing\FieldValueProcessor.cs" />
+    <Compile Include="Model\RemotePoints\AnalogRemotePoint.cs" />
+    <Compile Include="Model\RemotePoints\DiscreteRemotePoint.cs" />
+    <Compile Include="Model\RemotePoints\RemotePoint.cs" />
+    <Compile Include="Model\RemotePoints\RemotePointType.cs" />
+    <Compile Include="NetworkDynamicsService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemotePointProcessors\AnalogValueChangedProcessor.cs" />
+    <Compile Include="RemotePointProcessors\DiscreteValueChangedProcessor.cs" />
+    <Compile Include="RemotePointProcessors\IValueChangedProcessor.cs" />
+    <Compile Include="RemotePointProcessors\ValueChangedProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\AnalogStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
+    <Compile Include="TransactionProcessing\TransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\TransactionProcessors\DiscreteRemotePointTransactionProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

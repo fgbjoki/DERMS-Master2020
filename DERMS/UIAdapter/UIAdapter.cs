@@ -113,7 +113,7 @@ namespace UIAdapter
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
 
-            //dynamicListenerManager.StartListening();
+            dynamicListenerManager.StartListening();
         }
 
         private void InitializeTransactionStorages()

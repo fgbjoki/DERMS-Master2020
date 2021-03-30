@@ -22,6 +22,7 @@ namespace Common.PubSub
 
         public virtual Task Handle(T message, IMessageHandlerContext context)
         {
+            Logger.Logger.Instance.Log($"[{GetType()}] New publication.");
             if (message == null)
             {
                 Logger.Logger.Instance.Log($"[{this.GetType()}] There was no data published. Skipping further processing!");
