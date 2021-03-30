@@ -5,7 +5,7 @@ namespace Common.SCADA
     [DataContract]
     public class RemotePointFieldValue
     {
-        public RemotePointFieldValue(long globalId, ushort value)
+        public RemotePointFieldValue(long globalId, int value)
         {
             GlobalId = globalId;
             Value = value;
@@ -15,6 +15,6 @@ namespace Common.SCADA
         public long GlobalId { get; private set; }
 
         [DataMember]
-        public ushort Value { get; private set; }
+        public int Value { get; private set; }
     }
 }

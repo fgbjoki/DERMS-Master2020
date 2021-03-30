@@ -207,7 +207,7 @@
 		<cim:Analog.maxValue>8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>1</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#SolarPanel1"/>
 		<cim:IdentifiedObject.description>Defines delta power of solar panel.</cim:IdentifiedObject.description>
@@ -215,42 +215,42 @@
 		<ftn:IdentifiedObject.name>Delta Power</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
-	<cim:Analog rdf:ID="EnergyStorageActivePower">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>8</cim:Analog.maxValue>
-		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage1"/>
-		<cim:IdentifiedObject.description>Defines active power of energy storage.</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>EnergyStorageActivePower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Energy Storage Active Power</ftn:IdentifiedObject.name>
-	</cim:Analog>
+	<!-- <cim:Analog rdf:ID="EnergyStorageActivePower"> -->
+		<!-- <tdms:Analog.currentValue>0</tdms:Analog.currentValue> -->
+		<!-- <cim:Analog.maxValue>8</cim:Analog.maxValue> -->
+		<!-- <cim:Analog.minValue>0</cim:Analog.minValue> -->
+		<!-- <tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction> -->
+		<!-- <cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress> -->
+		<!-- <tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType> -->
+		<!-- <cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage1"/> -->
+		<!-- <cim:IdentifiedObject.description>Defines active power of energy storage.</cim:IdentifiedObject.description> -->
+		<!-- <cim:IdentifiedObject.mRID>EnergyStorageActivePower</cim:IdentifiedObject.mRID> -->
+		<!-- <ftn:IdentifiedObject.name>Energy Storage Active Power</ftn:IdentifiedObject.name> -->
+	<!-- </cim:Analog> -->
 	
-	<cim:Analog rdf:ID="EnergyStorageStateOfCharge">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>1</cim:Analog.maxValue>
-		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>3</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage1"/>
-		<cim:IdentifiedObject.description>Defines state of charge of the given energy storage.</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>EnergyStorageStateOfCharge</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Energy Storage State Of Charge</ftn:IdentifiedObject.name>
-	</cim:Analog>
+	<!-- <cim:Analog rdf:ID="EnergyStorageStateOfCharge"> -->
+		<!-- <tdms:Analog.currentValue>0</tdms:Analog.currentValue> -->
+		<!-- <cim:Analog.maxValue>1</cim:Analog.maxValue> -->
+		<!-- <cim:Analog.minValue>0</cim:Analog.minValue> -->
+		<!-- <tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction> -->
+		<!-- <cim:Measurement.measurementAddress>6</cim:Measurement.measurementAddress> -->
+		<!-- <tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType> -->
+		<!-- <cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage1"/> -->
+		<!-- <cim:IdentifiedObject.description>Defines state of charge of the given energy storage.</cim:IdentifiedObject.description> -->
+		<!-- <cim:IdentifiedObject.mRID>EnergyStorageStateOfCharge</cim:IdentifiedObject.mRID> -->
+		<!-- <ftn:IdentifiedObject.name>Energy Storage State Of Charge</ftn:IdentifiedObject.name> -->
+	<!-- </cim:Analog> -->
 	
-	<cim:Discrete rdf:ID="BreakerState">
-		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
-		<cim:Discrete.minValue>0</cim:Discrete.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#breaker0"/>
-		<cim:IdentifiedObject.description>Describes breaker state.</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>BreakerState</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Breaker State</ftn:IdentifiedObject.name>
-	</cim:Discrete>
+	<!-- <cim:Discrete rdf:ID="BreakerState"> -->
+		<!-- <cim:Discrete.maxValue>1</cim:Discrete.maxValue> -->
+		<!-- <cim:Discrete.minValue>0</cim:Discrete.minValue> -->
+		<!-- <tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction> -->
+		<!-- <cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress> -->
+		<!-- <tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType> -->
+		<!-- <cim:Measurement.PowerSystemResource rdf:resource="#breaker0"/> -->
+		<!-- <cim:IdentifiedObject.description>Describes breaker state.</cim:IdentifiedObject.description> -->
+		<!-- <cim:IdentifiedObject.mRID>BreakerState</cim:IdentifiedObject.mRID> -->
+		<!-- <ftn:IdentifiedObject.name>Breaker State</ftn:IdentifiedObject.name> -->
+	<!-- </cim:Discrete> -->
 
 </rdf:RDF>

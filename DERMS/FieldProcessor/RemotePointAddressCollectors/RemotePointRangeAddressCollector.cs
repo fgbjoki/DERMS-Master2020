@@ -23,7 +23,7 @@ namespace FieldProcessor.RemotePointAddressCollector
 
     public class RemotePointRangeAddressCollector : RemotePointAddressCollector, IRemotePointRangeAddressCollector
     {
-        private readonly int maximumNumberOfAnalogPointsInArray = 125;
+        private readonly int maximumNumberOfAnalogPointsInArray = 62; // ((2000 bits / 8)/2)/2 => 4 byte values
         private readonly int maximumNumberOfDiscretePointsInArray = 2000;
 
         private Dictionary<RemotePointType, List<AddressRange>> addressRanges;

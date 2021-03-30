@@ -17,7 +17,7 @@ namespace FieldSimulator.Model
     {
         private short pointValue;
 
-        private int index;
+        protected int index;
 
         private PointType pointType;
 
@@ -39,7 +39,7 @@ namespace FieldSimulator.Model
 
         public int Index
         {
-            get { return index - 1; }
+            get { return index; }
             set { SetProperty(ref index, value); }
         }
 
@@ -57,6 +57,11 @@ namespace FieldSimulator.Model
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void PublishChangedValue(int index, short value)
+        {
+            PointValueChanged.Invoke(pointType, index, value);
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };

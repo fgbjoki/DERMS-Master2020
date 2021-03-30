@@ -5,7 +5,6 @@ using FieldProcessor.Model;
 using FieldProcessor.RemotePointAddressCollector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FieldProcessor.ValueExtractor
 {
@@ -27,7 +26,7 @@ namespace FieldProcessor.ValueExtractor
         {
             ushort startingAddress = GetStartingAddress(request);
             ushort quantity = GetRequestedQuantity(request);
-            byte[] values = GetFieldValues(response);
+            byte[] values = GetFieldValues(request, response);
 
             List<RemotePointFieldValue> remotePointFieldValues = new List<RemotePointFieldValue>(quantity);
 
@@ -50,7 +49,7 @@ namespace FieldProcessor.ValueExtractor
 
             foreach (int fieldValue in fieldValueReader.CreateValueCollection(quantity, values))           
             {
-                ushort value = (ushort)fieldValue;
+                int value = fieldValue;
 
                 RemotePoint remotePoint = remotePoints[startingIndex + counter];
 
@@ -63,17 +62,19 @@ namespace FieldProcessor.ValueExtractor
                 RemotePointFieldValue remotePointFieldValue = new RemotePointFieldValue(remotePoint.GlobalId, value);
 
                 remotePointFieldValues.Add(remotePointFieldValue);
-                counter++;
+                MoveAddressCounter(ref counter);
             }
 
             return remotePointFieldValues;
         }
 
-        protected abstract byte[] GetFieldValues(ModbusMessageHeader response);
+        protected abstract byte[] GetFieldValues(ModbusMessageHeader request, ModbusMessageHeader response);
 
         protected abstract ushort GetRequestedQuantity(ModbusMessageHeader request);
 
         protected abstract ushort GetStartingAddress(ModbusMessageHeader request);
+
+        protected abstract void MoveAddressCounter(ref int counter);
 
         private int FindStartingAddressIndex(List<RemotePoint> remotePoints, ushort startingAddress)
         {
@@ -99,6 +100,7 @@ namespace FieldProcessor.ValueExtractor
                     return RemotePointType.DiscreteInput;
                 case ModbusFunctionCode.ReadHoldingRegisters:
                 case ModbusFunctionCode.WriteSingleRegister:
+                case ModbusFunctionCode.PresetMultipleRegisters:
                     return RemotePointType.HoldingRegister;
                 case ModbusFunctionCode.ReadInputRegisters:
                     return RemotePointType.InputRegister;
