@@ -5,13 +5,13 @@ using FieldProcessor.Model;
 
 namespace FieldProcessor.CommandingProcessor
 {
-    public abstract class SingleWriteRequestCommandCreator : RequestCommandCreator
+    public abstract class WriteRequestCommandCreator : RequestCommandCreator
     {
-        private ModbusFunctionCode functionCode;
+        protected ModbusFunctionCode functionCode;
 
         private IStorage<RemotePoint> storage;
 
-        public SingleWriteRequestCommandCreator(IStorage<RemotePoint> storage, ModbusFunctionCode functionCode) : base()
+        public WriteRequestCommandCreator(IStorage<RemotePoint> storage, ModbusFunctionCode functionCode) : base()
         {
             this.storage = storage;
             this.functionCode = functionCode;
@@ -28,8 +28,10 @@ namespace FieldProcessor.CommandingProcessor
                 return null;
             }
 
-            return new ModbusSingleWriteMessage(remotePoint.Address, commandedValue, 0, functionCode);
+            return CreateProtocolCommand(remotePoint.Address, commandedValue);
         }
+
+        protected abstract ModbusMessageHeader CreateProtocolCommand(ushort address, byte[] commandedValue);
 
         protected abstract byte[] GetCommandedValue(ChangeRemotePointValueCommand command, RemotePoint remotePoint);
 

@@ -53,7 +53,7 @@
                             Header="Value"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                 <DataGridTextColumn.Binding>
-                    <Binding Path="Value">
+                    <Binding Path="FloatValue">
                         <!--<Binding.ValidationRules>
                                 <domain:NotEmptyValidationRule />
                             </Binding.ValidationRules>-->

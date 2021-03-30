@@ -67,12 +67,12 @@ namespace FieldProcessor
 
             pollingInvoker = new PollingInvoker(remotePointRangeAddressCollector, commandSender, simulatorState);
 
-            commandingProcessor = new ReceiveCommandingProcessor(commandSender, discreteStorage, analogStorage);
-
             InitializeFieldCommunicationHandler();
 
             LoadConfigurationFromAppConfig();
             InitializeForTransaction();
+
+            commandingProcessor = new ReceiveCommandingProcessor(commandSender, discreteStorage, analogStorage);
         }
 
         private void InitializeFieldCommunicationHandler()

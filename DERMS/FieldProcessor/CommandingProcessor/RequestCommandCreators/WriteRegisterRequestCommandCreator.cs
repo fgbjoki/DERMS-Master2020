@@ -3,13 +3,19 @@ using Common.SCADA.FieldProcessor;
 using FieldProcessor.Model;
 using Common.Logger;
 using Common.ComponentStorage;
+using FieldProcessor.ModbusMessages;
 
 namespace FieldProcessor.CommandingProcessor
 {
-    public class SingleWriteRegisterRequestCommandCreator : SingleWriteRequestCommandCreator
+    public class WriteRegisterRequestCommandCreator : WriteRequestCommandCreator
     {
-        public SingleWriteRegisterRequestCommandCreator(IStorage<RemotePoint> storage) : base(storage, ModbusFunctionCode.WriteSingleRegister)
+        public WriteRegisterRequestCommandCreator(IStorage<RemotePoint> storage) : base(storage, ModbusFunctionCode.WriteSingleRegister)
         {
+        }
+
+        protected override ModbusMessageHeader CreateProtocolCommand(ushort address, byte[] commandedValue)
+        {
+            return new ModbusPresetMultipleRegistersRequestMessage(address, 2, commandedValue, 0);
         }
 
         protected override byte[] GetCommandedValue(ChangeRemotePointValueCommand command, RemotePoint remotePoint)
@@ -21,7 +27,7 @@ namespace FieldProcessor.CommandingProcessor
 
             if (remotePoint == null)
             {
-                Logger.Instance.Log($"Cannot find entity with gid: 0x{remotePoint.GlobalId:X16}.");
+                Logger.Instance.Log($"Cannot find entity with gid: 0x{command.GlobalId:X16}.");
                 return null;
             }
 
@@ -31,7 +37,7 @@ namespace FieldProcessor.CommandingProcessor
                 return null;
             }
 
-            return BitConverter.GetBytes((short)command.CommandingValue);
+            return BitConverter.GetBytes(command.CommandingValue);
         }
     }
 }
