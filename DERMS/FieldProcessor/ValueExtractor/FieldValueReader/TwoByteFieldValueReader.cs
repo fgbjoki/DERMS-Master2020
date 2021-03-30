@@ -6,7 +6,7 @@ namespace FieldProcessor.ValueExtractor
 {
     public class TwoByteFieldValueReader : IFieldValueReader
     {
-        public List<int> CreateValueCollection(ushort quantity, byte[] values)
+        public virtual List<int> CreateValueCollection(ushort quantity, byte[] values)
         {
             List<int> readValues = new List<int>(quantity);
 

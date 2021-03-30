@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,6 +81,7 @@
     <Compile Include="Commands\SimulatorStopCommand.cs" />
     <Compile Include="Modbus\ModbusSlave.cs" />
     <Compile Include="Modbus\PointController.cs" />
+    <Compile Include="Model\AnalogPointWrapper.cs" />
     <Compile Include="Model\CoilWrapper.cs" />
     <Compile Include="Model\DiscreteInputWrapper.cs" />
     <Compile Include="Model\HoldingRegisterWrapper.cs" />

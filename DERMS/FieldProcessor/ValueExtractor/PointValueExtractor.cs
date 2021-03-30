@@ -39,15 +39,17 @@ namespace FieldProcessor.ValueExtractor
         {
             IFieldValueReader bitValueReader = new BitFieldValueReader();
             IFieldValueReader twoByteValueReader = new TwoByteFieldValueReader();
+            IFieldValueReader fourByteValueReader = new FourByteFieldValueReader();
 
             extractValueProcessors = new Dictionary<ModbusFunctionCode, ExtractValueProcessor>()
             {
                 { ModbusFunctionCode.ReadCoils, new ReadCommandExtractValueProcessor(bitValueReader, RemotePointType.Coil, remotePointAddressCollector) },
                 { ModbusFunctionCode.ReadDiscreteInputs, new ReadCommandExtractValueProcessor(bitValueReader, RemotePointType.DiscreteInput, remotePointAddressCollector) },
-                { ModbusFunctionCode.ReadHoldingRegisters, new ReadCommandExtractValueProcessor(twoByteValueReader, RemotePointType.HoldingRegister, remotePointAddressCollector) },
-                { ModbusFunctionCode.ReadInputRegisters, new ReadCommandExtractValueProcessor(twoByteValueReader, RemotePointType.InputRegister, remotePointAddressCollector) },
+                { ModbusFunctionCode.ReadHoldingRegisters, new AnalogReadCommandExtractValueProcessor(fourByteValueReader, RemotePointType.HoldingRegister, remotePointAddressCollector) },
+                { ModbusFunctionCode.ReadInputRegisters, new AnalogReadCommandExtractValueProcessor(fourByteValueReader, RemotePointType.InputRegister, remotePointAddressCollector) },
                 { ModbusFunctionCode.WriteSingleCoil, new SingleWriteCommandExtractValueProcessor(twoByteValueReader, RemotePointType.Coil, remotePointAddressCollector) },
-                { ModbusFunctionCode.WriteSingleRegister, new SingleWriteCommandExtractValueProcessor(twoByteValueReader, RemotePointType.HoldingRegister, remotePointAddressCollector) }
+                { ModbusFunctionCode.WriteSingleRegister, new SingleWriteCommandExtractValueProcessor(twoByteValueReader, RemotePointType.HoldingRegister, remotePointAddressCollector) },
+                { ModbusFunctionCode.PresetMultipleRegisters, new MultipleWriteCommandExtractValueProcessor(fourByteValueReader, RemotePointType.HoldingRegister, remotePointAddressCollector) }
             };
         }
     }

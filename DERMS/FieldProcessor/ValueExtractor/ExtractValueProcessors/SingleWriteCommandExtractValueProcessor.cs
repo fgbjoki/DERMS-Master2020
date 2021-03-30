@@ -1,4 +1,5 @@
-﻿using FieldProcessor.ModbusMessages;
+﻿using System;
+using FieldProcessor.ModbusMessages;
 using FieldProcessor.Model;
 using FieldProcessor.RemotePointAddressCollector;
 
@@ -22,11 +23,16 @@ namespace FieldProcessor.ValueExtractor
             return writeRequest.RemotePointAddress;
         }
 
-        protected override byte[] GetFieldValues(ModbusMessageHeader response)
+        protected override byte[] GetFieldValues(ModbusMessageHeader request, ModbusMessageHeader response)
         {
             ModbusSingleWriteMessage writeResponse = response as ModbusSingleWriteMessage;
 
             return writeResponse.RemotePointValue;
+        }
+
+        protected override void MoveAddressCounter(ref int counter)
+        {
+            ++counter;
         }
     }
 }

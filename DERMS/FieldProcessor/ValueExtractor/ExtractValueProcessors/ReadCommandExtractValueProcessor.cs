@@ -24,11 +24,16 @@ namespace FieldProcessor.ValueExtractor
             return readRequest.StartingAddress;
         }
 
-        protected override byte[] GetFieldValues(ModbusMessageHeader response)
+        protected override byte[] GetFieldValues(ModbusMessageHeader request, ModbusMessageHeader response)
         {
             ModbusReadResponseMessage readResponse = response as ModbusReadResponseMessage;
 
             return readResponse.Values;
+        }
+
+        protected override void MoveAddressCounter(ref int counter)
+        {
+            counter++;
         }
     }
 }

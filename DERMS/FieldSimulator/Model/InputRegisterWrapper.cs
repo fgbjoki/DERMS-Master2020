@@ -1,6 +1,6 @@
 ﻿namespace FieldSimulator.Model
 {
-    class InputRegisterWrapper : BasePoint
+    class InputRegisterWrapper : AnalogPointWrapper
     {
         public InputRegisterWrapper(int index) : base(PointType.InputRegister, index)
         {

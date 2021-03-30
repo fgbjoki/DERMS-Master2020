@@ -34,27 +34,21 @@ namespace FieldProcessor.RemotePointAddressCollector
             }
 
             foreach (var remotePoint in remotePoints)
-            {               
-                transactionCopy[remotePoint.Type].Add(remotePoint.Address, remotePoint);
+            {
+                if (remotePoint.Type == RemotePointType.Coil || remotePoint.Type == RemotePointType.DiscreteInput)
+                {
+                    transactionCopy[remotePoint.Type].Add(remotePoint.Address, remotePoint);
+                }
+                else if (remotePoint.Type == RemotePointType.HoldingRegister || remotePoint.Type == RemotePointType.InputRegister)
+                {
+                    PopulateAnalogRemotePointAddresses(remotePoint);
+                }
             }
 
             return true;
         }
 
         public abstract void Commit();
-
-        //{
-        //    locker.AcquireWriterLock(lockerTimeout);
-
-        //    foreach (var pair in transactionCopy)
-        //    {
-        //        sortedAddressesPerRemotePointType[pair.Key] = new List<RemotePoint>(pair.Value.Values);
-        //    }
-
-        //    transactionCopy = null;
-
-        //    locker.ReleaseWriterLock();
-        //}
 
         public void Rollback()
         {
@@ -65,5 +59,13 @@ namespace FieldProcessor.RemotePointAddressCollector
         {
             transactionCopy = null;
         }
+
+        private void PopulateAnalogRemotePointAddresses(RemotePoint remotePoint)
+        {
+            SortedList<ushort, RemotePoint> list = transactionCopy[remotePoint.Type];
+            list.Add(remotePoint.Address, remotePoint);
+            list.Add((ushort)(remotePoint.Address + 1), remotePoint);
+        }
+
     }
 }

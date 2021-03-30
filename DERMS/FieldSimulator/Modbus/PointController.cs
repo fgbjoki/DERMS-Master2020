@@ -67,7 +67,7 @@ namespace FieldSimulator.Modbus
         /// </summary>
         private void CoilsChangedHandler(int coil, int numberOfCoils)
         {
-            for (int i = coil - 1; i < coil + numberOfCoils; i++)
+            for (int i = coil - 1; i < coil + numberOfCoils - 1; i++)
             {
                 // - 1 because events is invoked with +1 offset, no idea why
                 coils[i].Value = (short)(slave.Coils[i + 1] ? 1 : 0);
@@ -79,10 +79,11 @@ namespace FieldSimulator.Modbus
         /// </summary>
         private void HoldingRegisterChangedHandler(int holdingRegister, int numberOfRegisters)
         {
-            for (int i = holdingRegister - 1; i < numberOfRegisters + holdingRegister; i++)
+            for (int i = holdingRegister - 1; i < numberOfRegisters + holdingRegister - 1; i++)
             {
                 // - 1 because events is invoked with +1 offset, no idea why
-                holdingRegisters[i].Value = slave.HoldingRegisters[i + 1];
+                int validationIndex = i % 2 == 0 ? i : i - 1;
+                holdingRegisters[validationIndex].ChangeValue(slave.HoldingRegisters[i + 1], i);
             }
         }
 
@@ -96,16 +97,16 @@ namespace FieldSimulator.Modbus
 
             for (int i = 0; i < maxIterations; ++i)
             {
-                coils[i] = new CoilWrapper(i + 1);
+                coils[i] = new CoilWrapper(i);
                 coils[i].PointValueChanged += PointValueChanged;
 
-                holdingRegisters[i] = new HoldingRegisterWrapper(i + 1);
+                holdingRegisters[i] = new HoldingRegisterWrapper(i*2);
                 holdingRegisters[i].PointValueChanged += PointValueChanged;
 
-                inputRegisters[i] = new InputRegisterWrapper(i + 1);
+                inputRegisters[i] = new InputRegisterWrapper(i*2);
                 inputRegisters[i].PointValueChanged += PointValueChanged;
 
-                discreteInput[i] = new DiscreteInputWrapper(i + 1);
+                discreteInput[i] = new DiscreteInputWrapper(i);
                 discreteInput[i].PointValueChanged += PointValueChanged;
             }
         }
