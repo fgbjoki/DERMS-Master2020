@@ -10,7 +10,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class BreakerSchemaNodeCreator : SchemaNodeCreator
     {
-        public BreakerSchemaNodeCreator() : base("../ModelBuilder/Resources/switch-symbol-circuit-electric-97624.png")
+        public BreakerSchemaNodeCreator() : base("../../Resources/switch-symbol-circuit-electric-97624.png")
         {
         }
 

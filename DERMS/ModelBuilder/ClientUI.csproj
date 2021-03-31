@@ -134,6 +134,7 @@
     <Compile Include="Models\Schema\NodeCreators\GeneratorSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\InterConnectedBreakerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\NonClicableSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\SchemaConnNodeGraphNode.cs" />
     <Compile Include="Models\Schema\SchemaCreator.cs" />
     <Compile Include="Models\Schema\SchemaGraphWrapper.cs" />
     <Compile Include="Models\Schema\SchemaNode.cs" />

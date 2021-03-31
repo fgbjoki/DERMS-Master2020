@@ -29,5 +29,7 @@ namespace UIAdapter.Schema.Graph
                 conducts = false;
             }
         }
+
+        public bool Conduts { get { return conducts; } }
     }
 }

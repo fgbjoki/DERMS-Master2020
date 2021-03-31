@@ -33,6 +33,11 @@ namespace UIAdapter.Schema.Graph
             this.interConnectedBreaker = interConnectedBreaker;
         }
 
+        public void RemoveNode(long globalId)
+        {
+            nodes.Remove(globalId);
+        }
+
         public SchemaGraphNode GetRoot()
         {
             SchemaGraphNode root;

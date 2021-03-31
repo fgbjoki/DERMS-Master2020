@@ -10,17 +10,27 @@ namespace ClientUI.Models.Schema
 {
     public class UINode : BindableBase
     {
+        protected static readonly SolidColorBrush red = new SolidColorBrush(Colors.Red);
+        protected static readonly SolidColorBrush green = new SolidColorBrush(Colors.Green);
+
+        private Brush outline;
+
         public UINode(int width, int height)
         {
             Width = width;
             Height = height;
-
-            Outline = new SolidColorBrush(Colors.White);
         }
 
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public Brush Outline { get; set; }
+        public virtual Brush Outline
+        {
+            get { return outline; }
+            set
+            {
+                SetProperty(ref outline, value);
+            }
+        }
     }
 }

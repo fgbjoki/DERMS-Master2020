@@ -17,5 +17,10 @@ namespace ClientUI.Models.Schema.NodeCreators
             node.Height = 7;
             node.Outline = new SolidColorBrush(Colors.Black);
         }
+
+        public override SchemaNode InstantiateNode(long globalId, string imageUrl)
+        {
+            return new SchemaConnNodeGraphNode(globalId, imageUrl);
+        }
     }
 }
