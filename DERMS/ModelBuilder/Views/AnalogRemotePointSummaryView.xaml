@@ -25,8 +25,20 @@
         ItemsSource="{Binding Items}"
         CanUserAddRows="False" AutoGenerateColumns="False"
         BorderBrush="Black"
-                    HeadersVisibility="All"
+        HeadersVisibility="All"
         Margin="0,0,40,0">
+        <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Alarm}" Value="HIGH_ALARM">
+                        <Setter Property="Background" Value="Red"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Alarm}" Value="LOW_ALARM">
+                        <Setter Property="Background" Value="Green"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.RowStyle>
         <DataGrid.Columns>
             <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
             <materialDesign:DataGridTextColumn Header="Name" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}" MinWidth="100" IsReadOnly="True">
@@ -55,6 +67,33 @@
                     <Binding Path="Value"/>
                 </DataGridTextColumn.Binding>
             </DataGridTextColumn>
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="MinValue"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn.Binding>
+                    <Binding Path="MinValue"/>
+                </DataGridTextColumn.Binding>
+            </DataGridTextColumn>
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="MaxValue"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn.Binding>
+                    <Binding Path="MaxValue"/>
+                </DataGridTextColumn.Binding>
+            </DataGridTextColumn>
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="Alarm"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn.Binding>
+                    <Binding Path="Alarm"/>
+                </DataGridTextColumn.Binding>
+            </DataGridTextColumn>
         </DataGrid.Columns>
     </DataGrid>
     <interaction:Interaction.Triggers>
@@ -62,9 +101,4 @@
             <interaction:InvokeCommandAction Command="{Binding DataGridItemDoubleClicked}" CommandParameter="{Binding ElementName=itemDataGrid, Path=SelectedItem}" />
         </interaction:EventTrigger>
     </interaction:Interaction.Triggers>
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDoubleClick">
-            <i:InvokeCommandAction Command="{Binding ItemSelectionChanged}" CommandParameter="{Binding ElementName=grdCity, Path=SelectedItem}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
 </UserControl>

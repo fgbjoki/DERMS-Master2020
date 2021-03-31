@@ -110,6 +110,7 @@
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
     <Compile Include="UIDataTransferObject\IdentifiedObjectDTO.cs" />
+    <Compile Include="UIDataTransferObject\RemotePoints\AlarmingEnums.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\AnalogRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\DiscreteRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\RemotePointSummaryDTO.cs" />

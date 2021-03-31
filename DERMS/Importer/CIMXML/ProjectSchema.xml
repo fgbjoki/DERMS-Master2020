@@ -128,7 +128,7 @@
 	</cim:Breaker>
 	
 	<cim:Discrete rdf:ID="Discrete_Breaker_BetweenNetworks">
-		<tdms:Discrete.currentValue>1</tdms:Discrete.currentValue>
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
@@ -562,7 +562,7 @@
 	</cim:Breaker>
 	
 	<cim:Discrete rdf:ID="Discrete_Breaker_EnergySource2">
-		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<tdms:Discrete.currentValue>1</tdms:Discrete.currentValue>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
@@ -826,7 +826,7 @@
 	</cim:WindGenerator>
 	
 	<cim:Analog rdf:ID="WindGenerator11_1_ActivePower">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>100</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
