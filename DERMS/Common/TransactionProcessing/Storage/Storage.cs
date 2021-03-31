@@ -7,7 +7,7 @@ namespace Common.ComponentStorage
     public abstract class Storage<T> : ITransactionStorage, IStorage<T>
         where T : IdentifiedObject
     {
-        private Dictionary<long, T> items;
+        protected Dictionary<long, T> items;
 
         protected string storageName;
 
@@ -30,13 +30,13 @@ namespace Common.ComponentStorage
         {
             if (item == null)
             {
-                Common.Logger.Logger.Instance.Log($"[{storageName}] Cannot add null to storage!");
+                Logger.Logger.Instance.Log($"[{storageName}] Cannot add null to storage!");
                 return false;
             }
 
             if (EntityExists(item.GlobalId))
             {
-                Common.Logger.Logger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:8X}");
+                Logger.Logger.Instance.Log($"[{storageName}] already contains entity with gid: 0x{item.GlobalId:X16}");
                 return false;
             }
 
@@ -72,7 +72,7 @@ namespace Common.ComponentStorage
             return entity;
         }
 
-        public bool EntityExists(long globalId)
+        public virtual bool EntityExists(long globalId)
         {       
             locker.EnterReadLock();
             bool entityExists = items.ContainsKey(globalId);
@@ -85,6 +85,40 @@ namespace Common.ComponentStorage
 
         public abstract List<IStorageTransactionProcessor> GetStorageTransactionProcessors();
 
-        public abstract bool ValidateEntity(T entity);
+        public virtual bool ValidateEntity(T entity)
+        {
+            return entity != null;
+        }
+
+        public object Clone()
+        {
+            IStorage<T> clonedStorage = CreateNewStorage();
+
+            locker.EnterReadLock();
+
+            foreach (var item in items)
+            {
+                clonedStorage.AddEntity(item.Value);
+            }
+
+            locker.ExitReadLock();
+
+            return clonedStorage;
+        }
+
+        protected abstract IStorage<T> CreateNewStorage();
+
+        public void ShallowCopyEntities(IStorage<T> storage)
+        {
+            Storage<T> copyStorage = storage as Storage<T>;
+
+            copyStorage.locker.EnterReadLock();
+            locker.EnterWriteLock();
+
+            items = copyStorage.items;
+
+            copyStorage.locker.ExitReadLock();
+            locker.ExitWriteLock();
+        }
     }
 }

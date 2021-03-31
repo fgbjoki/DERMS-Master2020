@@ -44,7 +44,7 @@ namespace NetworkManagementService.DataModel.DER_Specific
                     property.SetValue(Storage);
                     break;
                 default:
-                    base.SetProperty(property);
+                    base.GetProperty(property);
                     break;
             }
         }

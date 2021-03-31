@@ -57,7 +57,7 @@ namespace NetworkManagementService.DataModel.Topology
                     ConnectivityNodeContainer = property.AsReference();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }

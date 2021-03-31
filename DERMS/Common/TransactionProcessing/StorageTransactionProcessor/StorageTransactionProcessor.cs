@@ -3,24 +3,32 @@ using Common.ComponentStorage.StorageItemCreator;
 using Common.GDA;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Common.ComponentStorage
 {
     public abstract class StorageTransactionProcessor<T> : IStorageTransactionProcessor
         where T : IdentifiedObject
     {
+        protected static readonly ModelResourcesDesc modelRescDesc = new ModelResourcesDesc();
+
         private Dictionary<DMSType, IStorageItemCreator> storageItemCreators;
 
         private List<DMSType> primaryTypes;
 
+        private AutoResetEvent commitDone;
+
         protected Dictionary<long, T> preparedObjects;
 
-        protected  IStorage<T> storage;
+        protected IStorage<T> storage;
+        protected IStorage<T> temporaryTransactionStorage;
 
         protected StorageTransactionProcessor(IStorage<T> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators)
         {
             this.storage = storage;
             this.storageItemCreators = storageItemCreators;
+
+            commitDone = storage.Commited;
 
             primaryTypes = GetPrimaryTypes();
         }
@@ -28,15 +36,10 @@ namespace Common.ComponentStorage
         public virtual bool Commit()
         {
             bool commited = true;
-            foreach (var preparedObject in preparedObjects.Values)
-            {
-                if (!storage.AddEntity(preparedObject))
-                {
-                    Common.Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on Commit!");
-                    commited = false;
-                    break;
-                }
-            }
+
+            storage.ShallowCopyEntities(temporaryTransactionStorage);
+
+            commitDone.Set();
 
             DisposeTransactionResources();
 
@@ -45,13 +48,17 @@ namespace Common.ComponentStorage
 
         public bool Prepare(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
+            temporaryTransactionStorage = (IStorage<T>)storage.Clone();
+
             if (!ProcessPrimaryEntities(affectedEntities))
             {
+                Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on Prepare!");
                 return false;
             }
             
             if (!AdditionalProcessing(affectedEntities))
             {
+                Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on Prepare!");
                 return false;
             }
 
@@ -78,7 +85,7 @@ namespace Common.ComponentStorage
                 {
                     if (storage.EntityExists(newGid))
                     {
-                        Common.Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on apply changes! Entity with given GID already exists.");
+                        Logger.Logger.Instance.Log($"[{this.GetType().Name}] Failed on apply changes! Entity with given GID already exists.");
                         return false;
                     }
                 }
@@ -111,13 +118,14 @@ namespace Common.ComponentStorage
         protected virtual void DisposeTransactionResources()
         {
             preparedObjects.Clear();
+            temporaryTransactionStorage = null;
         }
 
         private bool ProcessPrimaryEntities(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
             preparedObjects = new Dictionary<long, T>();
 
-            foreach (var oneTypeEntities in affectedEntities)
+            foreach (var oneTypeEntities in GetProcessingOrder(affectedEntities))
             {
                 IStorageItemCreator storageItemCreator;
                 if (!storageItemCreators.TryGetValue(oneTypeEntities.Key, out storageItemCreator))
@@ -130,24 +138,25 @@ namespace Common.ComponentStorage
                     IdentifiedObject newStorageItem = storageItemCreator.CreateStorageItem(newEntityRd, affectedEntities);
                     T newItem = newStorageItem as T;
 
-                    if (!storage.ValidateEntity(newItem))
+                    if (!temporaryTransactionStorage.ValidateEntity(newItem))
                     {
                         return false;
                     }
 
-                    preparedObjects.Add(newStorageItem.GlobalId, newItem);
+                    temporaryTransactionStorage.AddEntity(newItem);
+                    preparedObjects.Add(newItem.GlobalId, newItem);
                 }
             }
 
             return true;
         }
 
-        public Dictionary<ModelCode, List<ModelCode>> GetNeededProperties()
+        public Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
-            Dictionary<ModelCode, HashSet<ModelCode>> neededPropeties = new Dictionary<ModelCode, HashSet<ModelCode>>();
+            Dictionary<DMSType, HashSet<ModelCode>> neededPropeties = new Dictionary<DMSType, HashSet<ModelCode>>();
             foreach (var storageItemCreator in storageItemCreators.Values)
             {
-                Dictionary<ModelCode, List<ModelCode>> propertyPerCreator = storageItemCreator.GetNeededProperties();
+                Dictionary<DMSType, List<ModelCode>> propertyPerCreator = storageItemCreator.GetNeededProperties();
 
                 foreach (var properties in propertyPerCreator)
                 {
@@ -155,18 +164,17 @@ namespace Common.ComponentStorage
                     {
                         neededPropeties[properties.Key] = new HashSet<ModelCode>(properties.Value);
                     }
-                    else
+
+                    HashSet<ModelCode> hashSet = neededPropeties[properties.Key];
+                    foreach (var property in properties.Value)
                     {
-                        HashSet<ModelCode> hashSet = neededPropeties[properties.Key];
-                        foreach (var property in properties.Value)
-                        {
-                            hashSet.Add(property);
-                        }
+                        hashSet.Add(property);
                     }
+
                 }
             }
 
-            Dictionary<ModelCode, List<ModelCode>> returnValue = new Dictionary<ModelCode, List<ModelCode>>();
+            Dictionary<DMSType, List<ModelCode>> returnValue = new Dictionary<DMSType, List<ModelCode>>();
 
             foreach (var property in neededPropeties)
             {
@@ -174,6 +182,11 @@ namespace Common.ComponentStorage
             }
 
             return returnValue;
+        }
+
+        protected virtual IEnumerable<KeyValuePair<DMSType, List<ResourceDescription>>> GetProcessingOrder(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
+        {
+            return affectedEntities;
         }
     }
 }

@@ -17,10 +17,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Executables\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,8 +50,8 @@
     <Compile Include="CommandingProcessor\ReceiveCommandingProcessor.cs" />
     <Compile Include="CommandingProcessor\RequestCommandCreators\RequestCommandCreator.cs" />
     <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteCoilRequestCommandCreator.cs" />
-    <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteRegisterRequestCommandCreator.cs" />
-    <Compile Include="CommandingProcessor\RequestCommandCreators\SingleWriteRequestCommandCreator.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\WriteRegisterRequestCommandCreator.cs" />
+    <Compile Include="CommandingProcessor\RequestCommandCreators\WriteRequestCommandCreator.cs" />
     <Compile Include="ExtensionMethods\ArrayExtensions.cs" />
     <Compile Include="BlockingQueue.cs" />
     <Compile Include="FieldProcessor.cs" />
@@ -58,13 +59,15 @@
     <Compile Include="MessageValidation\MessageValidator.cs" />
     <Compile Include="MessageValidation\ResponseCommandCreator.cs" />
     <Compile Include="MessageValidation\ICommandSender.cs" />
+    <Compile Include="ModbusMessages\RequestMessages\ModbusPresetMultipleRegistersRequestMessage.cs" />
     <Compile Include="ModbusMessages\RequestMessages\IRequestMessage.cs" />
     <Compile Include="ModbusMessages\IResponseMessage.cs" />
     <Compile Include="ModbusMessages\ModbusMessageHeader.cs" />
     <Compile Include="ModbusMessages\RequestMessages\ModbusReadAnalogRequestMessage.cs" />
     <Compile Include="ModbusMessages\RequestMessages\ModbusReadDigitalRequestMessage.cs" />
     <Compile Include="ModbusMessages\RequestMessages\ModbusReadRequestMessage.cs" />
-    <Compile Include="ModbusMessages\ModbusReadResponseMessage.cs" />
+    <Compile Include="ModbusMessages\ResponseMessages\ModbusPresetMultipleRegistersResponseMessage.cs" />
+    <Compile Include="ModbusMessages\ResponseMessages\ModbusReadResponseMessage.cs" />
     <Compile Include="ModbusMessages\ModbusSingleWriteMessage.cs" />
     <Compile Include="Model\ModbusFunctionCode.cs" />
     <Compile Include="Model\RemotePoint.cs" />
@@ -82,8 +85,11 @@
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\TransactionProcessors\DiscreteTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\TransactionProcessors\IRemotePointDependentTransactionUnit.cs" />
+    <Compile Include="ValueExtractor\ExtractValueProcessors\AnalogReadCommandExtractValueProcessor.cs" />
+    <Compile Include="ValueExtractor\ExtractValueProcessors\MultipleWriteCommandExtractValueProcessor.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\BitFieldValueReader.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\FieldValueReader.cs" />
+    <Compile Include="ValueExtractor\FieldValueReader\FourByteFieldValueReader.cs" />
     <Compile Include="ValueExtractor\FieldValueReader\TwoByteFieldValueReader.cs" />
     <Compile Include="ValueExtractor\ExtractValueProcessors\ReadCommandExtractValueProcessor.cs" />
     <Compile Include="ValueExtractor\IPointValueExtractor.cs" />
@@ -115,8 +121,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

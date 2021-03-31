@@ -126,7 +126,8 @@ namespace FieldProcessor.MessageValidation
                 { ModbusFunctionCode.ReadHoldingRegisters, readResponseCreator },
                 { ModbusFunctionCode.ReadInputRegisters, readResponseCreator },
                 { ModbusFunctionCode.WriteSingleCoil, writeResponseCreator },
-                { ModbusFunctionCode.WriteSingleRegister, writeResponseCreator }
+                { ModbusFunctionCode.WriteSingleRegister, writeResponseCreator },
+                { ModbusFunctionCode.PresetMultipleRegisters, new ResponseCommandCreator<ModbusPresetMultipleRegistersResponseMessage>() }
             };
         }
 
@@ -184,7 +185,7 @@ namespace FieldProcessor.MessageValidation
             // invalid command response
             if (responseCommand == null)
             {
-                Logger.Instance.Log($"Invalid command with transaction id: {responseCommand.TransactionIdentifier} and function code {responseCommand.FunctionCode.ToString()}. Command will be skipped!");
+                Logger.Instance.Log($"Invalid command with transaction id: {parameters.Request.TransactionIdentifier} and function code {parameters.Request.FunctionCode.ToString()}. Command will be skipped!");
                 return;
             }
 

@@ -6,6 +6,7 @@ using UIAdapter.DynamicHandlers;
 using UIAdapter.Model;
 using UIAdapter.TransactionProcessing.StorageItemCreators;
 using UIAdapter.TransactionProcessing.StorageTransactionProcessors;
+using System;
 
 namespace UIAdapter.TransactionProcessing.Storages
 {
@@ -29,13 +30,13 @@ namespace UIAdapter.TransactionProcessing.Storages
 
             return new List<IStorageTransactionProcessor>()
             {
-                new DiscreteRemotePointTransactionProcessor(this, storageItemCreators, commitDone)
+                new DiscreteRemotePointTransactionProcessor(this, storageItemCreators)
             };
         }
 
-        public override bool ValidateEntity(DiscreteRemotePoint entity)
+        protected override IStorage<DiscreteRemotePoint> CreateNewStorage()
         {
-            return true;
+            return new DiscreteRemotePointStorage();
         }
     }
 }

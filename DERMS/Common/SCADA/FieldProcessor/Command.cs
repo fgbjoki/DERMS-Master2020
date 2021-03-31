@@ -3,6 +3,7 @@
 namespace Common.SCADA.FieldProcessor
 {
     [DataContract]
+    [KnownType(typeof(ChangeRemotePointValueCommand))]
     public class Command
     {
         public Command(long globalId)

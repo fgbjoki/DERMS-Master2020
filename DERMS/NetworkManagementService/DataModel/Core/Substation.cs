@@ -49,7 +49,7 @@ namespace NetworkManagementService.DataModel.Core
                     SubGeographicalRegion = property.AsReference();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }

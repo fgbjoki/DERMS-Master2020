@@ -7,6 +7,7 @@ using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Common.Logger;
 using Common.ServiceLocator;
 using FieldProcessor.RemotePointAddressCollector;
+using System;
 
 namespace FieldProcessor.TransactionProcessing.Storages
 {
@@ -58,8 +59,13 @@ namespace FieldProcessor.TransactionProcessing.Storages
 
         public override bool ValidateEntity(RemotePoint entity)
         {
-            return entity != null && !usedAddresses.Contains(entity.Address) &&
+            return base.ValidateEntity(entity) && !usedAddresses.Contains(entity.Address) &&
                 (entity.Type == RemotePointType.HoldingRegister || entity.Type == RemotePointType.InputRegister);
+        }
+
+        protected override IStorage<RemotePoint> CreateNewStorage()
+        {
+            return new AnalogRemotePointStorage();
         }
     }
 }

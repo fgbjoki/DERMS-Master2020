@@ -8,9 +8,9 @@ using UIAdapter.Model;
 
 namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
 {
-    public class DiscreteRemotePointTransactionProcessor : SummaryTransactionProcessor<DiscreteRemotePoint>
+    public class DiscreteRemotePointTransactionProcessor : StorageTransactionProcessor<DiscreteRemotePoint>
     {
-        public DiscreteRemotePointTransactionProcessor(IStorage<DiscreteRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators, AutoResetEvent commitDone) : base(storage, storageItemCreators, commitDone)
+        public DiscreteRemotePointTransactionProcessor(IStorage<DiscreteRemotePoint> storage, Dictionary<DMSType, IStorageItemCreator> storageItemCreators) : base(storage, storageItemCreators)
         {
         }
 
@@ -25,6 +25,13 @@ namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors
         protected override void AddAdditionalEntities(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> newNeededGids)
         {
             GDAProxy gdaProxy = new GDAProxy("gdaQueryEndpoint");
+
+            List<long> newDiscretePoints;
+
+            if (!insertedEntities.TryGetValue(DMSType.MEASUREMENTDISCRETE, out newDiscretePoints))
+            {
+                return;
+            }
 
             List<ResourceDescription> rds = gdaProxy.GetExtentValues(ModelCode.MEASUREMENTDISCRETE, new List<ModelCode>() { ModelCode.MEASUREMENT_PSR });
 

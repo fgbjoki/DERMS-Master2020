@@ -49,7 +49,7 @@ namespace ClientUI.CustomControls
             }
             else
             {
-                Items[index] = item;
+                Items[index].Update(item);
             }
         }
     }

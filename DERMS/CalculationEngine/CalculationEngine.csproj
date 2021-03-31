@@ -9,16 +9,17 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CalculationEngine</RootNamespace>
     <AssemblyName>CalculationEngine</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Executables\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -33,8 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,13 +47,102 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculationEngine.cs" />
+    <Compile Include="Graphs\BaseDepedentGraphCreator.cs" />
+    <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
+    <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
+    <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
+    <Compile Include="Schema\SchemaMessageConverter.cs" />
+    <Compile Include="Schema\SchemaRepresentation.cs" />
+    <Compile Include="TopologyAnalysis\TopologyAnalysis.cs" />
+    <Compile Include="Graphs\GraphsCreationProcessor.cs" />
+    <Compile Include="Graphs\GraphReductionRules\ReduceACLineSegmentBranchesGraphRule.cs" />
+    <Compile Include="Graphs\GraphReductionRules\Schema\SchemaACLSBranchGraphRule.cs" />
+    <Compile Include="Graphs\IGraphCreator.cs" />
+    <Compile Include="Graphs\SchemaGraphCreation\Helpers\ConnectivityBreakerNodeFinder.cs" />
+    <Compile Include="Graphs\SchemaGraphCreation\SchemaGraphCreator.cs" />
+    <Compile Include="Model\Topology\Graph\BranchManipulator\SchemaGraphBranchManipulator.cs" />
+    <Compile Include="Model\Topology\Graph\Graph.cs" />
+    <Compile Include="Model\Topology\Graph\BaseMultipleRootGraph.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConductingEquipmentTraverser.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityNodeTraverser.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\GraphRules\EnergySourceDirectionReverseGraphRule.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\GraphRules\IGraphRule.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\GraphRules\ReversePathToInterConnectedBreakerGraphRule.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\GraphRules\ConnectivityGraphRuleApplier.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\IConnectivityObjectTraverser.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityObjectExplorer.cs" />
+    <Compile Include="Graphs\GraphReductionRules\GraphReductionRule.cs" />
+    <Compile Include="Graphs\GraphReductionRules\Topology\BreakerReductionGraphRule.cs" />
+    <Compile Include="Graphs\GraphReductionRules\Topology\ConnectivityNodeShuntReductionGraphRule.cs" />
+    <Compile Include="Graphs\GraphReductionRules\Topology\TopologyACLSBranchGraphRule.cs" />
+    <Compile Include="Model\Topology\Graph\IGraph.cs" />
+    <Compile Include="Graphs\MultipleRootDependentGraphCreator.cs" />
+    <Compile Include="Graphs\TopologyGraphCreation\TopologyGraphCreator.cs" />
+    <Compile Include="Model\Topology\BreakerMessageMapping.cs" />
+    <Compile Include="Model\Topology\Graph\BranchManipulator\BaseGraphBranchManipulator.cs" />
+    <Compile Include="Model\Topology\Graph\BranchManipulator\TopologyBreakerGraphBranchManipulator.cs" />
+    <Compile Include="Model\Topology\Graph\Connectivity\ConnectivityGraph.cs" />
+    <Compile Include="Model\Topology\Graph\Connectivity\ConnectivityGraphNode.cs" />
+    <Compile Include="Model\Topology\Graph\DMSTypeGraphNode.cs" />
+    <Compile Include="Model\Topology\Graph\GenericGraphNode.cs" />
+    <Compile Include="Model\Topology\Graph\GraphBranch.cs" />
+    <Compile Include="Model\Topology\Graph\BranchManipulator\GraphBranchManipulator.cs" />
+    <Compile Include="Model\Topology\Graph\GraphNode.cs" />
+    <Compile Include="Model\Topology\Graph\IMultipleRootGraph.cs" />
+    <Compile Include="Model\Topology\Graph\BranchManipulator\TopologyGraphBranchManipulator.cs" />
+    <Compile Include="Model\Topology\Graph\ISingleRootGraph.cs" />
+    <Compile Include="Model\Topology\Graph\Schema\SchemaGraph.cs" />
+    <Compile Include="Model\Topology\Graph\Schema\SchemaGraphNode.cs" />
+    <Compile Include="Model\Topology\Graph\Topology\Shunt.cs" />
+    <Compile Include="Model\Topology\Graph\Topology\TopologyBreakerGraphBranch.cs" />
+    <Compile Include="Model\Topology\Graph\Topology\TopologyGraph.cs" />
+    <Compile Include="Model\Topology\Graph\Topology\TopologyGraphBranch.cs" />
+    <Compile Include="Model\Topology\Graph\Topology\TopologyGraphNode.cs" />
+    <Compile Include="Model\Topology\Transaction\Breaker.cs" />
+    <Compile Include="Model\Topology\Transaction\ConductingEquipment.cs" />
+    <Compile Include="Model\Topology\Transaction\ConnectivityNode.cs" />
+    <Compile Include="Model\Topology\Transaction\EnergySource.cs" />
+    <Compile Include="Model\Topology\Transaction\EnergyStorage.cs" />
+    <Compile Include="Model\Topology\Transaction\Generator.cs" />
+    <Compile Include="Model\Topology\Transaction\Terminal.cs" />
+    <Compile Include="Model\Topology\Transaction\ConnectivityObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityNodeTraverseWrapper.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityObjectTraverser.cs" />
+    <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityGraphCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\BreakerStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConductingEquipmentStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConnectivityNodeStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\DERGeneratorStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\EnergySourceStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\EnergyStorageStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Topology\TerminalStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\GraphTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\ReferenceResolver.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\TopologyOrderProcessingEnumerable.cs" />
+    <Compile Include="TransactionProcessing\Storage\IStorageDependentUnit.cs" />
+    <Compile Include="TransactionProcessing\Storage\Topology\ConductingEquipmentStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Topology\ConnectivityNodeStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Topology\EnergySourceStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Topology\TerminalStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Topology\TopologyStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8d4e56af-5587-407f-859b-47ed9f572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

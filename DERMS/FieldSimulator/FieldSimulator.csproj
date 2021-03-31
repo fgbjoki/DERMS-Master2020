@@ -22,10 +22,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Executables\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,6 +81,7 @@
     <Compile Include="Commands\SimulatorStopCommand.cs" />
     <Compile Include="Modbus\ModbusSlave.cs" />
     <Compile Include="Modbus\PointController.cs" />
+    <Compile Include="Model\AnalogPointWrapper.cs" />
     <Compile Include="Model\CoilWrapper.cs" />
     <Compile Include="Model\DiscreteInputWrapper.cs" />
     <Compile Include="Model\HoldingRegisterWrapper.cs" />
@@ -176,8 +178,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

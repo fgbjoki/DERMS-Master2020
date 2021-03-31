@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace CalculationEngine
 {
@@ -10,6 +7,13 @@ namespace CalculationEngine
     {
         static void Main(string[] args)
         {
+            CalculationEngine calculationEngine = new CalculationEngine();
+
+            ServiceHost serviceHost = new ServiceHost(calculationEngine);
+            serviceHost.Open();
+
+            Console.WriteLine("Calculation Engine ready...");
+            Console.ReadLine();
         }
     }
 }

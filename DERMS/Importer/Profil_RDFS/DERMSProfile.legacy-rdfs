@@ -355,8 +355,8 @@ When the sensor location is needed both Measurement-PSR and Measurement-Terminal
   </rdf:Description>
   <rdf:Description rdf:about="#MeasurementType">
     <cims:belongsToCategory rdf:resource="#Package_Telvent_DMS_extensions"/>
-    <cims:stereotype rdf:resource="http://langdale.com.au/2005/UML#enumeration"/>
     <cims:stereotype rdf:resource="http://langdale.com.au/2005/UML#tdms"/>
+    <cims:stereotype rdf:resource="http://langdale.com.au/2005/UML#enumeration"/>
     <rdfs:comment>Specifies the measured quantity, e.g. Voltage, SwitchStatus or Boolean.</rdfs:comment>
     <rdfs:label>MeasurementType</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>

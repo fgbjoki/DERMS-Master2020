@@ -37,7 +37,7 @@ namespace NetworkManagementService.DataModel.Core
                     property.SetValue(SubGeographicalRegions);
                     break;
                 default:
-                    base.SetProperty(property);
+                    base.GetProperty(property);
                     break;
             }
         }

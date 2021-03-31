@@ -67,7 +67,7 @@ namespace NetworkManagementService.DataModel.Core
                     ConnectivityNode = property.AsReference();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }

@@ -10,17 +10,26 @@ using System.ServiceModel.Configuration;
 using UIAdapter.TransactionProcessing.Storages;
 using Common.UIDataTransferObject.RemotePoints;
 using UIAdapter.SummaryJobs;
-using UIAdapter.DynamicHandlers;
+using Common.PubSub;
+using UIAdapter.PubSub.DynamicListeners;
+using UIAdapter.Schema;
+using UIAdapter.TransactionProcessing.Storages.Schema;
+using Common.ServiceInterfaces.UIAdapter;
+using Common.UIDataTransferObject.Schema;
+using Common.ServiceLocator;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
 
         private TransactionManager transactionManager;
+
+        private EnergySourceStorage schemaEnergySourceStorage;
+        private BreakerStorage schemaBreakerStorage;
 
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
@@ -28,20 +37,28 @@ namespace UIAdapter
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
         private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
 
-        private DynamicHandlersManager dynamicHandlersManager;
+        private DynamicListenersManager dynamicListenerManager;
+
+        private SchemaRepresentation schemaRepresentation;
 
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
 
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            analogRemotePointStorage = new AnalogRemotePointStorage();
-            discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage });
+            InitializeTransactionStorages();
+
+            InitializeSchemaRepresentation();
 
             InitializeJobs();
-            InitializeDynamicHandlers();
+
+            InitializePubSub();
+        }
+
+        private void InitializeSchemaRepresentation()
+        {
+            schemaRepresentation = new SchemaRepresentation(schemaEnergySourceStorage, schemaBreakerStorage);
         }
 
         public bool Prepare()
@@ -73,11 +90,41 @@ namespace UIAdapter
 
         private void InitializeDynamicHandlers()
         {
-            dynamicHandlersManager = new DynamicHandlersManager();
-            dynamicHandlersManager.AddDynamicListeners(analogRemotePointStorage);
-            dynamicHandlersManager.AddDynamicListeners(discreteRemotePointStorage);
+            dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
+            // TODO, add for discrete
+        }
 
-            dynamicHandlersManager.StartListening();
+        private void InitializeDynamicListeners()
+        {
+            dynamicListenerManager = new DynamicListenersManager(serviceName);
+            List<IDynamicListener> listeners = new List<IDynamicListener>()
+            {
+                new AnalogRemotePointChangedListener(),
+            };
+
+            foreach (var listener in listeners)
+            {
+                dynamicListenerManager.AddDynamicHandlers(listener.Topic, listener);
+            }
+        }
+
+        private void InitializePubSub()
+        {
+            InitializeDynamicListeners();
+            InitializeDynamicHandlers();
+
+            dynamicListenerManager.StartListening();
+        }
+
+        private void InitializeTransactionStorages()
+        {
+            analogRemotePointStorage = new AnalogRemotePointStorage();
+            discreteRemotePointStorage = new DiscreteRemotePointStorage();
+
+            schemaEnergySourceStorage = new EnergySourceStorage();
+            schemaBreakerStorage = new BreakerStorage();
+
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage });
         }
 
         private void LoadConfigurationFromAppConfig()
@@ -97,7 +144,6 @@ namespace UIAdapter
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
         }
 
-
         public List<AnalogRemotePointSummaryDTO> GetAllAnalogEntities()
         {
             return analogRemotePointSummaryJob.GetAllEntities();
@@ -106,6 +152,21 @@ namespace UIAdapter
         public List<DiscreteRemotePointSummaryDTO> GetAllDiscreteEntities()
         {
             return discreteRemotePointSummaryJob.GetAllEntities();
+        }
+        
+        public SubSchemaDTO GetSchema(long energySourceId)
+        {
+            return schemaRepresentation.GetSchema(energySourceId);
+        }
+
+        public SubSchemaConductingEquipmentEnergized GetEquipmentStates(long energySourceId)
+        {
+            return schemaRepresentation.GetEquipmentStates(energySourceId);
+        }
+
+        public List<EnergySourceDTO> GetSubstations()
+        {
+            return schemaRepresentation.GetSubstations();
         }
     }
 }

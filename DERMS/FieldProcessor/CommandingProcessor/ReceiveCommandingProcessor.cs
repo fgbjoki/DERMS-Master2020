@@ -50,7 +50,7 @@ namespace FieldProcessor.CommandingProcessor
             commandCreators = new Dictionary<DMSType, RequestCommandCreator>()
             {
                 { DMSType.MEASUREMENTDISCRETE, new SingleWriteCoilRequestCommandCreator(discreteStorage) },
-                { DMSType.MEASUREMENTANALOG, new SingleWriteRegisterRequestCommandCreator(analogStorage) }
+                { DMSType.MEASUREMENTANALOG, new WriteRegisterRequestCommandCreator(analogStorage) }
             };
         }
     }

@@ -16,7 +16,7 @@ namespace Common.ComponentStorage
 
         private List<IStorageTransactionProcessor> transactionProcessors;
 
-        private Dictionary<ModelCode, List<ModelCode>> neededProperties;
+        private Dictionary<DMSType, List<ModelCode>> neededProperties;
 
         private GDAProxy gdaProxy;
 
@@ -29,7 +29,7 @@ namespace Common.ComponentStorage
 
             gdaProxy = new GDAProxy("gdaQueryEndpoint");
 
-            neededProperties = new Dictionary<ModelCode, List<ModelCode>>();
+            neededProperties = new Dictionary<DMSType, List<ModelCode>>();
         }
 
         public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
@@ -119,7 +119,7 @@ namespace Common.ComponentStorage
             {
                 List<ResourceDescription> rds = null;
 
-                DMSType neededDMSType = ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key);
+                DMSType neededDMSType = typeProperties.Key;
 
                 HashSet<long> neededGids;
                 if (!newNeededGids.TryGetValue(neededDMSType, out neededGids))
@@ -131,8 +131,7 @@ namespace Common.ComponentStorage
 
                 if (rds?.Count > 0)
                 {
-                    DMSType dmsType = ModelCodeHelper.GetTypeFromModelCode(typeProperties.Key);
-                    nmsData[dmsType] = rds;
+                    nmsData[neededDMSType] = rds;
                 }
             }
 
@@ -141,10 +140,10 @@ namespace Common.ComponentStorage
 
         private void LoadNeededModelCodeProperties()
         {
-            Dictionary<ModelCode, HashSet<ModelCode>> distinctProperties = new Dictionary<ModelCode, HashSet<ModelCode>>();
+            Dictionary<DMSType, HashSet<ModelCode>> distinctProperties = new Dictionary<DMSType, HashSet<ModelCode>>();
             foreach (var transactionProcessor in transactionProcessors)
             {
-                Dictionary<ModelCode, List<ModelCode>> propertiesPerProcessor = transactionProcessor.GetNeededProperties();
+                Dictionary<DMSType, List<ModelCode>> propertiesPerProcessor = transactionProcessor.GetNeededProperties();
 
                 foreach (var properties in propertiesPerProcessor)
                 {
@@ -152,13 +151,11 @@ namespace Common.ComponentStorage
                     {
                         distinctProperties[properties.Key] = new HashSet<ModelCode>(properties.Value);
                     }
-                    else
+
+                    HashSet<ModelCode> hashSet = distinctProperties[properties.Key];
+                    foreach (var property in properties.Value)
                     {
-                        HashSet<ModelCode> hashSet = distinctProperties[properties.Key];
-                        foreach (var property in properties.Value)
-                        {
-                            hashSet.Add(property);
-                        }
+                        hashSet.Add(property);
                     }
                 }
             }

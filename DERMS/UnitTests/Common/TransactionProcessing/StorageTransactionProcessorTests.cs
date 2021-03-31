@@ -59,9 +59,9 @@ namespace UnitTests.Common.TransactionProcessing
                 { DMSType.CONNECTIVITYNODE, new List<long>() { 1 } }
             };
 
-            Dictionary<ModelCode, List<ModelCode>> itemCreatorProperties = new Dictionary<ModelCode, List<ModelCode>>()
+            Dictionary<DMSType, List<ModelCode>> itemCreatorProperties = new Dictionary<DMSType, List<ModelCode>>()
             {
-                { modelCodeType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
+                { dmsType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
             };
 
             StorageItemCreatorTest itemCreator = new StorageItemCreatorTest(itemCreatorProperties);
@@ -87,9 +87,9 @@ namespace UnitTests.Common.TransactionProcessing
             Dictionary<DMSType, List<ResourceDescription>> affectedEntities = new Dictionary<DMSType, List<ResourceDescription>>();
             affectedEntities[dmsType] = new List<ResourceDescription>();
 
-            Dictionary<ModelCode, List<ModelCode>> itemCreatorProperties = new Dictionary<ModelCode, List<ModelCode>>()
+            Dictionary<DMSType, List<ModelCode>> itemCreatorProperties = new Dictionary<DMSType, List<ModelCode>>()
             {
-                { modelCodeType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
+                { dmsType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
             };
 
             StorageItemCreatorTest itemCreator = Substitute.For<StorageItemCreatorTest>(itemCreatorProperties);
@@ -102,6 +102,7 @@ namespace UnitTests.Common.TransactionProcessing
             }
 
             storage.ValidateEntity(Arg.Compat.Any<TestObject>()).Returns(true);
+            storage.Clone().Returns(storage);
 
             StorageTransactionProcessorTestClass testingClass = new StorageTransactionProcessorTestClass(storage, new Dictionary<DMSType, IStorageItemCreator>() { { dmsType, itemCreator } });
 
@@ -125,9 +126,9 @@ namespace UnitTests.Common.TransactionProcessing
             Dictionary<DMSType, List<ResourceDescription>> affectedEntities = new Dictionary<DMSType, List<ResourceDescription>>();
             affectedEntities[dmsType] = new List<ResourceDescription>();
 
-            Dictionary<ModelCode, List<ModelCode>> itemCreatorProperties = new Dictionary<ModelCode, List<ModelCode>>()
+            Dictionary<DMSType, List<ModelCode>> itemCreatorProperties = new Dictionary<DMSType, List<ModelCode>>()
             {
-                { modelCodeType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
+                { dmsType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } }
             };
 
             StorageItemCreatorTest itemCreator = Substitute.For<StorageItemCreatorTest>(itemCreatorProperties);
@@ -140,6 +141,7 @@ namespace UnitTests.Common.TransactionProcessing
             }
 
             storage.ValidateEntity(Arg.Compat.Any<TestObject>()).Returns(false);
+            storage.Clone().Returns(storage);
 
             StorageTransactionProcessorTestClass testingClass = new StorageTransactionProcessorTestClass(storage, new Dictionary<DMSType, IStorageItemCreator>() { { dmsType, itemCreator } });
 
@@ -162,15 +164,15 @@ namespace UnitTests.Common.TransactionProcessing
             Dictionary<DMSType, List<ResourceDescription>> affectedEntities = new Dictionary<DMSType, List<ResourceDescription>>();
             affectedEntities[dmsType] = new List<ResourceDescription>();
 
-            Dictionary<ModelCode, List<ModelCode>> itemCreatorProperties1 = new Dictionary<ModelCode, List<ModelCode>>()
+            Dictionary<DMSType, List<ModelCode>> itemCreatorProperties1 = new Dictionary<DMSType, List<ModelCode>>()
             {
-                { modelCodeType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } },
-                { ModelCode.DER, new List<ModelCode>() { ModelCode.DER_ACTIVEPOWER } }
+                { dmsType, new List<ModelCode>() { ModelCode.ENERGYCONSUMER_PFIXED } },
+                { DMSType.SOLARGENERATOR, new List<ModelCode>() { ModelCode.DER_ACTIVEPOWER } }
             };
 
-            Dictionary<ModelCode, List<ModelCode>> itemCreatorProperties2 = new Dictionary<ModelCode, List<ModelCode>>()
+            Dictionary<DMSType, List<ModelCode>> itemCreatorProperties2 = new Dictionary<DMSType, List<ModelCode>>()
             {
-                { ModelCode.DER, new List<ModelCode>() { ModelCode.DER_NOMINALPOWER } }
+                { DMSType.SOLARGENERATOR, new List<ModelCode>() { ModelCode.DER_NOMINALPOWER } }
             };
 
             StorageItemCreatorTest itemCreator1 = new StorageItemCreatorTest(itemCreatorProperties1);
@@ -179,12 +181,12 @@ namespace UnitTests.Common.TransactionProcessing
             StorageTransactionProcessorTestClass testingClass = new StorageTransactionProcessorTestClass(storage, new Dictionary<DMSType, IStorageItemCreator>() { { dmsType, itemCreator1 }, { DMSType.SOLARGENERATOR, itemCreator2 } });
 
             // Act
-            Dictionary<ModelCode, List<ModelCode>> properties = testingClass.GetNeededProperties();
+            Dictionary<DMSType, List<ModelCode>> properties = testingClass.GetNeededProperties();
 
             // Assert
-            Assert.True(properties[ModelCode.ENERGYCONSUMER].Contains(ModelCode.ENERGYCONSUMER_PFIXED));
-            Assert.True(properties[ModelCode.DER].Contains(ModelCode.DER_ACTIVEPOWER));
-            Assert.True(properties[ModelCode.DER].Contains(ModelCode.DER_NOMINALPOWER));
+            Assert.True(properties[DMSType.ENERGYCONSUMER].Contains(ModelCode.ENERGYCONSUMER_PFIXED));
+            Assert.True(properties[DMSType.SOLARGENERATOR].Contains(ModelCode.DER_ACTIVEPOWER));
+            Assert.True(properties[DMSType.SOLARGENERATOR].Contains(ModelCode.DER_NOMINALPOWER));
         }
 
         private List<long> CreateGids(DMSType dmsType, int count)

@@ -19,22 +19,27 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
             {
                 Name = rd.GetProperty(ModelCode.IDOBJ_NAME).AsString(),
                 Address = rd.GetProperty(ModelCode.MEASUREMENT_ADDRESS).AsInt(),
-                Value = rd.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE).AsFloat(),
+                MaxValue = rd.GetProperty(ModelCode.MEASUREMENTANALOG_MAXVALUE).AsFloat(),
+                MinValue = rd.GetProperty(ModelCode.MEASUREMENTANALOG_MINVALUE).AsFloat()
             };
+
+            remotePoint.Value = rd.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE).AsFloat();
 
             return remotePoint;
         }
 
-        private static Dictionary<ModelCode, List<ModelCode>> CreatePropertiesPerType()
+        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
         {
-            return new Dictionary<ModelCode, List<ModelCode>>()
+            return new Dictionary<DMSType, List<ModelCode>>()
             {
-                { ModelCode.MEASUREMENTANALOG,
+                { DMSType.MEASUREMENTANALOG,
                     new List<ModelCode>()
                     {
                         ModelCode.IDOBJ_NAME,
                         ModelCode.MEASUREMENT_ADDRESS,
-                        ModelCode.MEASUREMENTANALOG_CURRENTVALUE
+                        ModelCode.MEASUREMENTANALOG_CURRENTVALUE,
+                        ModelCode.MEASUREMENTANALOG_MAXVALUE,
+                        ModelCode.MEASUREMENTANALOG_MINVALUE
                     }
                 }
             };

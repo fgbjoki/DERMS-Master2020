@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ClientUI.ViewModels
 {
@@ -34,7 +35,16 @@ namespace ClientUI.ViewModels
         public ContentViewModel ContentViewModel
         {
             get { return contentViewModel; }
-            set { SetProperty(ref contentViewModel, value); }
+            set
+            {
+                SetProperty(ref contentViewModel, value);
+                OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs("ContentVisible"));
+            }
+        }
+
+        public Visibility ContentVisible
+        {
+            get { return contentViewModel != null ? Visibility.Visible : Visibility.Hidden; }
         }
     }
 }

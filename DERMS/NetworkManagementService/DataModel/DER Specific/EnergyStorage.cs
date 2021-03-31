@@ -85,7 +85,7 @@ namespace NetworkManagementService.DataModel.DER_Specific
                     Generator = property.AsReference();
                     break;
                 default:
-                    base.GetProperty(property);
+                    base.SetProperty(property);
                     break;
             }
         }

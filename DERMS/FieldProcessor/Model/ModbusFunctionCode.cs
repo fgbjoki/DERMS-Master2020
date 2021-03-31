@@ -8,6 +8,8 @@
         ReadInputRegisters = 4,
 
         WriteSingleCoil = 5,
-        WriteSingleRegister = 6
+        WriteSingleRegister = 6,
+
+        PresetMultipleRegisters = 16
     }
 }
