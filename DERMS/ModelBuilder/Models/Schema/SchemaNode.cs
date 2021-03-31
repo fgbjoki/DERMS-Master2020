@@ -42,7 +42,11 @@ namespace ClientUI.Models.Schema
         public bool DoesConduct
         {
             get { return doesConduct; }
-            set { SetProperty(ref doesConduct, value); }
+            set
+            {
+                SetProperty(ref doesConduct, value);
+                Outline = doesConduct ? green : red;
+            }
         }
 
         public string ImageSource

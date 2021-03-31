@@ -26,6 +26,8 @@ namespace UIAdapter.Schema
             newGraph.MarkRoot(changedGraph.EnergySourceGid);
             newGraph.MarkInterConnectedBreaker(changedGraph.InterConnectedBreakerGid);
 
+            InitializeConnectivityNodeOfInterConnectedBreaker(newGraph);
+
             return newGraph;
         }
 
@@ -73,6 +75,32 @@ namespace UIAdapter.Schema
             }
 
             return newNode;
+        }
+
+        private void InitializeConnectivityNodeOfInterConnectedBreaker(SchemaGraph graph)
+        {
+            SchemaGraphNode interConnectedBreaker = graph.GetInterConnectedBreaker();
+            if (interConnectedBreaker == null)
+            {
+                return;
+            }
+
+            SchemaGraphNode connectivityNode = interConnectedBreaker.ParentBranch.UpStream;
+
+            SchemaInterConnectivityNodeGraphNode specialConnectivityNode = new SchemaInterConnectivityNodeGraphNode(connectivityNode.GlobalId)
+            {
+                ParentBranch = connectivityNode.ParentBranch,
+                ChildBranches = connectivityNode.ChildBranches
+            };
+
+            specialConnectivityNode.ParentBranch.DownStream = specialConnectivityNode;
+            foreach (var childBranch in specialConnectivityNode.ChildBranches)
+            {
+                childBranch.UpStream = specialConnectivityNode;
+            }
+
+            graph.RemoveNode(connectivityNode.GlobalId);
+            graph.AddNode(specialConnectivityNode);
         }
     }
 }

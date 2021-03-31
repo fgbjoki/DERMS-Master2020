@@ -19,7 +19,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 
         public SchemaNode CreateNode(SubSchemaNodeDTO dtoNode)
         {
-            SchemaNode node = new SchemaNode(dtoNode.GlobalId, imageUrl);
+            SchemaNode node = InstantiateNode(dtoNode.GlobalId, imageUrl);
             node.DoesConduct = dtoNode.DoesConduct;
             node.Energized = dtoNode.IsEnergized;
             node.OnDoubleClick = GetOnClickCommand();
@@ -30,6 +30,11 @@ namespace ClientUI.Models.Schema.NodeCreators
         }
 
         public abstract ICommand GetOnClickCommand();
+
+        public virtual SchemaNode InstantiateNode(long globalId, string imageUrl)
+        {
+            return new SchemaNode(globalId, imageUrl);
+        }
 
         public virtual void CustomConfiguration(SchemaNode node)
         {
