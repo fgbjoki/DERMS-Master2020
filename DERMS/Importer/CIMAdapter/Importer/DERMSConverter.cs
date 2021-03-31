@@ -500,7 +500,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                 if (discrete.MinValueHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_MAXVALUE, discrete.MaxValue));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_MINVALUE, discrete.MinValue));
                 }
 
                 if(discrete.CurrentValueHasValue)
@@ -525,7 +525,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 
                 if (analog.MinValueHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_MINVALUE, analog.MaxValue));
+                    rd.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_MINVALUE, analog.MinValue));
                 }
 
                 if (analog.CurrentValueHasValue)

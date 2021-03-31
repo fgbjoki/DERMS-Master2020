@@ -7,5 +7,14 @@ namespace Common.UIDataTransferObject.RemotePoints
     {
         [DataMember]
         public float Value { get; set; }
+
+        [DataMember]
+        public float MaxValue { get; set; }
+
+        [DataMember]
+        public float MinValue { get; set; }
+
+        [DataMember]
+        public AnalogAlarming Alarm { get; set; }
     }
 }
