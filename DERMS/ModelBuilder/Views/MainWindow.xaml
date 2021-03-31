@@ -6,8 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:ClientUI.Views"
         xmlns:viewModels="clr-namespace:ClientUI.ViewModels"
-        xmlns:analogRemotePointViewModel="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
-        xmlns:discreteRemotePointViewModel="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
+        xmlns:summaryViewModels="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
         xmlns:browseSchemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
         mc:Ignorable="d"
@@ -20,14 +19,14 @@
         FontFamily="{materialDesign:MaterialDesignFont}">
 
     <Window.Resources>
-        <DataTemplate DataType="{x:Type analogRemotePointViewModel:AnalogRemotePointSummaryViewModel}">
+        <DataTemplate DataType="{x:Type summaryViewModels:AnalogRemotePointSummaryViewModel}">
             <views:AnalogRemotePointSummaryView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type discreteRemotePointViewModel:DiscreteRemotePointSummaryViewModel}">
+        <DataTemplate DataType="{x:Type summaryViewModels:DiscreteRemotePointSummaryViewModel}">
             <views:DiscreteRemotePointSummaryView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type browseSchemaViewModel:BrowseSchemaViewModel}">
-            <view:BrowseSchemaView/>
+            <views:BrowseSchemaView/>
         </DataTemplate>
     </Window.Resources>
 
