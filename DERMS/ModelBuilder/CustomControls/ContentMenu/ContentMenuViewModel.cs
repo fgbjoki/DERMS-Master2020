@@ -30,8 +30,14 @@ namespace ClientUI.CustomControls
         {
             Summaries = new ObservableCollection<SummaryWrapper>()
             {
+<<<<<<< Updated upstream
                 new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.Arrow),
                 new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ClipboardAdd)
+=======
+                new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent),
+                new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch),
+                new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda)
+>>>>>>> Stashed changes
             };
 
         }
