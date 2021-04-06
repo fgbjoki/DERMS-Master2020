@@ -5,6 +5,7 @@ using NServiceBus;
 using Common.PubSub;
 using Common.AbstractModel;
 using Common.Logger;
+using Common.PubSub.Messages;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
@@ -16,7 +17,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         protected override ResourceDescription ApplyChanges(DiscreteRemotePoint remotePoint, int rawValue)
         {
-            ResourceDescription changes = new ResourceDescription(remotePoint.GlobalId);
+            DiscreteRemotePointValueChanged changes = new DiscreteRemotePointValueChanged() { Id = remotePoint.GlobalId };
 
             int fieldValue = ReadFieldValue(rawValue);
 
@@ -36,8 +37,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         protected override IEvent GetPublication(ResourceDescription changes)
         {
-            // TODO CHANGE THIS
-            return null;
+            return changes as DiscreteRemotePointValueChanged;
         }
 
         protected override bool HasValueChanged(DiscreteRemotePoint remotePoint, int rawValue)
