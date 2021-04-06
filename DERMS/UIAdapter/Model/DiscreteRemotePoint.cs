@@ -12,6 +12,8 @@ namespace UIAdapter.Model
 
         public int NormalValue { get; set; }
 
+        public int DOMManipulation { get; set; }
+
         public override DiscreteRemotePointSummaryDTO CreateDTO()
         {
             DiscreteRemotePointSummaryDTO dto = new DiscreteRemotePointSummaryDTO();
@@ -24,8 +26,10 @@ namespace UIAdapter.Model
         protected override void PopulateDTO(DiscreteRemotePointSummaryDTO dto)
         {
             base.PopulateDTO(dto);
+
             dto.Value = Value;
             dto.NormalValue = NormalValue;
+            dto.DOMManipulation = DOMManipulation;
         }
     }
 }

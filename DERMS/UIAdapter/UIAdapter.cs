@@ -91,7 +91,7 @@ namespace UIAdapter
         private void InitializeDynamicHandlers()
         {
             dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
-            // TODO, add for discrete
+            dynamicListenerManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
         }
 
         private void InitializeDynamicListeners()
@@ -100,6 +100,7 @@ namespace UIAdapter
             List<IDynamicListener> listeners = new List<IDynamicListener>()
             {
                 new AnalogRemotePointChangedListener(),
+                new DiscreteRemotePointChangedListener(),
             };
 
             foreach (var listener in listeners)

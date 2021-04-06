@@ -34,7 +34,6 @@ namespace ClientUI.CustomControls
                 new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Arrow),
                 new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ClipboardAdd)
             };
-
         }
 
         public SummaryWrapper SelectedItem

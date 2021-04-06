@@ -83,6 +83,18 @@
                 
             </DataGridTextColumn>
 
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="DOM"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+
+                <DataGridTextColumn.Binding>
+                    <Binding Path="DOM"/>
+                </DataGridTextColumn.Binding>
+
+            </DataGridTextColumn>
+
         </DataGrid.Columns>
         
     </DataGrid>

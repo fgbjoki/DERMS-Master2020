@@ -12,6 +12,7 @@ namespace ClientUI.Models.RemotePoints
     {
         private int value;
         private int normalValue;
+        private int dom;
 
         public int Value
         {
@@ -25,6 +26,12 @@ namespace ClientUI.Models.RemotePoints
             set { SetProperty(ref normalValue, value); }
         }
 
+        public int DOM
+        {
+            get { return dom; }
+            set { SetProperty(ref dom, value); }
+        }
+
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {
             base.UpdateProperties(entity);
@@ -32,6 +39,7 @@ namespace ClientUI.Models.RemotePoints
             DiscreteRemotePointSummaryDTO item = entity as DiscreteRemotePointSummaryDTO;
             Value = item.Value;
             NormalValue = item.NormalValue;
+            DOM = item.DOMManipulation;
         }
 
         protected override void UpdateProperties(IdentifiedObject entity)
@@ -40,6 +48,7 @@ namespace ClientUI.Models.RemotePoints
 
             DiscreteRemotePointSummaryItem item = entity as DiscreteRemotePointSummaryItem;
             Value = item.Value;
+            DOM = item.DOM;
         }
     }
 }

@@ -10,5 +10,8 @@ namespace Common.UIDataTransferObject.RemotePoints
 
         [DataMember]
         public int NormalValue { get; set; }
+
+        [DataMember]
+        public int DOMManipulation { get; set; }
     }
 }
