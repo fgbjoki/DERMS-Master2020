@@ -54,7 +54,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Margin="10" Kind="{Binding Icon}" VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon Margin="10" Kind="{Binding IconKind}" VerticalAlignment="Center"/>
                             <TextBlock Text="{Binding SummaryName}" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
