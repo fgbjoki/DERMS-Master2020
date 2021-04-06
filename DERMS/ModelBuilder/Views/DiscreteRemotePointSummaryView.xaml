@@ -1,17 +1,17 @@
-﻿<UserControl x:Class="ClientUI.Views.AnalogRemotePointSummaryView"
+﻿<UserControl x:Class="ClientUI.Views.DiscreteRemotePointSummaryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d"
+             mc:Ignorable="d" 
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}">
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <DataGrid
         x:Name="itemDataGrid"
         AlternationCount="2"
@@ -29,20 +29,9 @@
         BorderBrush="Black"
         HeadersVisibility="All"
         Margin="0,0,40,0">
-        <DataGrid.RowStyle>
-            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Alarm}" Value="HIGH_ALARM">
-                        <Setter Property="Background" Value="Red"></Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Alarm}" Value="LOW_ALARM">
-                        <Setter Property="Background" Value="Green"></Setter>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </DataGrid.RowStyle>
+
         <DataGrid.Columns>
-            
+
             <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
             <materialDesign:DataGridTextColumn
                             Header="Name"
@@ -67,53 +56,59 @@
                 </materialDesign:DataGridTextColumn.Binding>
             
             </materialDesign:DataGridTextColumn>
-            
+
             <!-- set a max length to get an indicator in the editor -->
             <DataGridTextColumn
                             MinWidth="100"
                             Header="Value"
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                
+               
                 <DataGridTextColumn.Binding>
                     <Binding Path="Value"/>
                 </DataGridTextColumn.Binding>
                 
             </DataGridTextColumn>
+
+            <!-- set a max length to get an indicator in the editor -->
             <DataGridTextColumn
                             MinWidth="100"
-                            Header="MinValue"
+                            Header="Normal Value"
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+               
                 <DataGridTextColumn.Binding>
-                    <Binding Path="MinValue"/>
+                    <Binding Path="NormalValue"/>
                 </DataGridTextColumn.Binding>
+                
             </DataGridTextColumn>
+
             <DataGridTextColumn
                             MinWidth="100"
-                            Header="MaxValue"
+                            Header="DOM"
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+
                 <DataGridTextColumn.Binding>
-                    <Binding Path="MaxValue"/>
+                    <Binding Path="DOM"/>
                 </DataGridTextColumn.Binding>
+
             </DataGridTextColumn>
-            <DataGridTextColumn
-                            MinWidth="100"
-                            Header="Alarm"
-                            IsReadOnly="True"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
-                <DataGridTextColumn.Binding>
-                    <Binding Path="Alarm"/>
-                </DataGridTextColumn.Binding>
-            </DataGridTextColumn>
+
         </DataGrid.Columns>
         
     </DataGrid>
-    
+
+
     <interaction:Interaction.Triggers>
         <interaction:EventTrigger EventName="MouseDoubleClick">
             <interaction:InvokeCommandAction Command="{Binding DataGridItemDoubleClicked}" CommandParameter="{Binding ElementName=itemDataGrid, Path=SelectedItem}" />
         </interaction:EventTrigger>
     </interaction:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDoubleClick">
+            <i:InvokeCommandAction Command="{Binding ItemSelectionChanged}" CommandParameter="{Binding ElementName=grdCity, Path=SelectedItem}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+
 </UserControl>

@@ -9,6 +9,8 @@ namespace ClientUI.SummaryCreator
     {
         AnalogRemotePointSummary,
         AnalogRemotePointCommandingWindow,
+        DiscreteRemotePointSummary,
+        DiscreteRemotePointCommandingWindow,
         BrowseSchema
     }
 
@@ -50,15 +52,17 @@ namespace ClientUI.SummaryCreator
         }
 
         private void CreateSchemaViewModels(List<ContentViewModel> viewModels)
-        {
+        {     
             viewModels.Add(new BrowseSchemaViewModel());
         }
 
         private void CreateSummaryViewModels(List<ContentViewModel> viewModels)
         {
             AnalogRemotePointSummaryViewModel analogSummaryView = new AnalogRemotePointSummaryViewModel();
+            DiscreteRemotePointSummaryViewModel discreteSummaryView = new DiscreteRemotePointSummaryViewModel();
 
             viewModels.Add(analogSummaryView);
+            viewModels.Add(discreteSummaryView);
         }
     }
 }

@@ -5,9 +5,9 @@ using System.ServiceModel;
 namespace Common.ServiceInterfaces.UIAdapter.SummaryJobs
 {
     [ServiceContract]
-    public interface IAnalogRemotePointSummaryJob
+    public interface IDiscreteRemotePointSummaryJob
     {
         [OperationContract]
-        List<AnalogRemotePointSummaryDTO> GetAllAnalogEntities();
+        List<DiscreteRemotePointSummaryDTO> GetAllDiscreteEntities();
     }
 }

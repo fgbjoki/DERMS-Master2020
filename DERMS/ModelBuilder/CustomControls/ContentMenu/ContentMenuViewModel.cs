@@ -31,10 +31,9 @@ namespace ClientUI.CustomControls
             Summaries = new ObservableCollection<SummaryWrapper>()
             {
                 new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent),
-                //new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch),
+                new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch),
                 new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda)
             };
-
         }
 
         public SummaryWrapper SelectedItem

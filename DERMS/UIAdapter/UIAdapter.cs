@@ -21,7 +21,7 @@ using Common.ServiceLocator;
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, ISchema
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -35,6 +35,7 @@ namespace UIAdapter
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
+        private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
 
         private DynamicListenersManager dynamicListenerManager;
 
@@ -79,20 +80,18 @@ namespace UIAdapter
         {
             return transactionManager.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
         }
-
-        public List<AnalogRemotePointSummaryDTO> GetAllEntities()
-        {
-            return analogRemotePointSummaryJob.GetAllEntities();
-        }
+        
 
         private void InitializeJobs()
         {
             analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
+            discreteRemotePointSummaryJob = new DiscreteRemotePointSummaryJob(discreteRemotePointStorage);
         }
 
         private void InitializeDynamicHandlers()
         {
             dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
+            dynamicListenerManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
         }
 
         private void InitializeDynamicListeners()
@@ -101,6 +100,7 @@ namespace UIAdapter
             List<IDynamicListener> listeners = new List<IDynamicListener>()
             {
                 new AnalogRemotePointChangedListener(),
+                new DiscreteRemotePointChangedListener(),
             };
 
             foreach (var listener in listeners)
@@ -145,6 +145,16 @@ namespace UIAdapter
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
         }
 
+        public List<AnalogRemotePointSummaryDTO> GetAllAnalogEntities()
+        {
+            return analogRemotePointSummaryJob.GetAllEntities();
+        }
+
+        public List<DiscreteRemotePointSummaryDTO> GetAllDiscreteEntities()
+        {
+            return discreteRemotePointSummaryJob.GetAllEntities();
+        }
+        
         public SubSchemaDTO GetSchema(long energySourceId)
         {
             return schemaRepresentation.GetSchema(energySourceId);
