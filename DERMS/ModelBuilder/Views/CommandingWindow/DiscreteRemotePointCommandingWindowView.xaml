@@ -9,6 +9,8 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
       mc:Ignorable="d"
+      Height="600" 
+      Width="500"
       Title="DiscreteRemotePointCommandingWindowView"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       Background="{DynamicResource MaterialDesignPaper}"
