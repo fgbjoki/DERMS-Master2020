@@ -54,6 +54,10 @@
     <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
     <Compile Include="Schema\SchemaMessageConverter.cs" />
     <Compile Include="Schema\SchemaRepresentation.cs" />
+    <Compile Include="TopologyAnalysis\ITopologyWritter.cs" />
+    <Compile Include="TopologyAnalysis\TopologyGraphTraverser.cs" />
+    <Compile Include="TopologyAnalysis\ITopologyAnalysisGraph.cs" />
+    <Compile Include="TopologyAnalysis\ITopologyReader.cs" />
     <Compile Include="TopologyAnalysis\TopologyAnalysis.cs" />
     <Compile Include="Graphs\GraphsCreationProcessor.cs" />
     <Compile Include="Graphs\GraphReductionRules\ReduceACLineSegmentBranchesGraphRule.cs" />
@@ -112,6 +116,7 @@
     <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityNodeTraverseWrapper.cs" />
     <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityObjectTraverser.cs" />
     <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityGraphCreator.cs" />
+    <Compile Include="TopologyAnalysis\TopologyReader.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\BreakerStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConductingEquipmentStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConnectivityNodeStorageItemCreator.cs" />
