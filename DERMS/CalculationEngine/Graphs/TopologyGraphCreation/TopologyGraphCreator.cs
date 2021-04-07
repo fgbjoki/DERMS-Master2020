@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Graphs.GraphReductionRules;
 using CalculationEngine.Graphs.GraphReductionRules.Topology;
+using System.Linq;
 
 namespace CalculationEngine.Graphs.TopologyGraphCreation
 {
@@ -18,6 +19,21 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
         {
             this.aclineSegmentBranchManipulator = aclineSegmentBranchManipulator;
             this.breakerBrachManipulator = breakerBrachManipulator;          
+        }
+
+        public IEnumerable<TopologyBreakerGraphBranch> GetBreakerBranches()
+        {
+            return breakerReductionGraphRule.GetBreakerBranches();
+        }
+
+        public override IEnumerable<IMultipleRootGraph<TopologyGraphNode>> CreateGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
+        {
+            IEnumerable<IMultipleRootGraph<TopologyGraphNode>> newGraphs = base.CreateGraph(graph);
+            TopologyGraph newGraph = newGraphs.First() as TopologyGraph;
+
+            newGraph.LoadBreakerBranches(GetBreakerBranches());
+
+            return newGraphs;
         }
 
         protected override TopologyGraphNode CreateNewNode(ConnectivityGraphNode dependentNode)
@@ -40,11 +56,6 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
         protected override IMultipleRootGraph<TopologyGraphNode> InstantiateNewGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
         {
             return new TopologyGraph();
-        }
-
-        public IEnumerable<TopologyBreakerGraphBranch> GetBreakerBranches()
-        {
-            return breakerReductionGraphRule.GetBreakerBranches();
         }
     }
 }

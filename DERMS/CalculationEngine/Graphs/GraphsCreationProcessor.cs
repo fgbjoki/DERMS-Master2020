@@ -12,7 +12,6 @@ using CalculationEngine.Model.Topology.Graph.Topology;
 using System.Collections.Generic;
 using CalculationEngine.Model.Topology.Graph.Connectivity;
 using Common.Logger;
-using Common.PubSub;
 
 namespace CalculationEngine.Graphs
 {
@@ -28,9 +27,9 @@ namespace CalculationEngine.Graphs
         private List<IMultipleRootGraph<TopologyGraphNode>> topologyGraphs;
 
         private IGraphProcessor<ISchemaGraph> schema;
-        private IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis;
+        private IGraphProcessor<TopologyGraph> topologyAnalysis;
 
-        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<IMultipleRootGraph<TopologyGraphNode>> topologyAnalysis)
+        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<TopologyGraph> topologyAnalysis)
         {
             this.schema = schema;
             this.topologyAnalysis = topologyAnalysis;
@@ -65,7 +64,7 @@ namespace CalculationEngine.Graphs
             {
                 foreach (var topologyGraph in topologyGraphs)
                 {
-                    topologyAnalysis.AddGraph(topologyGraph);
+                    topologyAnalysis.AddGraph(topologyGraph as TopologyGraph);
                 }
 
                 foreach (var schemaGraph in schemaGraphs)
