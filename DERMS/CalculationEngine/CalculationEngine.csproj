@@ -48,9 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculationEngine.cs" />
+    <Compile Include="EnergyCalculators\BaseTopologyCalculatingUnit.cs" />
+    <Compile Include="EnergyCalculators\EnergyBalanceCalculator.cs" />
+    <Compile Include="EnergyCalculators\EnergyConsumption\EnergyConsumptionCalculator.cs" />
+    <Compile Include="EnergyCalculators\EnergyProduction\EnergyProductionCalculator.cs" />
+    <Compile Include="EnergyCalculators\ITopologyCalculatingUnit.cs" />
     <Compile Include="Graphs\BaseDepedentGraphCreator.cs" />
     <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
     <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
+    <Compile Include="Model\EnergyCalculations\CalculationObject.cs" />
+    <Compile Include="Model\EnergyCalculations\EnergyConsumer.cs" />
+    <Compile Include="Model\EnergyCalculations\EnergySource.cs" />
+    <Compile Include="Model\EnergyCalculations\EnergyGenerator.cs" />
     <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
     <Compile Include="Schema\SchemaMessageConverter.cs" />
     <Compile Include="Schema\SchemaRepresentation.cs" />
