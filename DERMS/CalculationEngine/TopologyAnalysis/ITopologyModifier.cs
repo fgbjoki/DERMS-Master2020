@@ -1,7 +1,7 @@
 ﻿namespace CalculationEngine.TopologyAnalysis
 {
-    public interface ITopologyWriter
+    public interface ITopologyModifier
     {
-        void Write(long breakerGid, int rawValue);
+        void Write(long discreteRemotePointGid, int rawValue);
     }
 }

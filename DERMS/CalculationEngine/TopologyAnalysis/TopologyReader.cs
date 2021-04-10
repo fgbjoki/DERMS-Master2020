@@ -1,8 +1,8 @@
 ﻿using CalculationEngine.Model.Topology.Graph.Topology;
-using Common.AbstractModel;
 using Common.Logger;
 using System.Collections.Generic;
 using System.Threading;
+using CalculationEngine.TopologyAnalysis.GraphTraversing;
 
 namespace CalculationEngine.TopologyAnalysis
 {
@@ -10,15 +10,37 @@ namespace CalculationEngine.TopologyAnalysis
     {
         private ITopologyAnalysis topologyAnalysis;
         private TopologyGraphTraverser topologyGraphTraverser;
+        private TopologyGraphSourceFinder sourceFinder;
 
-        private List<DMSType> dmsTypes;
-
-        public TopologyReader(ITopologyAnalysis topologyAnalysis, List<DMSType> dmsTypes)
+        public TopologyReader(ITopologyAnalysis topologyAnalysis)
         {
-            this.dmsTypes = dmsTypes;
             this.topologyAnalysis = topologyAnalysis;
 
             topologyGraphTraverser = new TopologyGraphTraverser();
+            sourceFinder = new TopologyGraphSourceFinder();
+        }
+
+        public long FindSource(long nodeGid)
+        {
+            ReaderWriterLockSlim graphLocker = topologyAnalysis.GetLock();
+
+            graphLocker.EnterReadLock();
+
+            TopologyGraphNode node = topologyAnalysis.GetNode(nodeGid);
+
+            if (node == null)
+            {
+                graphLocker.ExitReadLock();
+
+                Logger.Instance.Log($"[{GetType()}] Cannot find source for entity with gid: {nodeGid:X16}.");
+                return 0;
+            }
+
+            long sourceGid = sourceFinder.FindSource(node);
+
+            graphLocker.ExitReadLock();
+
+            return sourceGid;
         }
 
         public IEnumerable<long> Read(long sourceGid)
@@ -42,14 +64,7 @@ namespace CalculationEngine.TopologyAnalysis
 
             graphLocker.ExitReadLock();
 
-            RemoveExcessEntities(nodesConnected);
-
             return nodesConnected;
-        }
-
-        private void RemoveExcessEntities(List<long> nodesConnected)
-        {
-            nodesConnected.RemoveAll(x => !dmsTypes.Contains((DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(x)));
         }
 
         private void TraverseGraph(TopologyGraphTraverser graphTraverser, List<long> nodesConnected)

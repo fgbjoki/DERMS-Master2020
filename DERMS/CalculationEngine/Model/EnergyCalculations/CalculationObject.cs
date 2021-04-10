@@ -47,7 +47,7 @@ namespace CalculationEngine.Model.EnergyCalculations
             return calculations.Exists(x => x.GlobalId == calculationGid && x.CalculationType == calculationType);
         }
 
-        public bool AddCalculation(long calculationGid, CalculationType calculationType)
+        public bool AddCalculation(long calculationGid, CalculationType calculationType, float value = 0)
         {
             if (CalculationExists(calculationGid, calculationType))
             {
@@ -57,7 +57,8 @@ namespace CalculationEngine.Model.EnergyCalculations
             CalculationWrapper newCalculation = new CalculationWrapper()
             {
                 GlobalId = calculationGid,
-                CalculationType = calculationType
+                CalculationType = calculationType,
+                Value = value
             };
 
             calculations.Add(newCalculation);

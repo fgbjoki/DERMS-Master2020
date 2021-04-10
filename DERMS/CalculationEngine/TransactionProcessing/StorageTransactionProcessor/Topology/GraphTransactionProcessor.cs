@@ -78,14 +78,11 @@ namespace CalculationEngine.TransactionProcessing.StorageTransactionProcessor.To
 
                 newNeededGids[dmsType].Add(discreteGid);
             }
-
         }
 
         protected override bool AdditionalProcessing(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
-            CreateGraphs();
-
-            return base.AdditionalProcessing(affectedEntities);
+            return CreateGraphs() && base.AdditionalProcessing(affectedEntities);
         }
 
         private bool CreateGraphs()
