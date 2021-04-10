@@ -15,6 +15,11 @@ using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using Common.DataTransferObjects.CalculationEngine;
+using CalculationEngine.Model.Topology.Transaction;
+using CalculationEngine.TransactionProcessing.Storage;
+using CalculationEngine.PubSub.DynamicListeners;
+using CalculationEngine.TransactionProcessing.Storage.EnergyBalance;
+using CalculationEngine.EnergyCalculators;
 
 namespace CalculationEngine
 {
@@ -32,30 +37,40 @@ namespace CalculationEngine
 
         private TopologyStorage topologyStorage;
 
+        private EnergyBalanceStorage energyBalanceStorage;
+
         private TransactionManager transactionManager;
 
         private TopologyAnalysis.TopologyAnalysis topologyAnalysis;
+        private IStorage<DiscreteRemotePoint> discreteRemotePoint;
 
         private SchemaRepresentation schemaRepresentation;
 
         private IDynamicPublisher dynamicPublisher;
 
+        private DynamicListenersManager dynamicListenersManager;
+
+        private EnergyBalanceCalculator energyBalanceCalculator;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
-
-            InitializeDynamicPublisher();
 
             InitializeGraphs();
 
             InitializeStorages();
 
             InitializeForTransaction();
+
+            energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis);
+
+            InitializePubSub();
         }
 
         private void InitializeGraphs()
         {
-            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis();
+            discreteRemotePoint = new DiscreteRemotePointStorage();
+            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePoint);
             schemaRepresentation = new SchemaRepresentation();
         }
 
@@ -79,6 +94,16 @@ namespace CalculationEngine
             return transactionManager.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
         }
 
+        public IEnumerable<long> GetSchemaSources()
+        {
+            return schemaRepresentation.GetSchemaSources();
+        }
+
+        public SchemaGraphChanged GetSchema(long sourceId)
+        {
+            return schemaRepresentation.GetSchema(sourceId);
+        }
+
         private void InternalCEInitialization()
         {
             LoadConfigurationFromAppConfig();
@@ -92,12 +117,14 @@ namespace CalculationEngine
         {
             GraphsCreationProcessor graphsCreationProcessor = new GraphsCreationProcessor(modelResourcesDesc, schemaRepresentation, topologyAnalysis);
             topologyStorage = new TopologyStorage(breakerMessageMapping, graphManipulator, graphsCreationProcessor, modelResourcesDesc);
+
+            energyBalanceStorage = new EnergyBalanceStorage();
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { topologyStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { topologyStorage, energyBalanceStorage });
         }
 
         private void InitializeDynamicPublisher()
@@ -122,14 +149,33 @@ namespace CalculationEngine
             serviceUrlForTransaction = serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
         }
 
-        public IEnumerable<long> GetSchemaSources()
+        private void InitializePubSub()
         {
-            return schemaRepresentation.GetSchemaSources();
+            InitializeDynamicPublisher();
+            InitializeDynamicListeners();
+            InitializeDynamicHandlers();
         }
 
-        public SchemaGraphChanged GetSchema(long sourceId)
+        private void InitializeDynamicHandlers()
         {
-            return schemaRepresentation.GetSchema(sourceId);
+            dynamicListenersManager.ConfigureSubscriptions(topologyAnalysis.GetSubscriptions());
+            dynamicListenersManager.ConfigureSubscriptions(energyBalanceCalculator.GetSubscriptions());
+        }
+
+        private void InitializeDynamicListeners()
+        {
+            dynamicListenersManager = new DynamicListenersManager("Calculation Engine");
+
+            List<IDynamicListener> listeners = new List<IDynamicListener>()
+            {
+                new AnalogRemotePointChangedListener(),
+                new DiscreteRemotePointChangedListener(),
+            };
+
+            foreach (var listener in listeners)
+            {
+                dynamicListenersManager.AddDynamicHandlers(listener.Topic, listener);
+            }
         }
     }
 }

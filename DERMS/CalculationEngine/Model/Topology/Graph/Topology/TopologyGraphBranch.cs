@@ -6,7 +6,7 @@
         {
         }
 
-        public virtual bool IsBranchConnected()
+        public virtual bool DoesBranchConduct()
         {
             return true;
         }

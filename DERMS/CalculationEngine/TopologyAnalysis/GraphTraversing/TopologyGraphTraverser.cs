@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 
-namespace CalculationEngine.TopologyAnalysis
+namespace CalculationEngine.TopologyAnalysis.GraphTraversing
 {
     public class TopologyGraphTraverser : IEnumerable<TopologyGraphNode>
     {
@@ -78,7 +78,7 @@ namespace CalculationEngine.TopologyAnalysis
             {
                 TopologyGraphBranch topologyBranch = childBranch as TopologyGraphBranch;
 
-                if (topologyBranch.IsBranchConnected())
+                if (topologyBranch.DoesBranchConduct())
                 {
                     nodesToProcess.Enqueue(topologyBranch.DownStream as TopologyGraphNode);
                 }

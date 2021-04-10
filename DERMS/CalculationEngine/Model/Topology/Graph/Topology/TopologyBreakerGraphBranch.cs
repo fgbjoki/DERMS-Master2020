@@ -10,7 +10,7 @@
 
         public BreakerState BreakerState { get; set; }
 
-        public override bool IsBranchConnected()
+        public override bool DoesBranchConduct()
         {
             return BreakerState == BreakerState.CLOSED ? true : false;
         }

@@ -4,6 +4,12 @@
 	xmlns:ftn="http://www.ftnydro.com/CIM15/2010/extension#"
 	xmlns:tdms="http://www.ftnydro.com/CIM15/2010/extension#">
 	
+	<!-- 
+		Analog addresses:
+			read : 24
+			readwrite: 8
+	-->
+	
 	<cim:GeographicalRegion rdf:ID="GeographicalRegionVojvodina">
 		<cim:IdentifiedObject.description>Defines Geographical Region Vojvodina</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>GeographicalRegionVojvodina</cim:IdentifiedObject.mRID>
@@ -40,6 +46,19 @@
 		<cim:IdentifiedObject.mRID>EnergySourceGrbavica</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Source on Grbavica</ftn:IdentifiedObject.name>
 	</cim:EnergySource>
+	
+	<cim:Analog rdf:ID="EnergySourceGrbavica_ActivePower">
+		<tdms:Analog.currentValue>5</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergySourceGrbavica"/>
+		<cim:IdentifiedObject.description>EnergySourceGrbavica active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergySourceGrbavica_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergySourceGrbavica ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Breaker rdf:ID="breaker_energySource1">
 		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
@@ -215,6 +234,19 @@
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
 	
+	<cim:Analog rdf:ID="EnergyConsumer2_1_0_ActivePower">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer2_1_0"/>
+		<cim:IdentifiedObject.description>EnergyConsumer2_1_0 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer2_1_0_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer2_1_0 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:Terminal rdf:ID="ter_c2_1_0">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer2_1_0"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl2_1"/>
@@ -230,6 +262,19 @@
 		<cim:IdentifiedObject.mRID>EnergyConsumer2_1_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Moj stan hehe 2</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="EnergyConsumer2_1_1_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer2_1_1"/>
+		<cim:IdentifiedObject.description>EnergyConsumer2_1_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer2_1_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer2_1_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_c2_1_1">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer2_1_1"/>
@@ -300,6 +345,19 @@
 		<ftn:IdentifiedObject.name>Energy Storage 1</ftn:IdentifiedObject.name>
 	</cim:EnergyStorage>
 	
+	<cim:Analog rdf:ID="EnergyStorage2_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
+		<cim:IdentifiedObject.description>EnergyStorage2_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage2_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage2_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:SolarGenerator rdf:ID="SolarPanel2_2">
 		<cim:Generator.Storage rdf:resource="#EnergyStorage2_2"/>
 		<cim:DER.nominalPower>8</cim:DER.nominalPower>
@@ -308,6 +366,32 @@
 		<cim:IdentifiedObject.mRID>SolarPanel2_2</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Solar Panel 1</ftn:IdentifiedObject.name>
 	</cim:SolarGenerator>
+	
+	<cim:Analog rdf:ID="SolarPanel2_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>6</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#SolarPanel2_2"/>
+		<cim:IdentifiedObject.description>SolarPanel2_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SolarPanel2_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>SolarPanel2_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="SolarPanel2_2_DeltaPower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#SolarPanel2_2"/>
+		<cim:IdentifiedObject.description>SolarPanel2_2 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SolarPanel2_2_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>SolarPanel2_2 DeltaPower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_est2_2">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage2_2"/>
@@ -390,6 +474,19 @@
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
 	
+	<cim:Analog rdf:ID="EnergyConsumer3_1_0_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>8</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_1_0"/>
+		<cim:IdentifiedObject.description>EnergyConsumer3_1_0 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_0_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_1_0 DeltaPower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:Terminal rdf:ID="ter_c3_1_0">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_1_0"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_1"/>
@@ -405,6 +502,19 @@
 		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Moj stan hehe 2</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="EnergyConsumer3_1_1_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>10</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_1_1"/>
+		<cim:IdentifiedObject.description>EnergyConsumer3_1_1 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_1_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_1_1 DeltaPower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_c3_1_1">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_1_1"/>
@@ -456,6 +566,19 @@
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
 	
+	<cim:Analog rdf:ID="EnergyConsumer3_2_0_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>12</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_2_0"/>
+		<cim:IdentifiedObject.description>EnergyConsumer3_2_0 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_2_0_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_2_0 DeltaPower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:Terminal rdf:ID="ter_c3_2_0">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer3_2_0"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
@@ -500,6 +623,32 @@
 		<ftn:IdentifiedObject.name>WindGenerator3_2</ftn:IdentifiedObject.name>
 	</cim:WindGenerator>
 	
+	<cim:Analog rdf:ID="WindGenerator3_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>14</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator3_2"/>
+		<cim:IdentifiedObject.description>WindGenerator3_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WindGenerator3_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator3_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="WindGenerator3_2_DeltaPower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator3_2"/>
+		<cim:IdentifiedObject.description>WindGenerator3_2 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WindGenerator3_2_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator3_2 DeltaPower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:ConnectivityNode rdf:ID="conn_br_wg_3_2">
 		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Connects ACLineSegment3_2 with DER Group and Consumer.</cim:IdentifiedObject.description>
@@ -516,6 +665,19 @@
 		<cim:IdentifiedObject.mRID>EnergyStorage3_2</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Storage 2</ftn:IdentifiedObject.name>
 	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="EnergyStorage3_2_ActivePower">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>18</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage3_2"/>
+		<cim:IdentifiedObject.description>EnergyStorage3_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage3_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage3_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_br_wg3_2_0">
 		<cim:Terminal.ConductingEquipment rdf:resource="#breaker_WindGenerator3_2"/>
@@ -552,6 +714,19 @@
 		<cim:IdentifiedObject.mRID>EnergySourceLiman</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Source on Liman</ftn:IdentifiedObject.name>
 	</cim:EnergySource>
+	
+	<cim:Analog rdf:ID="EnergySourceLiman_ActivePower">
+		<tdms:Analog.currentValue>5</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>6</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergySourceLiman"/>
+		<cim:IdentifiedObject.description>EnergySourceLiman active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergySourceLiman_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergySourceLiman ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Breaker rdf:ID="breaker_energySource2">
 		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
@@ -701,6 +876,19 @@
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
 	
+	<cim:Analog rdf:ID="EnergyConsumer10_1_ActivePower">
+		<tdms:Analog.currentValue>5</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>20</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer10_1"/>
+		<cim:IdentifiedObject.description>EnergyConsumer10_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer10_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer10_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<!-- End First ConnectivityNode -->
 	
 	<!-- End ACLineSegment 10 -->
@@ -749,6 +937,19 @@
 		<cim:IdentifiedObject.mRID>EnergyConsumer11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="EnergyConsumer11_1_ActivePower">
+		<tdms:Analog.currentValue>5</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>22</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer11_1"/>
+		<cim:IdentifiedObject.description>EnergyConsumer11_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer11_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer11_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_ec_11_1">
 		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyConsumer11_1"/>
@@ -826,16 +1027,29 @@
 	</cim:WindGenerator>
 	
 	<cim:Analog rdf:ID="WindGenerator11_1_ActivePower">
-		<tdms:Analog.currentValue>100</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>ActiveEnergy</tdms:Measurement.measurementType>
+		<cim:Measurement.measurementAddress>16</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator11_1"/>
 		<cim:IdentifiedObject.description>WindGenerator11_1 active power</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>WindGenerator11_1_ActivePower</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>WindGenerator11_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="WindGenerator11_1_DeltaPower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>8</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator11_1"/>
+		<cim:IdentifiedObject.description>WindGenerator11_1 delta power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WindGenerator11_1_DeltaPower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator11_1 DeltaPower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_est11_1">
@@ -855,6 +1069,19 @@
 		<cim:IdentifiedObject.mRID>EnergyStorage11_1</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Energy Storage 11</ftn:IdentifiedObject.name>
 	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="EnergyStorage11_1_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>24</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage11_1"/>
+		<cim:IdentifiedObject.description>EnergyStorage11_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage11_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage11_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
 	
 	<!-- End First ConnectivityNode -->
 	
