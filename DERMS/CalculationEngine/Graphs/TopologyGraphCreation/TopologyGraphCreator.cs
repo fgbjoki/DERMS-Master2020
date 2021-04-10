@@ -15,10 +15,15 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
 
         private BreakerReductionGraphRule breakerReductionGraphRule;
 
+        private InterConnectedConnectivityCorrector corrector;
+
         public TopologyGraphCreator(TopologyGraphBranchManipulator aclineSegmentBranchManipulator, TopologyBreakerGraphBranchManipulator breakerBrachManipulator) : base(aclineSegmentBranchManipulator)
         {
             this.aclineSegmentBranchManipulator = aclineSegmentBranchManipulator;
-            this.breakerBrachManipulator = breakerBrachManipulator;          
+            this.breakerBrachManipulator = breakerBrachManipulator;
+            breakerReductionGraphRule = new BreakerReductionGraphRule(breakerBrachManipulator);
+
+            corrector = new InterConnectedConnectivityCorrector(breakerBrachManipulator);        
         }
 
         public IEnumerable<TopologyBreakerGraphBranch> GetBreakerBranches()
@@ -43,8 +48,6 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
 
         protected override IEnumerable<GraphReductionRule<TopologyGraphNode>> GetReductionRules()
         {
-            breakerReductionGraphRule = new BreakerReductionGraphRule(breakerBrachManipulator);
-
             return new List<GraphReductionRule<TopologyGraphNode>>()
             {
                 new TopologyACLSBranchGraphRule(aclineSegmentBranchManipulator),
@@ -56,6 +59,11 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
         protected override IMultipleRootGraph<TopologyGraphNode> InstantiateNewGraph(IMultipleRootGraph<ConnectivityGraphNode> graph)
         {
             return new TopologyGraph();
+        }
+
+        protected override void AdditionalProcessing(IMultipleRootGraph<TopologyGraphNode> graph)
+        {
+            corrector.CorrectInterConnection(graph);
         }
     }
 }

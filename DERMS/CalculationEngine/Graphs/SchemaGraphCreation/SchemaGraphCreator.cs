@@ -17,12 +17,11 @@ namespace CalculationEngine.Graphs.SchemaGraphCreation
         public SchemaGraphCreator()
         {
             connectivityBreakerFinder = new ConnectivityBreakerNodeFinder();
+            graphBranchManipulator = new SchemaGraphBranchManipulator();
         }
 
         protected override IEnumerable<GraphReductionRule<SchemaGraphNode>> GetReductionRules()
-        {
-            graphBranchManipulator = new SchemaGraphBranchManipulator();
-
+        {          
             return new List<GraphReductionRule<SchemaGraphNode>>()
             {
                 new SchemaACLSBranchGraphRule(graphBranchManipulator),

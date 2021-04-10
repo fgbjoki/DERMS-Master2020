@@ -36,9 +36,16 @@ namespace CalculationEngine.Graphs
 
             ApplyReductionRules(newGraph);
 
+            AdditionalProcessing(newGraph);
+
             newGraphs.Add(newGraph);
 
             return newGraphs;
+        }
+
+        protected virtual void AdditionalProcessing(IMultipleRootGraph<NewGraphNodeType> graph)
+        {
+
         }
 
         private NewGraphNodeType GetNode(IMultipleRootGraph<NewGraphNodeType> graph, DependentUponNodeType oldNode)
@@ -72,10 +79,28 @@ namespace CalculationEngine.Graphs
 
                     foreach (var child in currentNode.ChildBranches.Select(x => x.DownStream).Cast<NewGraphNodeType>())
                     {
+                        if (!IsNodeConnectedToParent(child, currentNode.Item))
+                        {
+                            continue;
+                        }
+
                         nodesToProcess.Enqueue(child);
                     }
                 }
             }
+        }
+
+        private bool IsNodeConnectedToParent(NewGraphNodeType node, long parentGid)
+        {
+            foreach (var child in node.ChildBranches.Select(x => x.DownStream).Cast<NewGraphNodeType>())
+            {
+                if (child.Item == parentGid)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

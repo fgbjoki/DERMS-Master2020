@@ -58,6 +58,7 @@
     <Compile Include="Graphs\BaseDepedentGraphCreator.cs" />
     <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
     <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
+    <Compile Include="Graphs\TopologyGraphCreation\InterConnectedConnectivityCorrector.cs" />
     <Compile Include="Model\EnergyCalculations\CalculationObject.cs" />
     <Compile Include="Model\EnergyCalculations\EnergyConsumer.cs" />
     <Compile Include="Model\EnergyCalculations\EnergySource.cs" />
