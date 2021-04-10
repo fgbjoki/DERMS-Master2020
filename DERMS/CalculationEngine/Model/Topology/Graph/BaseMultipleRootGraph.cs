@@ -57,9 +57,9 @@ namespace CalculationEngine.Graphs
 
         public override IEnumerable<GraphNodeType> GetAllNodes()
         {
-            List<GraphNodeType> allNodes = new List<GraphNodeType>(roots);
+            IEnumerable<GraphNodeType> allNodes = new List<GraphNodeType>(roots);
 
-            allNodes.Concat(base.GetAllNodes());
+            allNodes = allNodes.Concat(base.GetAllNodes());
 
             return allNodes;
         }

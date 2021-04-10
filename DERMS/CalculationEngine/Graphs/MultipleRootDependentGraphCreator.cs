@@ -65,7 +65,7 @@ namespace CalculationEngine.Graphs
                 {
                     NewGraphNodeType currentNode = nodesToProcess.Dequeue();
 
-                    foreach (var reductionRule in reductionRules)
+                    foreach (var reductionRule in GetReductionRules())
                     {
                         reductionRule.ApplyReductionRule(currentNode, graph);
                     }
