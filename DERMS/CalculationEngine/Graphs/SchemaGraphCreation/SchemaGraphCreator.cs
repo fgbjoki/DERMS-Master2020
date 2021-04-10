@@ -51,7 +51,7 @@ namespace CalculationEngine.Graphs.SchemaGraphCreation
         {
             var root = graph.GetRoot();
 
-            foreach (var reductionRule in reductionRules)
+            foreach (var reductionRule in GetReductionRules())
             {
                 Queue<SchemaGraphNode> nodesToProcess = new Queue<SchemaGraphNode>();
                 nodesToProcess.Enqueue(root);

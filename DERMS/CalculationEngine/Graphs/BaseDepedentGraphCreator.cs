@@ -10,11 +10,8 @@ namespace CalculationEngine.Graphs
         where DependentGraphNodeType : DMSTypeGraphNode
         where DepdententUponGraphNodeType : DMSTypeGraphNode
     {
-        protected IEnumerable<GraphReductionRule<DependentGraphNodeType>> reductionRules;
-
         public BaseDepedentGraphCreator()
         {
-            reductionRules = GetReductionRules();
         }
 
         protected abstract IEnumerable<GraphReductionRule<DependentGraphNodeType>> GetReductionRules();
