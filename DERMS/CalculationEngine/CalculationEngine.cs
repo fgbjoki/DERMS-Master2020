@@ -42,7 +42,7 @@ namespace CalculationEngine
         private TransactionManager transactionManager;
 
         private TopologyAnalysis.TopologyAnalysis topologyAnalysis;
-        private IStorage<DiscreteRemotePoint> discreteRemotePoint;
+        private DiscreteRemotePointStorage discreteRemotePointStorage;
 
         private SchemaRepresentation schemaRepresentation;
 
@@ -69,8 +69,8 @@ namespace CalculationEngine
 
         private void InitializeGraphs()
         {
-            discreteRemotePoint = new DiscreteRemotePointStorage();
-            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePoint);
+            discreteRemotePointStorage = new DiscreteRemotePointStorage();
+            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePointStorage);
             schemaRepresentation = new SchemaRepresentation();
         }
 
@@ -115,7 +115,7 @@ namespace CalculationEngine
 
         private void InitializeStorages()
         {
-            GraphsCreationProcessor graphsCreationProcessor = new GraphsCreationProcessor(modelResourcesDesc, schemaRepresentation, topologyAnalysis);
+            GraphsCreationProcessor graphsCreationProcessor = new GraphsCreationProcessor(modelResourcesDesc, discreteRemotePointStorage, schemaRepresentation, topologyAnalysis);
             topologyStorage = new TopologyStorage(breakerMessageMapping, graphManipulator, graphsCreationProcessor, modelResourcesDesc);
 
             energyBalanceStorage = new EnergyBalanceStorage();
@@ -124,7 +124,7 @@ namespace CalculationEngine
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { topologyStorage, energyBalanceStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage });
         }
 
         private void InitializeDynamicPublisher()

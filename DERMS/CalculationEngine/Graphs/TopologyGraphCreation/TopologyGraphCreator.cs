@@ -5,6 +5,8 @@ using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Graphs.GraphReductionRules;
 using CalculationEngine.Graphs.GraphReductionRules.Topology;
 using System.Linq;
+using CalculationEngine.Model.Topology.Transaction;
+using Common.ComponentStorage;
 
 namespace CalculationEngine.Graphs.TopologyGraphCreation
 {

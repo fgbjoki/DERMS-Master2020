@@ -30,6 +30,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
             breakerBranchManipulator.AddBranch(secondConnectivityNode, connectivityNode);
 
             RemoveBreakerBranches(interConnectedBreaker, connectivityNode, secondConnectivityNode);
+            graph.RemoveNode(interConnectedBreaker.Item);
         }
 
         private void RemoveBreakerBranches(TopologyGraphNode interConnectedBreaker, TopologyGraphNode firstConnectivityNode, TopologyGraphNode secondConnectivityNode)

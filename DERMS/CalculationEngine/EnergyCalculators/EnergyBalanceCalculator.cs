@@ -10,12 +10,10 @@ using Common.ComponentStorage;
 using CalculationEngine.PubSub.DynamicHandlers;
 using Common.Logger;
 using Common.AbstractModel;
-using System.Threading;
-using System;
 
 namespace CalculationEngine.EnergyCalculators
 {
-    public class EnergyBalanceCalculator : ISubscriber, IEnergyBalanceCalculator, IDisposable
+    public class EnergyBalanceCalculator : ISubscriber, IEnergyBalanceCalculator
     {
         private Dictionary<DMSType, ITopologyCalculatingUnit> recalculatingUnits;
 
@@ -32,10 +30,6 @@ namespace CalculationEngine.EnergyCalculators
 
         private EnergyBalanceStorage energyBalanceStorage;
 
-        private Thread transactionCompleteWorker;
-
-        private CancellationTokenSource cancelationTokenSoruce;
-
         public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController)
         {
             this.energyBalanceStorage = energyBalanceStorage;
@@ -51,10 +45,6 @@ namespace CalculationEngine.EnergyCalculators
             locker = new object();
 
             InitializeRecalculatingUnits();
-
-            cancelationTokenSoruce = new CancellationTokenSource();
-            transactionCompleteWorker = new Thread(() => OnTransactionComplete(cancelationTokenSoruce.Token));
-            transactionCompleteWorker.Start();
         }
 
         public void PerformCalculation()
@@ -144,27 +134,6 @@ namespace CalculationEngine.EnergyCalculators
                 { DMSType.SOLARGENERATOR, energyProduction },
                 { DMSType.WINDGENERATOR, energyProduction },
             };
-        }
-
-        private void OnTransactionComplete(CancellationToken cancellationToken)
-        {
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                energyBalanceStorage.Commited.WaitOne();
-
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    continue;
-                }
-
-                PerformCalculation();
-            }
-        }
-
-        public void Dispose()
-        {
-            cancelationTokenSoruce.Cancel();
-            energyBalanceStorage.Commited.Set();
         }
     }
 }

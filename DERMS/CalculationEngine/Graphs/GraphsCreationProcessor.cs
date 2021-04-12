@@ -12,6 +12,8 @@ using CalculationEngine.Model.Topology.Graph.Topology;
 using System.Collections.Generic;
 using CalculationEngine.Model.Topology.Graph.Connectivity;
 using Common.Logger;
+using Common.ComponentStorage;
+using CalculationEngine.Model.Topology.Transaction;
 
 namespace CalculationEngine.Graphs
 {
@@ -29,10 +31,13 @@ namespace CalculationEngine.Graphs
         private IGraphProcessor<ISchemaGraph> schema;
         private IGraphProcessor<TopologyGraph> topologyAnalysis;
 
-        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<TopologyGraph> topologyAnalysis)
+        private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
+
+        public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IStorage<DiscreteRemotePoint> discreteRemotePointStorage, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<TopologyGraph> topologyAnalysis)
         {
             this.schema = schema;
             this.topologyAnalysis = topologyAnalysis;
+            this.discreteRemotePointStorage = discreteRemotePointStorage;
 
             schemaGraphCreator = new SchemaGraphCreator();
             topologyGraphCreator = new TopologyGraphCreator(new TopologyGraphBranchManipulator(), new TopologyBreakerGraphBranchManipulator());
