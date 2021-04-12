@@ -147,7 +147,7 @@
 	</cim:Breaker>
 	
 	<cim:Discrete rdf:ID="Discrete_Breaker_BetweenNetworks">
-		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<tdms:Discrete.currentValue>1</tdms:Discrete.currentValue>
 		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
 		<cim:Discrete.minValue>0</cim:Discrete.minValue>
 		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>

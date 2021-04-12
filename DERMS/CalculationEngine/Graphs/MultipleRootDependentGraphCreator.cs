@@ -79,7 +79,7 @@ namespace CalculationEngine.Graphs
 
                     foreach (var child in currentNode.ChildBranches.Select(x => x.DownStream).Cast<NewGraphNodeType>())
                     {
-                        if (!IsNodeConnectedToParent(child, currentNode.Item))
+                        if (IsNodeConnectedToParent(child, currentNode.Item))
                         {
                             continue;
                         }
