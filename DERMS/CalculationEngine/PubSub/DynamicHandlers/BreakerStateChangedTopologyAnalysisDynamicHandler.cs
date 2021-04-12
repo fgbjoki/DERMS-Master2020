@@ -1,6 +1,9 @@
-﻿using CalculationEngine.TopologyAnalysis;
+﻿using CalculationEngine.Model.Topology.Transaction;
+using CalculationEngine.TopologyAnalysis;
 using Common.AbstractModel;
+using Common.ComponentStorage;
 using Common.GDA;
+using Common.Logger;
 using Common.PubSub;
 using Common.PubSub.Messages;
 
@@ -9,10 +12,12 @@ namespace CalculationEngine.PubSub.DynamicHandlers
     public class BreakerStateChangedTopologyAnalysisDynamicHandler : BaseDynamicHandler<DiscreteRemotePointValueChanged>
     {
         private ITopologyModifier topologyModifier;
+        private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
 
-        public BreakerStateChangedTopologyAnalysisDynamicHandler(ITopologyModifier topologyModifier)
+        public BreakerStateChangedTopologyAnalysisDynamicHandler(ITopologyModifier topologyModifier, IStorage<DiscreteRemotePoint> discreteRemotePointStorage)
         {
             this.topologyModifier = topologyModifier;
+            this.discreteRemotePointStorage = discreteRemotePointStorage;
         }
 
         protected override void ProcessChanges(DiscreteRemotePointValueChanged message)
@@ -26,7 +31,15 @@ namespace CalculationEngine.PubSub.DynamicHandlers
 
             int value = currentValueProperty.AsInt();
 
-            topologyModifier.Write(message.Id, value);
+            DiscreteRemotePoint discreteRemotePoint = discreteRemotePointStorage.GetEntity(message.Id);
+
+            if (discreteRemotePoint == null)
+            {
+                Logger.Instance.Log($"[{GetType()}] Cannot find discrete remote point with gid: {message.Id:X16}. Topology will not be aligned with current network state!");
+                return;
+            }
+
+            topologyModifier.Write(discreteRemotePoint.BreakerGid, value);
         }
     }
 }

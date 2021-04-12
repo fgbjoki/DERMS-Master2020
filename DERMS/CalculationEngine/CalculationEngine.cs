@@ -15,7 +15,6 @@ using System.Configuration;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using Common.DataTransferObjects.CalculationEngine;
-using CalculationEngine.Model.Topology.Transaction;
 using CalculationEngine.TransactionProcessing.Storage;
 using CalculationEngine.PubSub.DynamicListeners;
 using CalculationEngine.TransactionProcessing.Storage.EnergyBalance;

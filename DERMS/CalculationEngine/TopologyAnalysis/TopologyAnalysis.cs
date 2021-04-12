@@ -79,7 +79,7 @@ namespace CalculationEngine.TopologyAnalysis
 
         public IEnumerable<ISubscription> GetSubscriptions()
         {
-            return new List<ISubscription>() { new Subscription(Topic.DiscreteRemotePointChange, new BreakerStateChangedTopologyAnalysisDynamicHandler(topologyModifier)) };
+            return new List<ISubscription>() { new Subscription(Topic.DiscreteRemotePointChange, new BreakerStateChangedTopologyAnalysisDynamicHandler(topologyModifier, discreteRemotePointStorage)) };
         }
 
         public TopologyGraphNode GetNode(long nodeGlobalId)
