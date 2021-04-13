@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:FieldSimulator.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="700"
+        Title="MainWindow" MinHeight="350" MinWidth="700"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -40,7 +40,7 @@
             <Button Content="Discrete Inputs" Margin="0,0,0,5" Command="{Binding ChangeViewModelToDiscreteInputs}"/>
             <Button Content="Holding Registers" Margin="0,0,0,5" Command="{Binding ChangeViewModelToHoldingRegisters}"/>
             <Button Content="Input Registers" Margin="0,0,0,5" Command="{Binding ChangeViewModelToInputRegisters}"/>
-            <Button Content="Calculations" Margin="0,0,0,5" Command="{Binding ChangeViewModelToCalculations}"/>
+            <Button Content="Power Simulator" Margin="0,0,0,5" Command="{Binding ChangeViewModelToPowerSimulator}"/>
         </StackPanel>
 
         

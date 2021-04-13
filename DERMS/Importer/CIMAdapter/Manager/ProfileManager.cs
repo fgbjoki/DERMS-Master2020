@@ -33,7 +33,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Manager
 		/// <returns>name of profile + "CIMProfile.DLL"</returns>
 		public static string GetProfileDLLName(SupportedProfiles profile)
 		{
-			return string.Format("{0}CIMProfile.DLL", profile.ToString());
+			return string.Format("{0}CIMProfile.dll", profile.ToString());
 		}
 
 		public static bool LoadAssembly(SupportedProfiles profile, out Assembly assembly)
@@ -51,7 +51,27 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Manager
 			return true;
 		}
 
-		public static bool LoadAssembly(string path, out Assembly assembly)
+        public static bool LoadAssembly(string pathToDll, SupportedProfiles profile, out Assembly assembly)
+        {
+            if (String.IsNullOrEmpty(pathToDll))
+            {
+                pathToDll = ".";
+            }
+
+            try
+            {
+                assembly = Assembly.LoadFrom(string.Format("{0}\\{1}", pathToDll, ProfileManager.GetProfileDLLName(profile)));
+            }
+            catch (Exception e)
+            {
+                assembly = null;
+                LogManager.Log(string.Format("Error during Assembly load. Profile: {0} ; Message: {1}", profile, e.Message), LogLevel.Error);
+                return false;
+            }
+            return true;
+        }
+
+        public static bool LoadAssembly(string path, out Assembly assembly)
 		{
 			try
 			{

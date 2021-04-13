@@ -1,6 +1,5 @@
 ﻿using FieldSimulator.Commands;
 using FieldSimulator.Modbus;
-using FieldSimulator.Model;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -12,7 +11,7 @@ namespace FieldSimulator.ViewModel
         DiscreteInputViewModel,
         HoldingRegistersViewModel,
         InputRegistersViewModel,
-        CalculationsViewModel
+        PowerSimulatorViewModel
     }
 
     public class MainViewModel : BaseViewModel, IParentViewModel
@@ -24,6 +23,8 @@ namespace FieldSimulator.ViewModel
 
         private ModbusSlave slave;
 
+        private PowerSimulator.PowerSimulator powerSimulator;
+
         private string label;
 
         public MainViewModel() : base("MainViewModel")
@@ -32,6 +33,8 @@ namespace FieldSimulator.ViewModel
             slave.StartServer();
             pointController = new PointController(slave);
             pointController.Initialize();
+
+            powerSimulator = new PowerSimulator.PowerSimulator();
 
             InitializeViewModels();
             InitializeCommands();    
@@ -57,7 +60,7 @@ namespace FieldSimulator.ViewModel
         public ICommand ChangeViewModelToDiscreteInputs { get; set; }
         public ICommand ChangeViewModelToHoldingRegisters { get; set; }
         public ICommand ChangeViewModelToInputRegisters { get; set; }
-        public ICommand ChangeViewModelToCalculations { get; set; }
+        public ICommand ChangeViewModelToPowerSimulator { get; set; }
 
         public ICommand StartServerCommand { get; set; }
         public ICommand StopServerCommand { get; set; }
@@ -70,7 +73,7 @@ namespace FieldSimulator.ViewModel
                 {ViewModelEnum.HoldingRegistersViewModel, new HoldingRegistersViewModel(pointController.HoldingRegisters) },
                 {ViewModelEnum.InputRegistersViewModel, new InputRegistersViewModel(pointController.InputRegisters)},
                 {ViewModelEnum.DiscreteInputViewModel, new DiscreteInputsViewModel(pointController.DiscreteInputs)},
-                {ViewModelEnum.CalculationsViewModel, new CaluclationsViewModel()},
+                {ViewModelEnum.PowerSimulatorViewModel, new PowerGridSimulatorViewModel(powerSimulator)},
             };
         }
 
@@ -80,7 +83,7 @@ namespace FieldSimulator.ViewModel
             ChangeViewModelToDiscreteInputs = new ChangeViewModelCommand(this, viewModels[ViewModelEnum.DiscreteInputViewModel]);
             ChangeViewModelToHoldingRegisters = new ChangeViewModelCommand(this, viewModels[ViewModelEnum.HoldingRegistersViewModel]);
             ChangeViewModelToInputRegisters = new ChangeViewModelCommand(this, viewModels[ViewModelEnum.InputRegistersViewModel]);
-            ChangeViewModelToCalculations = new ChangeViewModelCommand(this, viewModels[ViewModelEnum.CalculationsViewModel]);
+            ChangeViewModelToPowerSimulator = new ChangeViewModelCommand(this, viewModels[ViewModelEnum.PowerSimulatorViewModel]);
 
             StopServerCommand = new SimulatorStopCommand(slave);
             StartServerCommand = new SimulatorStartCommand(slave);

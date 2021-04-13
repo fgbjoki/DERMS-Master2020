@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="FieldSimulator.View.PowerGridSimulatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:FieldSimulator.View"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="LightGreen" SecondaryColor="LightBlue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,0">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Margin="10">
+                <TextBlock Text="Schema configuration"/>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Background="#FF4D4D4D" VerticalAlignment="Top">
+                    <TextBlock Text="XML schema file:" Margin="10" VerticalAlignment="Center"/>
+                    <TextBox MinWidth="250" Width="Auto" IsEnabled="False" Text="{Binding FilePath}" Margin="10"/>
+                    <Button Margin="10" Content="Browse" Command="{Binding CommandOpenFileDialog}" CommandParameter="{Binding PowerGridSimulatorState, Mode=TwoWay}"/>
+                    <Button Content="Load Schema" Command="{Binding LoadSchemaCommand}" CommandParameter="{Binding PowerGridSimulatorState}" Margin="10"/>
+                    <Button Content="Start Simulation" Command="{Binding StartSimulationCommand}" CommandParameter="{Binding PowerGridSimulatorState}" Margin="10"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Status" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox IsReadOnly="True" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        </Grid>
+    </Grid>
+</UserControl>

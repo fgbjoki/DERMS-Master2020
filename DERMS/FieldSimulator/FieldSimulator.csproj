@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DERMSCIMProfile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>PowerSimulator\Resources\DERMSCIMProfile.dll</HintPath>
+    </Reference>
     <Reference Include="EasyModbus, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ModbusEasy\EasyModbus.dll</HintPath>
@@ -77,6 +81,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\ChangeViewModelCommand.cs" />
+    <Compile Include="Commands\PowerSimulator\LoadSchemaCommand.cs" />
+    <Compile Include="Commands\PowerSimulator\OpenFileDialogCommand.cs" />
+    <Compile Include="Commands\PowerSimulator\State\IdlePowerGridSimulatorState.cs" />
+    <Compile Include="Commands\PowerSimulator\State\LoadFilePowerGridSimulatorState.cs" />
+    <Compile Include="Commands\PowerSimulator\State\LoadSchemaPowerGridSimulatorState.cs" />
+    <Compile Include="Commands\PowerSimulator\State\PowerGridSimulatorState.cs" />
+    <Compile Include="Commands\PowerSimulator\StartSimulationCommand.cs" />
+    <Compile Include="Commands\PowerSimulator\State\StartSimulatorPowerGridSimulatorState.cs" />
     <Compile Include="Commands\SimulatorStartCommand.cs" />
     <Compile Include="Commands\SimulatorStopCommand.cs" />
     <Compile Include="Modbus\ModbusSlave.cs" />
@@ -87,15 +99,86 @@
     <Compile Include="Model\HoldingRegisterWrapper.cs" />
     <Compile Include="Model\InputRegisterWrapper.cs" />
     <Compile Include="Model\BasePoint.cs" />
+    <Compile Include="PowerSimulator\EntityStorage.cs" />
+    <Compile Include="PowerSimulator\IPowerSimulator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\ACLineSegmentCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\AnalogMeasurementCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\BreakerCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\ConnectivityNodeCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\DiscreteMeasurementCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\EnergyConsumerCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\EnergyStorageCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\IEntityCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\SolarPanelCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\TerminalCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\WindGeneratorCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\ACLineSegment.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\Breaker.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\EnergyConsumer.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\EnergyStorage.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\Generator.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\SolarPanel.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\WindGenerator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConductingEquipmentTraverser.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConnectivityGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConnectivityNodeTraverser.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConnectivityNodeTraverseWrapper.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConnectivityObjectExplorer.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\ConnectivityObjectTraverser.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\GraphRules\ConnectivityGraphRuleApplier.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\GraphRules\EnergySourceDirectionReverseGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\GraphRules\IGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\GraphRules\ReversePathToInterConnectedBreakerGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\IConnectivityObjectTraverser.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\BaseGraphBranchManipulator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\GraphBranchManipulator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\TopologyBreakerGraphBranchManipulator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\TopologyGraphBranchManipulator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\BaseMultipleRootGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Branches\GraphBranch.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Branches\TopologyBreakerGraphBranch.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Branches\TopologyGraphBranch.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\ConnectivityGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Nodes\ConnectivityGraphNode.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Nodes\GraphNode.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Nodes\Shunt.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\Graphs\Nodes\TopologyGraphNode.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\IGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\IMultipleRootGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\BaseDepedentGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\BreakerReductionGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\ConnectivityNodeShuntReductionGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\GraphReductionRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\ReduceACLineSegmentBranchesGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\TopologyACLSBranchGraphRule.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\IGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\MultipleRootDependentGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Measurements\DiscreteMeasurement.cs" />
+    <Compile Include="PowerSimulator\Model\ModelCreator.cs" />
+    <Compile Include="PowerSimulator\Helpers\BreakerMessageMapping.cs" />
+    <Compile Include="PowerSimulator\SchemaLoader\ISchemaLoader.cs" />
+    <Compile Include="PowerSimulator\Model\Connectivity\ConnectivityNode.cs" />
+    <Compile Include="PowerSimulator\Model\Connectivity\Terminal.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\BaseCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\EnergySourceCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\ConductingEquipment.cs" />
+    <Compile Include="PowerSimulator\Model\Equipment\EnergySource.cs" />
+    <Compile Include="PowerSimulator\Model\IdentifiedObject.cs" />
+    <Compile Include="PowerSimulator\Model\Measurements\AnalogMeasurement.cs" />
+    <Compile Include="PowerSimulator\Model\Measurements\Measurement.cs" />
+    <Compile Include="PowerSimulator\PowerSimulator.cs" />
+    <Compile Include="PowerSimulator\SchemaLoader\SchemaCIMLoader.cs" />
     <Compile Include="Validations\DiscreteValuesValidation.cs" />
-    <Compile Include="ViewModel\CaluclationsViewModel.cs" />
+    <Compile Include="ViewModel\IPowerGridSimulatorViewModel.cs" />
+    <Compile Include="ViewModel\PowerGridSimulatorViewModel.cs" />
     <Compile Include="ViewModel\CoilsViewModel.cs" />
     <Compile Include="ViewModel\DiscreteInputsViewModel.cs" />
     <Compile Include="ViewModel\HoldingRegistersViewModel.cs" />
     <Compile Include="ViewModel\InputRegistersViewModel.cs" />
     <Compile Include="ViewModel\IParentViewModel.cs" />
-    <Compile Include="View\CalculationsView.xaml.cs">
-      <DependentUpon>CalculationsView.xaml</DependentUpon>
+    <Compile Include="View\PowerGridSimulatorView.xaml.cs">
+      <DependentUpon>PowerGridSimulatorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DiscretePointsView.xaml.cs">
       <DependentUpon>DiscretePointsView.xaml</DependentUpon>
@@ -103,7 +186,7 @@
     <Compile Include="View\AnalogPointsView.xaml.cs">
       <DependentUpon>AnalogPointsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\CalculationsView.xaml">
+    <Page Include="View\PowerGridSimulatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,11 +242,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Calculations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="ModbusEasy\EasyModbus.dll" />
+    <Content Include="PowerSimulator\Resources\DERMSCIMProfile.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8D4E56AF-5587-407F-859B-47ED9F572996}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Importer\CIMAdapter\CIMAdapter.csproj">
+      <Project>{f680d34f-c148-4314-8914-b2df3e7b17af}</Project>
+      <Name>CIMAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Importer\CIMParser\CIMParser.csproj">
+      <Project>{3C03A41C-BE4C-40A8-97D5-5DBAC0C34102}</Project>
+      <Name>CIMParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.2.0\build\MaterialDesignThemes.targets')" />
