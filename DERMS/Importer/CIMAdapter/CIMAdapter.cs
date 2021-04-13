@@ -87,7 +87,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 		}
 
 
-		private bool LoadModelFromExtractFile(Stream extract, SupportedProfiles extractType, ref ConcreteModel concreteModelResult, ref Assembly assembly, out string log)
+		public bool LoadModelFromExtractFile(Stream extract, SupportedProfiles extractType, ref ConcreteModel concreteModelResult, ref Assembly assembly, out string log, string dllPath = "")
 		{
 			bool valid = false;
 			log = string.Empty;
@@ -96,7 +96,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 			Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 			try
 			{
-				ProfileManager.LoadAssembly(extractType, out assembly);
+				ProfileManager.LoadAssembly(dllPath, extractType, out assembly);
 				if (assembly != null)
 				{
 					CIMModel cimModel = new CIMModel();

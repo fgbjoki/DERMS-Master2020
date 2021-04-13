@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FieldSimulator.View
 {
     /// <summary>
-    /// Interaction logic for CalculationsView.xaml
+    /// Interaction logic for PowerGridSimulatorView.xaml
     /// </summary>
-    public partial class CalculationsView : UserControl
+    public partial class PowerGridSimulatorView : UserControl
     {
-        public CalculationsView()
+        public PowerGridSimulatorView()
         {
             InitializeComponent();
         }

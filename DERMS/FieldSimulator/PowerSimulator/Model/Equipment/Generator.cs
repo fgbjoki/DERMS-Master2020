@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldSimulator.ViewModel
+namespace FieldSimulator.PowerSimulator.Model.Equipment
 {
-    class CaluclationsViewModel : BaseViewModel
+    class Generator : ConductingEquipment
     {
-        public CaluclationsViewModel() : base("Calculations")
+        public Generator(long globalId) : base(globalId)
         {
         }
     }
