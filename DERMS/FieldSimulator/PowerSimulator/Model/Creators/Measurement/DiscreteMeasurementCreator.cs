@@ -4,7 +4,7 @@ using FTN.ESI.SIMES.CIM.CIMAdapter.Importer;
 
 namespace FieldSimulator.PowerSimulator.Model.Creators
 {
-    class DiscreteMeasurementCreator : BaseCreator<DERMS.Discrete, DiscreteMeasurement>
+    public class DiscreteMeasurementCreator : MeasurementCreator<DERMS.Discrete, DiscreteMeasurement>
     {
         public DiscreteMeasurementCreator(ImportHelper importHelper) : base(DMSType.MEASUREMENTDISCRETE, importHelper)
         {

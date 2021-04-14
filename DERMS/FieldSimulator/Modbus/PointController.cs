@@ -37,8 +37,6 @@ namespace FieldSimulator.Modbus
         /// </summary>
         private void PointValueChanged(PointType pointType, int index, short value)
         {
-            // TODO CALL CALCULATIONS
-
             switch (pointType)
             {
                 case PointType.Coil:
@@ -55,6 +53,8 @@ namespace FieldSimulator.Modbus
                     break;
             }
         }
+
+        private void AnalogPointValueChanged()
 
         private void InitializeEvents()
         {

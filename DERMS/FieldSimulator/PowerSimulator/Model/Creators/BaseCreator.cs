@@ -25,8 +25,10 @@ namespace FieldSimulator.PowerSimulator.Model.Creators
 
             foreach (var concrete in concreteModel.GetAllObjectsOfType(typeof(DependentType).FullName).Values)
             {
-                NewType newEntity = InstantiateNewEntity(GetNewGid());
+                NewType newEntity = InstantiateNewEntity(GetNewGid(concrete as DERMS.IdentifiedObject));
                 newEntity.Update(concrete as DependentType);
+
+                AddObjectReferences(newEntity, entityStorage);
 
                 newObjects.Add(newEntity.GlobalId, newEntity);
             }
@@ -34,14 +36,18 @@ namespace FieldSimulator.PowerSimulator.Model.Creators
 
         protected abstract NewType InstantiateNewEntity(long globalId);
 
-        protected virtual void AddObjectReferences(EntityStorage entityStorage)
+        protected virtual void AddObjectReferences(NewType newEntity, EntityStorage entityStorage)
         {
 
         }
 
-        protected long GetNewGid()
+        protected long GetNewGid(DERMS.IdentifiedObject depedentEntity)
         {
-            return ModelCodeHelper.CreateGlobalId(0, (short)DMSType, importHelper.CheckOutIndexForDMSType(DMSType));
+            long gid = ModelCodeHelper.CreateGlobalId(0, (short)DMSType, importHelper.CheckOutIndexForDMSType(DMSType));
+
+            importHelper.DefineIDMapping(depedentEntity.ID, gid);
+
+            return gid;
         }
 
         public DMSType DMSType { get { return dmsType; } }

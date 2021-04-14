@@ -8,8 +8,25 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
         {
         }
 
+        public string ConductingEquipmentID { get; set; }
+
         public ConductingEquipment ConductingEquipment { get; set; }
 
         public int Address { get; set; }
+
+        public override void Update(DERMS.IdentifiedObject cimObject)
+        {
+            base.Update(cimObject);
+
+            DERMS.Measurement cimMeasurement = cimObject as DERMS.Measurement;
+
+            if (cimMeasurement == null)
+            {
+                return;
+            }
+
+            ConductingEquipmentID = cimMeasurement.PowerSystemResource.ID;
+            Address = cimMeasurement.MeasurementAddress;
+        }
     }
 }
