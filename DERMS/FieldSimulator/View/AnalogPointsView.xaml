@@ -30,7 +30,7 @@
 
             <materialDesign:DataGridTextColumn
                             MinWidth="100"
-                            Header="Index"
+                            Header="Address"
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                 <materialDesign:DataGridTextColumn.Binding>

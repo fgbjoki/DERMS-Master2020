@@ -18,8 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,0">
@@ -34,14 +33,14 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Status" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox IsReadOnly="True" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <TextBox IsReadOnly="True" Foreground="Black" Background="AntiqueWhite" Grid.Row="1" Margin="20"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
 ﻿using Common.AbstractModel;
+using FieldSimulator.PowerSimulator.Model.Equipment;
 
 namespace FieldSimulator.PowerSimulator.Model.Graph.Graphs.Nodes
 {
@@ -13,5 +14,7 @@ namespace FieldSimulator.PowerSimulator.Model.Graph.Graphs.Nodes
         public long GlobalId { get; private set; }
 
         public DMSType DMSType { get; private set; }
+
+        public ConductingEquipment ConductingEquipment { get; set; }
     }
 }

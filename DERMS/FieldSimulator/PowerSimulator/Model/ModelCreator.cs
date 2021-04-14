@@ -17,7 +17,7 @@ namespace FieldSimulator.PowerSimulator.Model
             InitializeEntityCreators();   
         }
 
-        public Dictionary<DMSType, Dictionary<long, IdentifiedObject>> CreateModel(ConcreteModel concreteModel)
+        public EntityStorage CreateModel(ConcreteModel concreteModel)
         {
             EntityStorage entityStorage = new EntityStorage();
 
@@ -35,7 +35,7 @@ namespace FieldSimulator.PowerSimulator.Model
             entityCreators[DMSType.CONNECTIVITYNODE].CreateNewEntities(concreteModel, entityStorage);
             entityCreators[DMSType.TERMINAL].CreateNewEntities(concreteModel, entityStorage);
 
-            return entityStorage.Storage;
+            return entityStorage;
         }
 
         private void InitializeEntityCreators()

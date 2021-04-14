@@ -6,7 +6,7 @@
 	
 	<!-- 
 		Analog addresses:
-			read : 24
+			read : 30
 			readwrite: 8
 	-->
 	
@@ -330,19 +330,19 @@
 		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#breaker_SolarPanel2_2"/>
-		<cim:IdentifiedObject.description>Defines breaker state of wind generator 3_2 breaker.</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>Discrete_Breaker_WindGenerator3_2</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Discrete_Breaker_WindGenerator3_2</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.description>Defines breaker state of solar generator 2_2 breaker.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>Discrete_Breaker_SolarPanelGenerator2_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete_Breaker_SolarPanelGenerator2_2</ftn:IdentifiedObject.name>
 	</cim:Discrete>
 	
 	<cim:EnergyStorage rdf:ID="EnergyStorage2_2">
-		<cim:EnergyStorage.capacity>10</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SolarPanel2_2"/>
 		<cim:DER.nominalPower>10</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
-		<cim:IdentifiedObject.description>Energy Source for solar panel</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>EnergyStorage2_2</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage2_2</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Energy Storage 1</ftn:IdentifiedObject.name>
+		<ftn:IdentifiedObject.name>Energy Storage 2_2</ftn:IdentifiedObject.name>
 	</cim:EnergyStorage>
 	
 	<cim:Analog rdf:ID="EnergyStorage2_2_ActivePower">
@@ -356,6 +356,19 @@
 		<cim:IdentifiedObject.description>EnergyStorage2_2 active power</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage2_2_ActivePower</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>EnergyStorage2_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="EnergyStorage2_2_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>26</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
+		<cim:IdentifiedObject.description>EnergyStorage2_2 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage2_2_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage2_2 StateOfCharge</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:SolarGenerator rdf:ID="SolarPanel2_2">
@@ -657,7 +670,7 @@
 	</cim:ConnectivityNode>
 	
 	<cim:EnergyStorage rdf:ID="EnergyStorage3_2">
-		<cim:EnergyStorage.capacity>10</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WindGenerator3_2"/>
 		<cim:DER.nominalPower>10</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
@@ -679,6 +692,19 @@
 		<ftn:IdentifiedObject.name>EnergyStorage3_2 ActivePower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
+	<cim:Analog rdf:ID="EnergyStorage3_2_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>28</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage3_2"/>
+		<cim:IdentifiedObject.description>EnergyStorage3_2 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage3_2_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage3_2 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
 	<cim:Terminal rdf:ID="ter_br_wg3_2_0">
 		<cim:Terminal.ConductingEquipment rdf:resource="#breaker_WindGenerator3_2"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
@@ -688,19 +714,27 @@
 	</cim:Terminal>
 	
 	<cim:Terminal rdf:ID="ter_br_wg3_2_1">
-		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage3_2"/>
+		<cim:Terminal.ConductingEquipment rdf:resource="#breaker_WindGenerator3_2"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br_wg_3_2"/>
 		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>ter_est3_2</cim:IdentifiedObject.mRID>
+		<cim:IdentifiedObject.mRID>ter_wg3_2</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Terminal Breaker 3_2</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Terminal rdf:ID="ter_br_st3_2">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EnergyStorage3_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#conn_acl3_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ter_est3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Storage 3_2</ftn:IdentifiedObject.name>
 	</cim:Terminal>
 	
 	<cim:Terminal rdf:ID="ter_wg3_2">
 		<cim:Terminal.ConductingEquipment rdf:resource="#WindGenerator3_2"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#conn_br_wg_3_2"/>
 		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>ter_wg3_2</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Terminal Breaker 3_2</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.mRID>Terminal WindGenerator 3_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal WindGenerator 3_2</ftn:IdentifiedObject.name>
 	</cim:Terminal>
 	
 	<!-- End ACLineSegment 3_2 -->
@@ -935,7 +969,7 @@
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationLiman"/>
 		<cim:IdentifiedObject.description>Decribes MOJ STAN</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyConsumer11_1</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Moj stan hehe</ftn:IdentifiedObject.name>
+		<ftn:IdentifiedObject.name>EnergyConsumer11_1</ftn:IdentifiedObject.name>
 	</cim:EnergyConsumer>
 	
 	<cim:Analog rdf:ID="EnergyConsumer11_1_ActivePower">
@@ -1081,6 +1115,19 @@
 		<cim:IdentifiedObject.description>EnergyStorage11_1 active power</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage11_1_ActivePower</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>EnergyStorage11_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="EnergyStorage11_1_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>30</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
+		<cim:IdentifiedObject.description>EnergyStorage11_1 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyStorage11_1_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage11_1 StateOfCharge</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<!-- End First ConnectivityNode -->

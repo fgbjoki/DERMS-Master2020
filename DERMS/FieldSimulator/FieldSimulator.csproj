@@ -102,13 +102,14 @@
     <Compile Include="PowerSimulator\EntityStorage.cs" />
     <Compile Include="PowerSimulator\IPowerSimulator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\ACLineSegmentCreator.cs" />
-    <Compile Include="PowerSimulator\Model\Creators\AnalogMeasurementCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\Measurement\AnalogMeasurementCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\BreakerCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\ConnectivityNodeCreator.cs" />
-    <Compile Include="PowerSimulator\Model\Creators\DiscreteMeasurementCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\Measurement\DiscreteMeasurementCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\EnergyConsumerCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\EnergyStorageCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\IEntityCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Creators\Measurement\MeasurementCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\SolarPanelCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\TerminalCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\WindGeneratorCreator.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\GraphRules\ReversePathToInterConnectedBreakerGraphRule.cs" />
     <Compile Include="PowerSimulator\Model\Graph\ConnectivityGraphCreator\IConnectivityObjectTraverser.cs" />
     <Compile Include="PowerSimulator\Model\Graph\Graph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\GraphCreatorWrapper.cs" />
     <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\BaseGraphBranchManipulator.cs" />
     <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\GraphBranchManipulator.cs" />
     <Compile Include="PowerSimulator\Model\Graph\GraphManipulators\TopologyBreakerGraphBranchManipulator.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="PowerSimulator\Model\Graph\Graphs\Nodes\TopologyGraphNode.cs" />
     <Compile Include="PowerSimulator\Model\Graph\IGraph.cs" />
     <Compile Include="PowerSimulator\Model\Graph\IMultipleRootGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\PowerGridGraphSimulator.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\BaseDepedentGraphCreator.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\BreakerReductionGraphRule.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\ConnectivityNodeShuntReductionGraphRule.cs" />
@@ -153,7 +156,10 @@
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\ReduceACLineSegmentBranchesGraphRule.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\GraphRules\TopologyACLSBranchGraphRule.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\IGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\InterConnectedConnectivityCorrector.cs" />
     <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\MultipleRootDependentGraphCreator.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\TopologyGraph.cs" />
+    <Compile Include="PowerSimulator\Model\Graph\TopologyGraphCreator\TopologyGraphCreator.cs" />
     <Compile Include="PowerSimulator\Model\Measurements\DiscreteMeasurement.cs" />
     <Compile Include="PowerSimulator\Model\ModelCreator.cs" />
     <Compile Include="PowerSimulator\Helpers\BreakerMessageMapping.cs" />

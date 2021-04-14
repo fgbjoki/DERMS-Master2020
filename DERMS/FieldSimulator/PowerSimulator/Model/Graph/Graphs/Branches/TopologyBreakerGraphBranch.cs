@@ -2,7 +2,7 @@
 using FieldSimulator.PowerSimulator.Model.Graph.Graphs.Nodes;
 
 namespace FieldSimulator.PowerSimulator.Model.Graph.Graphs.Branches
-
+{ 
     public class TopologyBreakerGraphBranch : TopologyGraphBranch
     {
         public TopologyBreakerGraphBranch(TopologyGraphNode parent, TopologyGraphNode child) : base(parent, child)
