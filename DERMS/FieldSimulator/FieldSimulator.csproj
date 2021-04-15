@@ -91,6 +91,7 @@
     <Compile Include="Commands\PowerSimulator\State\StartSimulatorPowerGridSimulatorState.cs" />
     <Compile Include="Commands\SimulatorStartCommand.cs" />
     <Compile Include="Commands\SimulatorStopCommand.cs" />
+    <Compile Include="Modbus\IModbusSlave.cs" />
     <Compile Include="Modbus\SchemaAligner\MeasurementAligner\AnalogMeasurementAligner.cs" />
     <Compile Include="Modbus\SchemaAligner\MeasurementAligner\BaseMeasurementAligner.cs" />
     <Compile Include="Modbus\SchemaAligner\MeasurementAligner\DiscreteMeasurementAligner.cs" />
@@ -100,7 +101,10 @@
     <Compile Include="Modbus\PointController.cs" />
     <Compile Include="Modbus\SchemaAligner\MeasurementAligner\IMeasurementAligner.cs" />
     <Compile Include="Modbus\SchemaAligner\RemotePointSchemaAligner.cs" />
-    <Compile Include="Modbus\SchemaAligner\SlaveRemotePoints.cs" />
+    <Compile Include="Modbus\SchemaAligner\SimulatorRemotePoints.cs" />
+    <Compile Include="Modbus\ValueChangedHandler\IValueChangedHandler.cs" />
+    <Compile Include="Modbus\ValueChangedHandler\ModbusSlaveValueChangedHandler.cs" />
+    <Compile Include="Modbus\ValueChangedHandler\UIValueChangedHandler.cs" />
     <Compile Include="Model\AnalogPointWrapper.cs" />
     <Compile Include="Model\CoilWrapper.cs" />
     <Compile Include="Model\DiscreteInputWrapper.cs" />
@@ -110,6 +114,10 @@
     <Compile Include="Model\BasePoint.cs" />
     <Compile Include="PowerSimulator\EntityStorage.cs" />
     <Compile Include="PowerSimulator\IPowerSimulator.cs" />
+    <Compile Include="PowerSimulator\RemotePointValueChangedPublisher.cs" />
+    <Compile Include="PowerSimulator\Storage\AnalogRemotePointStorage.cs" />
+    <Compile Include="PowerSimulator\Storage\DiscreteRemotePointStorage.cs" />
+    <Compile Include="PowerSimulator\Storage\IRemotePointStorageStorage.cs" />
     <Compile Include="PowerSimulator\Model\Creators\ACLineSegmentCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\Measurement\AnalogMeasurementCreator.cs" />
     <Compile Include="PowerSimulator\Model\Creators\BreakerCreator.cs" />
@@ -184,6 +192,8 @@
     <Compile Include="PowerSimulator\Model\Measurements\Measurement.cs" />
     <Compile Include="PowerSimulator\PowerSimulator.cs" />
     <Compile Include="PowerSimulator\SchemaLoader\SchemaCIMLoader.cs" />
+    <Compile Include="PowerSimulator\Storage\RemotePointStorage.cs" />
+    <Compile Include="PowerSimulator\Storage\PowerGridSimulatorStorage.cs" />
     <Compile Include="Validations\DiscreteValuesValidation.cs" />
     <Compile Include="ViewModel\IPowerGridSimulatorViewModel.cs" />
     <Compile Include="ViewModel\PowerGridSimulatorViewModel.cs" />

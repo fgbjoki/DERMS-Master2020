@@ -1,6 +1,6 @@
 ﻿namespace FieldSimulator.Model
 {
-    public delegate void AnalogPointValueChanged(RemotePointType pointType, int index, float value);
+    public delegate void AnalogPointValueChanged(RemotePointType pointType, ushort address, float value);
 
     public class AnalogPointWrapper : BasePoint
     {

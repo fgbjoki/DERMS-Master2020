@@ -495,9 +495,9 @@
 		<cim:Measurement.measurementAddress>8</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_1_0"/>
-		<cim:IdentifiedObject.description>EnergyConsumer3_1_0 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_0_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>EnergyConsumer3_1_0 DeltaPower</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.description>EnergyConsumer3_1_0 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_0_Active</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_1_0 Active</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_c3_1_0">
@@ -524,9 +524,9 @@
 		<cim:Measurement.measurementAddress>10</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_1_1"/>
-		<cim:IdentifiedObject.description>EnergyConsumer3_1_1 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_1_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>EnergyConsumer3_1_1 DeltaPower</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.description>EnergyConsumer3_1_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_1_1_Active</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_1_1 Active</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_c3_1_1">
@@ -587,9 +587,9 @@
 		<cim:Measurement.measurementAddress>12</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer3_2_0"/>
-		<cim:IdentifiedObject.description>EnergyConsumer3_2_0 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>EnergyConsumer3_2_0_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>EnergyConsumer3_2_0 DeltaPower</ftn:IdentifiedObject.name>
+		<cim:IdentifiedObject.description>EnergyConsumer3_2_0 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EnergyConsumer3_2_0_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyConsumer3_2_0 ActivePower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_c3_2_0">
