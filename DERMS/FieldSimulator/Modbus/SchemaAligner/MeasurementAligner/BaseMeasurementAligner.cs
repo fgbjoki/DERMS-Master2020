@@ -28,7 +28,7 @@ namespace FieldSimulator.Modbus.SchemaAligner.MeasurementAligner
 
         protected abstract void PopulateValue(SlaveModelType slaveModel, Measurement cimModel);
 
-        private int GetRemotePointHashCode(short pointType, short address)
+        private int GetRemotePointHashCode(short pointType, ushort address)
         {
             return (ushort)pointType | (address << sizeof(short) * 8);
         }

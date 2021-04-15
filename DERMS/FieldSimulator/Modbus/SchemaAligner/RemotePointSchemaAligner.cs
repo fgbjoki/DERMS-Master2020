@@ -36,7 +36,7 @@ namespace FieldSimulator.Modbus.SchemaAligner
             measurementAligner.AlignRemotePoints(slaveRemotePoints, remotePoints);
         }
 
-        public void LoadSlaveRemotePoints(SlaveRemotePoints slaveRemotePoints)
+        public void LoadSlaveRemotePoints(SimulatorRemotePoints slaveRemotePoints)
         {
             this.slaveRemotePoints = new Dictionary<int, BasePoint>();
 

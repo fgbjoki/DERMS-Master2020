@@ -3,7 +3,7 @@ using static EasyModbus.ModbusServer;
 
 namespace FieldSimulator.Modbus
 {
-    class ModbusSlave
+    class ModbusSlave : IModbusSlave
     {
         private ModbusServer server;
 

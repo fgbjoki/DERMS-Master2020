@@ -1,4 +1,5 @@
 ﻿using FieldSimulator.PowerSimulator.Model.Graph.TopologyGraphCreator;
+using FieldSimulator.PowerSimulator.Storage;
 
 namespace FieldSimulator.PowerSimulator.Model.Graph
 {
@@ -6,9 +7,11 @@ namespace FieldSimulator.PowerSimulator.Model.Graph
     {
         private TopologyGraph topologyGraph;
         private GraphCreatorWrapper graphCreator;
+        private PowerGridSimulatorStorage storage;
 
-        public PowerGridGraphSimulator()
+        public PowerGridGraphSimulator(PowerGridSimulatorStorage storage)
         {
+            this.storage = storage;
             graphCreator = new GraphCreatorWrapper();
         }
 

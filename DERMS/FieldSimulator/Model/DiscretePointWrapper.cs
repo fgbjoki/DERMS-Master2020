@@ -1,6 +1,6 @@
 ﻿namespace FieldSimulator.Model
 {
-    public delegate void DiscretePointValueChanged(RemotePointType pointType, int index, short value);
+    public delegate void DiscretePointValueChanged(RemotePointType pointType, ushort address, short value);
 
     public class DiscretePointWrapper : BasePoint
     {

@@ -13,7 +13,7 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
 
         public ConductingEquipment ConductingEquipment { get; set; }
 
-        public short Address { get; set; }
+        public ushort Address { get; set; }
 
         public RemotePointType RemotePointType { get; set; }
 
@@ -29,7 +29,7 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
             }
 
             ConductingEquipmentID = cimMeasurement.PowerSystemResource.ID;
-            Address = (short)cimMeasurement.MeasurementAddress;
+            Address = (ushort)cimMeasurement.MeasurementAddress;
             RemotePointType = ResolveRemotePointType(cimMeasurement.Direction);
         }
 

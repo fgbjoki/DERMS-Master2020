@@ -17,17 +17,17 @@ namespace FieldSimulator.Model
 
         protected string name;
 
-        protected short address;
+        protected ushort address;
 
         protected RemotePointType pointType;
 
         public BasePoint(RemotePointType pointType, int index)
         {
-            Address = (short)index;
+            Address = (ushort)index;
             this.pointType = pointType;
         }
 
-        public short Address
+        public ushort Address
         {
             get { return address; }
             set { SetProperty(ref address, value); }
