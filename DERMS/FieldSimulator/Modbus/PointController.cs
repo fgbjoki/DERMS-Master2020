@@ -1,9 +1,9 @@
-﻿using FieldSimulator.Model;
+﻿using FieldSimulator.Modbus.SchemaAligner;
+using FieldSimulator.Model;
+using System;
 
 namespace FieldSimulator.Modbus
 {
-    public delegate void InputRegisterValueChanged(int registerIndex, short value);
-
     class PointController
     {
         private ModbusSlave slave;
@@ -13,9 +13,13 @@ namespace FieldSimulator.Modbus
         private InputRegisterWrapper[] inputRegisters;
         private HoldingRegisterWrapper[] holdingRegisters;
 
+        private RegisterValueConverter converter;
+
         public PointController(ModbusSlave slave)
         {
             this.slave = slave;
+
+            converter = new RegisterValueConverter();
         }
 
         public void Initialize()
@@ -32,29 +36,48 @@ namespace FieldSimulator.Modbus
 
         public DiscreteInputWrapper[] DiscreteInputs { get { return discreteInput; } }
 
+        public SlaveRemotePoints GetSlaveRemotePoints()
+        {
+            return new SlaveRemotePoints()
+            {
+                Coils = Coils,
+                HoldingRegisters = HoldingRegisters,
+                InputRegisters = InputRegisters,
+                DiscreteInput = DiscreteInputs
+            };
+        }
+
         /// <summary>
         /// UI to Slave data flow
         /// </summary>
-        private void PointValueChanged(PointType pointType, int index, short value)
+        private void DiscretePointValueChanged(RemotePointType pointType, int index, short value)
         {
             switch (pointType)
             {
-                case PointType.Coil:
+                case RemotePointType.Coil:
                     slave.Coils[index] = value == 1 ? true : false;
                     break;
-                case PointType.DiscreteInput:
+                case RemotePointType.DiscreteInput:
                     slave.DiscreteInputs[index] = value == 1 ? true : false;
-                    break;
-                case PointType.HoldingRegister:
-                    slave.HoldingRegisters[index] = value;
-                    break;
-                case PointType.InputRegister:
-                    slave.InputRegisters[index] = value;
                     break;
             }
         }
 
-        private void AnalogPointValueChanged()
+        private void AnalogPointValueChanged(RemotePointType pointType, int index, float value)
+        {
+            Tuple<short, short> values = converter.SplitValue(value);
+            switch (pointType)
+            {
+                case RemotePointType.HoldingRegister:
+                    slave.HoldingRegisters[index + 1] = values.Item1;
+                    slave.HoldingRegisters[index + 2] = values.Item2;
+                    break;
+                case RemotePointType.InputRegister:
+                    slave.InputRegisters[index + 1] = values.Item1;
+                    slave.InputRegisters[index + 2] = values.Item2;
+                    break;
+            }
+        }
 
         private void InitializeEvents()
         {
@@ -79,11 +102,12 @@ namespace FieldSimulator.Modbus
         /// </summary>
         private void HoldingRegisterChangedHandler(int holdingRegister, int numberOfRegisters)
         {
-            for (int i = holdingRegister - 1; i < numberOfRegisters + holdingRegister - 1; i++)
+            for (int i = holdingRegister - 1; i < numberOfRegisters + holdingRegister - 1; i += 2)
             {
-                // - 1 because events is invoked with +1 offset, no idea why
-                int validationIndex = i % 2 == 0 ? i : i - 1;
-                holdingRegisters[validationIndex].ChangeValue(slave.HoldingRegisters[i + 1], i);
+                short value1 = slave.HoldingRegisters[i + 1];
+                short value2 = slave.HoldingRegisters[i + 2];
+
+                holdingRegisters[i].FloatValue = converter.ConvertToFloat(value1, value2);
             }
         }
 
@@ -98,16 +122,16 @@ namespace FieldSimulator.Modbus
             for (int i = 0; i < maxIterations; ++i)
             {
                 coils[i] = new CoilWrapper(i);
-                coils[i].PointValueChanged += PointValueChanged;
+                coils[i].DiscretePointValueChanged += DiscretePointValueChanged;
 
                 holdingRegisters[i] = new HoldingRegisterWrapper(i*2);
-                holdingRegisters[i].PointValueChanged += PointValueChanged;
+                holdingRegisters[i].AnalogPointValueChanged += AnalogPointValueChanged;
 
                 inputRegisters[i] = new InputRegisterWrapper(i*2);
-                inputRegisters[i].PointValueChanged += PointValueChanged;
+                inputRegisters[i].AnalogPointValueChanged += AnalogPointValueChanged;
 
                 discreteInput[i] = new DiscreteInputWrapper(i);
-                discreteInput[i].PointValueChanged += PointValueChanged;
+                discreteInput[i].DiscretePointValueChanged += DiscretePointValueChanged;
             }
         }
     }

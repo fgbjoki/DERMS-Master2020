@@ -3,45 +3,49 @@ using System.Runtime.CompilerServices;
 
 namespace FieldSimulator.Model
 {
-    public enum PointType
+    public enum RemotePointType : short
     {
-        Coil,
-        DiscreteInput,
-        HoldingRegister,
-        InputRegister
+        Coil = 1,
+        DiscreteInput = 2,
+        HoldingRegister = 3,
+        InputRegister = 4
     }
-
-    public delegate void PointValueChanged(PointType pointType, int index, short value);
 
     public abstract class BasePoint : INotifyPropertyChanged
     {
         private short pointValue;
 
-        protected int index;
+        protected string name;
 
-        private PointType pointType;
+        protected short address;
 
-        public BasePoint(PointType pointType, int index)
+        protected RemotePointType pointType;
+
+        public BasePoint(RemotePointType pointType, int index)
         {
-            Index = index;
+            Address = (short)index;
             this.pointType = pointType;
         }
 
-        public short Value
+        public short Address
         {
-            get { return pointValue; }
+            get { return address; }
+            set { SetProperty(ref address, value); }
+        }
+
+        public string Name
+        {
+            get { return name; }
             set
             {
-                SetProperty(ref pointValue, value);
-                PointValueChanged.Invoke(pointType, index, pointValue);
+                if (name != value)
+                {
+                    SetProperty(ref name, value);
+                }
             }
         }
 
-        public int Index
-        {
-            get { return index; }
-            set { SetProperty(ref index, value); }
-        }
+        public long GlobalId { get; set; }
 
         #region PropertyChanged
 
@@ -59,15 +63,20 @@ namespace FieldSimulator.Model
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void PublishChangedValue(int index, short value)
-        {
-            PointValueChanged.Invoke(pointType, index, value);
-        }
-
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-        public event PointValueChanged PointValueChanged = delegate { };
-
         #endregion
+
+        public override int GetHashCode()
+        {
+            return ((ushort)pointType) | (Address << sizeof(ushort) * 8);
+        }
+
+        public override bool Equals(object obj)
+        {
+            BasePoint basePoint = obj as BasePoint;
+
+            return basePoint != null && pointType == basePoint.pointType && address == basePoint.address;
+        }
     }
 }

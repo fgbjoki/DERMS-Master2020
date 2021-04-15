@@ -1,5 +1,6 @@
 ﻿using FieldSimulator.Commands;
 using FieldSimulator.Modbus;
+using FieldSimulator.Modbus.SchemaAligner;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -21,6 +22,8 @@ namespace FieldSimulator.ViewModel
 
         private PointController pointController;
 
+        private IRemotePointSchemaModelAligner modelAligner;
+
         private ModbusSlave slave;
 
         private PowerSimulator.PowerSimulator powerSimulator;
@@ -29,12 +32,16 @@ namespace FieldSimulator.ViewModel
 
         public MainViewModel() : base("MainViewModel")
         {
+            modelAligner = new RemotePointSchemaAligner();
+
             slave = new ModbusSlave(22222);
             slave.StartServer();
             pointController = new PointController(slave);
             pointController.Initialize();
 
-            powerSimulator = new PowerSimulator.PowerSimulator();
+            modelAligner.LoadSlaveRemotePoints(pointController.GetSlaveRemotePoints());
+
+            powerSimulator = new PowerSimulator.PowerSimulator(modelAligner);
 
             InitializeViewModels();
             InitializeCommands();    
@@ -73,7 +80,7 @@ namespace FieldSimulator.ViewModel
                 {ViewModelEnum.HoldingRegistersViewModel, new HoldingRegistersViewModel(pointController.HoldingRegisters) },
                 {ViewModelEnum.InputRegistersViewModel, new InputRegistersViewModel(pointController.InputRegisters)},
                 {ViewModelEnum.DiscreteInputViewModel, new DiscreteInputsViewModel(pointController.DiscreteInputs)},
-                {ViewModelEnum.PowerSimulatorViewModel, new PowerGridSimulatorViewModel(powerSimulator)},
+                {ViewModelEnum.PowerSimulatorViewModel, new PowerGridSimulatorViewModel(powerSimulator, modelAligner)},
             };
         }
 

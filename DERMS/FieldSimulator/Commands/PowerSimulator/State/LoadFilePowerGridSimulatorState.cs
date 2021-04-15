@@ -37,8 +37,10 @@ namespace FieldSimulator.Commands.PowerSimulator.State
 
         public override PowerGridSimulatorState LoadSchema()
         {
-            ConcreteModel model = simulator.LoadSchema(path);
-            simulator.CreateModel(model);
+            var cimModel = simulator.LoadSchema(path);
+            var slaveModel = simulator.CreateSlaveModel(cimModel);
+            simulator.LoadModel(slaveModel);
+
             return new LoadSchemaPowerGridSimulatorState(viewModel, simulator);
         }
 

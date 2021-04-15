@@ -1,8 +1,8 @@
 ﻿namespace FieldSimulator.Model
 {
-    public class CoilWrapper : BasePoint
+    public class CoilWrapper : DiscretePointWrapper
     {
-        public CoilWrapper(int index) : base(PointType.Coil, index)
+        public CoilWrapper(int index) : base(RemotePointType.Coil, index)
         {
         }
     }

@@ -2,7 +2,7 @@
 {
     public class HoldingRegisterWrapper : AnalogPointWrapper
     {
-        public HoldingRegisterWrapper(int index) : base(PointType.HoldingRegister, index)
+        public HoldingRegisterWrapper(int index) : base(RemotePointType.HoldingRegister, index)
         {
         }
     }

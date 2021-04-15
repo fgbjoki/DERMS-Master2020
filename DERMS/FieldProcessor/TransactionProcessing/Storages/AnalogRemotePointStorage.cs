@@ -13,11 +13,11 @@ namespace FieldProcessor.TransactionProcessing.Storages
 {
     public class AnalogRemotePointStorage : Storage<RemotePoint>
     {
-        private HashSet<ushort> usedAddresses;
+        private Dictionary<RemotePointType, HashSet<ushort>> usedAddresses;
 
         public AnalogRemotePointStorage() : base("Analog Remote Point Storage")
         {
-            usedAddresses = new HashSet<ushort>();
+            usedAddresses = new Dictionary<RemotePointType, HashSet<ushort>>();
         }
 
         public override List<IStorageTransactionProcessor> GetStorageTransactionProcessors()
@@ -41,17 +41,32 @@ namespace FieldProcessor.TransactionProcessing.Storages
                 return false;
             }
 
-            if (!usedAddresses.Add(item.Address))
+            //if (usedAddresses.(item.Type, item.Address))
+            //{
+            //    Logger.Instance.Log($"[{storageName}] Remote point with address : {item.Address} already exists!");
+            //    return false;
+            //}
+
+            HashSet<ushort> addresses;
+
+            if (!usedAddresses.TryGetValue(item.Type, out addresses))
+            {
+                addresses = new HashSet<ushort>();
+            }
+
+            if (addresses.Contains(item.Address))
             {
                 Logger.Instance.Log($"[{storageName}] Remote point with address : {item.Address} already exists!");
                 return false;
             }
 
+            addresses.Add(item.Address);
+
             bool addSucceded = base.AddEntity(item);
 
             if (!addSucceded)
             {
-                usedAddresses.Remove(item.Address);
+                addresses.Remove(item.Address);
             }
 
             return addSucceded;
@@ -59,7 +74,7 @@ namespace FieldProcessor.TransactionProcessing.Storages
 
         public override bool ValidateEntity(RemotePoint entity)
         {
-            return base.ValidateEntity(entity) && !usedAddresses.Contains(entity.Address) &&
+            return base.ValidateEntity(entity) &&
                 (entity.Type == RemotePointType.HoldingRegister || entity.Type == RemotePointType.InputRegister);
         }
 

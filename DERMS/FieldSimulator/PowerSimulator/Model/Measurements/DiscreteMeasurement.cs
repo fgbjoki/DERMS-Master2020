@@ -1,42 +1,42 @@
-﻿namespace FieldSimulator.PowerSimulator.Model.Measurements
-{
-    public enum DiscreteRemotePointType
-    {
-        Coil,
-        DiscreteInput
-    }
+﻿using System;
+using DERMS;
+using FieldSimulator.Model;
 
+namespace FieldSimulator.PowerSimulator.Model.Measurements
+{
     public class DiscreteMeasurement : Measurement
     {
         public DiscreteMeasurement(long globalId) : base(globalId)
         {
         }
 
-        public DiscreteRemotePointType RemotePointType { get; set; }
+        public short Value { get; set; }
 
         public override void Update(DERMS.IdentifiedObject cimObject)
         {
             base.Update(cimObject);
 
-            DERMS.Discrete analogCim = cimObject as DERMS.Discrete;
+            Discrete discreteCim = cimObject as Discrete;
 
-            if (analogCim == null)
+            if (discreteCim == null)
             {
                 return;
             }
 
-            RemotePointType = MapRemotePointType(analogCim.Direction);
+            Value = (short)discreteCim.CurrentValue;
         }
 
-        private DiscreteRemotePointType MapRemotePointType(DERMS.SignalDirection direction)
+        protected override RemotePointType ResolveRemotePointType(SignalDirection signalDirection)
         {
-            if (direction == DERMS.SignalDirection.Read)
+            switch (signalDirection)
             {
-                return DiscreteRemotePointType.DiscreteInput;
-            }
-            else
-            {
-                return DiscreteRemotePointType.Coil;
+                case SignalDirection.Read:
+                    return RemotePointType.DiscreteInput;
+                case SignalDirection.ReadWrite:
+                case SignalDirection.Write:
+                    return RemotePointType.Coil;
+                default:
+                    throw new ArgumentException($"Discrete remote point cannot be defined with direction: {signalDirection}.");
             }
         }
     }
