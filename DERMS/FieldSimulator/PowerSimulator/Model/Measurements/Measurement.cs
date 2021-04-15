@@ -1,4 +1,5 @@
-﻿using FieldSimulator.PowerSimulator.Model.Equipment;
+﻿using FieldSimulator.Model;
+using FieldSimulator.PowerSimulator.Model.Equipment;
 
 namespace FieldSimulator.PowerSimulator.Model.Measurements
 {
@@ -12,7 +13,9 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
 
         public ConductingEquipment ConductingEquipment { get; set; }
 
-        public int Address { get; set; }
+        public short Address { get; set; }
+
+        public RemotePointType RemotePointType { get; set; }
 
         public override void Update(DERMS.IdentifiedObject cimObject)
         {
@@ -26,7 +29,10 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
             }
 
             ConductingEquipmentID = cimMeasurement.PowerSystemResource.ID;
-            Address = cimMeasurement.MeasurementAddress;
+            Address = (short)cimMeasurement.MeasurementAddress;
+            RemotePointType = ResolveRemotePointType(cimMeasurement.Direction);
         }
+
+        protected abstract RemotePointType ResolveRemotePointType(DERMS.SignalDirection signalDirection);
     }
 }

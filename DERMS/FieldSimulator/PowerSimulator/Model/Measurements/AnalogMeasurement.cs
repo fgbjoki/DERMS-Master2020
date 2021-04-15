@@ -1,4 +1,6 @@
 ﻿using System;
+using FieldSimulator.Model;
+using DERMS;
 
 namespace FieldSimulator.PowerSimulator.Model.Measurements
 {
@@ -6,12 +8,7 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
     {
         ActivePower,
         DeltaPower,
-    }
-
-    public enum AnalogRemotePointType
-    {
-        InputRegister,
-        HoldingRegister
+        Percent
     }
 
     public class AnalogMeasurement : Measurement
@@ -21,13 +18,14 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
         }
 
         public MeasurementType MeasurementType { get; set; }
-        public AnalogRemotePointType RemotePointType { get; set; }
+
+        public float Value { get; set; }
 
         public override void Update(DERMS.IdentifiedObject cimObject)
         {
             base.Update(cimObject);
 
-            DERMS.Analog analogCim = cimObject as DERMS.Analog;
+            Analog analogCim = cimObject as Analog;
 
             if (analogCim == null)
             {
@@ -35,7 +33,21 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
             }
 
             MeasurementType = MapCimMeasurementType(analogCim.MeasurementType);
-            RemotePointType = MapRemotePointType(analogCim.Direction);
+            Value = analogCim.CurrentValue;
+        }
+
+        protected override RemotePointType ResolveRemotePointType(SignalDirection signalDirection)
+        {
+            switch (signalDirection)
+            {
+                case SignalDirection.Read:
+                    return RemotePointType.InputRegister;
+                case SignalDirection.ReadWrite:
+                case SignalDirection.Write:
+                    return RemotePointType.HoldingRegister;
+                default:
+                    throw new ArgumentException($"Analog remote point cannot be defined with direction: {signalDirection}");
+            }
         }
 
         private MeasurementType MapCimMeasurementType(DERMS.MeasurementType cimMeasurementType)
@@ -46,20 +58,10 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
                     return MeasurementType.ActivePower;
                 case DERMS.MeasurementType.DeltaPower:
                     return MeasurementType.DeltaPower;
+                case DERMS.MeasurementType.Percent:
+                    return MeasurementType.Percent;
                 default:
                     throw new ArgumentException($"Cannot map cim measurement type: {cimMeasurementType}");
-            }
-        }
-
-        private AnalogRemotePointType MapRemotePointType(DERMS.SignalDirection direction)
-        {
-            if (direction == DERMS.SignalDirection.Read)
-            {
-                return AnalogRemotePointType.InputRegister;
-            }
-            else
-            {
-                return AnalogRemotePointType.HoldingRegister;
             }
         }
     }

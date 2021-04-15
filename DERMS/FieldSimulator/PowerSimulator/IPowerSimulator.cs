@@ -1,5 +1,4 @@
-﻿using CIM.Model;
-using FieldSimulator.PowerSimulator.SchemaLoader;
+﻿using FieldSimulator.PowerSimulator.SchemaLoader;
 
 namespace FieldSimulator.PowerSimulator
 {
@@ -7,6 +6,6 @@ namespace FieldSimulator.PowerSimulator
     {
         void Start();
         void Stop();
-        void CreateModel(ConcreteModel concreteModel);
+        void LoadModel(EntityStorage slaveModel);
     }
 }

@@ -1,32 +1,26 @@
 ﻿using FieldSimulator.PowerSimulator.SchemaLoader;
 using CIM.Model;
 using FieldSimulator.PowerSimulator.Model;
-using System.Collections.Generic;
-using Common.AbstractModel;
-using System;
 using FieldSimulator.PowerSimulator.Model.Graph;
+using FieldSimulator.Modbus.SchemaAligner;
 
 namespace FieldSimulator.PowerSimulator
 {
     public class PowerSimulator : IPowerSimulator
     {
         private ISchemaLoader schemaLoader;
-        private ModelCreator modelCreator;
 
         private PowerGridGraphSimulator graphSimulator;
 
-        public PowerSimulator()
+        private IRemotePointSchemaModelAligner schemaAligner;
+
+        public PowerSimulator(IRemotePointSchemaModelAligner schemaAligner)
         {
-            schemaLoader = new SchemaCIMLoader();
-            modelCreator = new ModelCreator();
+            this.schemaAligner = schemaAligner;
+
+            schemaLoader = new SchemaCIMLoader(new ModelCreator());
 
             graphSimulator = new PowerGridGraphSimulator();
-        }
-
-        public void CreateModel(ConcreteModel concreteModel)
-        {
-            EntityStorage entityStorage = modelCreator.CreateModel(concreteModel);
-            graphSimulator.CreateGraphs(entityStorage);
         }
 
         public ConcreteModel LoadSchema(string xmlFilePath)
@@ -42,6 +36,17 @@ namespace FieldSimulator.PowerSimulator
         public void Stop()
         {
             // TODO
+        }
+
+        public EntityStorage CreateSlaveModel(ConcreteModel concreteModel)
+        {
+            return schemaLoader.CreateSlaveModel(concreteModel);
+        }
+
+        public void LoadModel(EntityStorage slaveModel)
+        {
+            graphSimulator.CreateGraphs(slaveModel);
+            schemaAligner.AlignRemotePoints(slaveModel);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace FieldSimulator.Model
 {
-    class DiscreteInputWrapper : BasePoint
+    public class DiscreteInputWrapper : DiscretePointWrapper
     {
-        public DiscreteInputWrapper(int index) : base(PointType.DiscreteInput, index)
+        public DiscreteInputWrapper(int index) : base(RemotePointType.DiscreteInput, index)
         {
         }
     }

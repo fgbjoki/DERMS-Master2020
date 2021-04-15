@@ -3,16 +3,25 @@ using FTN.ESI.SIMES.CIM.CIMAdapter;
 using System.IO;
 using System.Reflection;
 using System;
+using FieldSimulator.PowerSimulator.Model;
 
 namespace FieldSimulator.PowerSimulator.SchemaLoader
 {
     public class SchemaCIMLoader : ISchemaLoader
     {
         private CIMAdapter cimAdapter;
+        private ModelCreator modelCreator;
 
-        public SchemaCIMLoader()
+        public SchemaCIMLoader(ModelCreator modelCreator)
         {
+            this.modelCreator = modelCreator;
+
             cimAdapter = new CIMAdapter();
+        }
+
+        public EntityStorage CreateSlaveModel(ConcreteModel concreteModel)
+        {
+            return modelCreator.CreateModel(concreteModel);
         }
 
         public ConcreteModel LoadSchema(string xmlFilePath)

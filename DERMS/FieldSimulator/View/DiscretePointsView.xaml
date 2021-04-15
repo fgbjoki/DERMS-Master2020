@@ -36,11 +36,11 @@
 
                 <materialDesign:DataGridTextColumn
                             MinWidth="100"
-                            Header="Index"
+                            Header="Address"
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                     <materialDesign:DataGridTextColumn.Binding>
-                        <Binding Path="Index"/>
+                        <Binding Path="Address"/>
                     </materialDesign:DataGridTextColumn.Binding>
                 </materialDesign:DataGridTextColumn>
 

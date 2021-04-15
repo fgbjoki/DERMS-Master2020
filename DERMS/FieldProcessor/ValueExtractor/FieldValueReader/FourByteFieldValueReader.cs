@@ -25,8 +25,8 @@ namespace FieldProcessor.ValueExtractor
                 int joinedValue;
                 ushort* iterator = (ushort*)&joinedValue;
 
-                *(iterator+ 1) = first;
-                *iterator = second;
+                *iterator = first;
+                *(iterator + 1) = second;
 
                 return joinedValue;
             }

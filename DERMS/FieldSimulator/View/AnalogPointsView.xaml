@@ -34,7 +34,7 @@
                             IsReadOnly="True"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                 <materialDesign:DataGridTextColumn.Binding>
-                    <Binding Path="Index"/>
+                    <Binding Path="Address"/>
                 </materialDesign:DataGridTextColumn.Binding>
             </materialDesign:DataGridTextColumn>
 
