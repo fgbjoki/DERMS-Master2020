@@ -23,6 +23,7 @@ namespace FieldSimulator.ViewModel
             CommandOpenFileDialog = new OpenFileDialogCommand(this);
             LoadSchemaCommand = new LoadSchemaCommand(this);
             StartSimulationCommand = new StartSimulationCommand(this);
+            StopSimulationCommand = new StopSimulationCommand(this);
 
             PowerGridSimulatorState = new IdlePowerGridSimulatorState(this, powerSimulator);
         }
@@ -32,6 +33,8 @@ namespace FieldSimulator.ViewModel
         public ICommand LoadSchemaCommand { get; set; }
 
         public ICommand StartSimulationCommand { get; set; }
+
+        public ICommand StopSimulationCommand { get; set; }
 
         public PowerGridSimulatorState PowerGridSimulatorState
         {

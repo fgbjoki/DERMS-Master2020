@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     public class WeatherDayXMLParser
     {

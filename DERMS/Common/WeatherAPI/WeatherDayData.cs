@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     public class WeatherDayData : IEnumerable<WeatherHourData>
     {
@@ -33,6 +33,14 @@ namespace Common.WeatherApiTester
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new WeatherDataEnumerator(dataByHour);
+        }
+
+        public WeatherHourData this[int hour]
+        {
+            get
+            {
+                return dataByHour[hour];
+            }
         }
     }
 }

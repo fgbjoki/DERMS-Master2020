@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml.Linq;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     public class WeatherApiClient : IWeatherClient
     {
@@ -22,7 +23,7 @@ namespace Common.WeatherApiTester
             url = API_URL.Replace(KEY_PARAMETER, apiKey).Replace(CITY_PARAMETER, city);
         }
 
-        public WeatherDayData GetNextDayWeatherData()
+        public WeatherDayData GetCurrentDayWeatherData()
         {
             WeatherDayData dayData = null;
 
@@ -54,6 +55,42 @@ namespace Common.WeatherApiTester
             XElement xml = XElement.Parse(xmlContent);
 
             returnData = WeatherDayXMLParser.ParseXMLElements(xml)[0];
+
+            return returnData;
+        }
+
+        public List<WeatherDayData> GetWeatherData(int days)
+        {
+            List<WeatherDayData> daysData = null;
+
+            try
+            {
+                daysData = DownloadNextDaysWeatherData(days);
+            }
+            catch (Exception e)
+            {
+                // log exception
+            }
+
+            return daysData;
+        }
+
+        private List<WeatherDayData> DownloadNextDaysWeatherData(int days)
+        {
+            List<WeatherDayData> returnData;
+
+            string additionalParameter = $"days={days}";
+            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER) + additionalParameter;
+            string xmlContent = String.Empty;
+
+            using (var client = new WebClient())
+            {
+                xmlContent = client.DownloadString(tempUrl);
+            }
+
+            XElement xml = XElement.Parse(xmlContent);
+
+            returnData = WeatherDayXMLParser.ParseXMLElements(xml);
 
             return returnData;
         }

@@ -70,7 +70,7 @@
 	</cim:EnergyConsumer>
 	
 	<cim:EnergyStorage rdf:ID="">
-		<cim:EnergyStorage.capacity> </cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity> </cim:EnergyStorage.capacity> <!-- Wh -->
 		<cim:EnergyStorage.Generator rdf:resource="#"/>
 		<cim:EnergyStorage.state></cim:EnergyStorage.state>
 		<cim:EnergyStorage.stateOfCharge></cim:EnergyStorage.stateOfCharge>

@@ -2,6 +2,7 @@
 using FieldSimulator.Modbus;
 using FieldSimulator.Modbus.SchemaAligner;
 using FieldSimulator.PowerSimulator;
+using FieldSimulator.PowerSimulator.Model.Graph.GraphTraverser;
 using FieldSimulator.PowerSimulator.Storage;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -32,13 +33,15 @@ namespace FieldSimulator.ViewModel
 
         private PowerGridSimulatorStorage powerGridSimulatorStorage;
         private RemotePointValueChangedPublisher simulatorValuePublisher;
+        private BreakerTopologyManipulation breakerManipulation;
 
         private string label;
 
         public MainViewModel() : base("MainViewModel")
         {
             modelAligner = new RemotePointSchemaAligner();
-            powerGridSimulatorStorage = new PowerGridSimulatorStorage();
+            breakerManipulation = new BreakerTopologyManipulation();
+            powerGridSimulatorStorage = new PowerGridSimulatorStorage(breakerManipulation);
 
             slave = new ModbusSlave(22222);
             slave.StartServer();
@@ -47,7 +50,8 @@ namespace FieldSimulator.ViewModel
             modelAligner.LoadSlaveRemotePoints(pointController.SlaveRemotePoints);
 
             simulatorValuePublisher = new RemotePointValueChangedPublisher(pointController.SlaveRemotePoints);
-            powerSimulator = new PowerSimulator.PowerSimulator(modelAligner, powerGridSimulatorStorage, simulatorValuePublisher);
+            powerGridSimulatorStorage.Publisher = simulatorValuePublisher;
+            powerSimulator = new PowerSimulator.PowerSimulator(modelAligner, powerGridSimulatorStorage, simulatorValuePublisher, breakerManipulation);
 
             InitializeViewModels();
             InitializeCommands();    

@@ -37,8 +37,6 @@ namespace FieldSimulator.Commands.PowerSimulator
         {
             PowerGridSimulatorState simulatorState = (PowerGridSimulatorState)parameter;
 
-            // TODO
-
             viewModel.ChangeSimulatorState(simulatorState.LoadSchema());
         }
     }

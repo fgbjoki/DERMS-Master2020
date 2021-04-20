@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     public interface IWeatherClient
     {
-        WeatherDayData GetNextDayWeatherData();
+        WeatherDayData GetCurrentDayWeatherData();
+        List<WeatherDayData> GetWeatherData(int days);
     }
 }

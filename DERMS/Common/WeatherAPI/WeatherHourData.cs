@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     [Serializable]
     [XmlRoot(ElementName = "hour")]

@@ -1,12 +1,14 @@
 ﻿using FieldSimulator.PowerSimulator.SchemaLoader;
 using CIM.Model;
 using FieldSimulator.PowerSimulator.Model;
-using FieldSimulator.PowerSimulator.Model.Graph;
 using FieldSimulator.Modbus.SchemaAligner;
 using FieldSimulator.PowerSimulator.Storage;
 using Common.AbstractModel;
 using System.Linq;
 using FieldSimulator.PowerSimulator.Model.Measurements;
+using FieldSimulator.PowerSimulator.GraphSimulator;
+using FieldSimulator.PowerSimulator.Model.Graph.GraphTraverser;
+using FieldSimulator.PowerSimulator.Model.Equipment;
 
 namespace FieldSimulator.PowerSimulator
 {
@@ -22,15 +24,18 @@ namespace FieldSimulator.PowerSimulator
 
         private PowerGridSimulatorStorage powerGridSimulatorStorage;
 
-        public PowerSimulator(IRemotePointSchemaModelAligner schemaAligner, PowerGridSimulatorStorage powerGridSimulatorStorage, RemotePointValueChangedPublisher valuePublisher)
+        private BreakerTopologyManipulation breakerManipulator;
+
+        public PowerSimulator(IRemotePointSchemaModelAligner schemaAligner, PowerGridSimulatorStorage powerGridSimulatorStorage, RemotePointValueChangedPublisher valuePublisher, BreakerTopologyManipulation breakerManipulator)
         {
             this.schemaAligner = schemaAligner;
             this.valuePublisher = valuePublisher;
+            this.breakerManipulator = breakerManipulator;
             this.powerGridSimulatorStorage = powerGridSimulatorStorage;
 
             schemaLoader = new SchemaCIMLoader(new ModelCreator());
 
-            graphSimulator = new PowerGridGraphSimulator(powerGridSimulatorStorage);
+            graphSimulator = new PowerGridGraphSimulator(powerGridSimulatorStorage, 5);
         }
 
         public ConcreteModel LoadSchema(string xmlFilePath)
@@ -40,12 +45,12 @@ namespace FieldSimulator.PowerSimulator
 
         public void Start()
         {
-            // TODO
+            graphSimulator.Start();
         }
 
         public void Stop()
         {
-            // TODO
+            graphSimulator.Stop();
         }
 
         public EntityStorage CreateSlaveModel(ConcreteModel concreteModel)
@@ -55,11 +60,13 @@ namespace FieldSimulator.PowerSimulator
 
         public void LoadModel(EntityStorage slaveModel)
         {
-            powerGridSimulatorStorage.Clear();
+            powerGridSimulatorStorage.ReloadStorages();
 
             graphSimulator.CreateGraphs(slaveModel);
             schemaAligner.AlignRemotePoints(slaveModel);
 
+            graphSimulator.LoadBreakerBranches(breakerManipulator);
+            PopulateBreakerMapping(slaveModel);
             PopulateStorage(slaveModel);
         }
 
@@ -73,6 +80,14 @@ namespace FieldSimulator.PowerSimulator
             foreach (var discreteMeasurement in slaveModel.Storage[DMSType.MEASUREMENTDISCRETE].Values.Cast<DiscreteMeasurement>())
             {
                 powerGridSimulatorStorage.AddItem(discreteMeasurement.RemotePointType, discreteMeasurement.Address, discreteMeasurement.Value);
+            }
+        }
+
+        private void PopulateBreakerMapping(EntityStorage slaveModel)
+        {
+            foreach (var breaker in slaveModel.Storage[DMSType.BREAKER].Values.Cast<Breaker>())
+            {
+                breakerManipulator.AddBreakerMapping(breaker.Measurements[0].Address, breaker.GlobalId);
             }
         }
     }

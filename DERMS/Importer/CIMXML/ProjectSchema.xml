@@ -359,7 +359,7 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:ID="EnergyStorage2_2_StateOfCharge">
-		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>1</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
@@ -680,7 +680,7 @@
 	</cim:EnergyStorage>
 	
 	<cim:Analog rdf:ID="EnergyStorage3_2_ActivePower">
-		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
@@ -1124,7 +1124,7 @@
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>30</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage11_1"/>
 		<cim:IdentifiedObject.description>EnergyStorage11_1 state of charge</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage11_1_StateOfCharge</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>EnergyStorage11_1 StateOfCharge</ftn:IdentifiedObject.name>

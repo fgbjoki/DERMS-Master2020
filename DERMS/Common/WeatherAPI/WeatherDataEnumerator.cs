@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Common.WeatherApiTester
+namespace Common.WeatherAPI
 {
     class WeatherDataEnumerator : IEnumerator<WeatherHourData>
     {
