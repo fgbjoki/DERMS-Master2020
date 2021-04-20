@@ -29,6 +29,7 @@
         BorderBrush="Black"
         HeadersVisibility="All"
         Margin="0,0,40,0">
+        
         <DataGrid.RowStyle>
             <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
                 <Style.Triggers>
@@ -36,11 +37,13 @@
                         <Setter Property="Background" Value="Red"></Setter>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Alarm}" Value="LOW_ALARM">
-                        <Setter Property="Background" Value="Green"></Setter>
+                        <Setter Property="Background" Value="Blue"></Setter>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
         </DataGrid.RowStyle>
+        
+        
         <DataGrid.Columns>
             
             <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
@@ -80,6 +83,7 @@
                 </DataGridTextColumn.Binding>
                 
             </DataGridTextColumn>
+            
             <DataGridTextColumn
                             MinWidth="100"
                             Header="MinValue"
@@ -89,6 +93,7 @@
                     <Binding Path="MinValue"/>
                 </DataGridTextColumn.Binding>
             </DataGridTextColumn>
+            
             <DataGridTextColumn
                             MinWidth="100"
                             Header="MaxValue"
@@ -98,6 +103,7 @@
                     <Binding Path="MaxValue"/>
                 </DataGridTextColumn.Binding>
             </DataGridTextColumn>
+            
             <DataGridTextColumn
                             MinWidth="100"
                             Header="Alarm"
@@ -107,6 +113,7 @@
                     <Binding Path="Alarm"/>
                 </DataGridTextColumn.Binding>
             </DataGridTextColumn>
+            
         </DataGrid.Columns>
         
     </DataGrid>

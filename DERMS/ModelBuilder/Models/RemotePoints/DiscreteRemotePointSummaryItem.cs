@@ -13,6 +13,7 @@ namespace ClientUI.Models.RemotePoints
         private int value;
         private int normalValue;
         private int dom;
+        private DiscreteAlarming alarm;
 
         public int Value
         {
@@ -32,6 +33,12 @@ namespace ClientUI.Models.RemotePoints
             set { SetProperty(ref dom, value); }
         }
 
+        public DiscreteAlarming Alarm
+        {
+            get { return alarm; }
+            set { SetProperty(ref alarm, value); }
+        }
+
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {
             base.UpdateProperties(entity);
@@ -40,6 +47,7 @@ namespace ClientUI.Models.RemotePoints
             Value = item.Value;
             NormalValue = item.NormalValue;
             DOM = item.DOMManipulation;
+            Alarm = item.Alarm;
         }
 
         protected override void UpdateProperties(IdentifiedObject entity)
@@ -48,7 +56,9 @@ namespace ClientUI.Models.RemotePoints
 
             DiscreteRemotePointSummaryItem item = entity as DiscreteRemotePointSummaryItem;
             Value = item.Value;
+            NormalValue = item.NormalValue;
             DOM = item.DOM;
+            Alarm = item.Alarm;
         }
     }
 }

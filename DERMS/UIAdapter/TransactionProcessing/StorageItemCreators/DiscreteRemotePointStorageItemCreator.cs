@@ -19,10 +19,11 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
             {
                 Name = rd.GetProperty(ModelCode.IDOBJ_NAME).AsString(),
                 Address = rd.GetProperty(ModelCode.MEASUREMENT_ADDRESS).AsInt(),
-                Value = rd.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE).AsInt(),
             };
 
             PopulateNormalOpenProeprty(rd, affectedEntities, remotePoint);
+
+            remotePoint.Value = rd.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE).AsInt();
 
             return remotePoint;
         }
