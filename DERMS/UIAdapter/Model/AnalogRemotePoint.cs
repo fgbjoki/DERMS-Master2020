@@ -49,6 +49,7 @@ namespace UIAdapter.Model
         protected override void PopulateDTO(AnalogRemotePointSummaryDTO dto)
         {
             base.PopulateDTO(dto);
+
             dto.Value = Value;
             dto.MaxValue = MaxValue;
             dto.MinValue = MinValue;

@@ -13,5 +13,8 @@ namespace Common.UIDataTransferObject.RemotePoints
 
         [DataMember]
         public int DOMManipulation { get; set; }
+
+        [DataMember]
+        public DiscreteAlarming Alarm { get; set; }
     }
 }

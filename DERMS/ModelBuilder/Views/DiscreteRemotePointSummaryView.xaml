@@ -30,6 +30,16 @@
         HeadersVisibility="All"
         Margin="0,0,40,0">
 
+        <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Alarm}" Value="ABNORMAL_ALARM">
+                        <Setter Property="Background" Value="Red"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.RowStyle>
+
         <DataGrid.Columns>
 
             <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
@@ -93,6 +103,16 @@
                     <Binding Path="DOM"/>
                 </DataGridTextColumn.Binding>
 
+            </DataGridTextColumn>
+
+            <DataGridTextColumn
+                            MinWidth="100"
+                            Header="Alarm"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn.Binding>
+                    <Binding Path="Alarm"/>
+                </DataGridTextColumn.Binding>
             </DataGridTextColumn>
 
         </DataGrid.Columns>
