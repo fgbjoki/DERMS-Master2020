@@ -1,4 +1,5 @@
-﻿using FieldSimulator.PowerSimulator.Model.Connectivity;
+﻿using FieldSimulator.PowerSimulator.Calculations;
+using FieldSimulator.PowerSimulator.Model.Connectivity;
 using FieldSimulator.PowerSimulator.Model.Measurements;
 using System.Collections.Generic;
 
@@ -15,5 +16,10 @@ namespace FieldSimulator.PowerSimulator.Model.Equipment
         public List<Terminal> Terminals { get; set; }
 
         public List<Measurement> Measurements { get; set; }
+
+        public virtual Calculation CreateCalculation()
+        {
+            return null;
+        }
     }
 }

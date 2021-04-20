@@ -1,7 +1,9 @@
 ﻿using FieldSimulator.PowerSimulator.Model.Graph.Graphs;
 using FieldSimulator.PowerSimulator.Model.Graph.Graphs.Branches;
 using FieldSimulator.PowerSimulator.Model.Graph.Graphs.Nodes;
+using FieldSimulator.PowerSimulator.Storage.Weather;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace FieldSimulator.PowerSimulator.Model.Graph.TopologyGraphCreator
 {
@@ -9,8 +11,12 @@ namespace FieldSimulator.PowerSimulator.Model.Graph.TopologyGraphCreator
     {
         private Dictionary<long, List<TopologyBreakerGraphBranch>> breakerBranches;
 
+        private ReaderWriterLockSlim locker;
+
         public TopologyGraph() : base()
         {
+            locker = new ReaderWriterLockSlim();
+
             breakerBranches = new Dictionary<long, List<TopologyBreakerGraphBranch>>();
         }
 
@@ -37,5 +43,14 @@ namespace FieldSimulator.PowerSimulator.Model.Graph.TopologyGraphCreator
 
             return branches;
         }
+
+        public StorageLock StorageReaderLock
+        {
+            get
+            {
+                return new StorageLock(locker);
+            }
+        }
+
     }
 }

@@ -30,6 +30,7 @@
                     <Button Margin="10" Content="Browse" Command="{Binding CommandOpenFileDialog}" CommandParameter="{Binding PowerGridSimulatorState, Mode=TwoWay}"/>
                     <Button Content="Load Schema" Command="{Binding LoadSchemaCommand}" CommandParameter="{Binding PowerGridSimulatorState}" Margin="10"/>
                     <Button Content="Start Simulation" Command="{Binding StartSimulationCommand}" CommandParameter="{Binding PowerGridSimulatorState}" Margin="10"/>
+                    <Button Content="Stop Simulation" Command="{Binding StopSimulationCommand}" CommandParameter="{Binding PowerGridSimulatorState}" Margin="10"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

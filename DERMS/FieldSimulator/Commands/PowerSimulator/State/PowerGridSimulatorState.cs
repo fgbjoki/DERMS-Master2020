@@ -15,11 +15,12 @@ namespace FieldSimulator.Commands.PowerSimulator.State
         }
 
         public abstract PowerGridSimulatorState LoadFile(string path);
-        public abstract PowerGridSimulatorState StartSimulation();
+        public abstract PowerGridSimulatorState StartStopSimulator();
         public abstract PowerGridSimulatorState LoadSchema();
 
         public abstract bool CanLoadFile();
         public abstract bool CanStartSimulation();
+        public abstract bool CanStopSimulation();
         public abstract bool CanLoadSchema();
     }
 }

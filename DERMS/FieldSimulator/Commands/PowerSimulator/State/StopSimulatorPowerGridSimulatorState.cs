@@ -4,9 +4,9 @@ using FieldSimulator.ViewModel;
 
 namespace FieldSimulator.Commands.PowerSimulator.State
 {
-    public class StartSimulatorPowerGridSimulatorState : PowerGridSimulatorState
+    public class StopSimulatorPowerGridSimulatorState : PowerGridSimulatorState
     {
-        public StartSimulatorPowerGridSimulatorState(IPowerGridSimulatorViewModel viewModel, IPowerSimulator simulator) : base(viewModel, simulator)
+        public StopSimulatorPowerGridSimulatorState(IPowerGridSimulatorViewModel viewModel, IPowerSimulator simulator) : base(viewModel, simulator)
         {
         }
 
@@ -22,12 +22,12 @@ namespace FieldSimulator.Commands.PowerSimulator.State
 
         public override bool CanStartSimulation()
         {
-            return false;
+            return true;
         }
 
         public override bool CanStopSimulation()
         {
-            return true;
+            return false;
         }
 
         public override PowerGridSimulatorState LoadFile(string path)
@@ -43,7 +43,7 @@ namespace FieldSimulator.Commands.PowerSimulator.State
         public override PowerGridSimulatorState StartStopSimulator()
         {
             simulator.Start();
-            return new StopSimulatorPowerGridSimulatorState(viewModel, simulator);
+            return new StartSimulatorPowerGridSimulatorState(viewModel, simulator);
         }
     }
 }

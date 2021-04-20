@@ -57,7 +57,7 @@ namespace FieldSimulator.PowerSimulator.Storage
         {
             int key = GetRemotePointHashCode(remotePointType, address);
 
-            if (EntityExists(remotePointType, address))
+            if (!EntityExists(remotePointType, address))
             {
                 return false;
             }
@@ -69,11 +69,6 @@ namespace FieldSimulator.PowerSimulator.Storage
             locker.ExitWriteLock();
 
             return true;
-        }
-
-        private int GetRemotePointHashCode(RemotePointType remotePointType, ushort address)
-        {
-            return (ushort)remotePointType | (address << sizeof(ushort) * 8);
         }
 
         public bool EntityExists(RemotePointType remotePointType, ushort address)
@@ -88,6 +83,11 @@ namespace FieldSimulator.PowerSimulator.Storage
             locker.ExitReadLock();
 
             return entityExists;
+        }
+
+        private int GetRemotePointHashCode(RemotePointType remotePointType, ushort address)
+        {
+            return (ushort)remotePointType | (address << sizeof(ushort) * 8);
         }
     }
 }

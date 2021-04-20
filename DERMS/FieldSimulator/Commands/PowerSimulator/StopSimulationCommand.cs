@@ -9,11 +9,11 @@ using System.Windows.Input;
 
 namespace FieldSimulator.Commands.PowerSimulator
 {
-    public class StartSimulationCommand : ICommand
+    class StopSimulationCommand : ICommand
     {
         private IPowerGridSimulatorViewModel viewModel;
 
-        public StartSimulationCommand(IPowerGridSimulatorViewModel viewModel)
+        public StopSimulationCommand(IPowerGridSimulatorViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
@@ -33,7 +33,9 @@ namespace FieldSimulator.Commands.PowerSimulator
 
             PowerGridSimulatorState simulatorState = (PowerGridSimulatorState)parameter;
 
-            return simulatorState.CanStartSimulation();
+            bool isSimulatorStarted = simulatorState is StartSimulatorPowerGridSimulatorState;
+
+            return isSimulatorStarted && simulatorState.CanStopSimulation();
         }
 
         public void Execute(object parameter)

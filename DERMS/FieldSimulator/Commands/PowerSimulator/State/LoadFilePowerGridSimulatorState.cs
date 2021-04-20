@@ -1,6 +1,5 @@
 ﻿using FieldSimulator.ViewModel;
 using FieldSimulator.PowerSimulator;
-using CIM.Model;
 
 namespace FieldSimulator.Commands.PowerSimulator.State
 {
@@ -28,6 +27,11 @@ namespace FieldSimulator.Commands.PowerSimulator.State
             return false;
         }
 
+        public override bool CanStopSimulation()
+        {
+            return false;
+        }
+
         public override PowerGridSimulatorState LoadFile(string path)
         {
             this.path = path;
@@ -44,7 +48,7 @@ namespace FieldSimulator.Commands.PowerSimulator.State
             return new LoadSchemaPowerGridSimulatorState(viewModel, simulator);
         }
 
-        public override PowerGridSimulatorState StartSimulation()
+        public override PowerGridSimulatorState StartStopSimulator()
         {
             return this;
         }
