@@ -39,6 +39,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
             TopologyGraph newGraph = newGraphs.First() as TopologyGraph;
 
             newGraph.LoadBreakerBranches(GetBreakerBranches());
+            newGraph.LoadBreakerBranches(corrector.GetBreakerBranches());
 
             return newGraphs;
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace CalculationEngine.Graphs.GraphProcessors
 {
@@ -12,6 +14,14 @@ namespace CalculationEngine.Graphs.GraphProcessors
         protected BaseGraphProcessor()
         {
             graphs = new Dictionary<long, GraphType>();
+        }
+
+        public virtual AutoResetEvent AlignEvent
+        {
+            set
+            {
+                
+            }
         }
 
         public virtual bool AddGraph(GraphType graph)

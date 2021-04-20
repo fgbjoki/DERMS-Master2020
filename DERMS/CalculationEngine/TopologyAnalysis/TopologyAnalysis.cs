@@ -19,27 +19,39 @@ namespace CalculationEngine.TopologyAnalysis
         private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
         private ITopologyModifier topologyModifier;
 
-        public TopologyAnalysis(IStorage<DiscreteRemotePoint> discreteRemotePointStorage) : base()
+        private Thread discreteValueAligner;
+        private CancellationTokenSource cancellationTokenSource;
+        private AutoResetEvent commitedEvent;
+
+        public TopologyAnalysis(IStorage<DiscreteRemotePoint> discreteRemotePointStorage, BreakerMessageMapping breakerMessageMapping) : base()
         {
             graphLocker = new ReaderWriterLockSlim();
 
             topologyModifier = new TopologyModifier(this, discreteRemotePointStorage);
 
+            this.breakerMessageMapping = breakerMessageMapping;
             this.discreteRemotePointStorage = discreteRemotePointStorage;
+
+            cancellationTokenSource = new CancellationTokenSource();
+            discreteValueAligner = new Thread(() => AlignBreakerStates(cancellationTokenSource.Token));
+            discreteValueAligner.Start();
         }
 
         public void ChangeBreakerValue(long breakerGid, int rawBreakerValue)
         {
             foreach (var graph in graphs)
             {
-                TopologyBreakerGraphBranch branch = graph.Value.GetBreakerBranch(breakerGid);
+                List<TopologyBreakerGraphBranch> branches = graph.Value.GetBreakerBranches(breakerGid);
 
-                if (branch == null)
+                if (branches == null)
                 {
                     continue;
                 }
 
-                branch.BreakerState = breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue);
+                foreach (var branch in branches)
+                {
+                    branch.BreakerState = breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue);
+                }              
             }
         }
 
@@ -72,11 +84,6 @@ namespace CalculationEngine.TopologyAnalysis
             return graph.GetNode(rootGlobalId);
         }
 
-        protected override IEnumerable<long> GetRootsGlobalId(TopologyGraph graph)
-        {
-            return graph.GetRoots().Select(x => x.Item);
-        }
-
         public IEnumerable<ISubscription> GetSubscriptions()
         {
             return new List<ISubscription>() { new Subscription(Topic.DiscreteRemotePointChange, new BreakerStateChangedTopologyAnalysisDynamicHandler(topologyModifier, discreteRemotePointStorage)) };
@@ -94,6 +101,35 @@ namespace CalculationEngine.TopologyAnalysis
             }
 
             return null;
+        }
+
+        public override AutoResetEvent AlignEvent
+        {
+            set { commitedEvent = value; }
+        }
+
+        protected override IEnumerable<long> GetRootsGlobalId(TopologyGraph graph)
+        {
+            return graph.GetRoots().Select(x => x.Item);
+        }
+
+        private void AlignBreakerStates(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                discreteRemotePointStorage.Commited.WaitOne();
+                commitedEvent.WaitOne();
+
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    continue;
+                }
+
+                foreach (var discreteRemotePoint in discreteRemotePointStorage.GetAllEntities())
+                {
+                    ChangeBreakerValue(discreteRemotePoint.BreakerGid, discreteRemotePoint.Value);
+                }
+            }
         }
     }
 }

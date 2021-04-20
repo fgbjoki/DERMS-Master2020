@@ -27,10 +27,10 @@ namespace FieldSimulator.Modbus.ValueChangedHandler
             switch (pointType)
             {
                 case RemotePointType.Coil:
-                    modbusSlave.Coils[address] = value == 1 ? true : false;
+                    modbusSlave.Coils[address + 1] = value == 1 ? true : false;
                     break;
                 case RemotePointType.DiscreteInput:
-                    modbusSlave.DiscreteInputs[address] = value == 1 ? true : false;
+                    modbusSlave.DiscreteInputs[address + 1] = value == 1 ? true : false;
                     break;
             }
 

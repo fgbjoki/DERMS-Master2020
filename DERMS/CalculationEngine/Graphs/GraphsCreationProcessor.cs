@@ -14,6 +14,7 @@ using CalculationEngine.Model.Topology.Graph.Connectivity;
 using Common.Logger;
 using Common.ComponentStorage;
 using CalculationEngine.Model.Topology.Transaction;
+using System.Threading;
 
 namespace CalculationEngine.Graphs
 {
@@ -33,11 +34,16 @@ namespace CalculationEngine.Graphs
 
         private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
 
+        private AutoResetEvent commitedEvent;
+
         public GraphsCreationProcessor(ModelResourcesDesc modelResDesc, IStorage<DiscreteRemotePoint> discreteRemotePointStorage, IGraphProcessor<ISchemaGraph> schema, IGraphProcessor<TopologyGraph> topologyAnalysis)
         {
             this.schema = schema;
             this.topologyAnalysis = topologyAnalysis;
             this.discreteRemotePointStorage = discreteRemotePointStorage;
+
+            commitedEvent = new AutoResetEvent(false);
+            topologyAnalysis.AlignEvent = commitedEvent;
 
             schemaGraphCreator = new SchemaGraphCreator();
             topologyGraphCreator = new TopologyGraphCreator(new TopologyGraphBranchManipulator(), new TopologyBreakerGraphBranchManipulator());
@@ -71,6 +77,8 @@ namespace CalculationEngine.Graphs
                 {
                     topologyAnalysis.AddGraph(topologyGraph as TopologyGraph);
                 }
+
+                commitedEvent.Set();
 
                 foreach (var schemaGraph in schemaGraphs)
                 {

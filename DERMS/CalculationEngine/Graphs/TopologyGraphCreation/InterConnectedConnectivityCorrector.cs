@@ -9,10 +9,13 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
     public class InterConnectedConnectivityCorrector
     {
         private TopologyBreakerGraphBranchManipulator breakerBranchManipulator;
+        private List<TopologyBreakerGraphBranch> breakerBranches;
 
         public InterConnectedConnectivityCorrector(TopologyBreakerGraphBranchManipulator breakerBranchManipulator)
         {
             this.breakerBranchManipulator = breakerBranchManipulator;
+
+            breakerBranches = new List<TopologyBreakerGraphBranch>();
         }
 
         public void CorrectInterConnection(IMultipleRootGraph<TopologyGraphNode> graph)
@@ -26,11 +29,21 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
             TopologyGraphNode interConnectedBreaker = GetBreaker(connectivityNode);
             TopologyGraphNode secondConnectivityNode = GetOtherConnectivityNode(interConnectedBreaker, connectivityNode.Item);
 
-            breakerBranchManipulator.AddBranch(connectivityNode, secondConnectivityNode);
-            breakerBranchManipulator.AddBranch(secondConnectivityNode, connectivityNode);
+            TopologyBreakerGraphBranch breakerBranch = breakerBranchManipulator.AddBranch(connectivityNode, secondConnectivityNode) as TopologyBreakerGraphBranch;
+            breakerBranch.BreakerGlobalId = interConnectedBreaker.Item;
+            breakerBranches.Add(breakerBranch);
+
+            breakerBranch = breakerBranchManipulator.AddBranch(secondConnectivityNode, connectivityNode) as TopologyBreakerGraphBranch;
+            breakerBranch.BreakerGlobalId = interConnectedBreaker.Item;
+            breakerBranches.Add(breakerBranch);
 
             RemoveBreakerBranches(interConnectedBreaker, connectivityNode, secondConnectivityNode);
             graph.RemoveNode(interConnectedBreaker.Item);
+        }
+
+        public List<TopologyBreakerGraphBranch> GetBreakerBranches()
+        {
+            return breakerBranches;
         }
 
         private void RemoveBreakerBranches(TopologyGraphNode interConnectedBreaker, TopologyGraphNode firstConnectivityNode, TopologyGraphNode secondConnectivityNode)

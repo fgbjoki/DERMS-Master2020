@@ -2,6 +2,6 @@
 {
     public interface ITopologyModifier
     {
-        void Write(long discreteRemotePointGid, int rawValue);
+        void Write(long breakerGid, int rawValue);
     }
 }

@@ -10,6 +10,8 @@ using Common.ComponentStorage;
 using CalculationEngine.PubSub.DynamicHandlers;
 using Common.Logger;
 using Common.AbstractModel;
+using System;
+using System.Threading;
 
 namespace CalculationEngine.EnergyCalculators
 {
@@ -30,6 +32,9 @@ namespace CalculationEngine.EnergyCalculators
 
         private EnergyBalanceStorage energyBalanceStorage;
 
+        private Thread onCommitCalculationWorker;
+        private CancellationTokenSource tokenSource;
+
         public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController)
         {
             this.energyBalanceStorage = energyBalanceStorage;
@@ -45,6 +50,10 @@ namespace CalculationEngine.EnergyCalculators
             locker = new object();
 
             InitializeRecalculatingUnits();
+
+            tokenSource = new CancellationTokenSource();
+            onCommitCalculationWorker = new Thread(() => OnCommitCalculation(tokenSource.Token));
+            onCommitCalculationWorker.Start();
         }
 
         public void PerformCalculation()
@@ -68,9 +77,18 @@ namespace CalculationEngine.EnergyCalculators
                     calculation.Demand = demandValue;
                     calculation.Production = producedValue;
 
+                    LogCurrentEnergyBalance(calculation);
+
                     // TODO call commanding units, increase or decrease production or import less or more energy
                 }
             }
+        }
+
+        private void LogCurrentEnergyBalance(EnergyBalanceCalculation calculation)
+        {
+            Logger.Instance.Log($"Source: {calculation.EnergySourceGid}");
+            Logger.Instance.Log($"Demand: {calculation.Demand}");
+            Logger.Instance.Log($"Response: {calculation.Production}\n");
         }
 
         public void Recalculate(long measurementGid, float newMeasurementValue)
@@ -134,6 +152,21 @@ namespace CalculationEngine.EnergyCalculators
                 { DMSType.SOLARGENERATOR, energyProduction },
                 { DMSType.WINDGENERATOR, energyProduction },
             };
+        }
+
+        private void OnCommitCalculation(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                energyBalanceStorage.Commited.WaitOne();
+
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    continue;
+                }
+
+                PerformCalculation();
+            }
         }
     }
 }

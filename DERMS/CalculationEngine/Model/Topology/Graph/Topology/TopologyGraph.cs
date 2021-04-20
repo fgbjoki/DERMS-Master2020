@@ -5,28 +5,35 @@ namespace CalculationEngine.Model.Topology.Graph.Topology
 {
     public class TopologyGraph : BaseMultipleRootGraph<TopologyGraphNode>
     {
-        private Dictionary<long, TopologyBreakerGraphBranch> breakerBranches;
+        private Dictionary<long, List<TopologyBreakerGraphBranch>> breakerBranches;
 
         public TopologyGraph() : base()
         {
-            breakerBranches = new Dictionary<long, TopologyBreakerGraphBranch>();
+            breakerBranches = new Dictionary<long, List<TopologyBreakerGraphBranch>>();
         }
 
         public void LoadBreakerBranches(IEnumerable<TopologyBreakerGraphBranch> breakerBranches)
         {
             foreach (var breakerBranch in breakerBranches)
             {
-                this.breakerBranches.Add(breakerBranch.BreakerGlobalId, breakerBranch);
+                List<TopologyBreakerGraphBranch> branches;
+                if (!this.breakerBranches.TryGetValue(breakerBranch.BreakerGlobalId, out branches))
+                {
+                    branches = new List<TopologyBreakerGraphBranch>();
+                    this.breakerBranches.Add(breakerBranch.BreakerGlobalId, branches);
+                }
+
+                branches.Add(breakerBranch);
             }
         }
 
-        public TopologyBreakerGraphBranch GetBreakerBranch(long breakerGid)
+        public List<TopologyBreakerGraphBranch> GetBreakerBranches(long breakerGid)
         {
-            TopologyBreakerGraphBranch branch;
+            List<TopologyBreakerGraphBranch> branches;
 
-            breakerBranches.TryGetValue(breakerGid, out branch);
+            breakerBranches.TryGetValue(breakerGid, out branches);
 
-            return branch;
+            return branches;
         }
     }
 }

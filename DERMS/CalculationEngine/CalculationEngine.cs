@@ -69,7 +69,7 @@ namespace CalculationEngine
         private void InitializeGraphs()
         {
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
-            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePointStorage);
+            topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePointStorage, breakerMessageMapping);
             schemaRepresentation = new SchemaRepresentation();
         }
 
@@ -153,6 +153,8 @@ namespace CalculationEngine
             InitializeDynamicPublisher();
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
+
+            dynamicListenersManager.StartListening();
         }
 
         private void InitializeDynamicHandlers()

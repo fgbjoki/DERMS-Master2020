@@ -17,21 +17,13 @@ namespace CalculationEngine.TopologyAnalysis
             this.discreteStorage = discreteStorage;
         }
 
-        public void Write(long discreteRemotePointGid, int rawValue)
+        public void Write(long breakerGid, int rawValue)
         {
-            DiscreteRemotePoint discretePoint = discreteStorage.GetEntity(discreteRemotePointGid);
-
-            if (discretePoint == null)
-            {
-                Logger.Instance.Log($"[{GetType().Name}] Couldn't find discrete remote point with gid: {discretePoint.BreakerGid:X16}. Topology state might be in fault.");
-                return;
-            }
-
             ReaderWriterLockSlim locker = breakerManipulator.GetLock();
 
             locker.EnterWriteLock();
 
-            breakerManipulator.ChangeBreakerValue(discretePoint.BreakerGid, rawValue);
+            breakerManipulator.ChangeBreakerValue(breakerGid, rawValue);
 
             locker.ExitWriteLock();
         }
