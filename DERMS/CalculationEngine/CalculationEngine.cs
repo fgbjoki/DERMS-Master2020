@@ -19,11 +19,14 @@ using CalculationEngine.TransactionProcessing.Storage;
 using CalculationEngine.PubSub.DynamicListeners;
 using CalculationEngine.TransactionProcessing.Storage.EnergyBalance;
 using CalculationEngine.EnergyCalculators;
+using NServiceBus;
+using CalculationEngine.BreakerCommandValidation;
+using Common.Helpers.Breakers;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerLoopCommandingValidator
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -45,11 +48,13 @@ namespace CalculationEngine
 
         private SchemaRepresentation schemaRepresentation;
 
-        private IDynamicPublisher dynamicPublisher;
+        private DynamicPublisher dynamicPublisher;
 
         private DynamicListenersManager dynamicListenersManager;
 
         private EnergyBalanceCalculator energyBalanceCalculator;
+
+        private BreakerLoopCommandingValidator breakerCommandingValidator;
 
         public CalculationEngine()
         {
@@ -69,7 +74,11 @@ namespace CalculationEngine
         private void InitializeGraphs()
         {
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
+
             topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePointStorage, breakerMessageMapping);
+            breakerCommandingValidator = new BreakerLoopCommandingValidator(topologyAnalysis, discreteRemotePointStorage, breakerMessageMapping);
+            topologyAnalysis.BreakerLoopCommandingValidator = breakerCommandingValidator;
+
             schemaRepresentation = new SchemaRepresentation();
         }
 
@@ -126,9 +135,10 @@ namespace CalculationEngine
             transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage });
         }
 
-        private void InitializeDynamicPublisher()
+        private EndpointConfiguration InitializeDynamicPublisher()
         {
-            dynamicPublisher = new DynamicPublisher(serviceName);
+            dynamicPublisher = new DynamicPublisher();
+            return dynamicPublisher.ConfigureEndpointInstance(serviceName);
         }
 
         private void LoadConfigurationFromAppConfig()
@@ -150,15 +160,17 @@ namespace CalculationEngine
 
         private void InitializePubSub()
         {
-            InitializeDynamicPublisher();
+            EndpointConfiguration endpointConfiguration = InitializeDynamicPublisher();
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
 
-            dynamicListenersManager.StartListening();
+            IEndpointInstance endpointInstance = dynamicListenersManager.StartListening(endpointConfiguration);
+            dynamicPublisher.EndpointInstance = endpointInstance;
         }
 
         private void InitializeDynamicHandlers()
         {
+            dynamicListenersManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(topologyAnalysis.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(energyBalanceCalculator.GetSubscriptions());
         }
@@ -177,6 +189,16 @@ namespace CalculationEngine
             {
                 dynamicListenersManager.AddDynamicHandlers(listener.Topic, listener);
             }
+        }
+
+        public void UpdateBreakers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ValidateCommand(long breakerGid, BreakerState breakerState)
+        {
+            return breakerCommandingValidator.ValidateCommand(breakerGid, breakerState);
         }
     }
 }

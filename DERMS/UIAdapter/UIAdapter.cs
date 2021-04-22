@@ -17,6 +17,7 @@ using UIAdapter.TransactionProcessing.Storages.Schema;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
 using Common.ServiceLocator;
+using NServiceBus;
 
 namespace UIAdapter
 {
@@ -114,7 +115,8 @@ namespace UIAdapter
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
 
-            dynamicListenerManager.StartListening();
+            EndpointConfiguration endpointConfiguration = new EndpointConfiguration(serviceName);
+            dynamicListenerManager.StartListening(endpointConfiguration);
         }
 
         private void InitializeTransactionStorages()

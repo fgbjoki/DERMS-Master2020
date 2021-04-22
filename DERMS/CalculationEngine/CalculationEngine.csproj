@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Executables\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BreakerCommandValidation\BreakerLoopCommandingValidator.cs" />
+    <Compile Include="Helpers\Topology\BreakerLoopFinder.cs" />
     <Compile Include="CalculationEngine.cs" />
     <Compile Include="EnergyCalculators\BaseTopologyCalculatingUnit.cs" />
     <Compile Include="EnergyCalculators\EnergyBalanceCalculation.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
     <Compile Include="Model\Topology\Transaction\DiscreteRemotePoint.cs" />
     <Compile Include="PubSub\DynamicHandlers\BreakerStateChangedTopologyAnalysisDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\DiscreteRemotePointStorageDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\EnergyBalanceAnalogValueChanged.cs" />
     <Compile Include="PubSub\DynamicHandlers\EnergyBalanceTopologyChangedDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
@@ -73,6 +76,10 @@
     <Compile Include="Schema\SchemaMessageConverter.cs" />
     <Compile Include="Schema\SchemaRepresentation.cs" />
     <Compile Include="TopologyAnalysis\GraphTraversing\TopologyGraphSourceFinder.cs" />
+    <Compile Include="TopologyAnalysis\InterConnectedBreakerCommanding\BreakersToInterConnectedBranchMapping.cs" />
+    <Compile Include="TopologyAnalysis\InterConnectedBreakerCommanding\EnergySourceBreakerToInterConnectedBranchMapper.cs" />
+    <Compile Include="TopologyAnalysis\InterConnectedBreakerCommanding\IInterConnectedBreakerCommanding.cs" />
+    <Compile Include="TopologyAnalysis\InterConnectedBreakerCommanding\InterConnectedBreakerCommanding.cs" />
     <Compile Include="TopologyAnalysis\ITopologyAnalysisBreakerManipulator.cs" />
     <Compile Include="TopologyAnalysis\ITopologyModifier.cs" />
     <Compile Include="TopologyAnalysis\GraphTraversing\TopologyGraphTraverser.cs" />
@@ -103,7 +110,6 @@
     <Compile Include="Model\Topology\Graph\IGraph.cs" />
     <Compile Include="Graphs\MultipleRootDependentGraphCreator.cs" />
     <Compile Include="Graphs\TopologyGraphCreation\TopologyGraphCreator.cs" />
-    <Compile Include="Model\Topology\BreakerMessageMapping.cs" />
     <Compile Include="Model\Topology\Graph\BranchManipulator\BaseGraphBranchManipulator.cs" />
     <Compile Include="Model\Topology\Graph\BranchManipulator\TopologyBreakerGraphBranchManipulator.cs" />
     <Compile Include="Model\Topology\Graph\Connectivity\ConnectivityGraph.cs" />

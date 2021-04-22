@@ -5,11 +5,9 @@ namespace Common.PubSub
 {
     public class DynamicPublisher : IDynamicPublisher
     {
-        private IEndpointInstance endpointInstance;
-
-        public DynamicPublisher(string endpointName)
+        public DynamicPublisher()
         {
-            ConfigureEndpointInstance(endpointName);
+
         }
 
         public async Task Publish(IEvent message)
@@ -19,20 +17,16 @@ namespace Common.PubSub
                 return;
             }
 
-            await endpointInstance.Publish(message);
+            await EndpointInstance.Publish(message);
         }
 
-        public void Dispose()
-        {
-            endpointInstance.Stop().ConfigureAwait(false).GetAwaiter().GetResult();
-        }
+        public IEndpointInstance EndpointInstance { get; set; }
 
-        private void ConfigureEndpointInstance(string endpointName)
+        public EndpointConfiguration ConfigureEndpointInstance(string endpointName)
         {
             var endpointConfiguration = new EndpointConfiguration(endpointName);
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
 
-            endpointInstance = Endpoint.Start(endpointConfiguration).ConfigureAwait(false).GetAwaiter().GetResult();
+            return endpointConfiguration;
         }        
     }
 }

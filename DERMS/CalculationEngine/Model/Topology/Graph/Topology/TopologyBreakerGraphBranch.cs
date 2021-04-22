@@ -1,4 +1,6 @@
-﻿namespace CalculationEngine.Model.Topology.Graph.Topology
+﻿using Common.Helpers.Breakers;
+
+namespace CalculationEngine.Model.Topology.Graph.Topology
 {
     public class TopologyBreakerGraphBranch : TopologyGraphBranch
     {

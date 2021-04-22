@@ -12,6 +12,7 @@ using System.Configuration;
 using Common.ServiceInterfaces.Transaction;
 using Common.ServiceInterfaces;
 using Common.PubSub.Messages;
+using NServiceBus;
 
 namespace NetworkDynamicsService
 {
@@ -24,7 +25,7 @@ namespace NetworkDynamicsService
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
-        private IDynamicPublisher dynamicPublisher;
+        private DynamicPublisher dynamicPublisher;
 
         private IFieldValuesProcessing fieldValueProcessingUnit;
 
@@ -34,7 +35,9 @@ namespace NetworkDynamicsService
         {
             LoadConfigurationFromAppConfig();
 
-            dynamicPublisher = new DynamicPublisher(serviceName);
+            
+
+            InitializePubSub();
 
             InitializeStorages();
 
@@ -96,6 +99,15 @@ namespace NetworkDynamicsService
         {
             analogRemotePointStorage = new AnalogRemotePointStorage();
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
+        }
+
+        private void InitializePubSub()
+        {
+            dynamicPublisher = new DynamicPublisher();
+            EndpointConfiguration endpointConfiguration = dynamicPublisher.ConfigureEndpointInstance(serviceName);
+            var transport = endpointConfiguration.UseTransport<LearningTransport>();
+            var endpointInstance = Endpoint.Start(endpointConfiguration).ConfigureAwait(false).GetAwaiter().GetResult();
+            dynamicPublisher.EndpointInstance = endpointInstance;
         }
     }
 }
