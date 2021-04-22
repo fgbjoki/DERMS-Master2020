@@ -43,12 +43,12 @@ namespace Common.PubSub
             }
         }
 
-        public async void StartListening()
+        public IEndpointInstance StartListening(EndpointConfiguration endpointConfiguration)
         {
-            var endpointConfiguration = new EndpointConfiguration(endpointName);
             ConfigureEndpoint(endpointConfiguration);
             var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+            var endpointInstance = Endpoint.Start(endpointConfiguration).ConfigureAwait(false).GetAwaiter().GetResult();
+            return endpointInstance;
         }
 
         private void ConfigureEndpoint(EndpointConfiguration endpointConfiguration)

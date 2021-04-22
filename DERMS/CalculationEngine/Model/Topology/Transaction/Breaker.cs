@@ -1,4 +1,6 @@
-﻿namespace CalculationEngine.Model.Topology.Transaction
+﻿using Common.Helpers.Breakers;
+
+namespace CalculationEngine.Model.Topology.Transaction
 {
     public class Breaker : ConductingEquipment
     {

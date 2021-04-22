@@ -5,6 +5,6 @@ namespace CalculationEngine.TopologyAnalysis
     public interface ITopologyAnalysisBreakerManipulator
     {
         ReaderWriterLockSlim GetLock();
-        void ChangeBreakerValue(long breakerGid, int rawBreakerValue);
+        void ChangeBreakerValue(long breakerGid, int rawBreakerValue, bool initialization = false);
     }
 }

@@ -9,6 +9,9 @@ using CalculationEngine.Model.Topology.Transaction;
 using Common.PubSub;
 using Common.PubSub.Subscriptions;
 using CalculationEngine.PubSub.DynamicHandlers;
+using CalculationEngine.BreakerCommandValidation;
+using Common.Helpers.Breakers;
+using Common.ServiceInterfaces.CalculationEngine;
 
 namespace CalculationEngine.TopologyAnalysis
 {
@@ -18,6 +21,9 @@ namespace CalculationEngine.TopologyAnalysis
         private BreakerMessageMapping breakerMessageMapping;
         private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
         private ITopologyModifier topologyModifier;
+
+        private IBreakerLoopCommandingValidator commandingLoopValidator;
+        private InterConnectedBreakerCommanding.IInterConnectedBreakerCommanding interConnectedBreakerCommanding;
 
         private Thread discreteValueAligner;
         private CancellationTokenSource cancellationTokenSource;
@@ -29,6 +35,8 @@ namespace CalculationEngine.TopologyAnalysis
 
             topologyModifier = new TopologyModifier(this, discreteRemotePointStorage);
 
+            interConnectedBreakerCommanding = new InterConnectedBreakerCommanding.InterConnectedBreakerCommanding(this, discreteRemotePointStorage, breakerMessageMapping);
+
             this.breakerMessageMapping = breakerMessageMapping;
             this.discreteRemotePointStorage = discreteRemotePointStorage;
 
@@ -37,8 +45,16 @@ namespace CalculationEngine.TopologyAnalysis
             discreteValueAligner.Start();
         }
 
-        public void ChangeBreakerValue(long breakerGid, int rawBreakerValue)
+        public void ChangeBreakerValue(long breakerGid, int rawBreakerValue, bool initialization = false)
         {
+            bool commandsCreatesLoop = commandingLoopValidator.ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue));
+
+            if (!initialization && commandsCreatesLoop)
+            {
+                // TODO COMMAND TO OPEN COMMANDED BREAKER OR INTERCONNECTED BREAKER
+                return;
+            }
+
             foreach (var graph in graphs)
             {
                 List<TopologyBreakerGraphBranch> branches = graph.Value.GetBreakerBranches(breakerGid);
@@ -48,10 +64,19 @@ namespace CalculationEngine.TopologyAnalysis
                     continue;
                 }
 
-                foreach (var branch in branches)
+                if (!initialization)
                 {
-                    branch.BreakerState = breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue);
-                }              
+                    interConnectedBreakerCommanding.ProcessBreakerCommanding(breakerGid, rawBreakerValue);
+                }
+
+                // skip inter connected breaker branches
+                if (initialization || branches.Count == 1)
+                {
+                    foreach (var branch in branches)
+                    {
+                        branch.BreakerState = breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue);
+                    }
+                }
             }
         }
 
@@ -113,6 +138,21 @@ namespace CalculationEngine.TopologyAnalysis
             return graph.GetRoots().Select(x => x.Item);
         }
 
+        public List<TopologyGraphNode> GetRoots()
+        {
+            List<TopologyGraphNode> roots = new List<TopologyGraphNode>();
+            graphLocker.EnterReadLock();
+
+            roots.AddRange(graphs.Values.First().GetRoots());
+
+            graphLocker.ExitReadLock();
+
+            return roots;
+
+        }
+
+        public IBreakerLoopCommandingValidator BreakerLoopCommandingValidator { set { commandingLoopValidator = value; } }
+
         private void AlignBreakerStates(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -125,9 +165,12 @@ namespace CalculationEngine.TopologyAnalysis
                     continue;
                 }
 
+                commandingLoopValidator.UpdateBreakers();
+                interConnectedBreakerCommanding.UpdateBreakers();
+
                 foreach (var discreteRemotePoint in discreteRemotePointStorage.GetAllEntities())
                 {
-                    ChangeBreakerValue(discreteRemotePoint.BreakerGid, discreteRemotePoint.Value);
+                    ChangeBreakerValue(discreteRemotePoint.BreakerGid, discreteRemotePoint.Value, true);
                 }
             }
         }
