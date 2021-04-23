@@ -93,6 +93,7 @@ namespace UIAdapter
         {
             dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
             dynamicListenerManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
+            dynamicListenerManager.ConfigureSubscriptions(schemaRepresentation.GetSubscriptions());
         }
 
         private void InitializeDynamicListeners()

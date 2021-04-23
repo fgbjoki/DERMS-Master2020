@@ -15,7 +15,7 @@ namespace UIAdapter.Schema
             SubSchemaDTO dto = new SubSchemaDTO();
             dto.ConductingEquipmentStates = equipmentStates;
             dto.EnergySourceGid = graph.GetRoot().GlobalId;
-            dto.InterConnectedBreaker = graph.GetInterConnectedBreakerGid();
+            dto.InterConnectedBreaker = graph.GetInterConnectedBreaker().GlobalId;
             dto.ParentChildRelation = parentChildRelations;
 
             return dto;

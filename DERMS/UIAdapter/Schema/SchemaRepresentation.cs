@@ -5,7 +5,7 @@ using Common.ComponentStorage;
 using UIAdapter.Model.Schema;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
-using System;
+using UIAdapter.PubSub.DynamicHandlers;
 
 namespace UIAdapter.Schema
 {
@@ -33,7 +33,7 @@ namespace UIAdapter.Schema
         {
             return new List<ISubscription>(1)
             {
-                new Subscription(Topic.DiscreteRemotePointChange, /* TODO add dynamic handler*/null)
+                new Subscription(Topic.DiscreteRemotePointChange, new SchemaBreakerStateChangedDynamichandler(schemaController))
             };
         }
 
