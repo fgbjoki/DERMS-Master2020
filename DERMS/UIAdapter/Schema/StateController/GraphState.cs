@@ -29,6 +29,53 @@ namespace UIAdapter.Schema.StateController
             InitializeEquipmentStates(nodeStatePropagator);
         }
 
+        public Dictionary<long, EquipmentState> GetEquipmentStates()
+        {
+            return equipmentStates;
+        }
+
+        public long SourceGid { get { return graph.GetRoot().GlobalId; } }
+
+        public SchemaBreakerGraphNode GetInterConnectedBreaker()
+        {
+            return graph.GetInterConnectedBreaker() as SchemaBreakerGraphNode;
+        }
+
+        public void PerformEnergizing(long breakerGid, NodeStateChangePropagator nodeStatePropagator, IInterConnectedBreakerState interConnectedBreakerState)
+        {
+            SchemaBreakerGraphNode interConnectedBreaker = graph.GetInterConnectedBreaker() as SchemaBreakerGraphNode;
+
+            ProcessInterConnectedBreaker(interConnectedBreaker, nodeStatePropagator, interConnectedBreakerState);
+
+            SchemaBreakerGraphNode breaker = graph.GetNode(breakerGid) as SchemaBreakerGraphNode;
+
+            if (breaker == null || interConnectedBreaker.GlobalId == breaker.GlobalId)
+            {
+                return;
+            }
+
+            nodeStatePropagator.PropagateChanges(breaker, equipmentStates);
+
+            ProcessInterConnectedBreaker(interConnectedBreaker, nodeStatePropagator, interConnectedBreakerState);
+        }
+
+        public void ChangeBreakerState(long breakerGid, BreakerState newBreakerState)
+        {
+            SchemaBreakerGraphNode breaker = graph.GetNode(breakerGid) as SchemaBreakerGraphNode;
+
+            if (breaker == null)
+            {
+                return;
+            }
+
+            breaker.ChangeBreakerState(newBreakerState);
+        }
+
+        public SchemaGraphNode GetRoot()
+        {
+            return graph.GetRoot();
+        }
+
         private void LoadBreakerStates(List<SchemaBreakerGraphNode> breakers, IStorage<Breaker> breakerStorage, BreakerMessageMapping breakerMessageMapping)
         {
             foreach (var breaker in breakers)
@@ -43,43 +90,6 @@ namespace UIAdapter.Schema.StateController
 
                 breaker.ChangeBreakerState(breakerMessageMapping.MapRawDataToBreakerState(breakerState.CurrentValue));
             }
-        }
-
-        public Dictionary<long, EquipmentState> GetEquipmentStates()
-        {
-            return equipmentStates;
-        }
-
-        public long SourceGid { get { return graph.GetRoot().GlobalId; } }
-
-        public long GetInterConnectedBreakerGid()
-        {
-            SchemaGraphNode interConnectedBreaker = graph.GetInterConnectedBreaker();
-
-            return interConnectedBreaker == null ? 0 : interConnectedBreaker.GlobalId;
-        }
-
-        public void BreakerStateChanged(long breakerGid, BreakerState newBreakerState, NodeStateChangePropagator nodeStatePropagator)
-        {
-            SchemaBreakerGraphNode breaker = graph.GetNode(breakerGid) as SchemaBreakerGraphNode;
-
-            if (breaker == null)
-            {
-                return;
-            }
-
-            SchemaGraphNode begginingOfPropagation;
-
-            breaker.ChangeBreakerState(newBreakerState);
-
-            begginingOfPropagation = ProcessInterConnectedBreaker(breaker);
-
-            nodeStatePropagator.PropagateChanges(begginingOfPropagation, equipmentStates);
-        }
-
-        public SchemaGraphNode GetRoot()
-        {
-            return graph.GetRoot();
         }
 
         private void EnqueueChildren(SchemaGraphNode node, Queue<SchemaGraphNode> nodeToProcess)
@@ -112,18 +122,23 @@ namespace UIAdapter.Schema.StateController
             nodeStatePropagator.PropagateChanges(specialNode, equipmentStates);
         }
 
-        private SchemaGraphNode ProcessInterConnectedBreaker(SchemaBreakerGraphNode breaker)
+        private void ProcessInterConnectedBreaker(SchemaBreakerGraphNode interConnectedBreaker, NodeStateChangePropagator nodeStatePropagator, IInterConnectedBreakerState interConnectedBreakerState)
         {
-            SchemaBreakerGraphNode interConnectedBreaker = graph.GetInterConnectedBreaker() as SchemaBreakerGraphNode;
-            if (interConnectedBreaker == null || interConnectedBreaker.GlobalId != breaker.GlobalId)
-            {
-                return breaker;
-            }
+            bool interConnectedBreakerConducts;
 
             SchemaInterConnectivityNodeGraphNode specialConnectivityNode = interConnectedBreaker.ParentBranch.UpStream as SchemaInterConnectivityNodeGraphNode;
-            specialConnectivityNode.ChangeState(breaker.Conduts);
+            if (interConnectedBreakerState.DoesInterConnectedBreakerConduct(SourceGid))
+            {
+                interConnectedBreakerConducts = true;
+            }
+            else
+            {
+                interConnectedBreakerConducts = interConnectedBreaker.DoesConduct;
+            }
 
-            return specialConnectivityNode;
+            specialConnectivityNode.ChangeState(interConnectedBreakerConducts);
+
+            nodeStatePropagator.PropagateChanges(specialConnectivityNode, equipmentStates);
         }
     }
 }

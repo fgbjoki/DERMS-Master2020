@@ -84,5 +84,17 @@ namespace UIAdapter.Schema.Graph
         {
             nodes.Add(node.GlobalId, node);
         }
+
+        public override bool Equals(object obj)
+        {
+            SchemaGraph schemaGraph = obj as SchemaGraph;
+
+            return schemaGraph != null && root == schemaGraph.root;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

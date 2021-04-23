@@ -7,10 +7,11 @@ using UIAdapter.Model.Schema;
 using UIAdapter.Schema.Graph;
 using UIAdapter.Schema.StateController;
 using Common.UIDataTransferObject.Schema;
+using Common.Logger;
 
 namespace UIAdapter.Schema
 {
-    public class GraphSchemaController
+    public class GraphSchemaController : IGraphSchemaController, IInterConnectedBreakerState
     {
         private ReaderWriterLockSlim locker;
         private Dictionary<long, GraphState> graphs;
@@ -57,11 +58,24 @@ namespace UIAdapter.Schema
 
         public void ProcessDiscreteValueChanges(long discreteGid, int value)
         {
+            Breaker breaker = breakerStateStorage.GetEntity(discreteGid);
+
+            if (breaker == null)
+            {
+                Logger.Instance.Log($"[{GetType().Name}] Cannot find breaker with discrete gid {discreteGid:X16}. Schema may be in fault.");
+                return;
+            }
+
             locker.EnterWriteLock();
 
             foreach (var graph in graphs)
             {
-                graph.Value.BreakerStateChanged(discreteGid, breakerMessageMapping.MapRawDataToBreakerState(value), nodeStatePropagator);
+                graph.Value.ChangeBreakerState(breaker.GlobalId, breakerMessageMapping.MapRawDataToBreakerState(value));
+            }
+
+            foreach (var graph in graphs)
+            {
+                graph.Value.PerformEnergizing(breaker.GlobalId, nodeStatePropagator, this);
             }
 
             locker.ExitWriteLock();
@@ -104,6 +118,21 @@ namespace UIAdapter.Schema
             locker.ExitReadLock();
 
             return equipmentStatesDto;
+        }
+
+        public bool DoesInterConnectedBreakerConduct(long energySourceGid)
+        {
+            foreach (var graph in graphs)
+            {
+                if (energySourceGid == graph.Value.SourceGid)
+                {
+                    continue;
+                }
+
+                return graph.Value.GetInterConnectedBreaker().DoesConduct;
+            }
+
+            return false;
         }
     }
 }

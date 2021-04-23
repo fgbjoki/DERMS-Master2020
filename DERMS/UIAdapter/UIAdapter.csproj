@@ -56,6 +56,7 @@
     <Compile Include="Model\Schema\EnergySource.cs" />
     <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\DiscreteRemotePointStorageDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\SchemaBreakerStateChangedDynamichandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
     <Compile Include="Model\AnalogRemotePoint.cs" />
     <Compile Include="Model\DiscreteRemotePoint.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubSub\DynamicListeners\DiscreteRemotePointChangedListener.cs" />
     <Compile Include="Schema\Graph\SchemaInterConnectivityNodeGraphNode.cs" />
+    <Compile Include="Schema\IGraphSchemaController.cs" />
+    <Compile Include="Schema\IInterConnectedBreakerState.cs" />
     <Compile Include="Schema\NodeStateChangePropagator.cs" />
     <Compile Include="Schema\SchemaAligner.cs" />
     <Compile Include="Schema\SchemaGraphToDTOConverter.cs" />
