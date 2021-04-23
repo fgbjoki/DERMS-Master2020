@@ -12,9 +12,12 @@ namespace CalculationEngine.Graphs.GraphReductionRules.Topology
 
         private TopologyGraphBranchManipulator graphBranchManipulator;
 
+        private Dictionary<long, long> shuntToConnectivityNodeMap;
+
         public ConnectivityNodeShuntReductionGraphRule(TopologyGraphBranchManipulator graphBranchManipulator) : base(new List<DMSType>() { DMSType.CONNECTIVITYNODE })
         {
             this.graphBranchManipulator = graphBranchManipulator;
+            shuntToConnectivityNodeMap = new Dictionary<long, long>();
 
             shuntDMSTypes = new List<DMSType>()
             {
@@ -22,6 +25,8 @@ namespace CalculationEngine.Graphs.GraphReductionRules.Topology
                 DMSType.ENERGYSTORAGE
             };
         }
+
+        public Dictionary<long,long> ShuntMap { get { return shuntToConnectivityNodeMap; } }
 
         protected override void ApplyRule(TopologyGraphNode node, IGraph<TopologyGraphNode> graph)
         {
@@ -34,6 +39,7 @@ namespace CalculationEngine.Graphs.GraphReductionRules.Topology
                     continue;
                 }
 
+                shuntToConnectivityNodeMap.Add(child.Item, node.Item);
                 node.Shunts.Add(new Shunt(child.Item));
 
                 graphBranchManipulator.DeleteBranch(childBranch);
