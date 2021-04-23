@@ -3,15 +3,14 @@ using CalculationEngine.Model.Topology.Graph.Topology;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using CalculationEngine.Model.Topology;
 using Common.ComponentStorage;
 using CalculationEngine.Model.Topology.Transaction;
 using Common.PubSub;
 using Common.PubSub.Subscriptions;
 using CalculationEngine.PubSub.DynamicHandlers;
-using CalculationEngine.BreakerCommandValidation;
 using Common.Helpers.Breakers;
 using Common.ServiceInterfaces.CalculationEngine;
+using System;
 
 namespace CalculationEngine.TopologyAnalysis
 {
@@ -28,9 +27,11 @@ namespace CalculationEngine.TopologyAnalysis
         private Thread discreteValueAligner;
         private CancellationTokenSource cancellationTokenSource;
         private AutoResetEvent commitedEvent;
+        private AutoResetEvent readyEvent;
 
         public TopologyAnalysis(IStorage<DiscreteRemotePoint> discreteRemotePointStorage, BreakerMessageMapping breakerMessageMapping) : base()
         {
+            readyEvent = new AutoResetEvent(false);
             graphLocker = new ReaderWriterLockSlim();
 
             topologyModifier = new TopologyModifier(this, discreteRemotePointStorage);
@@ -133,11 +134,6 @@ namespace CalculationEngine.TopologyAnalysis
             set { commitedEvent = value; }
         }
 
-        protected override IEnumerable<long> GetRootsGlobalId(TopologyGraph graph)
-        {
-            return graph.GetRoots().Select(x => x.Item);
-        }
-
         public List<TopologyGraphNode> GetRoots()
         {
             List<TopologyGraphNode> roots = new List<TopologyGraphNode>();
@@ -152,6 +148,13 @@ namespace CalculationEngine.TopologyAnalysis
         }
 
         public IBreakerLoopCommandingValidator BreakerLoopCommandingValidator { set { commandingLoopValidator = value; } }
+
+        public AutoResetEvent ReadyEvent { get { return readyEvent; } }
+
+        protected override IEnumerable<long> GetRootsGlobalId(TopologyGraph graph)
+        {
+            return graph.GetRoots().Select(x => x.Item);
+        }
 
         private void AlignBreakerStates(CancellationToken cancellationToken)
         {
@@ -172,6 +175,8 @@ namespace CalculationEngine.TopologyAnalysis
                 {
                     ChangeBreakerValue(discreteRemotePoint.BreakerGid, discreteRemotePoint.Value, true);
                 }
+
+                readyEvent.Set();
             }
         }
     }

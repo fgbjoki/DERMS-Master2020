@@ -35,9 +35,12 @@ namespace CalculationEngine.EnergyCalculators
         private Thread onCommitCalculationWorker;
         private CancellationTokenSource tokenSource;
 
+        private AutoResetEvent topologyReadyEvent;
+
         public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController)
         {
             this.energyBalanceStorage = energyBalanceStorage;
+            topologyReadyEvent = topologyAnalysisController.ReadyEvent;
 
             energyBalanceCalculations = new Dictionary<long, EnergyBalanceCalculation>();
 
@@ -159,6 +162,7 @@ namespace CalculationEngine.EnergyCalculators
             while (!cancellationToken.IsCancellationRequested)
             {
                 energyBalanceStorage.Commited.WaitOne();
+                topologyReadyEvent.WaitOne();
 
                 if (cancellationToken.IsCancellationRequested)
                 {

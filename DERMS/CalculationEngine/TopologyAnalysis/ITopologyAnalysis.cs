@@ -12,5 +12,7 @@ namespace CalculationEngine.TopologyAnalysis
         List<TopologyGraphNode> GetRoots();
         TopologyGraphNode GetNode(long nodeGlobalId);
         ReaderWriterLockSlim GetLock();
+
+        AutoResetEvent ReadyEvent { get; }
     }
 }
