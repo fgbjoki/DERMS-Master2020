@@ -16,6 +16,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
         private TopologyBreakerGraphBranchManipulator breakerBrachManipulator;
 
         private BreakerReductionGraphRule breakerReductionGraphRule;
+        private ConnectivityNodeShuntReductionGraphRule shuntGraphRule;
 
         private InterConnectedConnectivityCorrector corrector;
 
@@ -24,6 +25,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
             this.aclineSegmentBranchManipulator = aclineSegmentBranchManipulator;
             this.breakerBrachManipulator = breakerBrachManipulator;
             breakerReductionGraphRule = new BreakerReductionGraphRule(breakerBrachManipulator);
+            shuntGraphRule = new ConnectivityNodeShuntReductionGraphRule(aclineSegmentBranchManipulator);
 
             corrector = new InterConnectedConnectivityCorrector(breakerBrachManipulator);        
         }
@@ -40,6 +42,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
 
             newGraph.LoadBreakerBranches(GetBreakerBranches());
             newGraph.LoadBreakerBranches(corrector.GetBreakerBranches());
+            newGraph.LoadShuntReductionMap(shuntGraphRule.ShuntMap);
 
             return newGraphs;
         }
@@ -55,7 +58,7 @@ namespace CalculationEngine.Graphs.TopologyGraphCreation
             {
                 new TopologyACLSBranchGraphRule(aclineSegmentBranchManipulator),
                 breakerReductionGraphRule,
-                new ConnectivityNodeShuntReductionGraphRule(aclineSegmentBranchManipulator)
+                shuntGraphRule
             };
         }
 

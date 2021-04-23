@@ -9,7 +9,7 @@ namespace CalculationEngine.Model.EnergyCalculations
         ActivePower = 0
     }
 
-    public struct CalculationWrapper
+    public class CalculationWrapper
     {
         public long GlobalId { get; set; }
 
@@ -29,22 +29,54 @@ namespace CalculationEngine.Model.EnergyCalculations
 
         public CalculationWrapper GetCalculation(long globalId)
         {
-            return calculations.FirstOrDefault(x => x.GlobalId == globalId);
+            foreach (var calculation in calculations)
+            {
+                if (calculation.GlobalId == globalId)
+                {
+                    return calculation;
+                }
+            }
+
+            return null;
         }
 
         public CalculationWrapper GetCalculation(CalculationType calculationType)
         {
-            return calculations.FirstOrDefault(x => x.CalculationType == calculationType);
+            foreach (var calculation in calculations)
+            {
+                if (calculation.CalculationType == calculationType)
+                {
+                    return calculation;
+                }
+            }
+
+            return null;
         }
 
         public CalculationWrapper GetCalculation(long globalId, CalculationType calculationType)
         {
-            return calculations.FirstOrDefault(x => x.GlobalId == globalId && x.CalculationType == calculationType);
+            foreach (var calculation in calculations)
+            {
+                if (calculation.CalculationType == calculationType && calculation.GlobalId == globalId)
+                {
+                    return calculation;
+                }
+            }
+
+            return null;
         }
         
         public bool CalculationExists(long calculationGid, CalculationType calculationType)
         {
-            return calculations.Exists(x => x.GlobalId == calculationGid && x.CalculationType == calculationType);
+            foreach (var calculation in calculations)
+            {
+                if (calculation.CalculationType == calculationType && calculation.GlobalId == calculationGid)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool AddCalculation(long calculationGid, CalculationType calculationType, float value = 0)

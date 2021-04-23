@@ -105,7 +105,7 @@ namespace CalculationEngine.EnergyCalculators
                     return;
                 }             
 
-                DMSType equipmentType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(measurementGid);
+                DMSType equipmentType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(conductingEquipmentGid);
 
                 if (equipmentType == DMSType.ENERGYSOURCE)
                 {

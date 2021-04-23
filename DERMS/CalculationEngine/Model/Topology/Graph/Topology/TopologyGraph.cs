@@ -6,6 +6,7 @@ namespace CalculationEngine.Model.Topology.Graph.Topology
     public class TopologyGraph : BaseMultipleRootGraph<TopologyGraphNode>
     {
         private Dictionary<long, List<TopologyBreakerGraphBranch>> breakerBranches;
+        private Dictionary<long, long> shuntToNodeMap;
 
         public TopologyGraph() : base()
         {
@@ -27,6 +28,11 @@ namespace CalculationEngine.Model.Topology.Graph.Topology
             }
         }
 
+        public void LoadShuntReductionMap(Dictionary<long, long> shuntToNodeMap)
+        {
+            this.shuntToNodeMap = shuntToNodeMap;
+        }
+
         public List<TopologyBreakerGraphBranch> GetBreakerBranches(long breakerGid)
         {
             List<TopologyBreakerGraphBranch> branches;
@@ -34,6 +40,23 @@ namespace CalculationEngine.Model.Topology.Graph.Topology
             breakerBranches.TryGetValue(breakerGid, out branches);
 
             return branches;
+        }
+
+        public override TopologyGraphNode GetNode(long globalId)
+        {
+            long correctedGid = 0;
+
+            if (shuntToNodeMap != null)
+            {
+                shuntToNodeMap.TryGetValue(globalId, out correctedGid);
+            }
+
+            if (correctedGid == 0)
+            {
+                correctedGid = globalId;
+            }
+
+            return base.GetNode(correctedGid);
         }
     }
 }
