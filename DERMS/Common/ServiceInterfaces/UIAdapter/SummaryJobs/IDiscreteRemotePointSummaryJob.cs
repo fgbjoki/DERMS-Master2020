@@ -9,5 +9,8 @@ namespace Common.ServiceInterfaces.UIAdapter.SummaryJobs
     {
         [OperationContract]
         List<DiscreteRemotePointSummaryDTO> GetAllDiscreteEntities();
+
+        [OperationContract]
+        DiscreteRemotePointSummaryDTO GetEntity(long globalId);
     }
 }

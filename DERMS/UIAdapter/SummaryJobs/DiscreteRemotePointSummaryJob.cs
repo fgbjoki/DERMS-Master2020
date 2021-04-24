@@ -6,7 +6,7 @@ namespace UIAdapter.SummaryJobs
 {
     public class DiscreteRemotePointSummaryJob : SummaryJob<DiscreteRemotePoint, DiscreteRemotePointSummaryDTO>
     {
-        public DiscreteRemotePointSummaryJob(Storage<DiscreteRemotePoint> storage) : base(storage)
+        public DiscreteRemotePointSummaryJob(IStorage<DiscreteRemotePoint> storage) : base(storage)
         {
         }
     }

@@ -9,5 +9,8 @@ namespace Common.ServiceInterfaces.UIAdapter.SummaryJobs
     {
         [OperationContract]
         List<AnalogRemotePointSummaryDTO> GetAllAnalogEntities();
+
+        [OperationContract]
+        AnalogRemotePointSummaryDTO GetEntity(long globalId);
     }
 }

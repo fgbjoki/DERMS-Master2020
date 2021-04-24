@@ -45,12 +45,11 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 
         private CommandWindow ConfigureWindow(TEventArgType args)
         {
-            CommandingViewModel windowViewModel = CreateViewModel(args);
+            EntityCommandingViewModel windowViewModel = CreateViewModel(args);
 
             CommandWindow window = CreateWindow(windowViewModel);
             window.Title = GetWindowTitle(args);
             window.GlobalId = args.GlobalId;
-            window.Topmost = true;
             window.Closing += Window_Closing;
 
             return window;
@@ -58,9 +57,9 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 
         internal abstract string GetWindowTitle(TEventArgType args);
 
-        protected abstract CommandingViewModel CreateViewModel(TEventArgType args);
+        protected abstract EntityCommandingViewModel CreateViewModel(TEventArgType args);
 
-        protected abstract CommandWindow CreateWindow(CommandingViewModel viewModel);
+        protected abstract CommandWindow CreateWindow(EntityCommandingViewModel viewModel);
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

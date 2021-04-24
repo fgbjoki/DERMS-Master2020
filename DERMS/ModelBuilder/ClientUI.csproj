@@ -155,8 +155,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\CommandingWindow\AnalogRemotePointCommandingViewModel.cs" />
-    <Compile Include="ViewModels\CommandingWindow\CommandingViewModel.cs" />
+    <Compile Include="ViewModels\CommandingWindow\BaseCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
+    <Compile Include="ViewModels\CommandingWindow\EntityCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />

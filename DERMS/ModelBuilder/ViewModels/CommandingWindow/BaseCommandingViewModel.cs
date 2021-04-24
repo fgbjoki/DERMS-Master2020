@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ClientUI.ViewModels.CommandingWindow
 {
-    public class CommandingViewModel : BaseViewModel
+    public abstract class BaseCommandingViewModel : BaseViewModel
     {
-        public CommandingViewModel(string title)
+        public BaseCommandingViewModel(string title)
         {
             Title = title;
 

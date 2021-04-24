@@ -16,7 +16,6 @@ using UIAdapter.Schema;
 using UIAdapter.TransactionProcessing.Storages.Schema;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
-using Common.ServiceLocator;
 using NServiceBus;
 
 namespace UIAdapter
@@ -171,6 +170,16 @@ namespace UIAdapter
         public List<EnergySourceDTO> GetSubstations()
         {
             return schemaRepresentation.GetSubstations();
+        }
+
+        public AnalogRemotePointSummaryDTO GetEntity(long globalId)
+        {
+            return analogRemotePointSummaryJob.GetEntity(globalId);
+        }
+
+        DiscreteRemotePointSummaryDTO IDiscreteRemotePointSummaryJob.GetEntity(long globalId)
+        {
+            return discreteRemotePointSummaryJob.GetEntity(globalId);
         }
     }
 }

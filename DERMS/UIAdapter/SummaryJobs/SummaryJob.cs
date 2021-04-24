@@ -6,11 +6,10 @@ namespace UIAdapter.SummaryJobs
     public abstract class SummaryJob<TSummaryType, TDTOType>
         where TSummaryType : SummaryItem<TDTOType>
     {
-        private Storage<TSummaryType> storage;
+        private IStorage<TSummaryType> storage;
 
-        public SummaryJob(Storage<TSummaryType> storage)
+        public SummaryJob(IStorage<TSummaryType> storage)
         {
-
             this.storage = storage;
         }    
 
@@ -19,6 +18,18 @@ namespace UIAdapter.SummaryJobs
             List<TSummaryType> entities = storage.GetAllEntities();
 
             return ConvertEntities(entities);
+        }
+
+        public TDTOType GetEntity(long globalId)
+        {
+            TSummaryType entity = storage.GetEntity(globalId);
+
+            if (entity == null)
+            {
+                return default(TDTOType);
+            }
+
+            return entity.CreateDTO();
         }
 
         private List<TDTOType> ConvertEntities(List<TSummaryType> allEntities)
