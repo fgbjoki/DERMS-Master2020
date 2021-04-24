@@ -93,7 +93,7 @@ namespace FieldSimulator.PowerSimulator.Storage.Weather
         private double CalculateRemainingTimerMilliseconds()
         {
             DateTime currentTime = DateTime.Now;
-            DateTime nextHourTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, currentTime.Hour + 1, 0, 0, 100);
+            DateTime nextHourTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, currentTime.Hour, 0, 0, 0) + new TimeSpan(0, 1, 0, 0, 100);
 
             TimeSpan remainingTime = nextHourTime - currentTime;
 

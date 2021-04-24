@@ -7,6 +7,7 @@ namespace CalculationEngine
     {
         static void Main(string[] args)
         {
+            Console.Title = "Calculation Engine Service";
             CalculationEngine calculationEngine = new CalculationEngine();
 
             ServiceHost serviceHost = new ServiceHost(calculationEngine);

@@ -7,6 +7,7 @@ namespace NetworkDynamicsService
     {
         static void Main(string[] args)
         {
+            Console.Title = "Network Dynamics Service";
             NetworkDynamicsService networkDynamicsService = new NetworkDynamicsService();
 
             ServiceHost serviceHost = new ServiceHost(networkDynamicsService);

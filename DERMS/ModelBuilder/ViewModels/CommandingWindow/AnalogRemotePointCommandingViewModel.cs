@@ -1,19 +1,31 @@
 ﻿using ClientUI.Common;
 using ClientUI.Events.OpenCommandingWindow;
 using System.Windows.Input;
+using System;
+using System.Timers;
+using Common.Communication;
+using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
+using Common.UIDataTransferObject.RemotePoints;
+using System.Collections.Generic;
 
 namespace ClientUI.ViewModels.CommandingWindow
 {
-    public class AnalogRemotePointCommandingViewModel : CommandingViewModel
+    public class AnalogRemotePointCommandingViewModel : EntityCommandingViewModel
     {
+        private float value;
+
+        private WCFClient<IAnalogRemotePointSummaryJob> summaryJob;
+
         public AnalogRemotePointCommandingViewModel(AnalogRemotePointOpenCommandingWindowEventArgs analogRemotePoint) : base("Analog Remote Point Commanding Window")
         {
             GlobalId = analogRemotePoint.GlobalId;
             Name = analogRemotePoint.Name;
             Address = analogRemotePoint.Address;
-            Value = analogRemotePoint.Value;
 
             SendCommandCommand = new RelayCommand(ExecuteCommand, CanExecuteSendCommand);
+
+            summaryJob = new WCFClient<IAnalogRemotePointSummaryJob>("uiAdapterEndpointAnalog");
+            RefreshContent();
         }
 
         public long GlobalId { get; set; }
@@ -22,7 +34,19 @@ namespace ClientUI.ViewModels.CommandingWindow
 
         public int Address { get; set; }
 
-        public float Value { get; set; }
+        public float Value
+        {
+            get { return value; }
+            set
+            {
+                if (this.value == value)
+                {
+                    return;
+                }
+
+                SetProperty(ref this.value, value);
+            }
+        }
 
         public float NewCommandingValue { get; set; }
 
@@ -44,6 +68,23 @@ namespace ClientUI.ViewModels.CommandingWindow
             }
 
             return true;
+        }
+
+        protected override void RefreshContent()
+        {
+            AnalogRemotePointSummaryDTO item = null;
+            try
+            {
+                item = summaryJob.Proxy.GetEntity(GlobalId);
+            }
+            catch { }
+
+            if (item == null)
+            {
+                return;
+            }
+
+            Value = item.Value;
         }
     }
 }

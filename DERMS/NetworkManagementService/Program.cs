@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.ServiceModel;
-using System.ServiceModel.Configuration;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetworkManagementService
 {
@@ -13,6 +7,7 @@ namespace NetworkManagementService
     {
         static void Main(string[] args)
         {
+            Console.Title = "Netowrk Management Service";
             NetworkModel nms = new NetworkModel();
 
             ServiceHost host = new ServiceHost(nms);

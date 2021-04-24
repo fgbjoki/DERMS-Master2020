@@ -7,6 +7,7 @@ namespace TransactionManager
     {
         static void Main(string[] args)
         {
+            Console.Title = "Transaction Manager";
             TransactionManager ts = new TransactionManager();
 
             ServiceHost host = new ServiceHost(ts);

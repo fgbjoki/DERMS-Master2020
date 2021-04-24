@@ -7,6 +7,7 @@ namespace UIAdapter
     {
         static void Main(string[] args)
         {
+            Console.Title = "UIAdapter Service";
             UIAdapter uiAdapter = new UIAdapter();
 
             ServiceHost serviceHost = new ServiceHost(uiAdapter);
