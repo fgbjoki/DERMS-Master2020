@@ -7,7 +7,7 @@
         Discrete = 2,
         Humidity = 3,
         Money = 4,
-        Percet = 5,
+        Percent = 5,
         SkyCover = 7,
         Status = 8,
         SunshineMinutes = 9,

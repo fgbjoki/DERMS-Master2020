@@ -9,6 +9,8 @@
 
         public long GlobalId { get; private set; }
 
+        public string Name { get; set; }
+
         public virtual void Update(IdentifiedObject entity)
         {
 

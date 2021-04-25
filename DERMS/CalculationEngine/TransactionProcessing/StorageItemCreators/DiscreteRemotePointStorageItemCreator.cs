@@ -9,9 +9,9 @@ using Common.Logger;
 
 namespace CalculationEngine.TransactionProcessing.StorageItemCreators
 {
-    class DiscreteRemotePointStorageItemCreator : StorageItemCreator
+    public class DiscreteRemotePointStorageItemCreator : StorageItemCreator
     {
-        public DiscreteRemotePointStorageItemCreator() : base(NeededProperties())
+        public DiscreteRemotePointStorageItemCreator() : base()
         {
         }
 
@@ -45,7 +45,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators
             remotePoint.BreakerGid = breakerGid;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> NeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

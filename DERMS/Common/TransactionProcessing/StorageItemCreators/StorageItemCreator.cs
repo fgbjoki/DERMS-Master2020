@@ -10,16 +10,8 @@ namespace Common.ComponentStorage.StorageItemCreator
 
         protected Dictionary<DMSType, List<ModelCode>> propertiesPerType;
 
-        protected StorageItemCreator(Dictionary<DMSType, List<ModelCode>> propertiesPerType)
-        {
-            this.propertiesPerType = propertiesPerType;
-        }
-
         public abstract IdentifiedObject CreateStorageItem(ResourceDescription rd, Dictionary<DMSType, List<ResourceDescription>> affectedEntities);
 
-        public Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
-        {
-            return propertiesPerType;
-        }
+        public abstract Dictionary<DMSType, List<ModelCode>> GetNeededProperties();
     }
 }

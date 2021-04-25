@@ -34,6 +34,10 @@ namespace UIAdapter
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
+        private TransactionProcessing.Storages.DERs.GeneratorStorage generatorStorage;
+        private TransactionProcessing.Storages.DERGroup.DERGroupStorage derGroupStorage;
+        private TransactionProcessing.Storages.DERs.EnergyStorageStorage energyStorageStorage;
+
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
         private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
 
@@ -127,7 +131,12 @@ namespace UIAdapter
             schemaEnergySourceStorage = new EnergySourceStorage();
             schemaBreakerStorage = new BreakerStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage });
+            generatorStorage = new TransactionProcessing.Storages.DERs.GeneratorStorage();
+            energyStorageStorage = new TransactionProcessing.Storages.DERs.EnergyStorageStorage();
+
+            derGroupStorage = new TransactionProcessing.Storages.DERGroup.DERGroupStorage();
+
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage, energyStorageStorage, generatorStorage, derGroupStorage });
         }
 
         private void LoadConfigurationFromAppConfig()

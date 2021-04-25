@@ -4,12 +4,13 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
 using UIAdapter.Model;
+using System;
 
 namespace UIAdapter.TransactionProcessing.StorageItemCreators
 {
     public class AnalogRemotePointStorageItemCreator : StorageItemCreator
     {
-        public AnalogRemotePointStorageItemCreator() : base(CreatePropertiesPerType())
+        public AnalogRemotePointStorageItemCreator() : base()
         {
         }
 
@@ -28,7 +29,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
             return remotePoint;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

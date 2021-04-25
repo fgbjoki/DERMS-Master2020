@@ -4,12 +4,13 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
 using FieldProcessor.Model;
+using System;
 
 namespace FieldProcessor.TransactionProcessing.StorageItemCreators
 {
     public class AnalogStorageItemCreator : StorageItemCreator
     {
-        public AnalogStorageItemCreator() : base(CreatePropertiesPerType())
+        public AnalogStorageItemCreator()
         {
         }
 
@@ -31,7 +32,7 @@ namespace FieldProcessor.TransactionProcessing.StorageItemCreators
             return remotePoint;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

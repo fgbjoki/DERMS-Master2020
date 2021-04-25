@@ -624,7 +624,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 case DERMS.MeasurementType.Money:
                     return Common.AbstractModel.MeasurementType.Money;
                 case DERMS.MeasurementType.Percent:
-                    return Common.AbstractModel.MeasurementType.Percet;
+                    return Common.AbstractModel.MeasurementType.Percent;
                 case DERMS.MeasurementType.SkyCover:
                     return Common.AbstractModel.MeasurementType.SkyCover;
                 case DERMS.MeasurementType.Status:

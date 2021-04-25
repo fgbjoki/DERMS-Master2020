@@ -8,7 +8,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBala
 {
     public class EnergySourceStorageItemCreator : BaseEnergyBalanceStorageItemCreator
     {
-        public EnergySourceStorageItemCreator() : base(PopulateNeededProperties())
+        public EnergySourceStorageItemCreator() : base()
         {
         }
 
@@ -24,7 +24,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBala
             return energySource;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> PopulateNeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {
