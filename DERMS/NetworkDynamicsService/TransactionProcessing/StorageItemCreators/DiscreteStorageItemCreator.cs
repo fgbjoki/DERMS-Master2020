@@ -5,12 +5,13 @@ using Common.ComponentStorage;
 using Common.GDA;
 using NetworkDynamicsService.Model.RemotePoints;
 using System.Linq;
+using System;
 
 namespace NetworkDynamicsService.TransactionProcessing.StorageItemCreators
 {
     public class DiscreteStorageItemCreator : StorageItemCreator
     {
-        public DiscreteStorageItemCreator() : base(InitializeNeededProperties())
+        public DiscreteStorageItemCreator() : base()
         {
         }
 
@@ -141,7 +142,7 @@ namespace NetworkDynamicsService.TransactionProcessing.StorageItemCreators
             return true;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> InitializeNeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

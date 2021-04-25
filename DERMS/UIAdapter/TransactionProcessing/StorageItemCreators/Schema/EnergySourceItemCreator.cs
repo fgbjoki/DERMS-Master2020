@@ -6,12 +6,13 @@ using Common.ComponentStorage;
 using Common.GDA;
 using UIAdapter.Model.Schema;
 using Common.Logger;
+using System;
 
 namespace UIAdapter.TransactionProcessing.StorageItemCreators.Schema
 {
-    class EnergySourceItemCreator : StorageItemCreator
+    public class EnergySourceItemCreator : StorageItemCreator
     {
-        public EnergySourceItemCreator() : base(NeededProperties())
+        public EnergySourceItemCreator() : base()
         {
         }
 
@@ -77,7 +78,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.Schema
             energySource.SubstationGid = substationGid;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> NeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

@@ -9,7 +9,7 @@ namespace FieldProcessor.TransactionProcessing.StorageItemCreators
 {
     public class DiscreteStorageItemCreator : StorageItemCreator
     {
-        public DiscreteStorageItemCreator() : base(CreatePropertiesPerType())
+        public DiscreteStorageItemCreator() : base()
         {
         }
 
@@ -31,7 +31,7 @@ namespace FieldProcessor.TransactionProcessing.StorageItemCreators
             return remotePoint;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

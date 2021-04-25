@@ -4,12 +4,13 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
 using NetworkDynamicsService.Model.RemotePoints;
+using System;
 
 namespace NetworkDynamicsService.TransactionProcessing.StorageItemCreators
 {
     public class AnalogStorageItemCreator : StorageItemCreator
     {
-        public AnalogStorageItemCreator() : base(InitializeNeededProperties())
+        public AnalogStorageItemCreator() : base()
         {
         }
 
@@ -108,7 +109,7 @@ namespace NetworkDynamicsService.TransactionProcessing.StorageItemCreators
             return true;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> InitializeNeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

@@ -9,7 +9,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBala
 {
     public abstract class BaseEnergyBalanceStorageItemCreator : StorageItemCreator
     {
-        protected BaseEnergyBalanceStorageItemCreator(Dictionary<DMSType, List<ModelCode>> propertiesPerType) : base(propertiesPerType)
+        protected BaseEnergyBalanceStorageItemCreator() : base()
         {
         }
 

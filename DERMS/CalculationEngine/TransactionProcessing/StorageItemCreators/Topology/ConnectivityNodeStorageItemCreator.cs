@@ -5,6 +5,7 @@ using Common.ComponentStorage;
 using Common.GDA;
 using CalculationEngine.TransactionProcessing.StorageTransactionProcessor.Topology;
 using CalculationEngine.Model.Topology.Transaction;
+using System;
 
 namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
 {
@@ -12,7 +13,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
     {
         private ReferenceResolver referenceResolver;
 
-        public ConnectivityNodeStorageItemCreator(ReferenceResolver referenceResolver) : base(CreatePropertiesPerType())
+        public ConnectivityNodeStorageItemCreator(ReferenceResolver referenceResolver)
         {
             this.referenceResolver = referenceResolver;
         }
@@ -26,7 +27,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
             return newConnectivityNode;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

@@ -12,15 +12,18 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
     public class ConductingEquipmentStorageItemCreator : StorageItemCreator
     {
         protected ReferenceResolver referenceResolver;
+        private Dictionary<DMSType, List<ModelCode>> propertiesPerType;
 
-        public ConductingEquipmentStorageItemCreator(Dictionary<DMSType, List<ModelCode>> propertiesPerType, ReferenceResolver referenceResolver) : base(propertiesPerType)
+        public ConductingEquipmentStorageItemCreator(Dictionary<DMSType, List<ModelCode>> propertiesPerType, ReferenceResolver referenceResolver)
         {
             this.referenceResolver = referenceResolver;
+            this.propertiesPerType = propertiesPerType;
         }
 
-        public ConductingEquipmentStorageItemCreator(ReferenceResolver referenceResolver) : base(CreatePropertiesPerType())
+        public ConductingEquipmentStorageItemCreator(ReferenceResolver referenceResolver)
         {
             this.referenceResolver = referenceResolver;
+            InitializeProperties();
         }
 
         public override IdentifiedObject CreateStorageItem(ResourceDescription rd, Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
@@ -60,9 +63,14 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
             return true;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
-            return new Dictionary<DMSType, List<ModelCode>>()
+            return propertiesPerType;
+        }
+
+        private void InitializeProperties()
+        {
+            propertiesPerType = new Dictionary<DMSType, List<ModelCode>>()
             {
                 { DMSType.ACLINESEG, new List<ModelCode>() { ModelCode.CONDUCTINGEQ_TERMINALS } },
                 { DMSType.ENERGYCONSUMER, new List<ModelCode>() { ModelCode.CONDUCTINGEQ_TERMINALS } },

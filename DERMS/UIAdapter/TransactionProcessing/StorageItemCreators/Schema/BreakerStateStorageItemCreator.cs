@@ -1,9 +1,6 @@
 ﻿using Common.ComponentStorage.StorageItemCreator;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
@@ -14,7 +11,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.Schema
 {
     public class BreakerStateStorageItemCreator : StorageItemCreator
     {
-        public BreakerStateStorageItemCreator() : base(CreatePropertiesPerType())
+        public BreakerStateStorageItemCreator() : base()
         {
         }
 
@@ -35,7 +32,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.Schema
             return breakerState;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

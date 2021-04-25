@@ -6,6 +6,7 @@ using Common.GDA;
 using Common.Logger;
 using CalculationEngine.Model.Topology.Transaction;
 using CalculationEngine.TransactionProcessing.StorageTransactionProcessor.Topology;
+using System;
 
 namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
 {
@@ -13,7 +14,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
     {
         private ReferenceResolver referenceResolver;
 
-        public TerminalStorageItemCreator(ReferenceResolver referenceResolver) : base(CreatePropertiesPerType())
+        public TerminalStorageItemCreator(ReferenceResolver referenceResolver) : base()
         {
             this.referenceResolver = referenceResolver;
         }
@@ -37,8 +38,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.Topology
             return newTerminal;
         }
 
-
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

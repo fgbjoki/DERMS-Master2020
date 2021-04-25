@@ -52,6 +52,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
+    <Compile Include="Model\DERGroup\DERGroup.cs" />
+    <Compile Include="Model\DERGroup\DistributedEnergyResource.cs" />
+    <Compile Include="Model\DERGroup\EnergyStorage.cs" />
+    <Compile Include="Model\DERGroup\Generator.cs" />
+    <Compile Include="Model\DERs\EnergyStorage.cs" />
+    <Compile Include="Model\DERs\Generator.cs" />
+    <Compile Include="Model\DERs\SolarGenerator.cs" />
+    <Compile Include="Model\DERs\WindGenerator.cs" />
     <Compile Include="Model\Schema\Breaker.cs" />
     <Compile Include="Model\Schema\EnergySource.cs" />
     <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
@@ -85,14 +93,30 @@
     <Compile Include="SummaryJobs\SummaryItem.cs" />
     <Compile Include="SummaryJobs\SummaryJob.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\AnalogRemotePointStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERGroup\DERGroupStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERGroup\EnergyStorageStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERGroup\GeneratorStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERs\EnergyStorageStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERs\GeneratorStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERs\SolarPanelStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERs\WindGeneratorStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteRemotePointStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Schema\BreakerStateStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Schema\EnergySourceItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\DERGroup\DERGroupStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\DERs\EnergyStorageStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\DERs\GeneratorStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\IAnalogEntityStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\BreakerStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\EnergySourceStorage.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\DERGroup\DERGroupStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\DERGroup\EnergyStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\DERGroup\GeneratorStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\DERs\EnergyStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessors\DERs\GeneratorStorageTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\Schema\BreakerStateTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\Schema\EnergySourceTransactionProcessor.cs" />
@@ -115,6 +139,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>

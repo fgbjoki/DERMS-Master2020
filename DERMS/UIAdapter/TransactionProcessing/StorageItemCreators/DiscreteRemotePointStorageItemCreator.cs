@@ -9,10 +9,6 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
 {
     public class DiscreteRemotePointStorageItemCreator : StorageItemCreator
     {
-        public DiscreteRemotePointStorageItemCreator() : base(CreatePropertiesPerType())
-        {
-        }
-
         public override IdentifiedObject CreateStorageItem(ResourceDescription rd, Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
             DiscreteRemotePoint remotePoint = new DiscreteRemotePoint(rd.Id)
@@ -46,7 +42,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators
             }
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> CreatePropertiesPerType()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {

@@ -4,12 +4,13 @@ using Common.ComponentStorage;
 using Common.GDA;
 using CalculationEngine.Model.EnergyCalculations;
 using Common.Logger;
+using System;
 
 namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBalance
 {
     public class EnergyConsumerStorageItemCreator : BaseEnergyBalanceStorageItemCreator
     {
-        public EnergyConsumerStorageItemCreator() : base(PopulateNeededProperties())
+        public EnergyConsumerStorageItemCreator() : base()
         {
         }
 
@@ -25,7 +26,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBala
             return energyConsumer;
         }
 
-        private static Dictionary<DMSType, List<ModelCode>> PopulateNeededProperties()
+        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {
