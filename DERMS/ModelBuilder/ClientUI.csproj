@@ -123,10 +123,15 @@
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEvent.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEventArgs.cs" />
+    <Compile Include="Events\OpenCommandingWindow\DERGroupOpenCommandingWindowEvent.cs" />
+    <Compile Include="Events\OpenCommandingWindow\DERGroupOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\DiscreteRemotePointOpenCommandingWindowEvent.cs" />
     <Compile Include="Events\OpenCommandingWindow\DiscreteRemotePointOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
+    <Compile Include="Models\DERGroup\DERGroupSummaryItem.cs" />
+    <Compile Include="Models\DERGroup\EnergyStorage.cs" />
+    <Compile Include="Models\DERGroup\Generator.cs" />
     <Compile Include="Models\IdentifiedObject.cs" />
     <Compile Include="Models\RemotePoints\AnalogRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\DiscreteRemotePointSummaryItem.cs" />
@@ -163,6 +168,7 @@
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
     <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\DERGroupSummary\DERGroupSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\AnalogRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\DiscreteRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\SummaryViewModel.cs" />
@@ -171,6 +177,9 @@
     </Compile>
     <Compile Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml.cs">
       <DependentUpon>DiscreteRemotePointCommandingWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DERGroupSummaryView.xaml.cs">
+      <DependentUpon>DERGroupSummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiscreteRemotePointSummaryView.xaml.cs">
       <DependentUpon>DiscreteRemotePointSummaryView.xaml</DependentUpon>
@@ -217,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DERGroupSummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

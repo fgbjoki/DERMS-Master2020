@@ -1,6 +1,9 @@
-﻿namespace UIAdapter.Model.DERGroup
+﻿using Common.UIDataTransferObject;
+using Common.UIDataTransferObject.DERGroup;
+
+namespace UIAdapter.Model.DERGroup
 {
-    public class DERGroup : DistributedEnergyResource
+    public class DERGroup : DistributedEnergyResource<DERGroupSummaryDTO>
     {
         public DERGroup(long globalId) : base(globalId)
         {
@@ -20,6 +23,28 @@
 
                 return totalActivePower;
             }
+        }
+
+        public override DERGroupSummaryDTO CreateDTO()
+        {
+            var dto = new DERGroupSummaryDTO();
+            PopulateDTO(dto);
+
+            return dto;
+        }
+
+        protected override void PopulateDTO(DistributedEnergyResourceDTO dto)
+        {
+            base.PopulateDTO(dto);
+
+            DERGroupSummaryDTO derGroupDto = dto as DERGroupSummaryDTO;
+            if (derGroupDto == null)
+            {
+                return;
+            }
+
+            derGroupDto.EnergyStorage = EnergyStorage.CreateDTO();
+            derGroupDto.Generator = Generator.CreateDTO();
         }
     }
 }

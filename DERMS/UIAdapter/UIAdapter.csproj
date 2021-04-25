@@ -63,6 +63,7 @@
     <Compile Include="Model\Schema\Breaker.cs" />
     <Compile Include="Model\Schema\EnergySource.cs" />
     <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\DERGroup\EnergyStorageStateOfChargeDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\DiscreteRemotePointStorageDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\SchemaBreakerStateChangedDynamichandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Schema\StateController\EquipmentStateCreator.cs" />
     <Compile Include="Schema\StateController\GraphState.cs" />
     <Compile Include="SummaryJobs\AnalogRemotePointSummaryJob.cs" />
+    <Compile Include="SummaryJobs\DERGroupSummaryJob.cs" />
     <Compile Include="SummaryJobs\DiscreteRemotePointSummaryJob.cs" />
     <Compile Include="SummaryJobs\SummaryItem.cs" />
     <Compile Include="SummaryJobs\SummaryJob.cs" />
@@ -108,7 +110,9 @@
     <Compile Include="TransactionProcessing\Storages\DERs\EnergyStorageStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DERs\GeneratorStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
-    <Compile Include="TransactionProcessing\Storages\IAnalogEntityStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\Helpers\AnalogEntityMapper.cs" />
+    <Compile Include="TransactionProcessing\Storages\Helpers\IAnalogEntityMapper.cs" />
+    <Compile Include="TransactionProcessing\Storages\Helpers\IAnalogEntityStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\BreakerStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\EnergySourceStorage.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />

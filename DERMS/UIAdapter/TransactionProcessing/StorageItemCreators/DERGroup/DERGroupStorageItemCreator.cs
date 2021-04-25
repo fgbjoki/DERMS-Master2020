@@ -37,11 +37,6 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
             derGroup.EnergyStorage = energyStorage;
             derGroup.Generator = generator;
 
-            Logger.Instance.Log("CLEAN THIS UP !");
-            Logger.Instance.Log("DERGROUP !");
-            Logger.Instance.Log($"STORAGE: {energyStorage.Name}");
-            Logger.Instance.Log($"GENERATOR: {generator.Name}\n");
-
             return derGroup;
         }
 

@@ -17,11 +17,12 @@ using UIAdapter.TransactionProcessing.Storages.Schema;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
 using NServiceBus;
+using Common.UIDataTransferObject.DERGroup;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -38,6 +39,7 @@ namespace UIAdapter
         private TransactionProcessing.Storages.DERGroup.DERGroupStorage derGroupStorage;
         private TransactionProcessing.Storages.DERs.EnergyStorageStorage energyStorageStorage;
 
+        private DERGroupSummaryJob derGroupSummaryJob;
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
         private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
 
@@ -88,12 +90,14 @@ namespace UIAdapter
 
         private void InitializeJobs()
         {
+            derGroupSummaryJob = new DERGroupSummaryJob(derGroupStorage);
             analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
             discreteRemotePointSummaryJob = new DiscreteRemotePointSummaryJob(discreteRemotePointStorage);
         }
 
         private void InitializeDynamicHandlers()
         {
+            dynamicListenerManager.ConfigureSubscriptions(derGroupStorage.GetSubscriptions());
             dynamicListenerManager.ConfigureSubscriptions(analogRemotePointStorage.GetSubscriptions());
             dynamicListenerManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
             dynamicListenerManager.ConfigureSubscriptions(schemaRepresentation.GetSubscriptions());
@@ -189,6 +193,16 @@ namespace UIAdapter
         DiscreteRemotePointSummaryDTO IDiscreteRemotePointSummaryJob.GetEntity(long globalId)
         {
             return discreteRemotePointSummaryJob.GetEntity(globalId);
+        }
+
+        List<DERGroupSummaryDTO> IDERGroupSummaryJob.GetAllAnalogEntities()
+        {
+            return derGroupSummaryJob.GetAllEntities();
+        }
+
+        DERGroupSummaryDTO IDERGroupSummaryJob.GetEntity(long globalId)
+        {
+            return derGroupSummaryJob.GetEntity(globalId);
         }
     }
 }

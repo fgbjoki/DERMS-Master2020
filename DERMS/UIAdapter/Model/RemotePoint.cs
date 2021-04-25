@@ -10,8 +10,6 @@ namespace UIAdapter.Model
         {
         }
 
-        public string Name { get; set; }
-
         public int Address { get; set; }
 
         protected virtual void PopulateDTO(T dto)

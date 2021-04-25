@@ -4,7 +4,6 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
 using UIAdapter.Model.DERs;
-using System;
 
 namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERs
 {

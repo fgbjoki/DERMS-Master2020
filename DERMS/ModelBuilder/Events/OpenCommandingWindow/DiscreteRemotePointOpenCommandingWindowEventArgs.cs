@@ -8,7 +8,6 @@
 
         public int Value { get; set; }
 
-        // not sure
         public int NormalValue { get; set; }
     }
 }
