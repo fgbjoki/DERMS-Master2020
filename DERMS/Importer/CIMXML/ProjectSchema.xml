@@ -676,7 +676,7 @@
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Energy Source for wind generator</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage3_2</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>Energy Storage 2</ftn:IdentifiedObject.name>
+		<ftn:IdentifiedObject.name>Energy Storage 3_2</ftn:IdentifiedObject.name>
 	</cim:EnergyStorage>
 	
 	<cim:Analog rdf:ID="EnergyStorage3_2_ActivePower">

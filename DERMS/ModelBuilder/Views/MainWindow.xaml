@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:ClientUI.Views"
         xmlns:viewModels="clr-namespace:ClientUI.ViewModels"
+        xmlns:derGroupViewModel="clr-namespace:ClientUI.ViewModels.Summaries.DERGroupSummary"
         xmlns:summaryViewModels="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
         xmlns:browseSchemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
@@ -27,6 +28,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type browseSchemaViewModel:BrowseSchemaViewModel}">
             <views:BrowseSchemaView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type derGroupViewModel:DERGroupSummaryViewModel}">
+            <views:DERGroupSummaryView/>
         </DataTemplate>
     </Window.Resources>
 

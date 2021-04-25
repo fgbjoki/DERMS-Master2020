@@ -1,8 +1,10 @@
-﻿using Common.ComponentStorage;
+﻿using Common.UIDataTransferObject;
+using UIAdapter.SummaryJobs;
 
 namespace UIAdapter.Model.DERGroup
 {
-    public abstract class DistributedEnergyResource : IdentifiedObject
+    public abstract class DistributedEnergyResource<T> : SummaryItem<T>
+        where T : DistributedEnergyResourceDTO
     {
         public DistributedEnergyResource(long globalId) : base(globalId)
         {
@@ -11,5 +13,13 @@ namespace UIAdapter.Model.DERGroup
         public virtual float ActivePower { get; set; }
 
         public float NominalPower { get; set; }
+
+        protected virtual void PopulateDTO(DistributedEnergyResourceDTO dto)
+        {
+            dto.ActivePower = ActivePower;
+            dto.NominalPower = NominalPower;
+            dto.Name = Name;
+            dto.GlobalId = GlobalId;
+        }
     }
 }

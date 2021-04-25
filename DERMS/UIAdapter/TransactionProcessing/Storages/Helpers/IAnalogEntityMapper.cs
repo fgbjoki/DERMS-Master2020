@@ -1,6 +1,6 @@
 ﻿using Common.AbstractModel;
 
-namespace UIAdapter.TransactionProcessing.Storages
+namespace UIAdapter.TransactionProcessing.Storages.Helpers
 {
     public struct AnalogValueOwner
     {
@@ -14,8 +14,9 @@ namespace UIAdapter.TransactionProcessing.Storages
         public MeasurementType MeasurementType { get; set; }
     }
 
-    public interface IAnalogEntityStorage
+    public interface IAnalogEntityMapper
     {
-        void UpdateValue(long measurementDiscrete, float newValue);
+        bool AddAnalogOwner(long measurementGid, MeasurementType measurementType, long ownerGid);
+        AnalogValueOwner GetOwner(long measurementGid);
     }
 }

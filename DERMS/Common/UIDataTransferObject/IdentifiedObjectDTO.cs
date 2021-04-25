@@ -1,4 +1,5 @@
-﻿using Common.UIDataTransferObject.RemotePoints;
+﻿using Common.UIDataTransferObject.DERGroup;
+using Common.UIDataTransferObject.RemotePoints;
 using Common.UIDataTransferObject.Schema;
 using System.Runtime.Serialization;
 
@@ -8,8 +9,11 @@ namespace Common.UIDataTransferObject
     [KnownType(typeof(SubSchemaDTO))]
     [KnownType(typeof(EnergySourceDTO))]
     [KnownType(typeof(SubSchemaNodeDTO))]
+    [KnownType(typeof(DERGroupSummaryDTO))]
+    [KnownType(typeof(DERGroupGeneratorSummaryDTO))]
     [KnownType(typeof(AnalogRemotePointSummaryDTO))]
     [KnownType(typeof(DiscreteRemotePointSummaryDTO))]
+    [KnownType(typeof(DERGroupEnergyStorageSummaryDTO))]
     public abstract class IdentifiedObjectDTO
     {
         [DataMember]
