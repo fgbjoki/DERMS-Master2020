@@ -44,15 +44,7 @@
                     </materialDesign:DataGridTextColumn.Binding>
                 </materialDesign:DataGridTextColumn>
 
-                <DataGridTextColumn
-                            Binding="{Binding CalculationName}"
-                            MinWidth="100"
-                            IsReadOnly="True"
-                            Header="Calculation"
-                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-
-
+                
                 <!-- set a max length to get an indicator in the editor -->
                 <DataGridTextColumn
                             MinWidth="100"
