@@ -99,24 +99,6 @@ namespace ClientUI.ViewModels.Schema
                 SubSchemaBreakerNodeDTO breakerNodeDto = dtoNode as SubSchemaBreakerNodeDTO;
                 breakerNode.Closed = breakerNodeDto.Closed;
             }
-
-            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => Update(equipmentStateDTO, energyBalanceDTO)));
-
-            fetchNewDataTimer.Enabled = true;
-        }
-
-        private void Update(SubSchemaConductingEquipmentEnergized currentNodeStates, SchemaEnergyBalanceDTO energyBalance)
-        {
-            EnergyBalance.DemandEnergy = energyBalance.DemandEnergy;
-            EnergyBalance.ImportedEnergy = energyBalance.ImportedEnergy;
-            EnergyBalance.ProducedEnergy = EnergyBalance.ProducedEnergy;
-
-            foreach (var newNodeState in currentNodeStates.Nodes)
-            {
-                SchemaBreakerNode breakerNode = schemaNode as SchemaBreakerNode;
-                SubSchemaBreakerNodeDTO breakerNodeDto = dtoNode as SubSchemaBreakerNodeDTO;
-                breakerNode.Closed = breakerNodeDto.Closed;
-            }
         }
 
         private void InitializeGraph(SchemaGraphWrapper graphWrapper)
