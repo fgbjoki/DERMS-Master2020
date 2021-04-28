@@ -1,4 +1,5 @@
-﻿using Common.AbstractModel;
+﻿using ClientUI.Common;
+using Common.AbstractModel;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ namespace ClientUI.Models.Schema
 
         public DMSType DMSType { get; set; }
 
+        public ObservableCollection<ContextAction> ContextActions { get; set; }
+
         public bool Energized
         {
             get { return isEnergized; }
@@ -56,10 +59,5 @@ namespace ClientUI.Models.Schema
         }
 
         public ICommand OnDoubleClick { get; set; }
-
-        private void Control1_MouseDoubleClick(Object sender, MouseEventArgs e)
-        {
-            OnDoubleClick.Execute(null);
-        }
     }
 }

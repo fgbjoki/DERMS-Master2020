@@ -3,6 +3,7 @@
 namespace Common.UIDataTransferObject.Schema
 {
     [DataContract]
+    [KnownType(typeof(SubSchemaBreakerNodeDTO))]
     public class SubSchemaNodeDTO : IdentifiedObjectDTO
     {
         [DataMember]

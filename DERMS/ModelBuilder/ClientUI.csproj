@@ -108,6 +108,7 @@
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\DiscreteRemotePointCommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
+    <Compile Include="Common\ContextAction.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\Schema\EquipmentConductionToColorConverter.cs" />
@@ -136,12 +137,14 @@
     <Compile Include="Models\RemotePoints\AnalogRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\DiscreteRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\RemotePointSummaryItem.cs" />
+    <Compile Include="Models\Schema\NodeCreators\BreakerCommands\BreakerCommand.cs" />
     <Compile Include="Models\Schema\NodeCreators\BreakerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\ConnectivityNodeSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\EnergyStorageSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\GeneratorSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\InterConnectedBreakerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\NonClicableSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\Nodes\SchemaBreakerNode.cs" />
     <Compile Include="Models\Schema\SchemaConnNodeGraphNode.cs" />
     <Compile Include="Models\Schema\SchemaCreator.cs" />
     <Compile Include="Models\Schema\SchemaEnergyBalance.cs" />

@@ -1,4 +1,6 @@
 ﻿using ClientUI.Models.Schema;
+using ClientUI.Models.Schema.Nodes;
+using Common.AbstractModel;
 using Common.Communication;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
@@ -76,14 +78,26 @@ namespace ClientUI.ViewModels.Schema
             EnergyBalance.ImportedEnergy = energyBalance.ImportedEnergy;
             EnergyBalance.ProducedEnergy = EnergyBalance.ProducedEnergy;
 
-            foreach (var newNodeState in currentNodeStates.Nodes)
+            foreach (var newNodeState in currentNodeStates.Nodes.Values)
             {
-                SchemaNode schemaNode;
-                if (schemaNodes.TryGetValue(newNodeState.Key, out schemaNode))
-                {
-                    schemaNode.DoesConduct = newNodeState.Value.DoesConduct;
-                    schemaNode.Energized = newNodeState.Value.IsEnergized;
-                }
+                PopulateNodesWithNewStates(newNodeState);
+            }
+        }
+
+        private void PopulateNodesWithNewStates(SubSchemaNodeDTO dtoNode)
+        {
+            SchemaNode schemaNode;
+            if (schemaNodes.TryGetValue(dtoNode.GlobalId, out schemaNode))
+            {
+                schemaNode.DoesConduct = dtoNode.DoesConduct;
+                schemaNode.Energized = dtoNode.IsEnergized;
+            }
+
+            if (schemaNode.DMSType == DMSType.BREAKER)
+            {
+                SchemaBreakerNode breakerNode = schemaNode as SchemaBreakerNode;
+                SubSchemaBreakerNodeDTO breakerNodeDto = dtoNode as SubSchemaBreakerNodeDTO;
+                breakerNode.Closed = breakerNodeDto.Closed;
             }
         }
 
