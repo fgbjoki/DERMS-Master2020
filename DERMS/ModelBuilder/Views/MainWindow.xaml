@@ -37,26 +37,28 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
+    <materialDesign:DialogHost
+        Identifier="RootDialog"
+        DialogTheme="Inherit">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
+            <customControls:ContentMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
 
-        <customControls:ContentMenu Grid.Column="0" Height="Auto" HorizontalAlignment="Left"/>
-        
-        <Grid Grid.Column="1" Margin="0,0,30,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="4*"/>
-            </Grid.RowDefinitions>
-            
-            <TextBlock Text="{Binding ContentViewModel.PageName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-            <Separator Grid.Row="1" Visibility="{Binding ContentVisible}"/>
-            <ContentControl Content="{Binding ContentViewModel}" Grid.Row="2"/>
+            <Grid Grid.Column="1" Margin="0,0,30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{Binding ContentViewModel.PageName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+                <Separator Grid.Row="1" Visibility="{Binding ContentVisible}"/>
+                <ContentControl Content="{Binding ContentViewModel}" Grid.Row="2"/>
+            </Grid>
         </Grid>
-
-    </Grid>
+    </materialDesign:DialogHost>
 </Window>

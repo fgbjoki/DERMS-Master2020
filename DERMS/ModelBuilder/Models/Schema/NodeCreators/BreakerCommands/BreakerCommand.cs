@@ -1,9 +1,13 @@
-﻿using ClientUI.Models.Schema.Nodes;
+﻿using ClientUI.Commanding;
+using ClientUI.Common.MessageBox;
+using ClientUI.Models.Schema.Nodes;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ClientUI.Models.Schema.NodeCreators.BreakerCommands
@@ -32,7 +36,18 @@ namespace ClientUI.Models.Schema.NodeCreators.BreakerCommands
 
         public void Execute(object parameter)
         {
-            // TODO
+            // if breaker state command condition is false (OPEN) then command should close the breaker (0 value), otherwise open the breaker (1 value)
+            int breakerCommandingState = breakerStateCondition ? 1 : 0;
+            bool commandSend = CommandingProxy.Instance.SendBreakerCommand(breakerNode.GlobalId, breakerCommandingState);
+            
+            if (commandSend)
+            {
+                MessageBoxCreator.Show("Command successfuly sent!", "Command information", PackIconKind.Information);
+            }
+            else
+            {
+                MessageBoxCreator.Show("Command successfuly sent!", "Command information", PackIconKind.Error);
+            }
         }
     }
 }

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\BreakerCommandingProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
     <Compile Include="Model\DERGroup\DERGroup.cs" />
     <Compile Include="Model\DERGroup\DistributedEnergyResource.cs" />

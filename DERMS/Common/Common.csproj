@@ -83,8 +83,9 @@
     <Compile Include="PubSub\Subscriptions\ISubscription.cs" />
     <Compile Include="PubSub\Subscriptions\Subscription.cs" />
     <Compile Include="PubSub\Subscriptions\Topic.cs" />
-    <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerLoopCommandingValidator.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\ISchemaRepresentation.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\ISchema.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDERGroupSummaryJob.cs" />

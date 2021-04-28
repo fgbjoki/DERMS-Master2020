@@ -108,7 +108,10 @@
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\DiscreteRemotePointCommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
+    <Compile Include="Commanding\CommandingProxy.cs" />
     <Compile Include="Common\ContextAction.cs" />
+    <Compile Include="Common\MessageBox\MessageBoxCreator.cs" />
+    <Compile Include="Common\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\Schema\EquipmentConductionToColorConverter.cs" />
@@ -197,6 +200,9 @@
     <Compile Include="Views\BrowseSchemaView.xaml.cs">
       <DependentUpon>BrowseSchemaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MessageBox\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SchemaView.xaml.cs">
       <DependentUpon>SchemaView.xaml</DependentUpon>
     </Compile>
@@ -253,14 +259,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MessageBox\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SchemaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DynamicHandlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
