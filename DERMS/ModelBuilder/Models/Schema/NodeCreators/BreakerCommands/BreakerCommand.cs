@@ -1,6 +1,7 @@
 ﻿using ClientUI.Commanding;
 using ClientUI.Common.MessageBox;
 using ClientUI.Models.Schema.Nodes;
+using Common.DataTransferObjects;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -38,15 +39,15 @@ namespace ClientUI.Models.Schema.NodeCreators.BreakerCommands
         {
             // if breaker state command condition is false (OPEN) then command should close the breaker (0 value), otherwise open the breaker (1 value)
             int breakerCommandingState = breakerStateCondition ? 1 : 0;
-            bool commandSend = CommandingProxy.Instance.SendBreakerCommand(breakerNode.GlobalId, breakerCommandingState);
+            CommandFeedbackMessageDTO feedback = CommandingProxy.Instance.SendBreakerCommand(breakerNode.GlobalId, breakerCommandingState);
             
-            if (commandSend)
+            if (feedback.CommandExecuted)
             {
                 MessageBoxCreator.Show("Command successfuly sent!", "Command information", PackIconKind.Information);
             }
             else
             {
-                MessageBoxCreator.Show("Command successfuly sent!", "Command information", PackIconKind.Error);
+                MessageBoxCreator.Show($"{feedback.Message}", "Command information", PackIconKind.Error);
             }
         }
     }

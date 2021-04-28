@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace ClientUI.Converters.Schema
+namespace ClientUI.Converters
 {
-    public class EquipmentConductionToColorConverter : IValueConverter
+    public class BoolToSolidColorConverter : IValueConverter
     {
         private static SolidColorBrush green = new SolidColorBrush(Colors.Green);
         private static SolidColorBrush red = new SolidColorBrush(Colors.Red);

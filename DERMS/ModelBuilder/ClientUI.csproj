@@ -108,13 +108,16 @@
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\CommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowHandlers\DiscreteRemotePointCommandingWindowHandler.cs" />
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
+    <Compile Include="Commanding\CommandFeedback.cs" />
     <Compile Include="Commanding\CommandingProxy.cs" />
     <Compile Include="Common\ContextAction.cs" />
     <Compile Include="Common\MessageBox\MessageBoxCreator.cs" />
     <Compile Include="Common\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Converters\BoolToColorConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
-    <Compile Include="Converters\Schema\EquipmentConductionToColorConverter.cs" />
+    <Compile Include="Converters\BoolToSolidColorConverter.cs" />
     <Compile Include="Converters\Schema\HorizontalLineConverter.cs" />
     <Compile Include="Converters\Schema\VerticalLineConverter.cs" />
     <Compile Include="CustomControls\CommandWindow.cs" />
@@ -160,6 +163,8 @@
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
     <Compile Include="ValidationRules\BinaryValueValidationRule.cs" />
+    <Compile Include="ValidationRules\DIfferentInputValidation\DifferentValueChecker.cs" />
+    <Compile Include="ValidationRules\DIfferentInputValidation\DiscreteDifferentValueRule.cs" />
     <Compile Include="ValidationRules\IsTextNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">

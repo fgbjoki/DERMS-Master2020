@@ -64,6 +64,7 @@
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
+    <Compile Include="DataTransferObjects\CommandFeedbackMessageDTO.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
     <Compile Include="Helpers\MultipleAutoResetEvent.cs" />

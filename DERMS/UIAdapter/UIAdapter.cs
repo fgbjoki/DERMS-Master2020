@@ -20,6 +20,7 @@ using NServiceBus;
 using Common.UIDataTransferObject.DERGroup;
 using UIAdapter.Commanding;
 using Common.Helpers.Breakers;
+using Common.DataTransferObjects;
 
 namespace UIAdapter
 {
@@ -219,12 +220,12 @@ namespace UIAdapter
             return schemaRepresentation.GetEnergyBalance(energySourceGid);
         }
 
-        public bool SendBreakerCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO SendBreakerCommand(long breakerGid, int breakerValue)
         {
             return breakerCommanding.SendBreakerCommand(breakerGid, breakerValue);
         }
 
-        public bool ValidateCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO ValidateCommand(long breakerGid, int breakerValue)
         {
             return breakerCommanding.ValidateCommand(breakerGid, breakerValue);
         }

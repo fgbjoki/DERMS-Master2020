@@ -7,7 +7,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:local="clr-namespace:ClientUI.Views.CommandingWindow"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:converter="clr-namespace:ClientUI.Converters"
       xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
+      xmlns:differentValidationRule ="clr-namespace:ClientUI.ValidationRules.DIfferentInputValidation"
       mc:Ignorable="d"
       Height="600" 
       Width="500"
@@ -18,7 +20,10 @@
       TextElement.FontSize="14"
       FontFamily="{materialDesign:MaterialDesignFont}"
       x:Name="CommandingWindow">
-
+    <commandingWindow:CommandWindow.Resources>
+        <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+        <converter:BoolToColorConverter x:Key="boolToColorConverter" />
+    </commandingWindow:CommandWindow.Resources>
     <Grid>
 
         <materialDesign:Card Margin="20,20,20,60">
@@ -30,7 +35,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="5*"/>
                 </Grid.RowDefinitions>
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="1.5*"/>
@@ -63,25 +68,42 @@
                         <TextBlock Text="Commanding" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                            <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0">
+                            <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
                                 <TextBox.Text>
                                     <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
                                             <validationRules:BinaryValueValidationRule/>
+                                            <differentValidationRule:DiscreteDifferentValueRule>
+                                                <differentValidationRule:DiscreteDifferentValueRule.DifferentValueChecker>
+                                                    <differentValidationRule:DifferentValueChecker CurrentValue="{Binding Value}"/>
+                                                </differentValidationRule:DiscreteDifferentValueRule.DifferentValueChecker>
+                                            </differentValidationRule:DiscreteDifferentValueRule>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                            <Button Content="Send Command" Command="{Binding SendCommandCommand}" CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}"/>
+                            <Button Content="Validate" 
+                                    Command="{Binding ValidationCommand}" 
+                                    CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}" 
+                                    Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=false}"/>
+                            <Button Content="Send Command" 
+                                    Command="{Binding SendCommandCommand}" 
+                                    CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}"
+                                    Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=true}"/>
                         </StackPanel>
 
-                        <TextBlock Text="TODO STATUS FOR SENT COMMAND" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2"/>
+                        <TextBlock Text="{Binding CommandFeedback.Message}"
+                                   Visibility="{Binding CommandFeedback.Visibility}"
+                                   Foreground="{Binding CommandFeedback.CommandExecuted, Converter={StaticResource boolToColorConverter}}"
+                                   FontSize="20" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Grid.Row="2"/>
                     </Grid>
                 </materialDesign:Card>
-
-
             </Grid>
         </materialDesign:Card>
-        
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Content="Close" Background="#FF515151" BorderBrush="{x:Null}"
+                Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CommandingWindow}" Foreground="White"/>
     </Grid>
 </commandingWindow:CommandWindow>

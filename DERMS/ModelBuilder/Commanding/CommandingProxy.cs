@@ -1,4 +1,5 @@
 ﻿using Common.Communication;
+using Common.DataTransferObjects;
 using Common.ServiceInterfaces.UIAdapter;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ClientUI.Commanding
 
         public static CommandingProxy Instance { get { return instance; } }
 
-        public bool SendBreakerCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO SendBreakerCommand(long breakerGid, int breakerValue)
         {
             try
             {
@@ -29,11 +30,15 @@ namespace ClientUI.Commanding
             }
             catch (Exception e)
             {
-                return false;
-            }
+                return new CommandFeedbackMessageDTO()
+                {
+                    CommandExecuted = false,
+                    Message = "Command couldn't be executed. Check logs"
+                };
+            };
         }
 
-        public bool ValidateCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO ValidateCommand(long breakerGid, int breakerValue)
         {
             try
             {
@@ -41,7 +46,11 @@ namespace ClientUI.Commanding
             }
             catch (Exception e)
             {
-                return false;
+                return new CommandFeedbackMessageDTO()
+                {
+                    CommandExecuted = false,
+                    Message = "Command couldn't be executed. Check logs"
+                };
             }
         }
     }
