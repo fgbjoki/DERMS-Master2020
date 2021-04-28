@@ -28,9 +28,7 @@ namespace UIAdapter.Schema.StateController
 
         private void AddNewEquipmentState(Dictionary<long, EquipmentState> equipmentStates, SchemaGraphNode currentNode)
         {
-            EquipmentState newState = new EquipmentState(currentNode.GlobalId);
-            newState.DoesConduct = currentNode.DoesConduct;
-            newState.IsEnergized = newState.IsEnergized;
+            EquipmentState newState = currentNode.GetEquipmentState();
 
             equipmentStates.Add(newState.GlobalId, newState);
         }

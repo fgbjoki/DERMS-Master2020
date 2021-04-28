@@ -1,6 +1,8 @@
-﻿using Common.UIDataTransferObject.Schema;
+﻿using ClientUI.Common;
+using Common.UIDataTransferObject.Schema;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,22 +25,33 @@ namespace ClientUI.Models.Schema.NodeCreators
             node.DoesConduct = dtoNode.DoesConduct;
             node.Energized = dtoNode.IsEnergized;
             node.OnDoubleClick = GetOnClickCommand();
-
+            PopulateAdditionalProperties(node, dtoNode);
             CustomConfiguration(node);
+
+            node.ContextActions = new ObservableCollection<ContextAction>(CreateContextActions(node, dtoNode));
 
             return node;
         }
 
-        public abstract ICommand GetOnClickCommand();
+        protected abstract ICommand GetOnClickCommand();
 
-        public virtual SchemaNode InstantiateNode(long globalId, string imageUrl)
+        protected virtual SchemaNode InstantiateNode(long globalId, string imageUrl)
         {
             return new SchemaNode(globalId, imageUrl);
         }
 
-        public virtual void CustomConfiguration(SchemaNode node)
+        protected virtual void CustomConfiguration(SchemaNode node)
         {
 
+        }
+
+        protected virtual List<ContextAction> CreateContextActions(SchemaNode node, SubSchemaNodeDTO dtoNode)
+        {
+            return new List<ContextAction>(0);
+        }
+
+        protected virtual void PopulateAdditionalProperties(SchemaNode node, SubSchemaNodeDTO dtoNode)
+        {
         }
     }
 }

@@ -133,6 +133,7 @@
     <Compile Include="UIDataTransferObject\RemotePoints\RemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\EnergySourceDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\SchemaEnergyBalanceDTO.cs" />
+    <Compile Include="UIDataTransferObject\Schema\SubSchemaBreakerNodeDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaConductingEquipmentEnergized.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaNodeDTO.cs" />

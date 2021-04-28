@@ -13,7 +13,7 @@ namespace ClientUI.Models.Schema.NodeCreators
         {
         }
 
-        public override ICommand GetOnClickCommand()
+        protected override ICommand GetOnClickCommand()
         {
             // TODO OPEN COMMANDING WINDOW
             return null;

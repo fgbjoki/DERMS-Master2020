@@ -69,6 +69,8 @@ namespace UIAdapter.Schema.StateController
             }
 
             breaker.ChangeBreakerState(newBreakerState);
+            BreakerEquipmentState breakerEquipmentState = equipmentStates[breaker.GlobalId] as BreakerEquipmentState;
+            breakerEquipmentState.Closed = breaker.Conduts;
         }
 
         public SchemaGraphNode GetRoot()
@@ -89,6 +91,8 @@ namespace UIAdapter.Schema.StateController
                 }
 
                 breaker.ChangeBreakerState(breakerMessageMapping.MapRawDataToBreakerState(breakerState.CurrentValue));
+                BreakerEquipmentState breakerEquipmentState = equipmentStates[breaker.GlobalId] as BreakerEquipmentState;
+                breakerEquipmentState.Closed = breaker.Conduts;
             }
         }
 

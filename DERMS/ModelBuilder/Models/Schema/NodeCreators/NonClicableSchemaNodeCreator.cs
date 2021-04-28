@@ -15,7 +15,7 @@ namespace ClientUI.Models.Schema.NodeCreators
         {
         }
 
-        public override ICommand GetOnClickCommand()
+        protected override ICommand GetOnClickCommand()
         {
             return null;
         }

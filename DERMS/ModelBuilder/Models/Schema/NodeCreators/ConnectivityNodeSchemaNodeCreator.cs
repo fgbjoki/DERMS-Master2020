@@ -9,7 +9,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class ConnectivityNodeSchemaNodeCreator : NonClicableSchemaNodeCreator
     {
-        public override void CustomConfiguration(SchemaNode node)
+        protected override void CustomConfiguration(SchemaNode node)
         {
             base.CustomConfiguration(node);
 
@@ -18,7 +18,7 @@ namespace ClientUI.Models.Schema.NodeCreators
             node.Outline = new SolidColorBrush(Colors.Black);
         }
 
-        public override SchemaNode InstantiateNode(long globalId, string imageUrl)
+        protected override SchemaNode InstantiateNode(long globalId, string imageUrl)
         {
             return new SchemaConnNodeGraphNode(globalId, imageUrl);
         }

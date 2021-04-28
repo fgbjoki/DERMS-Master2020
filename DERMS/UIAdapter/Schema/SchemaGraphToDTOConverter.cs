@@ -26,16 +26,9 @@ namespace UIAdapter.Schema
             SubSchemaConductingEquipmentEnergized dto = new SubSchemaConductingEquipmentEnergized();
             dto.Nodes = new Dictionary<long, SubSchemaNodeDTO>(equipmentStates.Count);
 
-            foreach (var equipmentState in equipmentStates)
+            foreach (var equipmentState in equipmentStates.Values)
             {
-                SubSchemaNodeDTO nodeDto = new SubSchemaNodeDTO()
-                {
-                    DoesConduct = equipmentState.Value.DoesConduct,
-                    IsEnergized = equipmentState.Value.IsEnergized,
-                    GlobalId = equipmentState.Value.GlobalId
-                };
-
-                dto.Nodes.Add(nodeDto.GlobalId, nodeDto);
+                dto.Nodes.Add(equipmentState.GlobalId, equipmentState.ConvertToDTO());
             }
 
             return dto;

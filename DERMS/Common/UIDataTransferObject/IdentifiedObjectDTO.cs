@@ -10,6 +10,7 @@ namespace Common.UIDataTransferObject
     [KnownType(typeof(EnergySourceDTO))]
     [KnownType(typeof(SubSchemaNodeDTO))]
     [KnownType(typeof(DERGroupSummaryDTO))]
+    [KnownType(typeof(SubSchemaBreakerNodeDTO))]
     [KnownType(typeof(DERGroupGeneratorSummaryDTO))]
     [KnownType(typeof(AnalogRemotePointSummaryDTO))]
     [KnownType(typeof(DiscreteRemotePointSummaryDTO))]

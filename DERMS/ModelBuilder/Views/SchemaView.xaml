@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views"
+             xmlns:helper="clr-namespace:ClientUI.Common"
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
              xmlns:converters="clr-namespace:ClientUI.Converters"
              mc:Ignorable="d">
@@ -24,6 +25,15 @@
                         <MouseBinding MouseAction="LeftDoubleClick"
                           Command="{Binding OnDoubleClick}"/>
                     </Border.InputBindings>
+                    <Border.ContextMenu>
+                        <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
+                            <ContextMenu.ItemTemplate>
+                                <DataTemplate DataType="{x:Type helper:ContextAction}">
+                                    <MenuItem Header="{Binding Header}" Command="{Binding Command}"/>
+                                </DataTemplate>
+                            </ContextMenu.ItemTemplate>
+                        </ContextMenu>
+                    </Border.ContextMenu>
                     <StackPanel>
                         <Image Height="50"
                            Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}"/>

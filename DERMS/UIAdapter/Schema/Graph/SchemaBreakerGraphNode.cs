@@ -1,4 +1,5 @@
 ﻿using UIAdapter.Helpers;
+using UIAdapter.Schema.StateController;
 
 namespace UIAdapter.Schema.Graph
 {
@@ -31,5 +32,15 @@ namespace UIAdapter.Schema.Graph
         }
 
         public bool Conduts { get { return conducts; } }
+
+        public override EquipmentState GetEquipmentState()
+        {
+            return new BreakerEquipmentState(GlobalId)
+            {
+                DoesConduct = DoesConduct,
+                Closed = Conduts,
+                IsEnergized = IsEnergized
+            };
+        }
     }
 }
