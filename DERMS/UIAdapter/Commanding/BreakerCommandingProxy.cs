@@ -1,4 +1,5 @@
 ﻿using Common.Communication;
+using Common.DataTransferObjects;
 using Common.Helpers.Breakers;
 using Common.Logger;
 using Common.ServiceInterfaces.UIAdapter;
@@ -18,34 +19,60 @@ namespace UIAdapter.Commanding
             breakerValidationProxy = new WCFClient<Common.ServiceInterfaces.CalculationEngine.IBreakerCommanding>("ceBreakerValidation");
         }
 
-        public bool ValidateCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO ValidateCommand(long breakerGid, int breakerValue)
         {
-            bool commandValid = false;
+            CommandFeedbackMessageDTO feedbackMessage = new CommandFeedbackMessageDTO();
             try
             {
-                commandValid = breakerValidationProxy.Proxy.ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(breakerValue));
+                if (!breakerValidationProxy.Proxy.ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(breakerValue)))
+                {
+                    feedbackMessage.Message = "Command will cause loop in distributed network!";
+                    feedbackMessage.CommandExecuted = false;
+                }
+                else
+                {
+                    feedbackMessage.Message = "Command valid!";
+                    feedbackMessage.CommandExecuted = true;
+                }
             }
             catch (Exception e)
             {
                 Logger.Instance.Log($"[{GetType().Name}] Command invalid. More info:\n{e.Message}\nStack trace:\n{e.StackTrace}");
             }
 
-            return commandValid;
+            return feedbackMessage;
         }
 
-        public bool SendBreakerCommand(long breakerGid, int breakerValue)
+        public CommandFeedbackMessageDTO SendBreakerCommand(long breakerGid, int breakerValue)
         {
-            bool commandSent = false;
+            CommandFeedbackMessageDTO feedBack = null;
             try
             {
-                commandSent = breakerValidationProxy.Proxy.SendCommand(breakerGid, breakerValue);
+                feedBack = ValidateCommand(breakerGid, breakerValue);
+                if (feedBack.CommandExecuted == false)
+                {
+                    return feedBack;
+                }
+
+                if (breakerValidationProxy.Proxy.SendCommand(breakerGid, breakerValue))
+                {
+                    feedBack.CommandExecuted = true;
+                    feedBack.Message = "Command successfully sent!";
+                }
+                else
+                {
+                    feedBack.CommandExecuted = false;
+                    feedBack.Message = "Command couldn't be executed!";
+                }
             }
             catch (Exception e)
             {
+                feedBack.CommandExecuted = false;
+                feedBack.Message = "Service couldn't execute the command. Check logs.";
                 Logger.Instance.Log($"[{GetType().Name}] Command could not be sent. More info:\n{e.Message}\nStack trace:\n{e.StackTrace}");
             }
 
-            return commandSent;
+            return feedBack;
         }
     }
 }

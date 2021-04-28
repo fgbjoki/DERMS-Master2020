@@ -2,11 +2,12 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local="clr-namespace:CustomStyles"
-  xmlns:converters="clr-namespace:ClientUI.Converters.Schema">
+  xmlns:schemaConverters="clr-namespace:ClientUI.Converters.Schema"
+  xmlns:converters="clr-namespace:ClientUI.Converters">
 
-    <converters:HorizontalLineConverter x:Key="horzLineConv"/>
-    <converters:VerticalLineConverter x:Key="vertLineConv"/>
-    <converters:EquipmentConductionToColorConverter x:Key="coloringConverter"/>
+    <schemaConverters:HorizontalLineConverter x:Key="horzLineConv"/>
+    <schemaConverters:VerticalLineConverter x:Key="vertLineConv"/>
+    <converters:BoolToSolidColorConverter x:Key="coloringConverter"/>
     
     <Style TargetType="TreeViewItem" x:Key="SchemaGraphNodeStyle">
         <Setter Property="Template">

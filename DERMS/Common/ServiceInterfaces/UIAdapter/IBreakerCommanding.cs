@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using Common.DataTransferObjects;
+using System.ServiceModel;
 
 namespace Common.ServiceInterfaces.UIAdapter
 {
@@ -6,9 +7,9 @@ namespace Common.ServiceInterfaces.UIAdapter
     public interface IBreakerCommanding
     {
         [OperationContract]
-        bool SendBreakerCommand(long breakerGid, int breakerValue);
+        CommandFeedbackMessageDTO SendBreakerCommand(long breakerGid, int breakerValue);
 
         [OperationContract]
-        bool ValidateCommand(long breakerGid, int breakerValue);
+        CommandFeedbackMessageDTO ValidateCommand(long breakerGid, int breakerValue);
     }
 }
