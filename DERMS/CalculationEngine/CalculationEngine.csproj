@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BreakerCommandValidation\BreakerLoopCommandingValidator.cs" />
+    <Compile Include="Commanding\BreakerCommanding\BreakerCommandingUnit.cs" />
     <Compile Include="DERStates\DERStateDeterminator.cs" />
     <Compile Include="Helpers\Topology\BreakerLoopFinder.cs" />
     <Compile Include="CalculationEngine.cs" />

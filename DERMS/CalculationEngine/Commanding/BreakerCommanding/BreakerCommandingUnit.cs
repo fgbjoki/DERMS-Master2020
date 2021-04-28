@@ -8,9 +8,9 @@ using CalculationEngine.Helpers.Topology;
 using Common.Helpers.Breakers;
 using Common.ServiceInterfaces.CalculationEngine;
 
-namespace CalculationEngine.BreakerCommandValidation
+namespace CalculationEngine.Commanding.BreakerCommanding
 {
-    public class BreakerLoopCommandingValidator : IBreakerLoopCommandingValidator
+    public class BreakerCommandingUnit : IBreakerCommanding
     {
         private ITopologyAnalysis topologyAnalysis;
         private ReaderWriterLockSlim locker;
@@ -21,7 +21,7 @@ namespace CalculationEngine.BreakerCommandValidation
 
         private BreakerMessageMapping breakerMessageMapping;
 
-        public BreakerLoopCommandingValidator(ITopologyAnalysis topologyAnalysis, IStorage<DiscreteRemotePoint> discreteRemotePoint, BreakerMessageMapping breakerMessageMapping)
+        public BreakerCommandingUnit(ITopologyAnalysis topologyAnalysis, IStorage<DiscreteRemotePoint> discreteRemotePoint, BreakerMessageMapping breakerMessageMapping)
         {
             this.topologyAnalysis = topologyAnalysis;
             this.discreteRemotePoint = discreteRemotePoint;
@@ -31,6 +31,8 @@ namespace CalculationEngine.BreakerCommandValidation
 
             breakerLoopFinder = new BreakerLoopFinder();
         }
+
+        public ITopologyAnalysis TopologyAnalysis { set { topologyAnalysis = value; } }
 
         public void UpdateBreakers()
         {
@@ -69,9 +71,19 @@ namespace CalculationEngine.BreakerCommandValidation
                 locker.ExitReadLock();
             }
 
-            return allBreakersConduct;
+            return !allBreakersConduct;
         }
 
-        public ITopologyAnalysis TopologyAnalysis { set { topologyAnalysis = value; } }
+        public bool SendCommand(long breakerGid, int breakerValue)
+        {
+            if (!ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(breakerValue)))
+            {
+                return false;
+            }
+
+            // TODO send command to NDS
+
+            return true;
+        }
     }
 }

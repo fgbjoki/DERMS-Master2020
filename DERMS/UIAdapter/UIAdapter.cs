@@ -18,14 +18,18 @@ using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
 using NServiceBus;
 using Common.UIDataTransferObject.DERGroup;
+using UIAdapter.Commanding;
+using Common.Helpers.Breakers;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, Common.ServiceInterfaces.UIAdapter.IBreakerCommanding
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
+
+        private BreakerMessageMapping breakerMessageMapping = new BreakerMessageMapping();
 
         private TransactionManager transactionManager;
 
@@ -47,11 +51,14 @@ namespace UIAdapter
 
         private SchemaRepresentation schemaRepresentation;
 
+        private IBreakerCommanding breakerCommanding;
+
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
 
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
+            breakerCommanding = new BreakerCommandingProxy(breakerMessageMapping);
 
             InitializeTransactionStorages();
 
@@ -210,6 +217,16 @@ namespace UIAdapter
         public SchemaEnergyBalanceDTO GetEnergyBalance(long energySourceGid)
         {
             return schemaRepresentation.GetEnergyBalance(energySourceGid);
+        }
+
+        public bool SendBreakerCommand(long breakerGid, int breakerValue)
+        {
+            return breakerCommanding.SendBreakerCommand(breakerGid, breakerValue);
+        }
+
+        public bool ValidateCommand(long breakerGid, int breakerValue)
+        {
+            return breakerCommanding.ValidateCommand(breakerGid, breakerValue);
         }
     }
 }

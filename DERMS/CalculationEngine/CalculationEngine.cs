@@ -1,5 +1,4 @@
 ﻿using CalculationEngine.Graphs;
-using CalculationEngine.Model.Topology;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Schema;
 using CalculationEngine.TransactionProcessing.Storage.Topology;
@@ -20,15 +19,15 @@ using CalculationEngine.PubSub.DynamicListeners;
 using CalculationEngine.TransactionProcessing.Storage.EnergyBalance;
 using CalculationEngine.EnergyCalculators;
 using NServiceBus;
-using CalculationEngine.BreakerCommandValidation;
 using Common.Helpers.Breakers;
 using CalculationEngine.TransactionProcessing.Storage.DERStates;
 using CalculationEngine.DERStates;
+using CalculationEngine.Commanding.BreakerCommanding;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerLoopCommandingValidator
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -59,7 +58,7 @@ namespace CalculationEngine
         private EnergyBalanceCalculator energyBalanceCalculator;
         private DERStateDeterminator derStateDeterminator;
 
-        private BreakerLoopCommandingValidator breakerCommandingValidator;
+        private BreakerCommandingUnit breakerCommandingValidator;
 
         private EndpointConfiguration endpointConfiguration;
 
@@ -86,7 +85,7 @@ namespace CalculationEngine
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
             topologyAnalysis = new TopologyAnalysis.TopologyAnalysis(discreteRemotePointStorage, breakerMessageMapping);
-            breakerCommandingValidator = new BreakerLoopCommandingValidator(topologyAnalysis, discreteRemotePointStorage, breakerMessageMapping);
+            breakerCommandingValidator = new BreakerCommandingUnit(topologyAnalysis, discreteRemotePointStorage, breakerMessageMapping);
             topologyAnalysis.BreakerLoopCommandingValidator = breakerCommandingValidator;
 
             schemaRepresentation = new SchemaRepresentation();
@@ -211,6 +210,11 @@ namespace CalculationEngine
         public bool ValidateCommand(long breakerGid, BreakerState breakerState)
         {
             return breakerCommandingValidator.ValidateCommand(breakerGid, breakerState);
+        }
+
+        public bool SendCommand(long breakerGid, int breakerValue)
+        {
+            return breakerCommandingValidator.SendCommand(breakerGid, breakerValue);
         }
     }
 }

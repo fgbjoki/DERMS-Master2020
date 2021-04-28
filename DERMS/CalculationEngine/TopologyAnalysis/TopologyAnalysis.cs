@@ -22,7 +22,7 @@ namespace CalculationEngine.TopologyAnalysis
         private IStorage<DiscreteRemotePoint> discreteRemotePointStorage;
         private ITopologyModifier topologyModifier;
 
-        private IBreakerLoopCommandingValidator commandingLoopValidator;
+        private IBreakerCommanding commandingLoopValidator;
         private InterConnectedBreakerCommanding.IInterConnectedBreakerCommanding interConnectedBreakerCommanding;
 
         private Thread discreteValueAligner;
@@ -49,7 +49,7 @@ namespace CalculationEngine.TopologyAnalysis
 
         public void ChangeBreakerValue(long breakerGid, int rawBreakerValue, bool initialization = false)
         {
-            bool commandsCreatesLoop = commandingLoopValidator.ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue));
+            bool commandsCreatesLoop = !commandingLoopValidator.ValidateCommand(breakerGid, breakerMessageMapping.MapRawDataToBreakerState(rawBreakerValue));
 
             if (!initialization && commandsCreatesLoop)
             {
@@ -148,7 +148,7 @@ namespace CalculationEngine.TopologyAnalysis
 
         }
 
-        public IBreakerLoopCommandingValidator BreakerLoopCommandingValidator { set { commandingLoopValidator = value; } }
+        public IBreakerCommanding BreakerLoopCommandingValidator { set { commandingLoopValidator = value; } }
 
         public AdvancedSemaphore ReadyEvent { get { return readyEvent; } }
 
