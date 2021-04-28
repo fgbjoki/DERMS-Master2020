@@ -11,6 +11,7 @@ namespace UIAdapter.Model.DERGroup
         }
 
         public virtual float ActivePower { get; set; }
+        public long ActivePowerMeasurementGid { get; set; }
 
         public float NominalPower { get; set; }
 

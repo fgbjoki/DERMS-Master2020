@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreakerCommandValidation\BreakerLoopCommandingValidator.cs" />
+    <Compile Include="DERStates\DERStateDeterminator.cs" />
     <Compile Include="Helpers\Topology\BreakerLoopFinder.cs" />
     <Compile Include="CalculationEngine.cs" />
     <Compile Include="EnergyCalculators\BaseTopologyCalculatingUnit.cs" />
@@ -55,12 +56,13 @@
     <Compile Include="EnergyCalculators\EnergyBalanceCalculator.cs" />
     <Compile Include="EnergyCalculators\EnergyConsumption\EnergyConsumptionCalculator.cs" />
     <Compile Include="EnergyCalculators\EnergyProduction\EnergyProductionCalculator.cs" />
-    <Compile Include="EnergyCalculators\IEnergyBalanceCalculator.cs" />
+    <Compile Include="CommonComponents\ITopologyDependentComponent.cs" />
     <Compile Include="EnergyCalculators\ITopologyCalculatingUnit.cs" />
     <Compile Include="Graphs\BaseDepedentGraphCreator.cs" />
     <Compile Include="Graphs\GraphProcessors\BaseGraphProcessor.cs" />
     <Compile Include="Graphs\GraphProcessors\IGraphProcessor.cs" />
     <Compile Include="Graphs\TopologyGraphCreation\InterConnectedConnectivityCorrector.cs" />
+    <Compile Include="Model\DERStates\DERState.cs" />
     <Compile Include="Model\EnergyCalculations\CalculationObject.cs" />
     <Compile Include="Model\EnergyCalculations\EnergyConsumer.cs" />
     <Compile Include="Model\EnergyCalculations\EnergySource.cs" />
@@ -69,8 +71,8 @@
     <Compile Include="Model\Topology\Transaction\DiscreteRemotePoint.cs" />
     <Compile Include="PubSub\DynamicHandlers\BreakerStateChangedTopologyAnalysisDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\DiscreteRemotePointStorageDynamicHandler.cs" />
-    <Compile Include="PubSub\DynamicHandlers\EnergyBalanceAnalogValueChanged.cs" />
-    <Compile Include="PubSub\DynamicHandlers\EnergyBalanceTopologyChangedDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\CalculatingUnitAnalogValueChanged.cs" />
+    <Compile Include="PubSub\DynamicHandlers\TopologyChangedDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
     <Compile Include="PubSub\DynamicListeners\DiscreteRemotePointChangedListener.cs" />
     <Compile Include="Schema\SchemaMessageConverter.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Graphs\ConnectivityGraphCreation\ConnectivityGraphCreator.cs" />
     <Compile Include="TopologyAnalysis\TopologyReader.cs" />
     <Compile Include="TopologyAnalysis\TopologyModifier.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\DERstates\DERStateStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\DiscreteRemotePointStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\BaseEnergyBalanceStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergyConsumerStorageItemCreator.cs" />
@@ -156,11 +159,13 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\EnergySourceStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\EnergyStorageStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\TerminalStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\DERState\DERStateStorageTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\EnergyBalance\EnergyBalanceStorageTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\GraphTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\ReferenceResolver.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\TopologyOrderProcessingEnumerable.cs" />
+    <Compile Include="TransactionProcessing\Storage\DERStates\DERStateStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyBalanceStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyConsumerStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyGeneratorStorage.cs" />

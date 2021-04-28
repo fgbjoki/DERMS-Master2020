@@ -11,6 +11,7 @@ using CalculationEngine.PubSub.DynamicHandlers;
 using Common.Helpers.Breakers;
 using Common.ServiceInterfaces.CalculationEngine;
 using System;
+using Common.Helpers;
 
 namespace CalculationEngine.TopologyAnalysis
 {
@@ -27,11 +28,11 @@ namespace CalculationEngine.TopologyAnalysis
         private Thread discreteValueAligner;
         private CancellationTokenSource cancellationTokenSource;
         private AutoResetEvent commitedEvent;
-        private AutoResetEvent readyEvent;
+        private AdvancedSemaphore readyEvent;
 
         public TopologyAnalysis(IStorage<DiscreteRemotePoint> discreteRemotePointStorage, BreakerMessageMapping breakerMessageMapping) : base()
         {
-            readyEvent = new AutoResetEvent(false);
+            readyEvent = new AdvancedSemaphore(2);
             graphLocker = new ReaderWriterLockSlim();
 
             topologyModifier = new TopologyModifier(this, discreteRemotePointStorage);
@@ -149,7 +150,7 @@ namespace CalculationEngine.TopologyAnalysis
 
         public IBreakerLoopCommandingValidator BreakerLoopCommandingValidator { set { commandingLoopValidator = value; } }
 
-        public AutoResetEvent ReadyEvent { get { return readyEvent; } }
+        public AdvancedSemaphore ReadyEvent { get { return readyEvent; } }
 
         protected override IEnumerable<long> GetRootsGlobalId(TopologyGraph graph)
         {
@@ -176,7 +177,7 @@ namespace CalculationEngine.TopologyAnalysis
                     ChangeBreakerValue(discreteRemotePoint.BreakerGid, discreteRemotePoint.Value, true);
                 }
 
-                readyEvent.Set();
+                readyEvent.Release();
             }
         }
     }

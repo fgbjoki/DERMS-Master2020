@@ -1,7 +1,7 @@
 ﻿using Common.AbstractModel;
 using System.Collections.Generic;
 
-namespace UIAdapter.TransactionProcessing.Storages.Helpers
+namespace Common.TransactionProcessing.Storage.Helpers
 {
     public class AnalogEntityMapper: IAnalogEntityMapper
     {

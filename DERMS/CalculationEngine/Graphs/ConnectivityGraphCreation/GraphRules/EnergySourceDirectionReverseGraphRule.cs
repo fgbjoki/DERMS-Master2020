@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using CalculationEngine.Model.Topology.Graph;
 using CalculationEngine.Model.Topology.Graph.Connectivity;
+using Common.AbstractModel;
 
 namespace CalculationEngine.Graphs.ConnectivityGraphCreation.GraphRules
 {
@@ -30,7 +31,7 @@ namespace CalculationEngine.Graphs.ConnectivityGraphCreation.GraphRules
         {
             ConnectivityGraphNode currentNode = root;
 
-            while (currentNode.DMSType != Common.AbstractModel.DMSType.ACLINESEG)
+            while (currentNode.DMSType != DMSType.ACLINESEG)
             {
                 ReverseBranch(currentNode);
 

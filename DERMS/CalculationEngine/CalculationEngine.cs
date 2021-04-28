@@ -22,6 +22,8 @@ using CalculationEngine.EnergyCalculators;
 using NServiceBus;
 using CalculationEngine.BreakerCommandValidation;
 using Common.Helpers.Breakers;
+using CalculationEngine.TransactionProcessing.Storage.DERStates;
+using CalculationEngine.DERStates;
 
 namespace CalculationEngine
 {
@@ -46,6 +48,8 @@ namespace CalculationEngine
         private TopologyAnalysis.TopologyAnalysis topologyAnalysis;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
+        private DERStateStorage derStateStorage;
+
         private SchemaRepresentation schemaRepresentation;
 
         private DynamicPublisher dynamicPublisher;
@@ -53,12 +57,17 @@ namespace CalculationEngine
         private DynamicListenersManager dynamicListenersManager;
 
         private EnergyBalanceCalculator energyBalanceCalculator;
+        private DERStateDeterminator derStateDeterminator;
 
         private BreakerLoopCommandingValidator breakerCommandingValidator;
+
+        private EndpointConfiguration endpointConfiguration;
 
         public CalculationEngine()
         {
             InternalCEInitialization();
+
+            endpointConfiguration = InitializeDynamicPublisher();
 
             InitializeGraphs();
 
@@ -67,6 +76,7 @@ namespace CalculationEngine
             InitializeForTransaction();
 
             energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis);
+            derStateDeterminator = new DERStateDeterminator(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher);
 
             InitializePubSub();
         }
@@ -127,12 +137,14 @@ namespace CalculationEngine
             topologyStorage = new TopologyStorage(breakerMessageMapping, graphManipulator, graphsCreationProcessor, modelResourcesDesc);
 
             energyBalanceStorage = new EnergyBalanceStorage();
+
+            derStateStorage = new DERStateStorage();
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage });
         }
 
         private EndpointConfiguration InitializeDynamicPublisher()
@@ -159,8 +171,7 @@ namespace CalculationEngine
         }
 
         private void InitializePubSub()
-        {
-            EndpointConfiguration endpointConfiguration = InitializeDynamicPublisher();
+        {           
             InitializeDynamicListeners();
             InitializeDynamicHandlers();
 
@@ -173,6 +184,7 @@ namespace CalculationEngine
             dynamicListenersManager.ConfigureSubscriptions(discreteRemotePointStorage.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(topologyAnalysis.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(energyBalanceCalculator.GetSubscriptions());
+            dynamicListenersManager.ConfigureSubscriptions(derStateDeterminator.GetSubscriptions());
         }
 
         private void InitializeDynamicListeners()

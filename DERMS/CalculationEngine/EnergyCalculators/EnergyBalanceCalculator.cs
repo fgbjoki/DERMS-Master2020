@@ -10,12 +10,13 @@ using Common.ComponentStorage;
 using CalculationEngine.PubSub.DynamicHandlers;
 using Common.Logger;
 using Common.AbstractModel;
-using System;
 using System.Threading;
+using CalculationEngine.CommonComponents;
+using Common.Helpers;
 
 namespace CalculationEngine.EnergyCalculators
 {
-    public class EnergyBalanceCalculator : ISubscriber, IEnergyBalanceCalculator
+    public class EnergyBalanceCalculator : ISubscriber, ITopologyDependentComponent
     {
         private Dictionary<DMSType, ITopologyCalculatingUnit> recalculatingUnits;
 
@@ -35,7 +36,7 @@ namespace CalculationEngine.EnergyCalculators
         private Thread onCommitCalculationWorker;
         private CancellationTokenSource tokenSource;
 
-        private AutoResetEvent topologyReadyEvent;
+        private AdvancedSemaphore topologyReadyEvent;
 
         public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController)
         {
@@ -59,7 +60,7 @@ namespace CalculationEngine.EnergyCalculators
             onCommitCalculationWorker.Start();
         }
 
-        public void PerformCalculation()
+        public void ProcessTopologyChanges()
         {
             lock (locker)
             {
@@ -87,14 +88,7 @@ namespace CalculationEngine.EnergyCalculators
             }
         }
 
-        private void LogCurrentEnergyBalance(EnergyBalanceCalculation calculation)
-        {
-            Logger.Instance.Log($"Source: {calculation.EnergySourceGid}");
-            Logger.Instance.Log($"Demand: {calculation.Demand}");
-            Logger.Instance.Log($"Response: {calculation.Production}\n");
-        }
-
-        public void Recalculate(long measurementGid, float newMeasurementValue)
+        public void ProcessAnalogChanges(long measurementGid, float newMeasurementValue)
         {
             lock (locker)
             {
@@ -109,11 +103,21 @@ namespace CalculationEngine.EnergyCalculators
 
                 if (equipmentType == DMSType.ENERGYSOURCE)
                 {
-                    energyBalanceCalculations[conductingEquipmentGid].Imported = newMeasurementValue;
+                    var currentCalculation = energyBalanceCalculations[conductingEquipmentGid];
+                    currentCalculation.Imported = newMeasurementValue;
+                    LogCurrentEnergyBalance(currentCalculation);
+
                     return;
                 }
 
+                float delta = ChangeAnalogValue(measurementGid, newMeasurementValue);
+
                 long sourceGid = topologyReader.FindSource(conductingEquipmentGid);
+                if (sourceGid == 0)
+                {
+                    // specified conducting equipment is not energized
+                    return;
+                }
 
                 EnergyBalanceCalculation calculation = energyBalanceCalculations[sourceGid];
 
@@ -124,14 +128,9 @@ namespace CalculationEngine.EnergyCalculators
                     return;
                 }
 
-                if (equipmentType == DMSType.ENERGYCONSUMER)
-                {
-                    calculation.Demand = calculatingUnit.Recalculate(calculation.Demand, conductingEquipmentGid, newMeasurementValue);
-                }
-                else
-                {
-                    calculation.Production = calculatingUnit.Recalculate(calculation.Production, conductingEquipmentGid, newMeasurementValue);
-                }
+                calculatingUnit.Recalculate(calculation, delta);
+
+                LogCurrentEnergyBalance(calculation);
             }
 
             // TODO call commanding units, increase or decrease production or import less or more energy
@@ -141,9 +140,38 @@ namespace CalculationEngine.EnergyCalculators
         {
             return new List<ISubscription>(2)
             {
-                new Subscription(Topic.AnalogRemotePointChange, new EnergyBalanceAnalogValueChanged(this)),
-                new Subscription(Topic.DiscreteRemotePointChange, new EnergyBalanceTopologyChangedDynamicHandler(this))
+                new Subscription(Topic.AnalogRemotePointChange, new CalculatingUnitAnalogValueChanged(this)),
+                new Subscription(Topic.DiscreteRemotePointChange, new TopologyChangedDynamicHandler(this))
             };
+        }
+
+        private void LogCurrentEnergyBalance(EnergyBalanceCalculation calculation)
+        {
+            Logger.Instance.Log($"Source: {calculation.EnergySourceGid}");
+            Logger.Instance.Log($"Demand: {calculation.Demand}");
+            Logger.Instance.Log($"Production: {calculation.Production}");
+            Logger.Instance.Log($"Imported: {calculation.Imported}\n");
+        }
+
+        private float ChangeAnalogValue(long measurementGid, float newMeasurementValue)
+        {
+            float delta = 0;
+
+            long conductingEquipmentGid =  energyBalanceStorage.GetEntityByAnalogMeasurementGid(measurementGid);
+
+            CalculationObject calculationObject = energyBalanceStorage.GetEntity(conductingEquipmentGid);
+            CalculationWrapper calculation = calculationObject.GetCalculation(measurementGid);
+
+            if (calculation == null)
+            {
+                Logger.Instance.Log($"[{GetType().Name}] Couldn't update calculation of conducting equipment with gid: 0x{conductingEquipmentGid:X16}.");
+                return delta;
+            }
+
+            delta = newMeasurementValue - calculation.Value;
+            calculation.Value = newMeasurementValue;
+
+            return delta;
         }
 
         private void InitializeRecalculatingUnits()
@@ -161,15 +189,15 @@ namespace CalculationEngine.EnergyCalculators
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                energyBalanceStorage.Commited.WaitOne();
                 topologyReadyEvent.WaitOne();
+                energyBalanceStorage.Commited.WaitOne();
 
                 if (cancellationToken.IsCancellationRequested)
                 {
                     continue;
                 }
 
-                PerformCalculation();
+                ProcessTopologyChanges();
             }
         }
     }

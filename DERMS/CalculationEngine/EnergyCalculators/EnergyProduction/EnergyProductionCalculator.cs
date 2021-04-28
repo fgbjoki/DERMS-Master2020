@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.AbstractModel;
 using Common.ComponentStorage;
+using System;
 
 namespace CalculationEngine.EnergyCalculators.EnergyProduction
 {
@@ -14,6 +15,11 @@ namespace CalculationEngine.EnergyCalculators.EnergyProduction
         private static List<DMSType> PopulateNeededTypes()
         {
             return new List<DMSType>() { DMSType.ENERGYSTORAGE, DMSType.SOLARGENERATOR, DMSType.WINDGENERATOR };
+        }
+
+        public override void Recalculate(EnergyBalanceCalculation energyBalance, float delta)
+        {
+            energyBalance.Production += delta;
         }
     }
 }

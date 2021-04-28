@@ -16,6 +16,8 @@ namespace Common.ComponentStorage
 
         bool ValidateEntity(T entity);
 
+        void UpdateEntityProperty(long entityGid, Predicate<T> predicate);
+
         void ShallowCopyEntities(IStorage<T> storage);
 
         AutoResetEvent Commited { get; }

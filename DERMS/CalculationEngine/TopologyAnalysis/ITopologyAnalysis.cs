@@ -1,4 +1,5 @@
 ﻿using CalculationEngine.Model.Topology.Graph.Topology;
+using Common.Helpers;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -13,6 +14,6 @@ namespace CalculationEngine.TopologyAnalysis
         TopologyGraphNode GetNode(long nodeGlobalId);
         ReaderWriterLockSlim GetLock();
 
-        AutoResetEvent ReadyEvent { get; }
+        AdvancedSemaphore ReadyEvent { get; }
     }
 }

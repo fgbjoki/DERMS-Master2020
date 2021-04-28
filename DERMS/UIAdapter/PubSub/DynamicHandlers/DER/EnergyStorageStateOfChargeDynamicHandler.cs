@@ -2,9 +2,9 @@
 using Common.GDA;
 using Common.PubSub;
 using Common.PubSub.Messages;
-using UIAdapter.TransactionProcessing.Storages.Helpers;
+using Common.TransactionProcessing.Storage.Helpers;
 
-namespace UIAdapter.PubSub.DynamicHandlers.DERGroup
+namespace UIAdapter.PubSub.DynamicHandlers.DER
 {
     public class EnergyStorageStateOfChargeDynamicHandler : BaseDynamicHandler<AnalogRemotePointValueChanged>
     {

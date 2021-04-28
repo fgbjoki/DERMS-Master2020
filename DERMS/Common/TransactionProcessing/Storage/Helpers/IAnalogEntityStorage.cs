@@ -1,4 +1,4 @@
-﻿namespace UIAdapter.TransactionProcessing.Storages.Helpers
+﻿namespace Common.TransactionProcessing.Storage.Helpers
 {
     public interface IAnalogEntityStorage
     {

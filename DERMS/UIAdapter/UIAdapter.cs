@@ -110,6 +110,7 @@ namespace UIAdapter
             {
                 new AnalogRemotePointChangedListener(),
                 new DiscreteRemotePointChangedListener(),
+                new DERStateChangedListener()
             };
 
             foreach (var listener in listeners)
