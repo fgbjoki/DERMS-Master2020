@@ -5,5 +5,6 @@
         AnalogRemotePointChange,
         DiscreteRemotePointChange,
         DERStateChange,
+        EnergyBalanceChange
     }
 }

@@ -13,6 +13,7 @@ using Common.AbstractModel;
 using System.Threading;
 using CalculationEngine.CommonComponents;
 using Common.Helpers;
+using Common.PubSub.Messages;
 
 namespace CalculationEngine.EnergyCalculators
 {
@@ -24,6 +25,8 @@ namespace CalculationEngine.EnergyCalculators
         private ITopologyCalculatingUnit energyConsumption;
 
         private ITopologyReader topologyReader;
+
+        private IDynamicPublisher dynamicPublisher;
 
         private IStorage<EnergySource> energySourceStorage;
 
@@ -38,9 +41,11 @@ namespace CalculationEngine.EnergyCalculators
 
         private AdvancedSemaphore topologyReadyEvent;
 
-        public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController)
+        public EnergyBalanceCalculator(EnergyBalanceStorage energyBalanceStorage, ITopologyAnalysis topologyAnalysisController, IDynamicPublisher dynamicPublisher)
         {
             this.energyBalanceStorage = energyBalanceStorage;
+            this.dynamicPublisher = dynamicPublisher;
+
             topologyReadyEvent = topologyAnalysisController.ReadyEvent;
 
             energyBalanceCalculations = new Dictionary<long, EnergyBalanceCalculation>();
@@ -83,7 +88,15 @@ namespace CalculationEngine.EnergyCalculators
 
                     LogCurrentEnergyBalance(calculation);
 
-                    // TODO call commanding units, increase or decrease production or import less or more energy
+                    EnergyBalanceChanged newEnergyBalance = new EnergyBalanceChanged()
+                    {
+                        DemandEnergy = calculation.Demand,
+                        EnergySourceGid = calculation.EnergySourceGid,
+                        ImportedEnergy = calculation.Imported,
+                        ProducedEnergy = calculation.Production
+                    };
+
+                    dynamicPublisher.Publish(newEnergyBalance);
                 }
             }
         }
@@ -131,6 +144,16 @@ namespace CalculationEngine.EnergyCalculators
                 calculatingUnit.Recalculate(calculation, delta);
 
                 LogCurrentEnergyBalance(calculation);
+
+                EnergyBalanceChanged newEnergyBalance = new EnergyBalanceChanged()
+                {
+                    DemandEnergy = calculation.Demand,
+                    EnergySourceGid = calculation.EnergySourceGid,
+                    ImportedEnergy = calculation.Imported,
+                    ProducedEnergy = calculation.Production
+                };
+
+                dynamicPublisher.Publish(newEnergyBalance);
             }
 
             // TODO call commanding units, increase or decrease production or import less or more energy

@@ -18,11 +18,13 @@ namespace ClientUI.ViewModels.Schema
         private WCFClient<ISchema> schemaClient;
 
         private Dictionary<long, SchemaNode> schemaNodes;
+        private SchemaEnergyBalance energyBalance;
         private Timer fetchNewDataTimer;
 
-        public SchemaViewModel(SchemaGraphWrapper graphWrapper, WCFClient<ISchema> schemaClient)
+        public SchemaViewModel(SchemaGraphWrapper graphWrapper, SchemaEnergyBalance energyBalance, WCFClient<ISchema> schemaClient)
         {
             this.schemaClient = schemaClient;
+            this.energyBalance = energyBalance;
 
             Nodes = new ObservableCollection<SchemaNode>();
 
@@ -44,6 +46,8 @@ namespace ClientUI.ViewModels.Schema
 
         public long EnergySourceGlobalId { get; set; }
 
+        public SchemaEnergyBalance EnergyBalance { get { return energyBalance; } }
+
         public void StopProcessingGraph()
         {
             fetchNewDataTimer.Enabled = false;
@@ -56,13 +60,22 @@ namespace ClientUI.ViewModels.Schema
                 return;
             }
 
-            var equipmentStateDTO = schemaClient.Proxy.GetEquipmentStates(EnergySourceGlobalId);
+            fetchNewDataTimer.Enabled = false;
 
-            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateNodes(equipmentStateDTO)));
+            var equipmentStateDTO = schemaClient.Proxy.GetEquipmentStates(EnergySourceGlobalId);
+            var energyBalanceDTO = schemaClient.Proxy.GetEnergyBalance(EnergySourceGlobalId);
+
+            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => Update(equipmentStateDTO, energyBalanceDTO)));
+
+            fetchNewDataTimer.Enabled = true;
         }
 
-        private void UpdateNodes(SubSchemaConductingEquipmentEnergized currentNodeStates)
+        private void Update(SubSchemaConductingEquipmentEnergized currentNodeStates, SchemaEnergyBalanceDTO energyBalance)
         {
+            EnergyBalance.DemandEnergy = energyBalance.DemandEnergy;
+            EnergyBalance.ImportedEnergy = energyBalance.ImportedEnergy;
+            EnergyBalance.ProducedEnergy = EnergyBalance.ProducedEnergy;
+
             foreach (var newNodeState in currentNodeStates.Nodes)
             {
                 SchemaNode schemaNode;

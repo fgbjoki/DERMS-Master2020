@@ -130,17 +130,18 @@ namespace ClientUI.ViewModels.Schema
         private void ExecuteGetSchemaCommand(object parameter)
         {
             SubSchemaDTO newSchema = schemaClient.Proxy.GetSchema(selectedEnergySource.GlobalId);
+            SchemaEnergyBalanceDTO energyBalance = schemaClient.Proxy.GetEnergyBalance(selectedEnergySource.GlobalId);
 
             SchemaGraphWrapper graphWrapper = schemaCreator.CreateSchema(newSchema);
 
-            ShowNewSchema(graphWrapper);
+            ShowNewSchema(graphWrapper, energyBalance);
         }
 
-        private void ShowNewSchema(SchemaGraphWrapper graphWrapper)
+        private void ShowNewSchema(SchemaGraphWrapper graphWrapper, SchemaEnergyBalance energyBalance)
         {
             SchemaViewModel?.StopProcessingGraph();
 
-            SchemaViewModel = new SchemaViewModel(graphWrapper, schemaClient);
+            SchemaViewModel = new SchemaViewModel(graphWrapper, energyBalance, schemaClient);
         }
     }
 }

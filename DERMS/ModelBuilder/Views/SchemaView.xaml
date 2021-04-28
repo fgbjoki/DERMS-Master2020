@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
              xmlns:converters="clr-namespace:ClientUI.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,7 +33,32 @@
 
         </ResourceDictionary>
     </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-    <TreeView ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
+        <TreeView Grid.Column="0" ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
 			  ItemsSource="{Binding Nodes}"/>
+
+        <Grid Grid.Column="1">
+            <!-- TODO ADD WIDGETs for energy balance -->
+            <StackPanel Orientation="Vertical">
+                <TextBlock>
+                    <Run Text="Demand energy: "/>
+                    <Run Text="{Binding EnergyBalance.DemandEnergy, StringFormat={}{0:N2}}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Produced energy: "/>
+                    <Run Text="{Binding EnergyBalance.ProducedEnergy, StringFormat={}{0:N2}}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Imported energy: "/>
+                    <Run Text="{Binding EnergyBalance.ImportedEnergy, StringFormat={}{0:N2}}"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+    
 </UserControl>

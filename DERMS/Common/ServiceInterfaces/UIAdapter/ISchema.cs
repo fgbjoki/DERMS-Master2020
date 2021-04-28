@@ -15,5 +15,8 @@ namespace Common.ServiceInterfaces.UIAdapter
 
         [OperationContract]
         List<EnergySourceDTO> GetSubstations();
+
+        [OperationContract]
+        SchemaEnergyBalanceDTO GetEnergyBalance(long energySourceGid);
     }
 }

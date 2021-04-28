@@ -110,7 +110,8 @@ namespace UIAdapter
             {
                 new AnalogRemotePointChangedListener(),
                 new DiscreteRemotePointChangedListener(),
-                new DERStateChangedListener()
+                new DERStateChangedListener(),
+                new EnergyBalanceChangedListener()
             };
 
             foreach (var listener in listeners)
@@ -204,6 +205,11 @@ namespace UIAdapter
         DERGroupSummaryDTO IDERGroupSummaryJob.GetEntity(long globalId)
         {
             return derGroupSummaryJob.GetEntity(globalId);
+        }
+
+        public SchemaEnergyBalanceDTO GetEnergyBalance(long energySourceGid)
+        {
+            return schemaRepresentation.GetEnergyBalance(energySourceGid);
         }
     }
 }
