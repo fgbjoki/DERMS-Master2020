@@ -8,6 +8,7 @@ using UIAdapter.Schema.Graph;
 using UIAdapter.Schema.StateController;
 using Common.UIDataTransferObject.Schema;
 using Common.Logger;
+using Common.PubSub.Messages;
 
 namespace UIAdapter.Schema
 {
@@ -15,6 +16,7 @@ namespace UIAdapter.Schema
     {
         private ReaderWriterLockSlim locker;
         private Dictionary<long, GraphState> graphs;
+        private Dictionary<long, SchemaEnergyBalance> energyBalances;
         private DynamicSchemaToGraphSchemaConverter ceToUIAdapterConverter;
 
         private EquipmentStateCreator stateCreator;
@@ -38,6 +40,7 @@ namespace UIAdapter.Schema
 
             stateCreator = new EquipmentStateCreator();
             graphs = new Dictionary<long, GraphState>();
+            energyBalances = new Dictionary<long, SchemaEnergyBalance>();
             ceToUIAdapterConverter = new DynamicSchemaToGraphSchemaConverter();
             dtoConverter = new SchemaGraphToDTOConverter();
         }
@@ -133,6 +136,40 @@ namespace UIAdapter.Schema
             }
 
             return false;
+        }
+
+        public void ProcessEnergyBalanceChange(EnergyBalanceChanged energyBalance)
+        {
+            locker.EnterWriteLock();
+
+            SchemaEnergyBalance currentSchemaBalance;
+            if (!energyBalances.TryGetValue(energyBalance.EnergySourceGid, out currentSchemaBalance))
+            {
+                currentSchemaBalance = new SchemaEnergyBalance()
+                {
+                    EnergySourceGid = energyBalance.EnergySourceGid
+                };
+
+                energyBalances[energyBalance.EnergySourceGid] = currentSchemaBalance;
+            }
+
+            currentSchemaBalance.DemandEnergy = energyBalance.DemandEnergy;
+            currentSchemaBalance.ImportedEnergy = energyBalance.ImportedEnergy;
+            currentSchemaBalance.ProducedEnergy = energyBalance.ProducedEnergy;
+
+            locker.ExitWriteLock();
+        }
+
+        public SchemaEnergyBalance GetEnergyBalanceChange(long energySourceGid)
+        {
+            locker.EnterReadLock();
+
+            SchemaEnergyBalance currentSchemaBalance;
+            energyBalances.TryGetValue(energySourceGid, out currentSchemaBalance);
+
+            locker.ExitReadLock();
+
+            return currentSchemaBalance;
         }
     }
 }

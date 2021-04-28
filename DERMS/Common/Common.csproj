@@ -79,6 +79,7 @@
     <Compile Include="PubSub\Messages\DERStateChanged.cs" />
     <Compile Include="PubSub\Messages\DERState\DERStateWrapper.cs" />
     <Compile Include="PubSub\Messages\DiscreteRemotePointValueChanged.cs" />
+    <Compile Include="PubSub\Messages\EnergyBalanceChanged.cs" />
     <Compile Include="PubSub\Subscriptions\ISubscription.cs" />
     <Compile Include="PubSub\Subscriptions\Subscription.cs" />
     <Compile Include="PubSub\Subscriptions\Topic.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="UIDataTransferObject\RemotePoints\DiscreteRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\RemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\EnergySourceDTO.cs" />
+    <Compile Include="UIDataTransferObject\Schema\SchemaEnergyBalanceDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaConductingEquipmentEnergized.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaDTO.cs" />
     <Compile Include="UIDataTransferObject\Schema\SubSchemaNodeDTO.cs" />

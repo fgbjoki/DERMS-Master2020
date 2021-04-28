@@ -75,7 +75,7 @@ namespace CalculationEngine
 
             InitializeForTransaction();
 
-            energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis);
+            energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, dynamicPublisher);
             derStateDeterminator = new DERStateDeterminator(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher);
 
             InitializePubSub();

@@ -33,7 +33,8 @@ namespace UIAdapter.Schema
         {
             return new List<ISubscription>(1)
             {
-                new Subscription(Topic.DiscreteRemotePointChange, new SchemaBreakerStateChangedDynamichandler(schemaController))
+                new Subscription(Topic.DiscreteRemotePointChange, new SchemaBreakerStateChangedDynamichandler(schemaController)),
+                new Subscription(Topic.EnergyBalanceChange, new EnergyBalanceDynamicHandler(schemaController))
             };
         }
 
@@ -45,6 +46,11 @@ namespace UIAdapter.Schema
         public SubSchemaConductingEquipmentEnergized GetEquipmentStates(long energySourceId)
         {
             return schemaController.GetEquipmentStates(energySourceId);
+        }
+
+        public SchemaEnergyBalanceDTO GetEnergyBalance(long energySourceId)
+        {
+            return schemaController.GetEnergyBalanceChange(energySourceId);
         }
 
         public List<EnergySourceDTO> GetSubstations()
