@@ -7,6 +7,7 @@ using Common.Logger;
 using Common.ComponentStorage.StorageItemCreator;
 using CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBalance;
 using CalculationEngine.TransactionProcessing.StorageTransactionProcessor.EnergyBalance;
+using System;
 
 namespace CalculationEngine.TransactionProcessing.Storage.EnergyBalance
 {
@@ -167,6 +168,11 @@ namespace CalculationEngine.TransactionProcessing.Storage.EnergyBalance
             locker.ExitReadLock();
 
             return entityGid;
+        }
+
+        public void UpdateEntityProperty(long entityGid, Predicate<CalculationObject> predicate)
+        {
+            throw new NotImplementedException();
         }
 
         public IStorage<EnergyConsumer> EnergyConsumerStorage { get; private set; }

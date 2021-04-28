@@ -1,4 +1,4 @@
-﻿using CalculationEngine.EnergyCalculators;
+﻿using CalculationEngine.CommonComponents;
 using Common.AbstractModel;
 using Common.GDA;
 using Common.Logger;
@@ -7,13 +7,13 @@ using Common.PubSub.Messages;
 
 namespace CalculationEngine.PubSub.DynamicHandlers
 {
-    public class EnergyBalanceAnalogValueChanged : BaseDynamicHandler<AnalogRemotePointValueChanged>
+    public class CalculatingUnitAnalogValueChanged : BaseDynamicHandler<AnalogRemotePointValueChanged>
     {
-        private IEnergyBalanceCalculator energyBalanceCalculator;
+        private ITopologyDependentComponent topologyDependentComponent;
 
-        public EnergyBalanceAnalogValueChanged(IEnergyBalanceCalculator energyBalanceCalculator)
+        public CalculatingUnitAnalogValueChanged(ITopologyDependentComponent topologyDependentComponent)
         {
-            this.energyBalanceCalculator = energyBalanceCalculator;
+            this.topologyDependentComponent = topologyDependentComponent;
         }
 
         protected override void ProcessChanges(AnalogRemotePointValueChanged message)
@@ -28,7 +28,7 @@ namespace CalculationEngine.PubSub.DynamicHandlers
 
             float value = currentValueProperty.AsFloat();
 
-            energyBalanceCalculator.Recalculate(message.Id, value);
+            topologyDependentComponent.ProcessAnalogChanges(message.Id, value);
         }
     }
 }

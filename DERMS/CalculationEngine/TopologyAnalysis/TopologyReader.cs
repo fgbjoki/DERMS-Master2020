@@ -43,9 +43,9 @@ namespace CalculationEngine.TopologyAnalysis
             return sourceGid;
         }
 
-        public IEnumerable<long> Read(long sourceGid)
+        public ICollection<long> Read(long sourceGid)
         {
-            List<long> nodesConnected = new List<long>();
+            HashSet<long> nodesConnected = new HashSet<long>();
             ReaderWriterLockSlim graphLocker = topologyAnalysis.GetLock();
 
             graphLocker.EnterReadLock();
@@ -67,7 +67,7 @@ namespace CalculationEngine.TopologyAnalysis
             return nodesConnected;
         }
 
-        private void TraverseGraph(TopologyGraphTraverser graphTraverser, List<long> nodesConnected)
+        private void TraverseGraph(TopologyGraphTraverser graphTraverser, HashSet<long> nodesConnected)
         {
             foreach (var node in graphTraverser)
             {

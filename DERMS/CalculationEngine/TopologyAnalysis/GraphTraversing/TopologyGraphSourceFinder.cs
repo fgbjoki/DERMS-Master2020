@@ -1,4 +1,5 @@
 ﻿using CalculationEngine.Model.Topology.Graph.Topology;
+using Common.AbstractModel;
 using System.Collections.Generic;
 
 namespace CalculationEngine.TopologyAnalysis.GraphTraversing
@@ -15,7 +16,7 @@ namespace CalculationEngine.TopologyAnalysis.GraphTraversing
                 TopologyGraphNode currentNode = nodesToProcess.Dequeue();
 
                 // find if it's energysource
-                if (currentNode.DMSType == Common.AbstractModel.DMSType.ENERGYSOURCE)
+                if (currentNode.DMSType == DMSType.ENERGYSOURCE)
                 {
                     return currentNode.Item;
                 }

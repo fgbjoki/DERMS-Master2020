@@ -63,7 +63,8 @@
     <Compile Include="Model\Schema\Breaker.cs" />
     <Compile Include="Model\Schema\EnergySource.cs" />
     <Compile Include="PubSub\DynamicHandlers\AnalogRemotePointStorageDynamicHandler.cs" />
-    <Compile Include="PubSub\DynamicHandlers\DERGroup\EnergyStorageStateOfChargeDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\DER\DERStateDynamicHandler.cs" />
+    <Compile Include="PubSub\DynamicHandlers\DER\EnergyStorageStateOfChargeDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\DiscreteRemotePointStorageDynamicHandler.cs" />
     <Compile Include="PubSub\DynamicHandlers\SchemaBreakerStateChangedDynamichandler.cs" />
     <Compile Include="PubSub\DynamicListeners\AnalogRemotePointChangedListener.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Model\RemotePoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PubSub\DynamicListeners\DERStateChangedListener.cs" />
     <Compile Include="PubSub\DynamicListeners\DiscreteRemotePointChangedListener.cs" />
     <Compile Include="Schema\Graph\SchemaInterConnectivityNodeGraphNode.cs" />
     <Compile Include="Schema\IGraphSchemaController.cs" />
@@ -107,12 +109,10 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\Schema\EnergySourceItemCreator.cs" />
     <Compile Include="TransactionProcessing\Storages\AnalogRemotePointStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DERGroup\DERGroupStorage.cs" />
+    <Compile Include="TransactionProcessing\Storages\DERGroup\IDERGroupStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DERs\EnergyStorageStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DERs\GeneratorStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\DiscreteRemotePointStorage.cs" />
-    <Compile Include="TransactionProcessing\Storages\Helpers\AnalogEntityMapper.cs" />
-    <Compile Include="TransactionProcessing\Storages\Helpers\IAnalogEntityMapper.cs" />
-    <Compile Include="TransactionProcessing\Storages\Helpers\IAnalogEntityStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\BreakerStorage.cs" />
     <Compile Include="TransactionProcessing\Storages\Schema\EnergySourceStorage.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessors\AnalogRemotePointTransactionProcessor.cs" />

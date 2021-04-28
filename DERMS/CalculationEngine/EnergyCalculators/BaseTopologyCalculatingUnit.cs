@@ -4,7 +4,6 @@ using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.Logger;
 using System.Collections.Generic;
-using System;
 
 namespace CalculationEngine.EnergyCalculators
 {
@@ -53,29 +52,11 @@ namespace CalculationEngine.EnergyCalculators
             return totalSum;
         }
 
-        private float ExtractValueFromEntity(T entity)
+        protected virtual float ExtractValueFromEntity(T entity)
         {
             return entity.GetCalculation(CalculationType.ActivePower).Value;
         }
 
-        public float Recalculate(float calculatedValue, long modifiedEntityGid, float newEntityValue)
-        {
-            T entity = storage.GetEntity(modifiedEntityGid);
-
-            if (entity == null)
-            {
-                Logger.Instance.Log($"[{GetType().Name}] Error during calculating. Missing entity from storage with gid: {modifiedEntityGid:X16}.");
-                return 0;
-            }
-
-            float deltaValue = 0;
-
-            CalculationWrapper calculation = entity.GetCalculation(CalculationType.ActivePower);
-            deltaValue = newEntityValue - calculation.Value;
-
-            calculation.Value = newEntityValue;
-
-            return calculatedValue + deltaValue;
-        }
+        public abstract void Recalculate(EnergyBalanceCalculation energyBalance, float delta);
     }
 }

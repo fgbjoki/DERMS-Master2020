@@ -186,5 +186,10 @@ namespace CalculationEngine.TransactionProcessing.Storage.Topology
             ConductingEquipment.ShallowCopyEntities(copyStorage.ConductingEquipment);
             ConnectivityNodeStorage.ShallowCopyEntities(copyStorage.ConnectivityNodeStorage);
         }
+
+        public void UpdateEntityProperty(long entityGid, Predicate<ConnectivityObject> predicate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

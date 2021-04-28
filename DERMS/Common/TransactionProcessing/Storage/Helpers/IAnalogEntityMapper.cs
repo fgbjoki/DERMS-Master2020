@@ -1,6 +1,6 @@
 ﻿using Common.AbstractModel;
 
-namespace UIAdapter.TransactionProcessing.Storages.Helpers
+namespace Common.TransactionProcessing.Storage.Helpers
 {
     public struct AnalogValueOwner
     {

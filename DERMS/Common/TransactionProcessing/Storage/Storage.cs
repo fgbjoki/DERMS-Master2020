@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -70,6 +71,20 @@ namespace Common.ComponentStorage
             locker.ExitReadLock();
 
             return entity;
+        }
+
+        public void UpdateEntityProperty(long entityGid, Predicate<T> predicate)
+        {
+            T entity = GetEntity(entityGid);
+
+            if (entity == null)
+            {
+                return;
+            }
+
+            locker.EnterWriteLock();
+            predicate.Invoke(entity);
+            locker.ExitWriteLock();
         }
 
         public virtual bool EntityExists(long globalId)

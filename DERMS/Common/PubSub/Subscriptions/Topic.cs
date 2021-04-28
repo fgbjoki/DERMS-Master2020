@@ -4,5 +4,6 @@
     {
         AnalogRemotePointChange,
         DiscreteRemotePointChange,
+        DERStateChange,
     }
 }
