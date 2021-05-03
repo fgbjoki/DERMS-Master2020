@@ -70,6 +70,7 @@ namespace UIAdapter.Schema.StateController
 
             breaker.ChangeBreakerState(newBreakerState);
             BreakerEquipmentState breakerEquipmentState = equipmentStates[breaker.GlobalId] as BreakerEquipmentState;
+            breakerEquipmentState.DoesConduct = breaker.Conduts;
             breakerEquipmentState.Closed = breaker.Conduts;
         }
 
