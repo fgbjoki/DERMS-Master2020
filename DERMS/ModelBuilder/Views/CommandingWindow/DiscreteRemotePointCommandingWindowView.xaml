@@ -9,7 +9,6 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:converter="clr-namespace:ClientUI.Converters"
       xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
-      xmlns:differentValidationRule ="clr-namespace:ClientUI.ValidationRules.DIfferentInputValidation"
       mc:Ignorable="d"
       Height="600" 
       Width="500"
@@ -73,11 +72,6 @@
                                     <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
                                             <validationRules:BinaryValueValidationRule/>
-                                            <differentValidationRule:DiscreteDifferentValueRule>
-                                                <differentValidationRule:DiscreteDifferentValueRule.DifferentValueChecker>
-                                                    <differentValidationRule:DifferentValueChecker CurrentValue="{Binding Value}"/>
-                                                </differentValidationRule:DiscreteDifferentValueRule.DifferentValueChecker>
-                                            </differentValidationRule:DiscreteDifferentValueRule>
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>

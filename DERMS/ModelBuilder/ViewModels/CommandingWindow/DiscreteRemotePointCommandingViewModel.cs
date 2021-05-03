@@ -167,6 +167,7 @@ namespace ClientUI.ViewModels.CommandingWindow
             bool isValid = result == 0 || result == 1;
 
             isValid &= Value != result;
+            isValid &= Value != NewCommandingValue;
 
             if (!isValid)
             {

@@ -163,8 +163,6 @@
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
     <Compile Include="ValidationRules\BinaryValueValidationRule.cs" />
-    <Compile Include="ValidationRules\DIfferentInputValidation\DifferentValueChecker.cs" />
-    <Compile Include="ValidationRules\DIfferentInputValidation\DiscreteDifferentValueRule.cs" />
     <Compile Include="ValidationRules\IsTextNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
