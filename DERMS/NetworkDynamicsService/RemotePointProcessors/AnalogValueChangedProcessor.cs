@@ -1,23 +1,23 @@
 ﻿using NetworkDynamicsService.Model.RemotePoints;
 using Common.ComponentStorage;
 using Common.GDA;
-using NServiceBus;
-using Common.PubSub;
-using Common.PubSub.Messages;
 using Common.AbstractModel;
 using Common.Logger;
+using NServiceBus;
+using System.Collections.Generic;
+using Common.PubSub.Messages;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
     public class AnalogValueChangedProcessor : ValueChangedProcessor<AnalogRemotePoint>
     {
-        public AnalogValueChangedProcessor(IStorage<AnalogRemotePoint> storage, IDynamicPublisher publisher) : base(storage, publisher)
+        public AnalogValueChangedProcessor(IStorage<AnalogRemotePoint> storage) : base(storage)
         {
         }
 
         protected override ResourceDescription ApplyChanges(AnalogRemotePoint remotePoint, int rawValue)
         {
-            AnalogRemotePointValueChanged changes = new AnalogRemotePointValueChanged() { Id = remotePoint.GlobalId };
+            ResourceDescription changes = new ResourceDescription() { Id = remotePoint.GlobalId };
 
             float fieldValue = ReadFieldValue(rawValue);
 
@@ -32,9 +32,14 @@ namespace NetworkDynamicsService.RemotePointProcessors
             return changes;
         }
 
-        protected override IEvent GetPublication(ResourceDescription changes)
+        protected override List<ResourceDescription> CreatePublication()
         {
-            return changes as AnalogRemotePointValueChanged;
+            return new AnalogRemotePointValuesChanged();
+        }
+
+        protected override IEvent GetPublication(List<ResourceDescription> publicationChanges)
+        {
+            return publicationChanges as IEvent;
         }
 
         protected override bool HasValueChanged(AnalogRemotePoint remotePoint, int rawValue)

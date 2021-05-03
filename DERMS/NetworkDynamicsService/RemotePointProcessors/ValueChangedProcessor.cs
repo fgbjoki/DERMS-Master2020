@@ -3,9 +3,9 @@ using Common.ComponentStorage;
 using NetworkDynamicsService.Model.RemotePoints;
 using NServiceBus;
 using Common.GDA;
-using Common.PubSub;
 using System.Threading;
 using Common.Logger;
+using System.Collections.Generic;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
@@ -14,44 +14,52 @@ namespace NetworkDynamicsService.RemotePointProcessors
     {
         private ReaderWriterLockSlim locker;
         private IStorage<RemotePointType> storage;
-        private IDynamicPublisher publisher;
 
-        public ValueChangedProcessor(IStorage<RemotePointType> storage, IDynamicPublisher publisher)
+        public ValueChangedProcessor(IStorage<RemotePointType> storage)
         {
             this.storage = storage;
-            this.publisher = publisher;
 
             locker = new ReaderWriterLockSlim();
         }
 
-        public void ProcessChangedValue(RemotePointFieldValue rawValue)
+        public IEvent ProcessChangedValue(IEnumerable<RemotePointFieldValue> fieldValues)
         {
-            locker.EnterReadLock();
-            RemotePointType remotePoint = storage.GetEntity(rawValue.GlobalId);
-            locker.ExitReadLock();
+            List<ResourceDescription> publicationChanges = CreatePublication();
 
-            if (remotePoint == null)
+            foreach (var fieldValue in fieldValues)
             {
-                Logger.Instance.Log($"[{GetType()}] Coudln't find remote point to process with gid: 0x{rawValue.GlobalId:X16}.");
-                return;
+                locker.EnterReadLock();
+                RemotePointType remotePoint = storage.GetEntity(fieldValue.GlobalId);
+                locker.ExitReadLock();
+
+                if (remotePoint == null)
+                {
+                    Logger.Instance.Log($"[{GetType()}] Coudln't find remote point to process with gid: 0x{fieldValue.GlobalId:X16}.");
+                    return null;
+                }
+
+                if (!HasValueChanged(remotePoint, fieldValue.Value))
+                {
+                    return null;
+                }
+
+                locker.EnterWriteLock();
+                ResourceDescription changes = ApplyChanges(remotePoint, fieldValue.Value);
+                locker.ExitWriteLock();
+
+                // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
+                //SaveChanges(remotePoint);
+
+                if (changes != null)
+                {
+                    publicationChanges.Add(changes);
+                }
             }
 
-            if (!HasValueChanged(remotePoint, rawValue.Value))
-            {
-                return;
-            }
-
-            locker.EnterWriteLock();
-            ResourceDescription changes = ApplyChanges(remotePoint, rawValue.Value);
-            locker.ExitWriteLock();
-
-            // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
-            //SaveChanges(remotePoint);
-
-            IEvent publication = GetPublication(changes);
-
-            PublishChanges(publication);
+            return GetPublication(publicationChanges);          
         }
+
+        protected abstract IEvent GetPublication(List<ResourceDescription> publicationChanges);
 
         /// <summary>
         /// Applies all needed changes on <paramref name="remotePoint"/>.
@@ -61,12 +69,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         protected abstract ResourceDescription ApplyChanges(RemotePointType remotePoint, int rawValue);
 
-        protected abstract IEvent GetPublication(ResourceDescription changes);
-
-        private void PublishChanges(IEvent publication)
-        {
-            publisher.Publish(publication);
-        }
+        protected abstract List<ResourceDescription> CreatePublication();
 
         // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
         //protected abstract void SaveChanges(RemotePointType remotePoint);

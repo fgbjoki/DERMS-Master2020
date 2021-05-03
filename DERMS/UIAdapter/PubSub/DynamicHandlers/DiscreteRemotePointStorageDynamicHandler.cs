@@ -8,7 +8,7 @@ using UIAdapter.Model;
 
 namespace UIAdapter.PubSub.DynamicHandlers
 {
-    public class DiscreteRemotePointStorageDynamicHandler : BaseDynamicHandler<DiscreteRemotePointValueChanged>
+    public class DiscreteRemotePointStorageDynamicHandler : BaseDynamicHandler<DiscreteRemotePointValuesChanged>
     {
         private IStorage<DiscreteRemotePoint> storage;
 
@@ -17,15 +17,18 @@ namespace UIAdapter.PubSub.DynamicHandlers
             this.storage = storage;
         }
 
-        protected override void ProcessChanges(DiscreteRemotePointValueChanged message)
+        protected override void ProcessChanges(DiscreteRemotePointValuesChanged message)
         {
-            ProcessValue(message);
-            ProcessDOM(message);
+            foreach (var discreteChange in message)
+            {
+                ProcessValue(discreteChange);
+                ProcessDOM(discreteChange);
+            }
         }
 
-        private void ProcessValue(DiscreteRemotePointValueChanged message)
+        private void ProcessValue(ResourceDescription discreteChange)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
+            Property currentValueProperty = discreteChange.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
 
             if (currentValueProperty == null)
             {
@@ -34,19 +37,19 @@ namespace UIAdapter.PubSub.DynamicHandlers
 
             int value = currentValueProperty.AsInt();
 
-            DiscreteRemotePoint remotePoint = storage.GetEntity(message.Id);
+            DiscreteRemotePoint remotePoint = storage.GetEntity(discreteChange.Id);
 
             if (remotePoint == null)
             {
-                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {message.Id:X16}. Skipping further processing!");
+                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {discreteChange.Id:X16}. Skipping further processing!");
             }
 
             remotePoint.Value = value;
         }
 
-        private void ProcessDOM(DiscreteRemotePointValueChanged message)
+        private void ProcessDOM(ResourceDescription discreteChange)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTDISCRETE_DOM);
+            Property currentValueProperty = discreteChange.GetProperty(ModelCode.MEASUREMENTDISCRETE_DOM);
 
             if (currentValueProperty == null)
             {
@@ -55,11 +58,11 @@ namespace UIAdapter.PubSub.DynamicHandlers
 
             int domManipulationValue = currentValueProperty.AsInt();
 
-            DiscreteRemotePoint remotePoint = storage.GetEntity(message.Id);
+            DiscreteRemotePoint remotePoint = storage.GetEntity(discreteChange.Id);
 
             if (remotePoint == null)
             {
-                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {message.Id:X16}. Skipping further processing!");
+                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {discreteChange.Id:X16}. Skipping further processing!");
             }
 
             remotePoint.DOMManipulation = domManipulationValue;

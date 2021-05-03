@@ -11,93 +11,106 @@
       xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
       mc:Ignorable="d"
       Height="600" 
+      AllowsTransparency="False"
+      WindowStyle="None"
       Width="500"
       Title="DiscreteRemotePointCommandingWindowView"
+      ResizeMode="NoResize"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.FontWeight="Medium"
-      TextElement.FontSize="14"
+      TextElement.FontSize="12"
       FontFamily="{materialDesign:MaterialDesignFont}"
+      BorderThickness="1"
+      BorderBrush="Black"
       x:Name="CommandingWindow">
     <commandingWindow:CommandWindow.Resources>
         <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
         <converter:BoolToColorConverter x:Key="boolToColorConverter" />
     </commandingWindow:CommandWindow.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF212121">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Title}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <materialDesign:Card Margin="20,20,20,60">
+                <Grid>
 
-        <materialDesign:Card Margin="20,20,20,60">
-            <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="5*"/>
-                </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.85*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
+                    <!-- Remote point name -->
+                    <TextBlock Text="Remote Point Name :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Separator VerticalAlignment="Bottom" Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
 
-                <!-- Remote point name -->
-                <TextBlock Text="Remote Point Name :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"/>
-                <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0"/>
-                <Separator VerticalAlignment="Bottom" Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
+                    <!-- Remote point Address -->
+                    <TextBlock Text="Remote Point Address :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding Address}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Separator VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
 
-                <!-- Remote point Address -->
-                <TextBlock Text="Remote Point Address :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0"/>
-                <TextBlock Text="{Binding Address}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0"/>
-                <Separator VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
+                    <!-- Remote point Value -->
+                    <TextBlock Text="Remote Point Value :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding Value}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="10,0,0,0"/>
+                    <Separator VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
 
-                <!-- Remote point Value -->
-                <TextBlock Text="Remote Point Value :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0"/>
-                <TextBlock Text="{Binding Value}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="10,0,0,0"/>
-                <Separator VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black" Margin="20, 0, 20, 0"/>
+                    <!-- Commanding -->
+                    <materialDesign:Card Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="#FF212121" Margin="10">
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                <!-- Commanding -->
-                <materialDesign:Card Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="#FF212121" Margin="10">
-                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                            <TextBlock Text="Commanding" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
 
-                        <TextBlock Text="Commanding" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-
-                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                            <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
-                                <TextBox.Text>
-                                    <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                            <validationRules:BinaryValueValidationRule/>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
-                            <Button Content="Validate" 
+                            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
+                                    <TextBox.Text>
+                                        <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <validationRules:BinaryValueValidationRule/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Button Content="Validate" 
                                     Command="{Binding ValidationCommand}" 
                                     CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}" 
                                     Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=false}"/>
-                            <Button Content="Send Command" 
+                                <Button Content="Send Command" 
                                     Command="{Binding SendCommandCommand}" 
                                     CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}"
                                     Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=true}"/>
-                        </StackPanel>
+                            </StackPanel>
 
-                        <TextBlock Text="{Binding CommandFeedback.Message}"
+                            <TextBlock Text="{Binding CommandFeedback.Message}"
                                    Visibility="{Binding CommandFeedback.Visibility}"
                                    Foreground="{Binding CommandFeedback.CommandExecuted, Converter={StaticResource boolToColorConverter}}"
                                    FontSize="20" 
                                    HorizontalAlignment="Center" 
                                    VerticalAlignment="Center" 
                                    Grid.Row="2"/>
-                    </Grid>
-                </materialDesign:Card>
-            </Grid>
-        </materialDesign:Card>
-        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Content="Close" Background="#FF515151" BorderBrush="{x:Null}"
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+            </materialDesign:Card>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Content="Close" Background="#FF515151" BorderBrush="{x:Null}"
                 Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CommandingWindow}" Foreground="White"/>
+        </Grid>
     </Grid>
 </commandingWindow:CommandWindow>

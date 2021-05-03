@@ -8,19 +8,24 @@ using Common.ComponentStorage;
 using NetworkDynamicsService.Model.RemotePoints;
 using Common.PubSub;
 using Common.Logger;
+using Common.GDA;
+using NServiceBus;
 
 namespace NetworkDynamicsService.FieldValueProcessing
 {
     public class FieldValueProcessor : IFieldValuesProcessing
     {
         private Dictionary<DMSType, IValueChangedProcessor> remotePointProcessors;
+        private IDynamicPublisher dynamicPublisher;
 
         public FieldValueProcessor(IStorage<AnalogRemotePoint> analogStorage, IStorage<DiscreteRemotePoint> discreteStorage, IDynamicPublisher dynamicPublisher)
         {
+            this.dynamicPublisher = dynamicPublisher;
+
             remotePointProcessors = new Dictionary<DMSType, IValueChangedProcessor>()
             {
-                { DMSType.MEASUREMENTANALOG, new AnalogValueChangedProcessor(analogStorage, dynamicPublisher) },
-                { DMSType.MEASUREMENTDISCRETE, new DiscreteValueChangedProcessor(discreteStorage, dynamicPublisher) }
+                { DMSType.MEASUREMENTANALOG, new AnalogValueChangedProcessor(analogStorage) },
+                { DMSType.MEASUREMENTDISCRETE, new DiscreteValueChangedProcessor(discreteStorage) }
             };
         }
 
@@ -40,9 +45,10 @@ namespace NetworkDynamicsService.FieldValueProcessing
                 return;
             }
 
-            foreach (var fieldValue in fieldValues)
+            IEvent publication = valueChangedProcessor.ProcessChangedValue(fieldValues);
+            if (publication != null)
             {
-                valueChangedProcessor.ProcessChangedValue(fieldValue);
+                dynamicPublisher.Publish(publication);
             }
         }
     }

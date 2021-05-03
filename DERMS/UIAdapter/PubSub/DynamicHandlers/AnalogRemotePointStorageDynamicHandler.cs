@@ -8,7 +8,7 @@ using UIAdapter.Model;
 
 namespace UIAdapter.PubSub.DynamicHandlers
 {
-    public class AnalogRemotePointStorageDynamicHandler : BaseDynamicHandler<AnalogRemotePointValueChanged>
+    public class AnalogRemotePointStorageDynamicHandler : BaseDynamicHandler<AnalogRemotePointValuesChanged>
     {
         private IStorage<AnalogRemotePoint> storage;
 
@@ -17,25 +17,28 @@ namespace UIAdapter.PubSub.DynamicHandlers
             this.storage = storage;
         }
 
-        protected override void ProcessChanges(AnalogRemotePointValueChanged message)
+        protected override void ProcessChanges(AnalogRemotePointValuesChanged message)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
-
-            if (currentValueProperty == null)
+            foreach (var analogChange in message)
             {
-                return;
-            }
+                Property currentValueProperty = analogChange.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
 
-            float value = currentValueProperty.AsFloat();
+                if (currentValueProperty == null)
+                {
+                    return;
+                }
 
-            AnalogRemotePoint remotePoint = storage.GetEntity(message.Id);
+                float value = currentValueProperty.AsFloat();
 
-            if (remotePoint == null)
-            {
-                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {message.Id:X16}. Skipping further processing!");
-            }
+                AnalogRemotePoint remotePoint = storage.GetEntity(analogChange.Id);
 
-            remotePoint.Value = value;
+                if (remotePoint == null)
+                {
+                    Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {analogChange.Id:X16}. Skipping further processing!");
+                }
+
+                remotePoint.Value = value;
+            }         
         }
     }
 }

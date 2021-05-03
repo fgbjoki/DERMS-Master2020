@@ -6,7 +6,7 @@ using UIAdapter.Schema;
 
 namespace UIAdapter.PubSub.DynamicHandlers
 {
-    public class SchemaBreakerStateChangedDynamichandler : BaseDynamicHandler<DiscreteRemotePointValueChanged>
+    public class SchemaBreakerStateChangedDynamichandler : BaseDynamicHandler<DiscreteRemotePointValuesChanged>
     {
         private IGraphSchemaController graphSchemaController;
 
@@ -15,18 +15,21 @@ namespace UIAdapter.PubSub.DynamicHandlers
             this.graphSchemaController = graphSchemaController;
         }
 
-        protected override void ProcessChanges(DiscreteRemotePointValueChanged message)
+        protected override void ProcessChanges(DiscreteRemotePointValuesChanged message)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
-
-            if (currentValueProperty == null)
+            foreach (var discreteChange in message)
             {
-                return;
-            }
+                Property currentValueProperty = discreteChange.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
 
-            int rawDiscreteValue = currentValueProperty.AsInt();
+                if (currentValueProperty == null)
+                {
+                    return;
+                }
 
-            graphSchemaController.ProcessDiscreteValueChanges(message.Id, rawDiscreteValue);
+                int rawDiscreteValue = currentValueProperty.AsInt();
+
+                graphSchemaController.ProcessDiscreteValueChanges(discreteChange.Id, rawDiscreteValue);
+            }           
         }
     }
 }

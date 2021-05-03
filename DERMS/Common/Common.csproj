@@ -76,10 +76,10 @@
     <Compile Include="PubSub\IDynamicListener.cs" />
     <Compile Include="PubSub\IDynamicPublisher.cs" />
     <Compile Include="PubSub\ISubscriber.cs" />
-    <Compile Include="PubSub\Messages\AnalogRemotePointValueChanged.cs" />
+    <Compile Include="PubSub\Messages\AnalogRemotePointValuesChanged.cs" />
     <Compile Include="PubSub\Messages\DERStateChanged.cs" />
     <Compile Include="PubSub\Messages\DERState\DERStateWrapper.cs" />
-    <Compile Include="PubSub\Messages\DiscreteRemotePointValueChanged.cs" />
+    <Compile Include="PubSub\Messages\DiscreteRemotePointValuesChanged.cs" />
     <Compile Include="PubSub\Messages\EnergyBalanceChanged.cs" />
     <Compile Include="PubSub\Subscriptions\ISubscription.cs" />
     <Compile Include="PubSub\Subscriptions\Subscription.cs" />

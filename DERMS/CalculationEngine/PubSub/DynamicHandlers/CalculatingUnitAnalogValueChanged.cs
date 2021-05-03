@@ -7,7 +7,7 @@ using Common.PubSub.Messages;
 
 namespace CalculationEngine.PubSub.DynamicHandlers
 {
-    public class CalculatingUnitAnalogValueChanged : BaseDynamicHandler<AnalogRemotePointValueChanged>
+    public class CalculatingUnitAnalogValueChanged : BaseDynamicHandler<AnalogRemotePointValuesChanged>
     {
         private ITopologyDependentComponent topologyDependentComponent;
 
@@ -16,19 +16,23 @@ namespace CalculationEngine.PubSub.DynamicHandlers
             this.topologyDependentComponent = topologyDependentComponent;
         }
 
-        protected override void ProcessChanges(AnalogRemotePointValueChanged message)
+        protected override void ProcessChanges(AnalogRemotePointValuesChanged message)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
-
-            if (currentValueProperty == null)
+            foreach (var analogChange in message)
             {
-                Logger.Instance.Log($"[{this.GetType()}] Cannot find value property for analog measurement with gid: {message.Id:X16}. Skipping further processing!");
-                return;
-            }
+                Property currentValueProperty = analogChange.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
 
-            float value = currentValueProperty.AsFloat();
+                if (currentValueProperty == null)
+                {
+                    Logger.Instance.Log($"[{this.GetType()}] Cannot find value property for analog measurement with gid: {analogChange.Id:X16}. Skipping further processing!");
+                    return;
+                }
 
-            topologyDependentComponent.ProcessAnalogChanges(message.Id, value);
+                float value = currentValueProperty.AsFloat();
+
+                topologyDependentComponent.ProcessAnalogChanges(analogChange.Id, value);
+
+            }           
         }
     }
 }

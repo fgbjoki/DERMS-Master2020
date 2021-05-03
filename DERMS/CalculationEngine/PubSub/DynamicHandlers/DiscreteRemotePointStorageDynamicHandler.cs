@@ -8,7 +8,7 @@ using Common.PubSub.Messages;
 
 namespace CalculationEngine.PubSub.DynamicHandlers
 {
-    class DiscreteRemotePointStorageDynamicHandler : BaseDynamicHandler<DiscreteRemotePointValueChanged>
+    class DiscreteRemotePointStorageDynamicHandler : BaseDynamicHandler<DiscreteRemotePointValuesChanged>
     {
         private IStorage<DiscreteRemotePoint> discreteStorage;
 
@@ -17,25 +17,28 @@ namespace CalculationEngine.PubSub.DynamicHandlers
             this.discreteStorage = discreteStorage;
         }
 
-        protected override void ProcessChanges(DiscreteRemotePointValueChanged message)
+        protected override void ProcessChanges(DiscreteRemotePointValuesChanged message)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
-
-            if (currentValueProperty == null)
+            foreach (var discreteChange in message)
             {
-                return;
-            }
+                Property currentValueProperty = discreteChange.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
 
-            int value = currentValueProperty.AsInt();
+                if (currentValueProperty == null)
+                {
+                    return;
+                }
 
-            DiscreteRemotePoint remotePoint = discreteStorage.GetEntity(message.Id);
+                int value = currentValueProperty.AsInt();
 
-            if (remotePoint == null)
-            {
-                Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {message.Id:X16}. Skipping further processing!");
-            }
+                DiscreteRemotePoint remotePoint = discreteStorage.GetEntity(discreteChange.Id);
 
-            remotePoint.Value = value;
+                if (remotePoint == null)
+                {
+                    Logger.Instance.Log($"[{this.GetType()}] Couldn't find remote point with gid {discreteChange.Id:X16}. Skipping further processing!");
+                }
+
+                remotePoint.Value = value;
+            }           
         }
     }
 }

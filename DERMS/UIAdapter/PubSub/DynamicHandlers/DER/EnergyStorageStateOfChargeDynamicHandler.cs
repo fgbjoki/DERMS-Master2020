@@ -6,7 +6,7 @@ using Common.TransactionProcessing.Storage.Helpers;
 
 namespace UIAdapter.PubSub.DynamicHandlers.DER
 {
-    public class EnergyStorageStateOfChargeDynamicHandler : BaseDynamicHandler<AnalogRemotePointValueChanged>
+    public class EnergyStorageStateOfChargeDynamicHandler : BaseDynamicHandler<AnalogRemotePointValuesChanged>
     {
         private IAnalogEntityStorage entityStorage;
 
@@ -15,18 +15,21 @@ namespace UIAdapter.PubSub.DynamicHandlers.DER
             this.entityStorage = entityStorage;
         }
 
-        protected override void ProcessChanges(AnalogRemotePointValueChanged message)
+        protected override void ProcessChanges(AnalogRemotePointValuesChanged message)
         {
-            Property currentValueProperty = message.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
-
-            if (currentValueProperty == null)
+            foreach (var analogChange in message)
             {
-                return;
-            }
+                Property currentValueProperty = analogChange.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
 
-            float currentValue = currentValueProperty.AsFloat();
+                if (currentValueProperty == null)
+                {
+                    return;
+                }
 
-            entityStorage.UpdateAnalogValue(message.Id, currentValue);
+                float currentValue = currentValueProperty.AsFloat();
+
+                entityStorage.UpdateAnalogValue(analogChange.Id, currentValue);
+            }           
         }
     }
 }

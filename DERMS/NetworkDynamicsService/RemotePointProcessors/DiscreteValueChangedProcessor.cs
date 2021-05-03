@@ -2,22 +2,22 @@
 using Common.ComponentStorage;
 using Common.GDA;
 using NServiceBus;
-using Common.PubSub;
 using Common.AbstractModel;
 using Common.Logger;
 using Common.PubSub.Messages;
+using System.Collections.Generic;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
     public class DiscreteValueChangedProcessor : ValueChangedProcessor<DiscreteRemotePoint>
     {
-        public DiscreteValueChangedProcessor(IStorage<DiscreteRemotePoint> storage, IDynamicPublisher publisher) : base(storage, publisher)
+        public DiscreteValueChangedProcessor(IStorage<DiscreteRemotePoint> storage) : base(storage)
         {
         }
 
         protected override ResourceDescription ApplyChanges(DiscreteRemotePoint remotePoint, int rawValue)
         {
-            DiscreteRemotePointValueChanged changes = new DiscreteRemotePointValueChanged() { Id = remotePoint.GlobalId };
+            ResourceDescription changes = new ResourceDescription() { Id = remotePoint.GlobalId };
 
             int fieldValue = ReadFieldValue(rawValue);
 
@@ -35,9 +35,14 @@ namespace NetworkDynamicsService.RemotePointProcessors
             return changes;
         }
 
-        protected override IEvent GetPublication(ResourceDescription changes)
+        protected override List<ResourceDescription> CreatePublication()
         {
-            return changes as DiscreteRemotePointValueChanged;
+            return new DiscreteRemotePointValuesChanged();
+        }
+
+        protected override IEvent GetPublication(List<ResourceDescription> publicationChanges)
+        {
+            return publicationChanges as IEvent;
         }
 
         protected override bool HasValueChanged(DiscreteRemotePoint remotePoint, int rawValue)
