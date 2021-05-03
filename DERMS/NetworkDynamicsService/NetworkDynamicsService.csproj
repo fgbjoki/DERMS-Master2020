@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\CommandingProcessors\AnalogRemotePointCommanding.cs" />
+    <Compile Include="Commanding\CommandingProcessors\BaseCommandingProcessor.cs" />
+    <Compile Include="Commanding\CommandPropagator.cs" />
+    <Compile Include="Commanding\CommandingProcessors\DiscreteRemotePointCommanding.cs" />
+    <Compile Include="Commanding\CommandingProcessors\ICommandingProcessor.cs" />
     <Compile Include="FieldValueProcessing\FieldValueProcessor.cs" />
     <Compile Include="Model\RemotePoints\AnalogRemotePoint.cs" />
     <Compile Include="Model\RemotePoints\DiscreteRemotePoint.cs" />

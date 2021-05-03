@@ -26,7 +26,7 @@ namespace ClientUI.ValidationRules.DIfferentInputValidation
                 return new ValidationResult(true, "");
             }
 
-            bool different = differentValueChecker.CurrentValue.Equals(inputValue);
+            bool different = !differentValueChecker.CurrentValue.Equals(inputValue);
             string message = different ? null : "Value must be different than the current value!";
             return new ValidationResult(different, message);
         }

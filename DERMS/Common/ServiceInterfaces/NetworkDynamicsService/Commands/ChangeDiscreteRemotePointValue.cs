@@ -10,8 +10,9 @@ namespace Common.ServiceInterfaces.NetworkDynamicsService.Commands
 
         }
 
-        public ChangeDiscreteRemotePointValue(long globalId) : base(globalId)
+        public ChangeDiscreteRemotePointValue(long globalId, int value) : base(globalId)
         {
+            Value = value;
         }
 
         [DataMember]

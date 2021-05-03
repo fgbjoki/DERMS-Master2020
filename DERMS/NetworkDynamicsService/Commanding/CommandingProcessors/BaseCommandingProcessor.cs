@@ -4,7 +4,7 @@ using Common.SCADA.FieldProcessor;
 using Common.ServiceInterfaces.NetworkDynamicsService.Commands;
 using NetworkDynamicsService.Model.RemotePoints;
 
-namespace NetworkDynamicsService.CommandingProcessor
+namespace NetworkDynamicsService.Commanding.CommandigProcessors
 {
     public abstract class BaseCommandingProcessor<T> : ICommandingProcessor
         where T : RemotePoint

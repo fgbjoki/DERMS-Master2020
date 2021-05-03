@@ -174,13 +174,21 @@ namespace FieldProcessor.MessageValidation
             ProcessingParametersWrapper parameters = (ProcessingParametersWrapper)parameter;
 
             IResponseCommandCreator commandCreator;
-            if (!responseCreators.TryGetValue(validationHeader.FunctionCode, out commandCreator))
+            if (!responseCreators.TryGetValue(parameters.Request.FunctionCode, out commandCreator))
             {
-                Logger.Instance.Log($"Non existent commanding processor with function code : \'{validationHeader.FunctionCode.ToString()}\'. Command will be skipped!");
+                Logger.Instance.Log($"Non existent commanding processor with function code : \'{parameters.Request.FunctionCode.ToString()}\'. Command will be skipped!");
                 return;
             }
 
-            ModbusMessageHeader responseCommand = commandCreator.CreateResponse(parameters.Request, parameters.ResponseBytes);
+            ModbusMessageHeader responseCommand = null;
+            try
+            {
+                responseCommand = commandCreator.CreateResponse(parameters.Request, parameters.ResponseBytes);
+            }
+            catch (Exception e)
+            {
+                Logger.Instance.Log($"[{GetType().Name}] Couldn't convert message from raw bytes: {String.Join(",", parameters.ResponseBytes)}! Info:\n{e.Message}\nStack trace:\n{e.StackTrace}.");
+            }
 
             // invalid command response
             if (responseCommand == null)

@@ -86,6 +86,10 @@
     <Compile Include="PubSub\Subscriptions\Topic.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\ISchemaRepresentation.cs" />
+    <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\BaseCommand.cs" />
+    <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\ChangeAnalogRemotePointValue.cs" />
+    <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\ChangeDiscreteRemotePointValue.cs" />
+    <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\INDSCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\ISchema.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
