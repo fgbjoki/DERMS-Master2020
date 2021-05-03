@@ -41,13 +41,13 @@ namespace FieldProcessor.CommandingProcessor
 
             if (command.CommandingValue == 1)
             {
-                commandedValue[0] = 0xFF;
-                commandedValue[1] = 0x00;
+                commandedValue[0] = 0x00;
+                commandedValue[1] = 0xFF;
             }
             else if (command.CommandingValue == 0)
             {
                 commandedValue[0] = 0x00;
-                commandedValue[1] = 0xFF;
+                commandedValue[1] = 0x00;
             }
             else
             {

@@ -11,13 +11,14 @@ using System.ServiceModel.Configuration;
 using System.Configuration;
 using Common.ServiceInterfaces.Transaction;
 using Common.ServiceInterfaces;
-using Common.PubSub.Messages;
 using NServiceBus;
+using Common.ServiceInterfaces.NetworkDynamicsService.Commands;
+using NetworkDynamicsService.Commanding;
 
 namespace NetworkDynamicsService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class NetworkDynamicsService : IFieldValuesProcessing, ITransaction, IModelPromotionParticipant
+    public class NetworkDynamicsService : IFieldValuesProcessing, ITransaction, IModelPromotionParticipant, INDSCommanding
     {
         private readonly string serviceName = "NetworkDynamicsService";
         private string serviceUrl;
@@ -29,13 +30,13 @@ namespace NetworkDynamicsService
 
         private IFieldValuesProcessing fieldValueProcessingUnit;
 
+        private INDSCommanding ndsCommanding;
+
         private TransactionManager transactionManager;
 
         public NetworkDynamicsService()
         {
-            LoadConfigurationFromAppConfig();
-
-            
+            LoadConfigurationFromAppConfig();           
 
             InitializePubSub();
 
@@ -44,6 +45,7 @@ namespace NetworkDynamicsService
             InitializeTransaction();
 
             fieldValueProcessingUnit = new FieldValueProcessor(analogRemotePointStorage, discreteRemotePointStorage, dynamicPublisher);
+            ndsCommanding = new CommandPropagator(discreteRemotePointStorage, analogRemotePointStorage);
         }
 
         public void ProcessFieldValues(IEnumerable<RemotePointFieldValue> fieldValues)
@@ -69,6 +71,11 @@ namespace NetworkDynamicsService
         public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
         {
             return transactionManager.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
+        }
+
+        public bool SendCommand(BaseCommand command)
+        {
+            return ndsCommanding.SendCommand(command);
         }
 
         private void LoadConfigurationFromAppConfig()

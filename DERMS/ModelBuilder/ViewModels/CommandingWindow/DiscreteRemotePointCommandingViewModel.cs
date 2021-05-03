@@ -113,7 +113,7 @@ namespace ClientUI.ViewModels.CommandingWindow
 
         private void ExecuteSendCommandCommand(object parameter)
         {
-            CommandFeedbackMessageDTO feedBack = CommandingProxy.Instance.SendBreakerCommand(GlobalId, value);
+            CommandFeedbackMessageDTO feedBack = CommandingProxy.Instance.SendBreakerCommand(GlobalId, NewCommandingValue);
             ProcessFeedback(feedBack);
         }
 
@@ -139,7 +139,7 @@ namespace ClientUI.ViewModels.CommandingWindow
 
         private void ExecuteValidationCommand(object parameter)
         {
-            CommandFeedbackMessageDTO feedBack = CommandingProxy.Instance.ValidateCommand(GlobalId, value);
+            CommandFeedbackMessageDTO feedBack = CommandingProxy.Instance.ValidateCommand(GlobalId, NewCommandingValue);
             ProcessFeedback(feedBack);
         }
 
@@ -167,6 +167,7 @@ namespace ClientUI.ViewModels.CommandingWindow
             bool isValid = result == 0 || result == 1;
 
             isValid &= Value != result;
+            isValid &= Value != NewCommandingValue;
 
             if (!isValid)
             {
