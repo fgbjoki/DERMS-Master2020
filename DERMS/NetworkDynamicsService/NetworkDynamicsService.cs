@@ -11,8 +11,9 @@ using System.ServiceModel.Configuration;
 using System.Configuration;
 using Common.ServiceInterfaces.Transaction;
 using Common.ServiceInterfaces;
-using Common.PubSub.Messages;
 using NServiceBus;
+using Common.ServiceInterfaces.NetworkDynamicsService.Commands;
+using NetworkDynamicsService.Commanding;
 
 namespace NetworkDynamicsService
 {
@@ -29,13 +30,13 @@ namespace NetworkDynamicsService
 
         private IFieldValuesProcessing fieldValueProcessingUnit;
 
+        private INDSCommanding ndsCommanding;
+
         private TransactionManager transactionManager;
 
         public NetworkDynamicsService()
         {
-            LoadConfigurationFromAppConfig();
-
-            
+            LoadConfigurationFromAppConfig();           
 
             InitializePubSub();
 
@@ -44,6 +45,7 @@ namespace NetworkDynamicsService
             InitializeTransaction();
 
             fieldValueProcessingUnit = new FieldValueProcessor(analogRemotePointStorage, discreteRemotePointStorage, dynamicPublisher);
+            ndsCommanding = new CommandPropagator(discreteRemotePointStorage, analogRemotePointStorage);
         }
 
         public void ProcessFieldValues(IEnumerable<RemotePointFieldValue> fieldValues)
