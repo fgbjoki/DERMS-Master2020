@@ -10,7 +10,6 @@ using Common.PubSub.Subscriptions;
 using CalculationEngine.PubSub.DynamicHandlers;
 using Common.Helpers.Breakers;
 using Common.ServiceInterfaces.CalculationEngine;
-using System;
 using Common.Helpers;
 
 namespace CalculationEngine.TopologyAnalysis

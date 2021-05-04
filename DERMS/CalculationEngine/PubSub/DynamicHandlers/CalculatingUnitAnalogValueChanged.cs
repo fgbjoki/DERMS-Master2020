@@ -4,6 +4,8 @@ using Common.GDA;
 using Common.Logger;
 using Common.PubSub;
 using Common.PubSub.Messages;
+using System;
+using System.Collections.Generic;
 
 namespace CalculationEngine.PubSub.DynamicHandlers
 {
@@ -18,7 +20,9 @@ namespace CalculationEngine.PubSub.DynamicHandlers
 
         protected override void ProcessChanges(AnalogRemotePointValuesChanged message)
         {
-            foreach (var analogChange in message)
+            List<Tuple<long, float>> changes = new List<Tuple<long, float>>(message.Changes.Count);
+
+            foreach (var analogChange in message.Changes)
             {
                 Property currentValueProperty = analogChange.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
 
@@ -30,9 +34,10 @@ namespace CalculationEngine.PubSub.DynamicHandlers
 
                 float value = currentValueProperty.AsFloat();
 
-                topologyDependentComponent.ProcessAnalogChanges(analogChange.Id, value);
 
+                changes.Add(new Tuple<long, float>(analogChange.Id, value));
             }           
+            topologyDependentComponent.ProcessAnalogChanges(changes);
         }
     }
 }

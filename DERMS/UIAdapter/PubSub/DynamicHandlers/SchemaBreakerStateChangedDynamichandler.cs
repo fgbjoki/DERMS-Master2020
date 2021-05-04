@@ -17,7 +17,7 @@ namespace UIAdapter.PubSub.DynamicHandlers
 
         protected override void ProcessChanges(DiscreteRemotePointValuesChanged message)
         {
-            foreach (var discreteChange in message)
+            foreach (var discreteChange in message.Changes)
             {
                 Property currentValueProperty = discreteChange.GetProperty(ModelCode.MEASUREMENTDISCRETE_CURRENTVALUE);
 

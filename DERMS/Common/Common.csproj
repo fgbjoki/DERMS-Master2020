@@ -77,6 +77,7 @@
     <Compile Include="PubSub\IDynamicPublisher.cs" />
     <Compile Include="PubSub\ISubscriber.cs" />
     <Compile Include="PubSub\Messages\AnalogRemotePointValuesChanged.cs" />
+    <Compile Include="PubSub\Messages\BaseMessageEntitiesChanged.cs" />
     <Compile Include="PubSub\Messages\DERStateChanged.cs" />
     <Compile Include="PubSub\Messages\DERState\DERStateWrapper.cs" />
     <Compile Include="PubSub\Messages\DiscreteRemotePointValuesChanged.cs" />

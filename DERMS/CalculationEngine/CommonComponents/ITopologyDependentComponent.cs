@@ -1,8 +1,11 @@
-﻿namespace CalculationEngine.CommonComponents
+﻿using System;
+using System.Collections.Generic;
+
+namespace CalculationEngine.CommonComponents
 {
     public interface ITopologyDependentComponent
     {
         void ProcessTopologyChanges();
-        void ProcessAnalogChanges(long measurementGid, float newMeasurementValue);
+        void ProcessAnalogChanges(List<Tuple<long, float>> changes);
     }
 }
