@@ -14,6 +14,7 @@ using System.Threading;
 using CalculationEngine.CommonComponents;
 using Common.Helpers;
 using Common.PubSub.Messages;
+using System;
 
 namespace CalculationEngine.EnergyCalculators
 {
@@ -101,59 +102,65 @@ namespace CalculationEngine.EnergyCalculators
             }
         }
 
-        public void ProcessAnalogChanges(long measurementGid, float newMeasurementValue)
+        public void ProcessAnalogChanges(List<Tuple<long,float>> analogChanges)
         {
             lock (locker)
             {
-                long conductingEquipmentGid = energyBalanceStorage.GetEntityByAnalogMeasurementGid(measurementGid);
-
-                if (conductingEquipmentGid == 0)
+                foreach (var analogChange in analogChanges)
                 {
-                    return;
-                }             
+                    long conductingEquipmentGid = energyBalanceStorage.GetEntityByAnalogMeasurementGid(analogChange.Item1);
 
-                DMSType equipmentType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(conductingEquipmentGid);
+                    if (conductingEquipmentGid == 0)
+                    {
+                        return;
+                    }
 
-                if (equipmentType == DMSType.ENERGYSOURCE)
-                {
-                    var currentCalculation = energyBalanceCalculations[conductingEquipmentGid];
-                    currentCalculation.Imported = newMeasurementValue;
-                    LogCurrentEnergyBalance(currentCalculation);
+                    DMSType equipmentType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(conductingEquipmentGid);
 
-                    return;
+                    if (equipmentType == DMSType.ENERGYSOURCE)
+                    {
+                        var currentCalculation = energyBalanceCalculations[conductingEquipmentGid];
+                        currentCalculation.Imported = analogChange.Item2;
+                        LogCurrentEnergyBalance(currentCalculation);
+
+                        return;
+                    }
+
+                    float delta = ChangeAnalogValue(analogChange.Item1, analogChange.Item2);
+
+                    long sourceGid = topologyReader.FindSource(conductingEquipmentGid);
+                    if (sourceGid == 0)
+                    {
+                        // specified conducting equipment is not energized
+                        return;
+                    }
+
+                    EnergyBalanceCalculation calculation = energyBalanceCalculations[sourceGid];
+
+                    ITopologyCalculatingUnit calculatingUnit;
+                    if (!recalculatingUnits.TryGetValue(equipmentType, out calculatingUnit))
+                    {
+                        Logger.Instance.Log($"[{GetType().Name}] Cannot find cooresponding energy calculating unit for dms type: {equipmentType}.");
+                        return;
+                    }
+
+                    calculatingUnit.Recalculate(calculation, delta);
+
+                    LogCurrentEnergyBalance(calculation);
                 }
 
-                float delta = ChangeAnalogValue(measurementGid, newMeasurementValue);
-
-                long sourceGid = topologyReader.FindSource(conductingEquipmentGid);
-                if (sourceGid == 0)
+                foreach (var calculation in energyBalanceCalculations.Values)
                 {
-                    // specified conducting equipment is not energized
-                    return;
-                }
+                    EnergyBalanceChanged newEnergyBalance = new EnergyBalanceChanged()
+                    {
+                        DemandEnergy = calculation.Demand,
+                        EnergySourceGid = calculation.EnergySourceGid,
+                        ImportedEnergy = calculation.Imported,
+                        ProducedEnergy = calculation.Production
+                    };
 
-                EnergyBalanceCalculation calculation = energyBalanceCalculations[sourceGid];
-
-                ITopologyCalculatingUnit calculatingUnit;
-                if (!recalculatingUnits.TryGetValue(equipmentType, out calculatingUnit))
-                {
-                    Logger.Instance.Log($"[{GetType().Name}] Cannot find cooresponding energy calculating unit for dms type: {equipmentType}.");
-                    return;
-                }
-
-                calculatingUnit.Recalculate(calculation, delta);
-
-                LogCurrentEnergyBalance(calculation);
-
-                EnergyBalanceChanged newEnergyBalance = new EnergyBalanceChanged()
-                {
-                    DemandEnergy = calculation.Demand,
-                    EnergySourceGid = calculation.EnergySourceGid,
-                    ImportedEnergy = calculation.Imported,
-                    ProducedEnergy = calculation.Production
-                };
-
-                dynamicPublisher.Publish(newEnergyBalance);
+                    dynamicPublisher.Publish(newEnergyBalance);
+                }       
             }
 
             // TODO call commanding units, increase or decrease production or import less or more energy

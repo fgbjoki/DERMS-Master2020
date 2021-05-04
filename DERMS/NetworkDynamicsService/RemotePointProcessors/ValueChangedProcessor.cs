@@ -6,6 +6,8 @@ using Common.GDA;
 using System.Threading;
 using Common.Logger;
 using System.Collections.Generic;
+using Common.PubSub.Messages;
+using System;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
@@ -24,7 +26,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         public IEvent ProcessChangedValue(IEnumerable<RemotePointFieldValue> fieldValues)
         {
-            List<ResourceDescription> publicationChanges = CreatePublication();
+            BaseMessageEntitiesChanged<ResourceDescription> publicationChanges = CreatePublication();
 
             foreach (var fieldValue in fieldValues)
             {
@@ -34,13 +36,13 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
                 if (remotePoint == null)
                 {
-                    Logger.Instance.Log($"[{GetType()}] Coudln't find remote point to process with gid: 0x{fieldValue.GlobalId:X16}.");
-                    return null;
+                    Logger.Instance.Log($"[{GetType().Name}] Coudln't find remote point to process with gid: 0x{fieldValue.GlobalId:X16}.");
+                    continue;
                 }
 
                 if (!HasValueChanged(remotePoint, fieldValue.Value))
                 {
-                    return null;
+                    continue;
                 }
 
                 locker.EnterWriteLock();
@@ -50,16 +52,11 @@ namespace NetworkDynamicsService.RemotePointProcessors
                 // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
                 //SaveChanges(remotePoint);
 
-                if (changes != null)
-                {
-                    publicationChanges.Add(changes);
-                }
+                AddChangeToPublication(publicationChanges, changes);
             }
 
-            return GetPublication(publicationChanges);          
+            return publicationChanges;         
         }
-
-        protected abstract IEvent GetPublication(List<ResourceDescription> publicationChanges);
 
         /// <summary>
         /// Applies all needed changes on <paramref name="remotePoint"/>.
@@ -69,9 +66,17 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         protected abstract ResourceDescription ApplyChanges(RemotePointType remotePoint, int rawValue);
 
-        protected abstract List<ResourceDescription> CreatePublication();
+        protected abstract BaseMessageEntitiesChanged<ResourceDescription> CreatePublication();
 
         // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
         //protected abstract void SaveChanges(RemotePointType remotePoint);
+
+        private void AddChangeToPublication(BaseMessageEntitiesChanged<ResourceDescription> publicationChanges, ResourceDescription changes)
+        {
+            if (changes != null)
+            {
+                publicationChanges.Changes.Add(changes);
+            }
+        }
     }
 }

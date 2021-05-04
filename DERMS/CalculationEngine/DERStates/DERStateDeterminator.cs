@@ -48,28 +48,37 @@ namespace CalculationEngine.DERStates
         }
 
         // Analog publication handling
-        public void ProcessAnalogChanges(long measurementGid, float measurementValue)
+        public void ProcessAnalogChanges(List<Tuple<long,float>> changes)
         {
             lock (locker)
             {
-                derStateStorage.UpdateAnalogValue(measurementGid, measurementValue);
-
-                DERState derState = derStateStorage.GetEntityByAnalogMeasurementGid(measurementGid);
-                if (derState == null)
-                {
-                    return;
-                }
-
-                if (!derState.IsEnergized)
-                {
-                    return;
-                }
-
                 DERStateChanged publication = new DERStateChanged();
 
-                publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower));
+                foreach (var analogChange in changes)
+                {
+                    long measurementGid = analogChange.Item1;
+                    float measurementValue = analogChange.Item2;
 
-                dynamicPublisher.Publish(publication);
+                    derStateStorage.UpdateAnalogValue(measurementGid, measurementValue);
+
+                    DERState derState = derStateStorage.GetEntityByAnalogMeasurementGid(measurementGid);
+                    if (derState == null)
+                    {
+                        return;
+                    }
+
+                    if (!derState.IsEnergized)
+                    {
+                        return;
+                    }
+
+                    publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower));
+
+                }
+                if (publication.DERStates.Count > 0)
+                {
+                    dynamicPublisher.Publish(publication);
+                }
             }
         }
 

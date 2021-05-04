@@ -6,6 +6,7 @@ using Common.AbstractModel;
 using Common.Logger;
 using Common.PubSub.Messages;
 using System.Collections.Generic;
+using System;
 
 namespace NetworkDynamicsService.RemotePointProcessors
 {
@@ -29,20 +30,15 @@ namespace NetworkDynamicsService.RemotePointProcessors
                 remotePoint.DOMManipulations++;
                 changes.AddProperty(new Property(ModelCode.MEASUREMENTDISCRETE_DOM, remotePoint.DOMManipulations));
 
-                Logger.Instance.Log($"[{GetType()}] Discrete remote point (gid: 0x{remotePoint.GlobalId:X16}) value changed to {fieldValue}, DOM: {remotePoint.DOMManipulations}");
+                Logger.Instance.Log($"[{GetType().Name}] Discrete remote point (gid: 0x{remotePoint.GlobalId:X16}) value changed to {fieldValue}, DOM: {remotePoint.DOMManipulations}");
             }
 
             return changes;
         }
 
-        protected override List<ResourceDescription> CreatePublication()
+        protected override BaseMessageEntitiesChanged<ResourceDescription> CreatePublication()
         {
             return new DiscreteRemotePointValuesChanged();
-        }
-
-        protected override IEvent GetPublication(List<ResourceDescription> publicationChanges)
-        {
-            return publicationChanges as IEvent;
         }
 
         protected override bool HasValueChanged(DiscreteRemotePoint remotePoint, int rawValue)

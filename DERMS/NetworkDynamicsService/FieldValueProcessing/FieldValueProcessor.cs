@@ -8,7 +8,6 @@ using Common.ComponentStorage;
 using NetworkDynamicsService.Model.RemotePoints;
 using Common.PubSub;
 using Common.Logger;
-using Common.GDA;
 using NServiceBus;
 
 namespace NetworkDynamicsService.FieldValueProcessing
@@ -41,7 +40,7 @@ namespace NetworkDynamicsService.FieldValueProcessing
             IValueChangedProcessor valueChangedProcessor;
             if (!remotePointProcessors.TryGetValue(dmsType, out valueChangedProcessor))
             {
-                Logger.Instance.Log($"[{GetType()}] Cannot find processor for processing DMSType: {dmsType}. Skipping processing!");
+                Logger.Instance.Log($"[{GetType().Name}] Cannot find processor for processing DMSType: {dmsType}. Skipping processing!");
                 return;
             }
 

@@ -3,8 +3,6 @@ using Common.ComponentStorage;
 using Common.GDA;
 using Common.AbstractModel;
 using Common.Logger;
-using NServiceBus;
-using System.Collections.Generic;
 using Common.PubSub.Messages;
 
 namespace NetworkDynamicsService.RemotePointProcessors
@@ -23,7 +21,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
             if (remotePoint.CurrentValue != fieldValue)
             {
-                Logger.Instance.Log($"[{GetType()}] Analog remote point (gid: 0x{remotePoint.GlobalId:X16}) value changed to {fieldValue}");
+                Logger.Instance.Log($"[{GetType().Name}] Analog remote point (gid: 0x{remotePoint.GlobalId:X16}) value changed to {fieldValue}");
 
                 remotePoint.CurrentValue = fieldValue;
                 changes.AddProperty(new Property(ModelCode.MEASUREMENTANALOG_CURRENTVALUE, fieldValue));
@@ -32,14 +30,9 @@ namespace NetworkDynamicsService.RemotePointProcessors
             return changes;
         }
 
-        protected override List<ResourceDescription> CreatePublication()
+        protected override BaseMessageEntitiesChanged<ResourceDescription> CreatePublication()
         {
             return new AnalogRemotePointValuesChanged();
-        }
-
-        protected override IEvent GetPublication(List<ResourceDescription> publicationChanges)
-        {
-            return publicationChanges as IEvent;
         }
 
         protected override bool HasValueChanged(AnalogRemotePoint remotePoint, int rawValue)

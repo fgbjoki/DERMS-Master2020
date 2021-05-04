@@ -17,7 +17,7 @@ namespace UIAdapter.PubSub.DynamicHandlers.DER
 
         protected override void ProcessChanges(AnalogRemotePointValuesChanged message)
         {
-            foreach (var analogChange in message)
+            foreach (var analogChange in message.Changes)
             {
                 Property currentValueProperty = analogChange.GetProperty(ModelCode.MEASUREMENTANALOG_CURRENTVALUE);
 
