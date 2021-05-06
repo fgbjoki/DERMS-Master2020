@@ -125,10 +125,5 @@
             <interaction:InvokeCommandAction Command="{Binding DataGridItemDoubleClicked}" CommandParameter="{Binding ElementName=itemDataGrid, Path=SelectedItem}" />
         </interaction:EventTrigger>
     </interaction:Interaction.Triggers>
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDoubleClick">
-            <i:InvokeCommandAction Command="{Binding ItemSelectionChanged}" CommandParameter="{Binding ElementName=grdCity, Path=SelectedItem}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
 
 </UserControl>

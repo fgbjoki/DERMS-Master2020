@@ -149,6 +149,8 @@
     <Compile Include="CustomControls\GIDMappedObservableCollection.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
+    <Compile Include="Events\ContentMenu\OpenSummaryEvent.cs" />
+    <Compile Include="Events\ContentMenu\OpenSummaryEvetnArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEvent.cs" />
     <Compile Include="Events\OpenCommandingWindow\AnalogRemotePointOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\DERGroupOpenCommandingWindowEvent.cs" />
@@ -157,6 +159,8 @@
     <Compile Include="Events\OpenCommandingWindow\DiscreteRemotePointOpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEventArgs.cs" />
     <Compile Include="Events\OpenCommandingWindow\OpenCommandingWindowEvent.cs" />
+    <Compile Include="Events\Schema\SchemaNodeLocateEvent.cs" />
+    <Compile Include="Events\Schema\SchemaNodeLocateEventArgs.cs" />
     <Compile Include="Models\DERGroup\CommandingWindow\DERGroup\DistributedEnergyResource.cs" />
     <Compile Include="Models\DERGroup\CommandingWindow\DERGroup\EnergyStorage.cs" />
     <Compile Include="Models\DERGroup\CommandingWindow\DERGroup\Generator.cs" />
@@ -176,6 +180,8 @@
     <Compile Include="Models\Schema\NodeCreators\GeneratorSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\InterConnectedBreakerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\NonClicableSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\SolarPanelSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\WindGeneratorSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\Nodes\SchemaBreakerNode.cs" />
     <Compile Include="Models\Schema\SchemaConnNodeGraphNode.cs" />
     <Compile Include="Models\Schema\SchemaCreator.cs" />
@@ -185,6 +191,7 @@
     <Compile Include="Models\Schema\NodeCreators\SchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\EnergySourceBrowseSchemaItem.cs" />
     <Compile Include="Models\Schema\UINode.cs" />
+    <Compile Include="SchemaNodeLocator\SchemaNodeLocator.cs" />
     <Compile Include="SummaryCreator\SummaryManager.cs" />
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
@@ -210,6 +217,7 @@
     <Compile Include="ViewModels\ContentViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
+    <Compile Include="ViewModels\Schema\ISchemaNodeLocator.cs" />
     <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\DERGroupSummary\DERGroupSummaryViewModel.cs" />

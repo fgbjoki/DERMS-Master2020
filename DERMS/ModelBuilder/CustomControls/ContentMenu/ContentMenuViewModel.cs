@@ -1,9 +1,11 @@
 ﻿using ClientUI.Common;
 using ClientUI.Events.ChangeSummary;
+using ClientUI.Events.ContentMenu;
 using ClientUI.SummaryCreator;
 using ClientUI.ViewModels;
 using MaterialDesignThemes.Wpf;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace ClientUI.CustomControls
@@ -28,6 +30,8 @@ namespace ClientUI.CustomControls
 
         public ContentMenuViewModel()
         {
+            SummaryManager.Instance.EventAggregator.GetEvent<OpenSummaryEvent>().Subscribe(OpenSummary);
+
             Summaries = new ObservableCollection<SummaryWrapper>()
             {
                 new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent),
@@ -54,6 +58,14 @@ namespace ClientUI.CustomControls
         public void OpenSummaryCommand()
         {
             SummaryManager.Instance.EventAggregator.GetEvent<ChangeSummaryEvent>().Publish(new ChangeSummaryEventArgs(selectedItem.SummaryType));
+        }
+
+        private void OpenSummary(OpenSummaryEvetnArgs summaryTypeArgs)
+        {
+            if (selectedItem.SummaryType != summaryTypeArgs.ContentType)
+            {
+                SelectedItem = Summaries.First(x => x.SummaryType == summaryTypeArgs.ContentType);
+            }
         }
     }
 }

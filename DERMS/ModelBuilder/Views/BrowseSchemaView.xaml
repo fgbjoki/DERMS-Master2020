@@ -7,8 +7,7 @@
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
              xmlns:schemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
              xmlns:schemaView="clr-namespace:ClientUI.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type schemaViewModel:SchemaViewModel}">
@@ -27,11 +26,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Substations" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" ItemsSource="{Binding EnergySources}" DisplayMemberPath="SubstationName" SelectedItem="{Binding SelectedEnergySource}"/>
             <Button Grid.Column="2" Command="{Binding GetSchemaCommand}" HorizontalAlignment="Left" Margin="10,0,0,0">Display</Button>
+            <Button Grid.Column="3" Command="{Binding ClearSearchingNodeCommand}" HorizontalAlignment="Left" Margin="10,0,0,0">Clear located node</Button>
         </Grid>
 
         <Grid Grid.Row="1">

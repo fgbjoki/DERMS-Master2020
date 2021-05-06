@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -35,6 +36,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -74,13 +76,17 @@
                 <Run Text=" kW"/>
             </TextBlock>
             <Separator Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
-
         </Grid>
+
+        <Button Grid.Row="2" Grid.Column="0" Margin="10" ToolTip="Find entity on schema" Width="50" Command="{Binding LocateOnSchemaCommand}">
+            <materialDesign:PackIcon Kind="Search" />
+        </Button>
         
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0">
             <materialDesign:Card Margin="10">
                 <!-- Commanding -->
             </materialDesign:Card>
         </Grid>
+        
     </Grid>
 </UserControl>

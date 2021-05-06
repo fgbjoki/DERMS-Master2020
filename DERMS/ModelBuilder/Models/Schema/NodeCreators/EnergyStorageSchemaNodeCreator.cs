@@ -1,6 +1,8 @@
 ﻿using ClientUI.Common;
 using ClientUI.Events.OpenCommandingWindow;
+using ClientUI.Models.Schema.Nodes;
 using ClientUI.SummaryCreator;
+using Common.UIDataTransferObject.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class EnergyStorageSchemaNodeCreator : SchemaNodeCreator
     {
-        public EnergyStorageSchemaNodeCreator(string imageUrl = "") : base(imageUrl)
+        public EnergyStorageSchemaNodeCreator() : base("../../Resources/energyStorage.png")
         {
         }
 

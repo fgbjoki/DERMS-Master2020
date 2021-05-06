@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:helper="clr-namespace:ClientUI.Common"
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:ClientUI.Converters"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d">
@@ -19,11 +20,21 @@
             
             <HierarchicalDataTemplate DataType="{x:Type model:SchemaNode}" 
 									  ItemsSource="{Binding Children}">
-                <Grid>
-                    <Grid.InputBindings>
+                <Border>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Located}" Value="True">
+                                    <Setter Property="Background" Value="White" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Border.InputBindings>
                         <MouseBinding MouseAction="LeftDoubleClick"
                               Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
-                    </Grid.InputBindings>
+                    </Border.InputBindings>
                     <Border Name="bdr" BorderThickness="3" CornerRadius="360"
 						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
                         <Border.ContextMenu>
@@ -40,10 +51,14 @@
                               Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
                         </Border.InputBindings>
                         <Image Height="50"
-                               Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}">
+                               Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}"
+                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
+                            </Image.InputBindings>
                         </Image>
                     </Border>
-                </Grid>
+                </Border>
             </HierarchicalDataTemplate>
 
         </ResourceDictionary>
@@ -55,7 +70,13 @@
         </Grid.ColumnDefinitions>
 
         <TreeView Grid.Column="0" ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
-			  ItemsSource="{Binding Nodes}"/>
+			  ItemsSource="{Binding Nodes}">
+            <interaction:Interaction.Triggers>
+                <interaction:EventTrigger EventName="MouseClick">
+                    <interaction:InvokeCommandAction Command="{Binding MouseClickCommand}" />
+                </interaction:EventTrigger>
+            </interaction:Interaction.Triggers>
+        </TreeView>
 
         <Grid Grid.Column="1">
             <!-- TODO ADD WIDGETs for energy balance -->
@@ -75,5 +96,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-    
 </UserControl>
