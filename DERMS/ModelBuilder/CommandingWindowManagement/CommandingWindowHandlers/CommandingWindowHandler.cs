@@ -45,7 +45,7 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 
         private CommandWindow ConfigureWindow(TEventArgType args)
         {
-            EntityCommandingViewModel windowViewModel = CreateViewModel(args);
+            BaseCommandingViewModel windowViewModel = CreateViewModel(args);
 
             CommandWindow window = CreateWindow(windowViewModel);
             window.Title = GetWindowTitle(args);
@@ -57,9 +57,9 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 
         internal abstract string GetWindowTitle(TEventArgType args);
 
-        protected abstract EntityCommandingViewModel CreateViewModel(TEventArgType args);
+        protected abstract BaseCommandingViewModel CreateViewModel(TEventArgType args);
 
-        protected abstract CommandWindow CreateWindow(EntityCommandingViewModel viewModel);
+        protected abstract CommandWindow CreateWindow(BaseCommandingViewModel viewModel);
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

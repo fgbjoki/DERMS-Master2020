@@ -25,7 +25,7 @@ namespace ClientUI.ViewModels.CommandingWindow
             SendCommandCommand = new RelayCommand(ExecuteCommand, CanExecuteSendCommand);
 
             summaryJob = new WCFClient<IAnalogRemotePointSummaryJob>("uiAdapterEndpointAnalog");
-            RefreshContent();
+            FetchContent();
         }
 
         public long GlobalId { get; set; }
@@ -70,7 +70,7 @@ namespace ClientUI.ViewModels.CommandingWindow
             return true;
         }
 
-        protected override void RefreshContent()
+        protected override void FetchContent()
         {
             AnalogRemotePointSummaryDTO item = null;
             try

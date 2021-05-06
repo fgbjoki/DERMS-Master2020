@@ -13,6 +13,8 @@ namespace UIAdapter.Model.DERGroup
 
         public long StateOfChargeMeasurementGid { get; set; }
 
+        public float Capacity { get; set; }
+
         public override DERGroupEnergyStorageSummaryDTO CreateDTO()
         {
             DERGroupEnergyStorageSummaryDTO dto = new DERGroupEnergyStorageSummaryDTO();
@@ -32,6 +34,7 @@ namespace UIAdapter.Model.DERGroup
             }
 
             energyStorageDTO.StateOfCharge = StateOfCharge;
+            energyStorageDTO.Capacity = Capacity;
         }
     }
 }

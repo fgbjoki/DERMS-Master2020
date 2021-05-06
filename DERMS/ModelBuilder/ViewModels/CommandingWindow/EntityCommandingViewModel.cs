@@ -9,24 +9,39 @@ namespace ClientUI.ViewModels.CommandingWindow
 {
     public abstract class EntityCommandingViewModel : BaseCommandingViewModel
     {
-        private Timer refreshContentTimer;
+        protected Timer refreshContentTimer;
 
         public EntityCommandingViewModel(string title) : base(title)
         {
             refreshContentTimer = new Timer();
             refreshContentTimer.AutoReset = true;
-            refreshContentTimer.Interval = 5 * 1000;
+            refreshContentTimer.Interval = 2 * 1000;
             refreshContentTimer.Elapsed += FetchContent;
+            refreshContentTimer.Enabled = true;
+        }
+
+        public void StopFetchingData()
+        {
+            refreshContentTimer.Enabled = false;
+        }
+        public void StartFetchingData()
+        {
+            FetchContent();
             refreshContentTimer.Enabled = true;
         }
 
         protected void FetchContent(object sender, ElapsedEventArgs e)
         {
             refreshContentTimer.Enabled = false;
-            RefreshContent();
+            FetchContent();
             refreshContentTimer.Enabled = true;
         }
 
-        protected abstract void RefreshContent();
+        protected abstract void FetchContent();
+
+        protected override void StopProcessing()
+        {
+            StopFetchingData();
+        }
     }
 }

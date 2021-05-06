@@ -26,7 +26,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
 
         public IEvent ProcessChangedValue(IEnumerable<RemotePointFieldValue> fieldValues)
         {
-            BaseMessageEntitiesChanged<ResourceDescription> publicationChanges = CreatePublication();
+            BaseMessageEntitiesChanged<ResourceDescription> publicationChanges = null;
 
             foreach (var fieldValue in fieldValues)
             {
@@ -52,7 +52,7 @@ namespace NetworkDynamicsService.RemotePointProcessors
                 // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
                 //SaveChanges(remotePoint);
 
-                AddChangeToPublication(publicationChanges, changes);
+                AddChangeToPublication(ref publicationChanges, changes);
             }
 
             return publicationChanges;         
@@ -71,8 +71,13 @@ namespace NetworkDynamicsService.RemotePointProcessors
         // TODO UNCOMMENT THIS WHEN IMPLEMENTING DATABASE MANIPULATION
         //protected abstract void SaveChanges(RemotePointType remotePoint);
 
-        private void AddChangeToPublication(BaseMessageEntitiesChanged<ResourceDescription> publicationChanges, ResourceDescription changes)
+        private void AddChangeToPublication(ref BaseMessageEntitiesChanged<ResourceDescription> publicationChanges, ResourceDescription changes)
         {
+            if (publicationChanges == null)
+            {
+                publicationChanges = CreatePublication();
+            }
+
             if (changes != null)
             {
                 publicationChanges.Changes.Add(changes);

@@ -38,7 +38,7 @@ namespace ClientUI.ViewModels.CommandingWindow
             ValidationCommand = new RelayCommand(ExecuteValidationCommand, CanExecuteValidationCommand);
 
             summaryJob = new WCFClient<IDiscreteRemotePointSummaryJob>("uiAdapterEndpointDiscrete");
-            RefreshContent();
+            FetchContent();
         }
         public CommandFeedback CommandFeedback { get; private set; }
 
@@ -94,7 +94,7 @@ namespace ClientUI.ViewModels.CommandingWindow
         public ICommand ValidationCommand { get; set; }
 
 
-        protected override void RefreshContent()
+        protected override void FetchContent()
         {
             DiscreteRemotePointSummaryDTO item = null;
             try

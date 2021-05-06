@@ -86,6 +86,22 @@ namespace UIAdapter.TransactionProcessing.Storages.DERGroup
             }          
         }
 
+        public override Model.DERGroup.DERGroup GetEntity(long globalId)
+        {
+            long derGroupGid;
+
+            locker.EnterReadLock();
+
+            if (generatorToDERGroupMapper.TryGetValue(globalId, out derGroupGid))
+            {
+                globalId = derGroupGid;
+            }
+
+            locker.ExitReadLock();
+
+            return base.GetEntity(globalId);
+        }
+
         public void UpdateAnalogValue(long measurementGid, float newValue)
         {
             long derGroupGid = 0;

@@ -9,12 +9,12 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 {
     public class AnalogRemotePointCommandingWindowHandler : CommandingWindowHandler<AnalogRemotePointOpenCommandingWindowEvent, AnalogRemotePointOpenCommandingWindowEventArgs>
     {
-        protected override EntityCommandingViewModel CreateViewModel(AnalogRemotePointOpenCommandingWindowEventArgs args)
+        protected override BaseCommandingViewModel CreateViewModel(AnalogRemotePointOpenCommandingWindowEventArgs args)
         {
             return new AnalogRemotePointCommandingViewModel(args);
         }
 
-        protected override CommandWindow CreateWindow(EntityCommandingViewModel viewModel)
+        protected override CommandWindow CreateWindow(BaseCommandingViewModel viewModel)
         {
             CommandWindow window = new AnalogRemotePointCommandingWindowView();
             window.DataContext = viewModel;
