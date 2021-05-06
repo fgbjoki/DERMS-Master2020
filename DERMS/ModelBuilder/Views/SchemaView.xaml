@@ -7,6 +7,7 @@
              xmlns:helper="clr-namespace:ClientUI.Common"
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
              xmlns:converters="clr-namespace:ClientUI.Converters"
+             xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -18,27 +19,31 @@
             
             <HierarchicalDataTemplate DataType="{x:Type model:SchemaNode}" 
 									  ItemsSource="{Binding Children}">
-
-                <Border Name="bdr" BorderThickness="3" CornerRadius="360"
-						BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
-                    <Border.InputBindings>
+                <Grid>
+                    <Grid.InputBindings>
                         <MouseBinding MouseAction="LeftDoubleClick"
-                          Command="{Binding OnDoubleClick}"/>
-                    </Border.InputBindings>
-                    <Border.ContextMenu>
-                        <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
-                            <ContextMenu.ItemTemplate>
-                                <DataTemplate DataType="{x:Type helper:ContextAction}">
-                                    <MenuItem Header="{Binding Header}" Command="{Binding Command}"/>
-                                </DataTemplate>
-                            </ContextMenu.ItemTemplate>
-                        </ContextMenu>
-                    </Border.ContextMenu>
-                    <StackPanel>
+                              Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
+                    </Grid.InputBindings>
+                    <Border Name="bdr" BorderThickness="3" CornerRadius="360"
+						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
+                        <Border.ContextMenu>
+                            <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
+                                <ContextMenu.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type helper:ContextAction}">
+                                        <MenuItem Header="{Binding Header}" Command="{Binding Command}"/>
+                                    </DataTemplate>
+                                </ContextMenu.ItemTemplate>
+                            </ContextMenu>
+                        </Border.ContextMenu>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
+                        </Border.InputBindings>
                         <Image Height="50"
-                           Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}"/>
-                    </StackPanel>
-                </Border>
+                               Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}">
+                        </Image>
+                    </Border>
+                </Grid>
             </HierarchicalDataTemplate>
 
         </ResourceDictionary>
