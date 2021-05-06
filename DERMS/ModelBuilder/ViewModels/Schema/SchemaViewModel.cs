@@ -52,6 +52,11 @@ namespace ClientUI.ViewModels.Schema
 
         public bool Locate(long wantedEntityGid)
         {
+            if (LocatedNode != null)
+            {
+                LocatedNode.Located = false;
+            }
+
             SchemaNode locatedNode;
             if (!schemaNodes.TryGetValue(wantedEntityGid, out locatedNode))
             {

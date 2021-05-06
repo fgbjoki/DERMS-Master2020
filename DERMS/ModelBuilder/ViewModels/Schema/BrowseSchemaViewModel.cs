@@ -91,6 +91,16 @@ namespace ClientUI.ViewModels.Schema
             {
                 return;
             }
+
+            long substationGid = GetSubstationGidForEntity(entityGid);
+            if (substationGid == 0)
+            {
+                return;
+            }
+
+            SelectedEnergySource = EnergySources.First(x => x.GlobalId == substationGid);
+            ExecuteGetSchemaCommand(null);
+            SchemaViewModel.Locate(entityGid);
         }
 
         protected void FetchEnergySources(object sender, ElapsedEventArgs e)
@@ -187,6 +197,18 @@ namespace ClientUI.ViewModels.Schema
             SchemaViewModel?.StopProcessingGraph();
 
             SchemaViewModel = new SchemaViewModel(graphWrapper, energyBalance, schemaClient);
+        }
+
+        private long GetSubstationGidForEntity(long entityGid)
+        {
+            try
+            {
+                return schemaClient.Proxy.SubStationContainsEntity(entityGid);
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

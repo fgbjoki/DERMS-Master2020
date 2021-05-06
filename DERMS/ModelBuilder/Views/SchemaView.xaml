@@ -20,7 +20,7 @@
             
             <HierarchicalDataTemplate DataType="{x:Type model:SchemaNode}" 
 									  ItemsSource="{Binding Children}">
-                <Border>
+                <Border CornerRadius="40">
                     <Border.Style>
                         <Style TargetType="Border">
                             <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>

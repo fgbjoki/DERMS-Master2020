@@ -72,5 +72,10 @@ namespace UIAdapter.Schema
 
             return substations;
         }
+
+        public long SubStationContainsEntity(long entityGid)
+        {
+            return schemaController.GetSubstationForEntity(entityGid);
+        }
     }
 }

@@ -75,6 +75,11 @@ namespace UIAdapter.Schema.Graph
             }
         }
 
+        public bool EntityExists(long entityGid)
+        {
+            return GetNode(entityGid) != null;
+        }
+
         public List<SchemaBreakerGraphNode> GetBreakers()
         {
             return breakers.Values.ToList();

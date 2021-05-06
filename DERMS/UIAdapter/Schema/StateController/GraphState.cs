@@ -79,6 +79,11 @@ namespace UIAdapter.Schema.StateController
             return graph.GetRoot();
         }
 
+        public bool EntityExists(long entityGid)
+        {
+            return graph.EntityExists(entityGid);
+        }
+
         private void LoadBreakerStates(List<SchemaBreakerGraphNode> breakers, IStorage<Breaker> breakerStorage, BreakerMessageMapping breakerMessageMapping)
         {
             foreach (var breaker in breakers)

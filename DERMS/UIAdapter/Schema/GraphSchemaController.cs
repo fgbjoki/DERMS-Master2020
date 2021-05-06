@@ -171,5 +171,18 @@ namespace UIAdapter.Schema
 
             return currentSchemaBalance;
         }
+
+        public long GetSubstationForEntity(long entityGid)
+        {
+            foreach (var graph in graphs)
+            {
+                if (graph.Value.EntityExists(entityGid))
+                {
+                    return graph.Key;
+                }
+            }
+
+            return 0;
+        }
     }
 }

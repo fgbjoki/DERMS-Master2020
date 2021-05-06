@@ -18,5 +18,8 @@ namespace Common.ServiceInterfaces.UIAdapter
 
         [OperationContract]
         SchemaEnergyBalanceDTO GetEnergyBalance(long energySourceGid);
+
+        [OperationContract]
+        long SubStationContainsEntity(long entityGid);
     }
 }

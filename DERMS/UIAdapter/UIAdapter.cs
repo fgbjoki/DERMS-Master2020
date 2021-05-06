@@ -224,5 +224,10 @@ namespace UIAdapter
         {
             return breakerCommanding.ValidateCommand(breakerGid, breakerValue);
         }
+
+        public long SubStationContainsEntity(long entityGid)
+        {
+            return schemaRepresentation.SubStationContainsEntity(entityGid);
+        }
     }
 }
