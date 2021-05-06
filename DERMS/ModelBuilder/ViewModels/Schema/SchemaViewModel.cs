@@ -1,4 +1,5 @@
-﻿using ClientUI.Models.Schema;
+﻿using ClientUI.Common;
+using ClientUI.Models.Schema;
 using ClientUI.Models.Schema.Nodes;
 using Common.AbstractModel;
 using Common.Communication;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ClientUI.ViewModels.Schema
 {
@@ -22,6 +24,8 @@ namespace ClientUI.ViewModels.Schema
         private Dictionary<long, SchemaNode> schemaNodes;
         private SchemaEnergyBalance energyBalance;
         private Timer fetchNewDataTimer;
+
+        private SchemaNode locatedNode;
 
         public SchemaViewModel(SchemaGraphWrapper graphWrapper, SchemaEnergyBalance energyBalance, WCFClient<ISchema> schemaClient)
         {
@@ -35,15 +39,6 @@ namespace ClientUI.ViewModels.Schema
             InitializeTimer();
         }
 
-        private void InitializeTimer()
-        {
-            fetchNewDataTimer = new Timer();
-            fetchNewDataTimer.AutoReset = true;
-            fetchNewDataTimer.Interval = 1000 * 4;
-            fetchNewDataTimer.Enabled = true;
-            fetchNewDataTimer.Elapsed += FetchNewDataTimer_Elapsed;
-        }
-
         public ObservableCollection<SchemaNode> Nodes { get; set; }
 
         public long EnergySourceGlobalId { get; set; }
@@ -53,6 +48,26 @@ namespace ClientUI.ViewModels.Schema
         public void StopProcessingGraph()
         {
             fetchNewDataTimer.Enabled = false;
+        }
+
+        public bool Locate(long wantedEntityGid)
+        {
+            SchemaNode locatedNode;
+            if (!schemaNodes.TryGetValue(wantedEntityGid, out locatedNode))
+            {
+                return false;
+            }
+
+            LocatedNode = locatedNode;
+            LocatedNode.Located = true;
+
+            return true;
+        }
+
+        public SchemaNode LocatedNode
+        {
+            get { return locatedNode; }
+            set { SetProperty(ref locatedNode, value); }
         }
 
         private void FetchNewDataTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -108,5 +123,15 @@ namespace ClientUI.ViewModels.Schema
 
             EnergySourceGlobalId = graphWrapper.Root.GlobalId;
         }
+
+        private void InitializeTimer()
+        {
+            fetchNewDataTimer = new Timer();
+            fetchNewDataTimer.AutoReset = true;
+            fetchNewDataTimer.Interval = 1000 * 4;
+            fetchNewDataTimer.Enabled = true;
+            fetchNewDataTimer.Elapsed += FetchNewDataTimer_Elapsed;
+        }
+
     }
 }

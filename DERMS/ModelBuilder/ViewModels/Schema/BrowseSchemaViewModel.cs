@@ -17,7 +17,7 @@ using ClientUI.Common;
 
 namespace ClientUI.ViewModels.Schema
 {
-    public class BrowseSchemaViewModel : ContentViewModel
+    public class BrowseSchemaViewModel : ContentViewModel, ISchemaNodeLocator
     {
         private Timer timer;
 
@@ -28,6 +28,8 @@ namespace ClientUI.ViewModels.Schema
         private WCFClient<ISchema> schemaClient;
 
         private EnergySourceBrowseSchemaItem selectedEnergySource;
+
+        private SchemaNodeLocator.SchemaNodeLocator schemaNodeLocator;
 
         public BrowseSchemaViewModel() : base("Schema", ContentType.BrowseSchema)
         {
@@ -41,8 +43,11 @@ namespace ClientUI.ViewModels.Schema
             schemaClient = new WCFClient<ISchema>("uiAdapterSchemaEndpoint");
 
             GetSchemaCommand = new RelayCommand(ExecuteGetSchemaCommand, CanGetSchemaCommandExecute);
+            ClearSearchingNodeCommand = new RelayCommand(ExecuteClearSearchingNodeCommand, CanClearSearchingNodeCommandExecute);
 
             schemaCreator = new SchemaCreator();
+
+            schemaNodeLocator = new SchemaNodeLocator.SchemaNodeLocator(this);
         }
 
         public GIDMappedObservableCollection<EnergySourceBrowseSchemaItem> EnergySources { get; set; }
@@ -61,6 +66,8 @@ namespace ClientUI.ViewModels.Schema
 
         public ICommand GetSchemaCommand { get; set; }
 
+        public ICommand ClearSearchingNodeCommand { get; set; }
+
         public override void StartProcessing()
         {
             FetchEnergySources(this, null);
@@ -70,6 +77,20 @@ namespace ClientUI.ViewModels.Schema
         public override void StopProcessing()
         {
             timer.Enabled = false;
+        }
+
+        public void FindNode(long entityGid)
+        {
+            bool doesCurrentSchemaHaveEntity = true;
+            if (SchemaViewModel == null || !SchemaViewModel.Locate(entityGid))
+            {
+                doesCurrentSchemaHaveEntity = false;
+            }
+
+            if (doesCurrentSchemaHaveEntity)
+            {
+                return;
+            }
         }
 
         protected void FetchEnergySources(object sender, ElapsedEventArgs e)
@@ -82,6 +103,30 @@ namespace ClientUI.ViewModels.Schema
             }
 
             Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateSubstations(entities)));
+        }
+
+        private void ExecuteClearSearchingNodeCommand(object param)
+        {
+            if (SchemaViewModel.LocatedNode != null)
+            {
+                SchemaViewModel.LocatedNode.Located = false;
+                SchemaViewModel.LocatedNode = null;
+            }
+        }
+
+        private bool CanClearSearchingNodeCommandExecute(object param)
+        {
+            if (SchemaViewModel == null)
+            {
+                return false;
+            }
+
+            if (SchemaViewModel.LocatedNode != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private List<EnergySourceBrowseSchemaItem> GetEntitiesFromService()

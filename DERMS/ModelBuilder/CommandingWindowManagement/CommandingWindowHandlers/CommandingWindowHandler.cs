@@ -51,6 +51,7 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
             window.Title = GetWindowTitle(args);
             window.GlobalId = args.GlobalId;
             window.Closing += Window_Closing;
+            window.Owner = System.Windows.Application.Current.MainWindow;
 
             return window;
         }

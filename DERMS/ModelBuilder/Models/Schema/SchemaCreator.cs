@@ -93,7 +93,6 @@ namespace ClientUI.Models.Schema
 
         private void InitializeCreators()
         {
-            GeneratorSchemaNodeCreator generatorSchemaNodeCreator = new GeneratorSchemaNodeCreator();
             creators = new Dictionary<DMSType, SchemaNodeCreator>()
             {
                 { DMSType.BREAKER, new BreakerSchemaNodeCreator() },
@@ -101,8 +100,8 @@ namespace ClientUI.Models.Schema
                 { DMSType.ENERGYCONSUMER, /* TODO CHANGE THIS */ new NonClicableSchemaNodeCreator() },
                 { DMSType.ENERGYSOURCE, /* TODO CHANGE THIS*/ new NonClicableSchemaNodeCreator() },
                 { DMSType.ENERGYSTORAGE, new EnergyStorageSchemaNodeCreator() },
-                { DMSType.WINDGENERATOR, generatorSchemaNodeCreator },
-                { DMSType.SOLARGENERATOR, generatorSchemaNodeCreator },
+                { DMSType.WINDGENERATOR, new WindGeneratorSchemaNodeCreator() },
+                { DMSType.SOLARGENERATOR, new SolarPanelSchemaNodeCreator() },
             };
         }
     }

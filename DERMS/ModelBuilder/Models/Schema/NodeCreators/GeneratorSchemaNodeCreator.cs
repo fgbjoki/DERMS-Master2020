@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ClientUI.Common;
+using ClientUI.Events.OpenCommandingWindow;
+using ClientUI.SummaryCreator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +18,17 @@ namespace ClientUI.Models.Schema.NodeCreators
 
         protected override ICommand GetOnClickCommand()
         {
-            // TODO OPEN COMMANDING WINDOW
-            return null;
+            return new RelayCommand(OpenCommandingWindow);
+        }
+
+        private void OpenCommandingWindow(object param)
+        {
+            long gid = (long)param;
+            SummaryManager.Instance.EventAggregator.GetEvent<DERGroupOpenCommandingWindowEvent>().Publish(new DERGroupOpenCommandingWindowEventArgs()
+            {
+                DERView = ViewModels.CommandingWindow.DERGroup.DERView.GeneratorView,
+                GlobalId = gid
+            });
         }
     }
 }

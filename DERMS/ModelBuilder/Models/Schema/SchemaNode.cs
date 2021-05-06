@@ -18,7 +18,9 @@ namespace ClientUI.Models.Schema
 
         private string imageSource;
 
-        public SchemaNode(long globalId, string imageSource) : base (50, 50)
+        private bool located;
+
+        public SchemaNode(long globalId, string imageSource) : base (60, 60)
         {
             GlobalId = globalId;
             DMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(globalId);
@@ -59,5 +61,17 @@ namespace ClientUI.Models.Schema
         }
 
         public ICommand OnDoubleClick { get; set; }
+
+        public bool Located
+        {
+            get { return located; }
+            set
+            {
+                if (located != value)
+                {
+                    SetProperty(ref located, value);
+                }
+            }
+        }
     }
 }

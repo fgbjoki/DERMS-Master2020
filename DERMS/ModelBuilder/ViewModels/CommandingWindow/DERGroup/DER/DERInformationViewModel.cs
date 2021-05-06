@@ -1,4 +1,7 @@
-﻿using Common.Communication;
+﻿using ClientUI.Common;
+using ClientUI.Events.Schema;
+using ClientUI.SummaryCreator;
+using Common.Communication;
 using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using Prism.Mvvm;
 using System;
@@ -6,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
 {
@@ -25,6 +29,8 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public DERInformationViewModel(long derGlobalId, WCFClient<IDERGroupSummaryJob> derGroupSummary, string imageUrl = "") : base(derGlobalId, derGroupSummary)
         {
             this.imageUrl = imageUrl;
+
+            LocateOnSchemaCommand = new RelayCommand(PublisLocateNodeEvent);
         }
 
         public string ImageSource
@@ -73,6 +79,13 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
                     SetProperty(ref activePower, value);
                 }
             }
+        }
+
+        public ICommand LocateOnSchemaCommand { get; set; }
+
+        private void PublisLocateNodeEvent(object param)
+        {
+            SummaryManager.Instance.EventAggregator.GetEvent<SchemaNodeLocateEvent>().Publish(new SchemaNodeLocateEventArgs() { LocatingEntityGid = entityGid });
         }
     }
 }

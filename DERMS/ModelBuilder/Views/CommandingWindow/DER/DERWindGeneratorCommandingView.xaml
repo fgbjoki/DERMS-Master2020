@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -101,7 +102,11 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">
+        <Button Grid.Row="2" Grid.Column="0" Margin="10" ToolTip="Find entity on schema" Width="50" Command="{Binding LocateOnSchemaCommand}">
+            <materialDesign:PackIcon Kind="Search" />
+        </Button>
+        
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0">
             <materialDesign:Card Margin="10">
                 <!-- Commanding -->
             </materialDesign:Card>
