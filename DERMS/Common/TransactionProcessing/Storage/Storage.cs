@@ -57,7 +57,7 @@ namespace Common.ComponentStorage
             return allEntities;
         }
 
-        public T GetEntity(long globalId)
+        public virtual T GetEntity(long globalId)
         {
             if (!EntityExists(globalId))
             {

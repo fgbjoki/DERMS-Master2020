@@ -40,7 +40,7 @@
                             MinWidth="100"
                             Header="Active power"
                             IsReadOnly="True"
-                            Binding="{Binding ActivePower}"/>
+                            Binding="{Binding ActivePower, StringFormat={}{0:N2}kW}"/>
             <DataGridTextColumn
                             CanUserResize="False"
                             MinWidth="100"
@@ -52,7 +52,7 @@
                             MinWidth="100"
                             Header="Energy storage active power"
                             IsReadOnly="True"
-                            Binding="{Binding EnergyStorage.ActivePower}"/>
+                            Binding="{Binding EnergyStorage.ActivePower, StringFormat={}{0:N2}kW}"/>
 
             <DataGridTemplateColumn
                             CanUserResize="False"
@@ -63,11 +63,11 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Margin="10,0,0,0" Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}{0:#,#.00}%}" Grid.Column="0"/>
-                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding EnergyStorage.StateOfCharge}" Orientation="Horizontal" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+                            <TextBlock Margin="10,0,0,0" Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}{0:N2}%}" Grid.Column="0"/>
+                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding EnergyStorage.StateOfCharge}" Orientation="Horizontal" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
@@ -85,7 +85,7 @@
                             MinWidth="100"
                             Header="Generator active power"
                             IsReadOnly="True"
-                            Binding="{Binding Generator.ActivePower}"/>
+                            Binding="{Binding Generator.ActivePower, StringFormat={}{0:N2}kW}"/>
 
         </DataGrid.Columns>
     </DataGrid>

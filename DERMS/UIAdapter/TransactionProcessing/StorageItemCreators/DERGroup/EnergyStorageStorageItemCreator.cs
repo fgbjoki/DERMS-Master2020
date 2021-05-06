@@ -17,6 +17,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
         {
             EnergyStorage energyStorage = new EnergyStorage(rd.Id);
             energyStorage.NominalPower = rd.GetProperty(ModelCode.DER_NOMINALPOWER).AsFloat();
+            energyStorage.Capacity = rd.GetProperty(ModelCode.ENERGYSTORAGE_CAPACITY).AsFloat();
             energyStorage.Name = rd.GetProperty(ModelCode.IDOBJ_NAME).AsString();
 
             PopulateStorageStateOfCharge(energyStorage, rd, affectedEntities);
@@ -30,7 +31,13 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
             {
                 {
                     DMSType.ENERGYSTORAGE,
-                    new List<ModelCode>() { ModelCode.IDOBJ_NAME, ModelCode.DER_NOMINALPOWER, ModelCode.ENERGYSTORAGE_CAPACITY }
+                    new List<ModelCode>()
+                    {
+                        ModelCode.IDOBJ_NAME,
+                        ModelCode.DER_NOMINALPOWER,
+                        ModelCode.ENERGYSTORAGE_CAPACITY,
+                        ModelCode.ENERGYSTORAGE_GENERATOR,
+                        ModelCode.PSR_MEASUREMENTS }
                 },
                 {
                     DMSType.MEASUREMENTANALOG,

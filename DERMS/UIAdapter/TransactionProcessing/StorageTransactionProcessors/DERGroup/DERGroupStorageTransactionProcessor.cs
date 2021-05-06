@@ -21,41 +21,70 @@ namespace UIAdapter.TransactionProcessing.StorageTransactionProcessors.DERGroup
         {
             GDAProxy gdaProxy = new GDAProxy("gdaQueryEndpoint");
 
-            List<ResourceDescription> rds = gdaProxy.GetExtentValues(ModelCode.ENERGYSTORAGE, new List<ModelCode>() { ModelCode.PSR_MEASUREMENTS });
+            List<ResourceDescription> rds = gdaProxy.GetExtentValues(ModelCode.ENERGYSTORAGE, new List<ModelCode>() { ModelCode.PSR_MEASUREMENTS, ModelCode.ENERGYSTORAGE_GENERATOR });
 
             if (rds?.Count == 0)
             {
                 return;
             }
 
+            AddNewEntities(rds, newNeededGids);
+
+            base.AddAdditionalEntities(insertedEntities, newNeededGids);
+        }
+
+        private void AddNewEntities(List<ResourceDescription> rds, Dictionary<DMSType, HashSet<long>> newNeededGids)
+        {
             foreach (var rd in rds)
             {
-                List<long> measurements = rd.GetProperty(ModelCode.PSR_MEASUREMENTS).AsReferences();
+                ProcessMeasurement(rd, newNeededGids);
+                ProcessGenerators(rd, newNeededGids);
+            }
+        }
 
-                if (measurements.Count == 0)
+        private void ProcessMeasurement(ResourceDescription rd, Dictionary<DMSType, HashSet<long>> newNeededGids)
+        {
+            List<long> measurements = rd.GetProperty(ModelCode.PSR_MEASUREMENTS).AsReferences();
+
+            if (measurements.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var measurement in measurements)
+            {
+                DMSType dmsType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(measurement);
+
+                if (dmsType != DMSType.MEASUREMENTANALOG)
                 {
                     continue;
                 }
 
-                foreach (var measurement in measurements)
+                if (!newNeededGids.ContainsKey(dmsType))
                 {
-                    DMSType dmsType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(measurement);
-
-                    if (dmsType != DMSType.MEASUREMENTANALOG)
-                    {
-                        continue;
-                    }
-
-                    if (!newNeededGids.ContainsKey(dmsType))
-                    {
-                        newNeededGids[dmsType] = new HashSet<long>();
-                    }
-
-                    newNeededGids[dmsType].Add(measurement);
+                    newNeededGids[dmsType] = new HashSet<long>();
                 }
+
+                newNeededGids[dmsType].Add(measurement);
+            }
+        }
+
+        private void ProcessGenerators(ResourceDescription rd, Dictionary<DMSType, HashSet<long>> newNeededGids)
+        {
+            long generatorGid = rd.GetProperty(ModelCode.ENERGYSTORAGE_GENERATOR).AsReference();
+            if (generatorGid == 0)
+            {
+                return;
             }
 
-            base.AddAdditionalEntities(insertedEntities, newNeededGids);
+            DMSType dmsType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(generatorGid);
+
+            if (!newNeededGids.ContainsKey(dmsType))
+            {
+                newNeededGids[dmsType] = new HashSet<long>();
+            }
+
+            newNeededGids[dmsType].Add(generatorGid);
         }
     }
 }

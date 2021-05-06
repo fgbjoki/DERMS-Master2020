@@ -9,12 +9,12 @@ namespace ClientUI.CommandingWindowManagement.CommandingWindowHandlers
 {
     public class DiscreteRemotePointCommandingWindowHandler : CommandingWindowHandler<DiscreteRemotePointOpenCommandingWindowEvent, DiscreteRemotePointOpenCommandingWindowEventArgs>
     {
-        protected override EntityCommandingViewModel CreateViewModel(DiscreteRemotePointOpenCommandingWindowEventArgs args)
+        protected override BaseCommandingViewModel CreateViewModel(DiscreteRemotePointOpenCommandingWindowEventArgs args)
         {
             return new DiscreteRemotePointCommandingViewModel(args);
         }
 
-        protected override CommandWindow CreateWindow(EntityCommandingViewModel viewModel)
+        protected override CommandWindow CreateWindow(BaseCommandingViewModel viewModel)
         {
             CommandWindow window = new DiscreteRemotePointCommandingWindowView();
             window.DataContext = viewModel;

@@ -7,5 +7,14 @@ namespace Common.UIDataTransferObject.DERGroup
     {
         [DataMember]
         public GeneratorType GeneratorType { get; set; }
+
+        [DataMember]
+        public float StartUpSpeed { get; set; }
+
+        [DataMember]
+        public float NominalSpeed { get; set; }
+
+        [DataMember]
+        public float CutOutSpeed { get; set; }
     }
 }

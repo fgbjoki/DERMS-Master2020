@@ -1,46 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using Common.ComponentStorage.StorageItemCreator;
+using System.Collections.Generic;
 using Common.AbstractModel;
 using Common.ComponentStorage;
 using Common.GDA;
 using UIAdapter.Model.DERGroup;
-using Common.ComponentStorage.StorageItemCreator;
 
 namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
 {
-    public class GeneratorStorageItemCreator : StorageItemCreator
+    public abstract class GeneratorStorageItemCreator : StorageItemCreator
     {
-        public GeneratorStorageItemCreator() : base()
+        protected GeneratorStorageItemCreator() : base()
         {
         }
 
         public override IdentifiedObject CreateStorageItem(ResourceDescription rd, Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
-            Generator generator = new Generator(rd.Id);
-
-            PopulateEnergyStorageProperties(generator, rd);
-            generator.Name = rd.GetProperty(ModelCode.IDOBJ_NAME).AsString();
+            Generator generator = InstantiateGenerator(rd);
+            PopulateProperties(generator, rd);
 
             return generator;
         }
 
-        private void PopulateEnergyStorageProperties(Generator generator, ResourceDescription rd)
-        {
-            generator.EnergyStorageGid = rd.GetProperty(ModelCode.GENERATOR_ENERGYSTORAGE).AsReference();
-        }
+        protected abstract Generator InstantiateGenerator(ResourceDescription rd);
 
-        public override Dictionary<DMSType, List<ModelCode>> GetNeededProperties()
+        protected void PopulateProperties(Generator generator, ResourceDescription rd)
         {
-            return new Dictionary<DMSType, List<ModelCode>>()
-            {
-                {
-                    DMSType.WINDGENERATOR,
-                    new List<ModelCode>() { ModelCode.IDOBJ_NAME, ModelCode.GENERATOR_ENERGYSTORAGE }
-                },
-                {
-                    DMSType.SOLARGENERATOR,
-                    new List<ModelCode>() { ModelCode.IDOBJ_NAME, ModelCode.GENERATOR_ENERGYSTORAGE }
-                },
-            };
+            generator.NominalPower = rd.GetProperty(ModelCode.DER_NOMINALPOWER).AsFloat();
+            generator.EnergyStorageGid = rd.GetProperty(ModelCode.GENERATOR_ENERGYSTORAGE).AsReference();
+            generator.Name = rd.GetProperty(ModelCode.IDOBJ_NAME).AsString();
         }
     }
 }

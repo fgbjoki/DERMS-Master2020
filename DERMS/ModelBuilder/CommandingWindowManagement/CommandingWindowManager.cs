@@ -6,7 +6,7 @@ namespace ClientUI.CommandingWindowManagement
     {
         private AnalogRemotePointCommandingWindowHandler analogCommandingWindowHandler;
         private DiscreteRemotePointCommandingWindowHandler discreteCommandingWindowHandler;
-
+        private DERGroupCommandingWIndowHandler derGroupWindowHandler;
 
         public CommandingWindowManager()
         {
@@ -17,6 +17,7 @@ namespace ClientUI.CommandingWindowManagement
         {
             analogCommandingWindowHandler = new AnalogRemotePointCommandingWindowHandler();
             discreteCommandingWindowHandler = new DiscreteRemotePointCommandingWindowHandler();
+            derGroupWindowHandler = new DERGroupCommandingWIndowHandler();
         }
     }
 }

@@ -7,5 +7,8 @@ namespace Common.UIDataTransferObject.DERGroup
     {
         [DataMember]
         public float StateOfCharge { get; set; }
+
+        [DataMember]
+        public float Capacity { get; set; }
     }
 }

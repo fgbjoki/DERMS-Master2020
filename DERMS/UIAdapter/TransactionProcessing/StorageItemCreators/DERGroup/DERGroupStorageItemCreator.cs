@@ -12,7 +12,8 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
     public class DERGroupStorageItemCreator : StorageItemCreator
     {
         private EnergyStorageStorageItemCreator energyCreator = new EnergyStorageStorageItemCreator();
-        private GeneratorStorageItemCreator generatorCreator = new GeneratorStorageItemCreator();
+        private SolarPanelStorageItemCreator solarPanelCreator = new SolarPanelStorageItemCreator();
+        private WindGeneratorStorageItemCreator windGeneratorCreator = new WindGeneratorStorageItemCreator();
 
         public DERGroupStorageItemCreator() : base()
         {
@@ -32,6 +33,12 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
                 return null;
             }
 
+            GeneratorStorageItemCreator generatorCreator = GetGeneratorStorageItemCreator(generatorRd.Id);
+            if (generatorCreator == null)
+            {
+                return null;
+            }
+
             Generator generator = generatorCreator.CreateStorageItem(generatorRd, affectedEntities) as Generator;
 
             derGroup.EnergyStorage = energyStorage;
@@ -44,7 +51,7 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
         {
             Dictionary<DMSType, List<ModelCode>> properties = energyCreator.GetNeededProperties();
 
-            foreach (var propertyPair in generatorCreator.GetNeededProperties())
+            foreach (var propertyPair in solarPanelCreator.GetNeededProperties().Concat(windGeneratorCreator.GetNeededProperties()))
             {
                 List<ModelCode> modelCodes;
                 if (!properties.TryGetValue(propertyPair.Key, out modelCodes))
@@ -70,6 +77,21 @@ namespace UIAdapter.TransactionProcessing.StorageItemCreators.DERGroup
             DMSType dmsType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(generatorGid);
 
             return affectedEntities[dmsType].FirstOrDefault(x => x.Id == generatorGid);
+        }
+
+        private GeneratorStorageItemCreator GetGeneratorStorageItemCreator(long generatorGid)
+        {
+            DMSType generatorDMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(generatorGid);
+            if (generatorDMSType == DMSType.SOLARGENERATOR)
+            {
+                return solarPanelCreator;
+            }
+            else if (generatorDMSType == DMSType.WINDGENERATOR)
+            {
+                return windGeneratorCreator;
+            }
+
+            return null;
         }
     }
 }

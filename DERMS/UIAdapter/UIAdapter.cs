@@ -25,7 +25,7 @@ using Common.DataTransferObjects;
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, Common.ServiceInterfaces.UIAdapter.IBreakerCommanding
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -40,9 +40,7 @@ namespace UIAdapter
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
-        private TransactionProcessing.Storages.DERs.GeneratorStorage generatorStorage;
         private TransactionProcessing.Storages.DERGroup.DERGroupStorage derGroupStorage;
-        private TransactionProcessing.Storages.DERs.EnergyStorageStorage energyStorageStorage;
 
         private DERGroupSummaryJob derGroupSummaryJob;
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
@@ -145,12 +143,9 @@ namespace UIAdapter
             schemaEnergySourceStorage = new EnergySourceStorage();
             schemaBreakerStorage = new BreakerStorage();
 
-            generatorStorage = new TransactionProcessing.Storages.DERs.GeneratorStorage();
-            energyStorageStorage = new TransactionProcessing.Storages.DERs.EnergyStorageStorage();
-
             derGroupStorage = new TransactionProcessing.Storages.DERGroup.DERGroupStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage, energyStorageStorage, generatorStorage, derGroupStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage, derGroupStorage });
         }
 
         private void LoadConfigurationFromAppConfig()
