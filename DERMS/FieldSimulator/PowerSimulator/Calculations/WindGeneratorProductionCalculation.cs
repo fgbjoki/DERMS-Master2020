@@ -39,9 +39,9 @@ namespace FieldSimulator.PowerSimulator.Calculations
 
         private float CalculateGeneratedPower(float windSpeed)
         {
-            if (windSpeed > startUpSpeed && windSpeed < nominalSpeed)
+            if (windSpeed >= startUpSpeed && windSpeed < nominalSpeed)
             {
-                return (windSpeed - startUpSpeed) * 0.035f * nominalPower;
+                return (windSpeed - startUpSpeed) * 0.035f;
             }
             else
             {
@@ -51,7 +51,7 @@ namespace FieldSimulator.PowerSimulator.Calculations
 
         private bool ShouldGeneratorWork(float windSpeed)
         {
-            if (windSpeed < startUpSpeed || windSpeed > cutOutSpeed)
+            if (windSpeed < startUpSpeed || windSpeed >= cutOutSpeed)
             {
                 return false;
             }
