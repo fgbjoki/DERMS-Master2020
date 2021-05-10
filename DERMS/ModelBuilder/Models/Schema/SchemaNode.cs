@@ -50,7 +50,7 @@ namespace ClientUI.Models.Schema
             set
             {
                 SetProperty(ref doesConduct, value);
-                Outline = doesConduct ? green : red;
+                Outline = doesConduct ? green : blue;
             }
         }
 
