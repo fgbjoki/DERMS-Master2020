@@ -28,24 +28,27 @@
                                 <DataTrigger Binding="{Binding Located}" Value="True">
                                     <Setter Property="Background" Value="White" />
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding Closed}" Value="True">
+                                    <Setter Property="Background" Value="{Binding Outline}" />
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
+                    <Border.ContextMenu>
+                        <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
+                            <ContextMenu.ItemTemplate>
+                                <DataTemplate DataType="{x:Type helper:ContextAction}">
+                                    <MenuItem Header="{Binding Header}" Command="{Binding Command}"/>
+                                </DataTemplate>
+                            </ContextMenu.ItemTemplate>
+                        </ContextMenu>
+                    </Border.ContextMenu>
                     <Border.InputBindings>
                         <MouseBinding MouseAction="LeftDoubleClick"
                               Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
                     </Border.InputBindings>
                     <Border Name="bdr" BorderThickness="3" CornerRadius="360"
 						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
-                        <Border.ContextMenu>
-                            <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
-                                <ContextMenu.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type helper:ContextAction}">
-                                        <MenuItem Header="{Binding Header}" Command="{Binding Command}"/>
-                                    </DataTemplate>
-                                </ContextMenu.ItemTemplate>
-                            </ContextMenu>
-                        </Border.ContextMenu>
                         <Border.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick"
                               Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
