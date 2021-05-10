@@ -44,7 +44,6 @@
                             </ContextMenu.ItemTemplate>
                         </ContextMenu>
                     </Border.ContextMenu>
-                    </Border.InputBindings>
                     <Border BorderThickness="3" CornerRadius="360"
 						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
                         <Border.Style>
