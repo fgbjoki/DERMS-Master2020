@@ -25,15 +25,16 @@
                         <Style TargetType="Border">
                             <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Located}" Value="True">
-                                    <Setter Property="Background" Value="White" />
-                                </DataTrigger>
                                 <DataTrigger Binding="{Binding Closed}" Value="True">
                                     <Setter Property="Background" Value="{Binding Outline}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
+                    <Border.InputBindings>
+                        <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
+                    </Border.InputBindings>
                     <Border.ContextMenu>
                         <ContextMenu ItemsSource="{Binding ContextActions}" Width="150" Placement="Mouse">
                             <ContextMenu.ItemTemplate>
@@ -43,16 +44,35 @@
                             </ContextMenu.ItemTemplate>
                         </ContextMenu>
                     </Border.ContextMenu>
-                    <Border.InputBindings>
-                        <MouseBinding MouseAction="LeftDoubleClick"
-                              Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
                     </Border.InputBindings>
-                    <Border Name="bdr" BorderThickness="3" CornerRadius="360"
+                    <Border BorderThickness="3" CornerRadius="360"
 						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
-                        <Border.InputBindings>
-                            <MouseBinding MouseAction="LeftDoubleClick"
-                              Command="{Binding OnDoubleClick}" CommandParameter="{Binding GlobalId}"/>
-                        </Border.InputBindings>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Located}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard x:Name="LocatedBeginStoryBoard">
+                                                <Storyboard Duration="0:0:0.5" RepeatBehavior="Forever" AutoReverse="True">
+                                                    <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" Duration="0:0:0.4"
+                                                                        FillBehavior="HoldEnd"
+                                                                        To="5"/>
+                                                    <ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
+                                                                        FillBehavior="HoldEnd"
+                                                                        BeginTime="0:0:0.4"
+                                                                        To="5"/>
+                                                    <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                                    To="White"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <RemoveStoryboard BeginStoryboardName="LocatedBeginStoryBoard"/>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Image Height="50"
                                Width="50" Source="{Binding ImageSource, Converter={StaticResource imagePathToImageConverter}}"
                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -74,11 +94,6 @@
 
         <TreeView Grid.Column="0" ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
 			  ItemsSource="{Binding Nodes}">
-            <interaction:Interaction.Triggers>
-                <interaction:EventTrigger EventName="MouseClick">
-                    <interaction:InvokeCommandAction Command="{Binding MouseClickCommand}" />
-                </interaction:EventTrigger>
-            </interaction:Interaction.Triggers>
         </TreeView>
 
         <Grid Grid.Column="1">

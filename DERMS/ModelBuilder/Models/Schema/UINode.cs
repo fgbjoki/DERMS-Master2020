@@ -10,8 +10,8 @@ namespace ClientUI.Models.Schema
 {
     public class UINode : BindableBase
     {
-        protected static readonly SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
-        protected static readonly SolidColorBrush green = new SolidColorBrush(Colors.Green);
+        protected readonly SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
+        protected readonly SolidColorBrush green = new SolidColorBrush(Colors.Green);
 
         private Brush outline;
 

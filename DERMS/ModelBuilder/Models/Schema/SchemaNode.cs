@@ -44,7 +44,7 @@ namespace ClientUI.Models.Schema
             set
             {
                 SetProperty(ref isEnergized, value);
-                Outline = isEnergized ? green : red;
+                Outline = isEnergized ? green : blue;
             }
         }
 
