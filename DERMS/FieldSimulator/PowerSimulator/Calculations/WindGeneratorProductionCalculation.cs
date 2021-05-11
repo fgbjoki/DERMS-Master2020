@@ -26,13 +26,13 @@ namespace FieldSimulator.PowerSimulator.Calculations
         {
             CalculationParameter activePowerParameter = outputs[0];
 
-            if (!ShouldGeneratorWork(powerGridSimulatorStorage.WeatherStorage.WindKPH))
+            if (!ShouldGeneratorWork(powerGridSimulatorStorage.WeatherStorage.WindMPS))
             {
                 powerGridSimulatorStorage.UpdateValue(activePowerParameter.RemotePointType, activePowerParameter.Address, 0f);
                 return;
             }
 
-            float generatedPower = CalculateGeneratedPower(powerGridSimulatorStorage.WeatherStorage.WindKPH);
+            float generatedPower = CalculateGeneratedPower(powerGridSimulatorStorage.WeatherStorage.WindMPS);
 
             powerGridSimulatorStorage.UpdateValue(activePowerParameter.RemotePointType, activePowerParameter.Address, generatedPower);
         }

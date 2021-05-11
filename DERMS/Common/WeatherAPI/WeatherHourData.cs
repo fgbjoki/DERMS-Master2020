@@ -8,6 +8,7 @@ namespace Common.WeatherAPI
     public class WeatherHourData
     {
         private string timeUsedForParsing;
+        private float currentWindKPH;
 
         [XmlElement("temp_c")]
         public float Temperature { get; set; }
@@ -29,7 +30,17 @@ namespace Common.WeatherAPI
         public bool IsSunny { get; set; }
 
         [XmlElement("wind_kph")]
-        public float WindKPH { get; set; }
+        public float WindKPH
+        {
+            get { return currentWindKPH; }
+            set
+            {
+                currentWindKPH = value;
+                WindMPS = currentWindKPH * 1000 / 3600;
+            }
+        }
+
+        public float WindMPS { get; set; }
 
         [XmlElement("cloud")]
         public float CloudCover { get; set; }

@@ -36,7 +36,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public string ImageSource
         {
             get { return imageUrl; }
-            protected set
+            set
             {
                 if (ImageSource != value)
                 {
@@ -60,7 +60,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float NominalPower
         {
             get { return nominalPower; }
-            protected set
+            set
             {
                 if (nominalPower != value)
                 {
