@@ -18,27 +18,25 @@ namespace FieldSimulator.PowerSimulator.Calculations
         /// <summary>
         /// Wh.
         /// </summary>
-        private float capacity;
-
-        private float maximumCapacityPower;
+        private float maximumCapacity;
 
         public EnergyStorageStateOfChargeCalculation(float nominalPower, float capacity)
         {
-            this.capacity = capacity;
             this.nominalPower = nominalPower;
 
-            maximumCapacityPower = capacity * 3600;
+            // power * time = energy
+            maximumCapacity = capacity * 3600;
         }
 
         public override void Calculate(PowerGridSimulatorStorage powerGridSimulatorStorage, double simulationInterval)
         {
             float activePower = GetActivePower(powerGridSimulatorStorage);
 
-            float currentCapacity = maximumCapacityPower * GetStateOfCharge(powerGridSimulatorStorage);
+            float currentCapacity = maximumCapacity * GetStateOfCharge(powerGridSimulatorStorage);
 
             float leftOverEnergy = currentCapacity - (activePower * Convert.ToSingle(simulationInterval));
 
-            float percentageEnergyLeft = leftOverEnergy * 100 / maximumCapacityPower;
+            float percentageEnergyLeft = (leftOverEnergy / maximumCapacity) * 100;
 
             ChangeStateOfCharge(powerGridSimulatorStorage, percentageEnergyLeft);
         }

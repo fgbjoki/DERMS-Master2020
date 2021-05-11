@@ -39,11 +39,11 @@ namespace FieldSimulator.PowerSimulator.Storage.Weather
             }
         }
 
-        public float WindKPH
+        public float WindMPS
         {
             get
             {
-                return currentWeatherData.WindKPH;
+                return currentWeatherData.WindMPS;
             }
         }
 

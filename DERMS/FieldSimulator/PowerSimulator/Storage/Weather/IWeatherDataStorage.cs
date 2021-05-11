@@ -5,7 +5,7 @@
         float CloudCover { get; }
         bool IsSunny { get; }
         float Temperature { get; }
-        float WindKPH { get; }
+        float WindMPS { get; }
         StorageLock StorageLock { get; }
     }
 }

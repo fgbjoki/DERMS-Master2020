@@ -24,7 +24,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float Capacity
         {
             get { return capacity; }
-            protected set
+            set
             {
                 if (capacity != value)
                 {
@@ -36,7 +36,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float StateOfCharge
         {
             get { return stateOfCharge; }
-            protected set
+            set
             {
                 float newStateOfCharge = value * 100;
                 if (stateOfCharge != newStateOfCharge)

@@ -22,7 +22,7 @@ namespace FieldSimulator.PowerSimulator.Storage.Weather
 
         public bool IsSunny { get; set; }
 
-        public float WindKPH { get; set; }
+        public float WindMPS { get; set; }
 
         public float CloudCover { get; set; }
 
@@ -53,7 +53,7 @@ namespace FieldSimulator.PowerSimulator.Storage.Weather
         {
             Temperature = weatherDayData[currentDay][currentHour].Temperature;
             IsSunny = weatherDayData[currentDay][currentHour].IsSunny;
-            WindKPH = weatherDayData[currentDay][currentHour].WindKPH;
+            WindMPS = weatherDayData[currentDay][currentHour].WindMPS;
             CloudCover = weatherDayData[currentDay][currentHour].CloudCover;
         }
     }
