@@ -100,15 +100,15 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock>
                     <Run Text="Demand energy: "/>
-                    <Run Text="{Binding EnergyBalance.DemandEnergy, StringFormat={}{0:N2}}"/>
+                    <Run Text="{Binding EnergyBalance.DemandEnergy, StringFormat={}{0:N2} kWh}"/>
                 </TextBlock>
                 <TextBlock>
                     <Run Text="Produced energy: "/>
-                    <Run Text="{Binding EnergyBalance.ProducedEnergy, StringFormat={}{0:N2}}"/>
+                    <Run Text="{Binding EnergyBalance.ProducedEnergy, StringFormat={}{0:N2} kWh}"/>
                 </TextBlock>
                 <TextBlock>
                     <Run Text="Imported energy: "/>
-                    <Run Text="{Binding EnergyBalance.ImportedEnergy, StringFormat={}{0:N2}}"/>
+                    <Run Text="{Binding EnergyBalance.ImportedEnergy, StringFormat={}{0:N2} kWh}"/>
                 </TextBlock>
             </StackPanel>
         </Grid>

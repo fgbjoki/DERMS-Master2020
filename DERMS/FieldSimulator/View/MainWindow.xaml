@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:FieldSimulator.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="350" MinWidth="700"
+        Title="Field Simulator" MinHeight="350" MinWidth="700"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
