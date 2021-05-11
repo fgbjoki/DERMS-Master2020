@@ -41,7 +41,7 @@ namespace FieldSimulator.PowerSimulator.Calculations
         {
             if (windSpeed >= startUpSpeed && windSpeed < nominalSpeed)
             {
-                return (windSpeed - startUpSpeed) * 0.035f;
+                return (windSpeed - startUpSpeed) * 0.035f * nominalPower;
             }
             else
             {
