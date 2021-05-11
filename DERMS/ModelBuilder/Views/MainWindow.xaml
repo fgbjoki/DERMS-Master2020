@@ -13,7 +13,7 @@
         mc:Ignorable="d"
         MinWidth="1000"
         WindowState="Maximized"
-        Title="MainWindow" MinHeight="800"
+        Title="Client UI" MinHeight="800"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
