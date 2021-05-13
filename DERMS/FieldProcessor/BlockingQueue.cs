@@ -6,7 +6,6 @@ namespace FieldProcessor
 {
     public class BlockingQueue<T> : IDisposable
     {
-        private static readonly int LOCKER_TIMEOUT = 1000; // 1 second
         private AutoResetEvent semaphore;
 
         private object locker;

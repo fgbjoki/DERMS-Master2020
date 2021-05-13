@@ -13,10 +13,14 @@ using Common.Helpers;
 using Common.PubSub.Messages;
 using Common.PubSub.Messages.DERState;
 using CalculationEngine.TransactionProcessing.Storage.DERStates;
+using Common.ServiceInterfaces.CalculationEngine;
 
 namespace CalculationEngine.DERStates
 {
-    public class DERStateDeterminator : ITopologyDependentComponent, ISubscriber, IDisposable
+    /// <summary>
+    /// Determines are DERs energized and publishes ActivePower of each DER.
+    /// </summary>
+    public class DERStateController : ITopologyDependentComponent, ISubscriber, IDisposable, IDERStateDeterminator
     {
         private ITopologyReader topologyReader;
         private DERStateStorage derStateStorage;
@@ -31,7 +35,7 @@ namespace CalculationEngine.DERStates
 
         private IDynamicPublisher dynamicPublisher;
 
-        public DERStateDeterminator(IStorage<EnergySource> energySourceStorage, DERStateStorage derStateStorage, ITopologyAnalysis topologyAnalysis, IDynamicPublisher dynamicPublisher)
+        public DERStateController(IStorage<EnergySource> energySourceStorage, DERStateStorage derStateStorage, ITopologyAnalysis topologyAnalysis, IDynamicPublisher dynamicPublisher)
         {
             this.derStateStorage = derStateStorage;
             this.dynamicPublisher = dynamicPublisher;
@@ -133,6 +137,17 @@ namespace CalculationEngine.DERStates
                 new Subscription(Topic.DiscreteRemotePointChange, new TopologyChangedDynamicHandler(this))
             };
 
+        }
+
+        public bool IsEntityEnergized(long entityGid)
+        {
+            var entity = derStateStorage.GetEntity(entityGid);
+            if (entity == null)
+            {
+                return false;
+            }
+
+            return entity.IsEnergized;
         }
 
         private void OnCommitCalculation(CancellationToken cancellationToken)

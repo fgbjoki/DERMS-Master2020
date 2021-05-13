@@ -23,11 +23,13 @@ using Common.Helpers.Breakers;
 using CalculationEngine.TransactionProcessing.Storage.DERStates;
 using CalculationEngine.DERStates;
 using CalculationEngine.Commanding.BreakerCommanding;
+using CalculationEngine.Commanding.DERCommanding;
+using CalculationEngine.TransactionProcessing.Storage.DERCommanding;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -56,9 +58,12 @@ namespace CalculationEngine
         private DynamicListenersManager dynamicListenersManager;
 
         private EnergyBalanceCalculator energyBalanceCalculator;
-        private DERStateDeterminator derStateDeterminator;
+        private DERStateController derStateDeterminator;
 
         private BreakerCommandingUnit breakerCommandingValidator;
+
+        private DERCommandingProcessor derCommandingProcessor;
+        private DERCommandingStorage derCommandingStorage;
 
         private EndpointConfiguration endpointConfiguration;
 
@@ -75,7 +80,8 @@ namespace CalculationEngine
             InitializeForTransaction();
 
             energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, dynamicPublisher);
-            derStateDeterminator = new DERStateDeterminator(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher);
+            derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher);
+            derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage);
 
             InitializePubSub();
         }
@@ -138,12 +144,14 @@ namespace CalculationEngine
             energyBalanceStorage = new EnergyBalanceStorage();
 
             derStateStorage = new DERStateStorage();
+
+            derCommandingStorage = new DERCommandingStorage();
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage });
         }
 
         private EndpointConfiguration InitializeDynamicPublisher()
@@ -184,6 +192,7 @@ namespace CalculationEngine
             dynamicListenersManager.ConfigureSubscriptions(topologyAnalysis.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(energyBalanceCalculator.GetSubscriptions());
             dynamicListenersManager.ConfigureSubscriptions(derStateDeterminator.GetSubscriptions());
+            dynamicListenersManager.ConfigureSubscriptions(derCommandingStorage.GetSubscriptions());
         }
 
         private void InitializeDynamicListeners()
@@ -215,6 +224,21 @@ namespace CalculationEngine
         public bool SendCommand(long breakerGid, int breakerValue)
         {
             return breakerCommandingValidator.SendCommand(breakerGid, breakerValue);
+        }
+
+        public bool IsEntityEnergized(long entityGid)
+        {
+            return derStateDeterminator.IsEntityEnergized(entityGid);
+        }
+
+        public CommandFeedback Command(long derGid, float commandingValue)
+        {
+            return derCommandingProcessor.Command(derGid, commandingValue);
+        }
+
+        public CommandFeedback ValidateCommand(long derGid, float commandingValue)
+        {
+            return derCommandingProcessor.ValidateCommand(derGid, commandingValue);
         }
     }
 }

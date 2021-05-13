@@ -131,6 +131,8 @@
     <Compile Include="CommandingWindowManagement\CommandingWindowManager.cs" />
     <Compile Include="Commanding\CommandFeedback.cs" />
     <Compile Include="Commanding\CommandingProxy.cs" />
+    <Compile Include="Commanding\Type\BreakerCommanding.cs" />
+    <Compile Include="Commanding\Type\DERCommanding.cs" />
     <Compile Include="Common\ContextAction.cs" />
     <Compile Include="Common\MessageBox\MessageBoxCreator.cs" />
     <Compile Include="Common\MessageBox\MessageBoxViewModel.cs" />

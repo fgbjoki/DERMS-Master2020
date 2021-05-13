@@ -19,6 +19,11 @@ namespace ClientUI.ValidationRules
                 return new ValidationResult(false, "Input field is not a number");
             }
 
+            if (stringValue.LastIndexOf('.') == stringValue.Length - 1)
+            {
+                return new ValidationResult(false, "Input field is not a number");
+            }
+
             double number;
 
             if (!double.TryParse(stringValue, out number))

@@ -2,11 +2,6 @@
 using FieldSimulator.Commands.PowerSimulator.State;
 using FieldSimulator.Modbus.SchemaAligner;
 using FieldSimulator.PowerSimulator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FieldSimulator.ViewModel
@@ -15,10 +10,8 @@ namespace FieldSimulator.ViewModel
     {
         private string filePath;
         private PowerGridSimulatorState currentState;
-        private IPowerSimulator powerSimulator;
-        private IRemotePointSchemaModelAligner modelAligner;
 
-        public PowerGridSimulatorViewModel(IPowerSimulator powerSimulator, IRemotePointSchemaModelAligner modelAligner) : base("Power Grid Simulator")
+        public PowerGridSimulatorViewModel(IPowerSimulator powerSimulator) : base("Power Grid Simulator")
         {
             CommandOpenFileDialog = new OpenFileDialogCommand(this);
             LoadSchemaCommand = new LoadSchemaCommand(this);

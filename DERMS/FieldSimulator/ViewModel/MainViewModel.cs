@@ -90,7 +90,7 @@ namespace FieldSimulator.ViewModel
                 {ViewModelEnum.HoldingRegistersViewModel, new HoldingRegistersViewModel(pointController.HoldingRegisters) },
                 {ViewModelEnum.InputRegistersViewModel, new InputRegistersViewModel(pointController.InputRegisters)},
                 {ViewModelEnum.DiscreteInputViewModel, new DiscreteInputsViewModel(pointController.DiscreteInputs)},
-                {ViewModelEnum.PowerSimulatorViewModel, new PowerGridSimulatorViewModel(powerSimulator, modelAligner)},
+                {ViewModelEnum.PowerSimulatorViewModel, new PowerGridSimulatorViewModel(powerSimulator)},
             };
         }
 

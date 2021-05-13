@@ -231,7 +231,7 @@ namespace NetworkManagementService.Components
                 currentServiceState = currentServiceState.Prepare(ref currentModel, ref currentWorkingModel, ref temporaryModel);
                 locker.ExitWriteLock();
             }
-            catch (Exception e)
+            catch
             {
                 // LOG
                 transactionFinishedSemaphore.Release();

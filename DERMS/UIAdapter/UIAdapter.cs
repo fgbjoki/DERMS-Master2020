@@ -25,7 +25,7 @@ using Common.DataTransferObjects;
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -51,6 +51,7 @@ namespace UIAdapter
         private SchemaRepresentation schemaRepresentation;
 
         private IBreakerCommanding breakerCommanding;
+        private IDERCommanding derCommanding;
 
         public UIAdapter()
         {
@@ -58,6 +59,7 @@ namespace UIAdapter
 
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
             breakerCommanding = new BreakerCommandingProxy(breakerMessageMapping);
+            derCommanding = new DERCommandingProxy();
 
             InitializeTransactionStorages();
 
@@ -228,6 +230,16 @@ namespace UIAdapter
         public long SubStationContainsEntity(long entityGid)
         {
             return schemaRepresentation.SubStationContainsEntity(entityGid);
+        }
+
+        public CommandFeedbackMessageDTO SendCommand(long derGid, float commandingValue)
+        {
+            return derCommanding.SendCommand(derGid, commandingValue);
+        }
+
+        public CommandFeedbackMessageDTO ValidateCommand(long derGid, float commandingValue)
+        {
+            return derCommanding.ValidateCommand(derGid, commandingValue);
         }
     }
 }

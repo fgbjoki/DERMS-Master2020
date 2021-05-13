@@ -42,7 +42,7 @@ namespace FieldSimulator.Commands.PowerSimulator.State
 
         public override PowerGridSimulatorState StartStopSimulator()
         {
-            simulator.Start();
+            simulator.Stop();
             return new StartSimulatorPowerGridSimulatorState(viewModel, simulator);
         }
     }
