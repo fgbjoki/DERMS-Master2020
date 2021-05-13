@@ -26,20 +26,20 @@ namespace FieldSimulator.PowerSimulator.Calculations
         {
             CalculationParameter activePowerParameter = outputs[0];
 
-            if (!ShouldGeneratorWork(powerGridSimulatorStorage.WeatherStorage.WindKPH))
+            if (!ShouldGeneratorWork(powerGridSimulatorStorage.WeatherStorage.WindMPS))
             {
                 powerGridSimulatorStorage.UpdateValue(activePowerParameter.RemotePointType, activePowerParameter.Address, 0f);
                 return;
             }
 
-            float generatedPower = CalculateGeneratedPower(powerGridSimulatorStorage.WeatherStorage.WindKPH);
+            float generatedPower = CalculateGeneratedPower(powerGridSimulatorStorage.WeatherStorage.WindMPS);
 
             powerGridSimulatorStorage.UpdateValue(activePowerParameter.RemotePointType, activePowerParameter.Address, generatedPower);
         }
 
         private float CalculateGeneratedPower(float windSpeed)
         {
-            if (windSpeed > startUpSpeed && windSpeed < nominalSpeed)
+            if (windSpeed >= startUpSpeed && windSpeed < nominalSpeed)
             {
                 return (windSpeed - startUpSpeed) * 0.035f * nominalPower;
             }
@@ -51,7 +51,7 @@ namespace FieldSimulator.PowerSimulator.Calculations
 
         private bool ShouldGeneratorWork(float windSpeed)
         {
-            if (windSpeed < startUpSpeed || windSpeed > cutOutSpeed)
+            if (windSpeed < startUpSpeed || windSpeed >= cutOutSpeed)
             {
                 return false;
             }

@@ -23,7 +23,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float StartUpSpeed
         {
             get { return startUpSpeed; }
-            private set
+            set
             {
                 if (startUpSpeed != value)
                 {
@@ -35,7 +35,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float NominalSpeed
         {
             get { return nominalSpeed; }
-            private set
+            set
             {
                 if (nominalSpeed != value)
                 {
@@ -48,7 +48,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public float CutOutSpeed
         {
             get { return cutOutSpeed; }
-            private set
+            set
             {
                 if (cutOutSpeed != value)
                 {

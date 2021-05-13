@@ -12,13 +12,13 @@ namespace ClientUI.Converters
     public class BoolToSolidColorConverter : IValueConverter
     {
         private static SolidColorBrush green = new SolidColorBrush(Colors.Green);
-        private static SolidColorBrush red = new SolidColorBrush(Colors.Red);
+        private static SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool conduction = (bool)value;
 
-            return conduction ? green : red;
+            return conduction ? green : blue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

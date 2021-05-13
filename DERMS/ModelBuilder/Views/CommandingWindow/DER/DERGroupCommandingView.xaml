@@ -131,7 +131,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Capacity:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,10,2"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding EnergyStorage.Capacity, StringFormat={}{0:N2} kW/h}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,2"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding EnergyStorage.Capacity, StringFormat={}{0:N2} kWh}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,2"/>
                 <Separator Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Active power:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,10,10,2"/>

@@ -13,8 +13,15 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class BreakerSchemaNodeCreator : SchemaNodeCreator
     {
-        public BreakerSchemaNodeCreator() : base("../../Resources/switch-symbol-circuit-electric-97624.png")
+        public BreakerSchemaNodeCreator() : base("")
         {
+        }
+
+        protected override void CustomConfiguration(SchemaNode node)
+        {
+            base.CustomConfiguration(node);
+            node.Height /= 2;
+            node.Width /= 2;
         }
 
         protected override ICommand GetOnClickCommand()

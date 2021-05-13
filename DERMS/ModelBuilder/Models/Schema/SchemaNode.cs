@@ -41,17 +41,17 @@ namespace ClientUI.Models.Schema
         public bool Energized
         {
             get { return isEnergized; }
-            set { SetProperty(ref isEnergized, value); }
+            set
+            {
+                SetProperty(ref isEnergized, value);
+                Outline = isEnergized ? green : blue;
+            }
         }
 
         public bool DoesConduct
         {
             get { return doesConduct; }
-            set
-            {
-                SetProperty(ref doesConduct, value);
-                Outline = doesConduct ? green : red;
-            }
+            set { SetProperty(ref doesConduct, value); }
         }
 
         public string ImageSource
