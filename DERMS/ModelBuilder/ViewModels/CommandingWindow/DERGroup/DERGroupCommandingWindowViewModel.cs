@@ -97,6 +97,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup
             else
             {
                 Width = 500;
+                Height = 700;
             }
         }
 

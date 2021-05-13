@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views.CommandingWindow.DER"
              xmlns:converters="clr-namespace:ClientUI.Converters"
+             xmlns:validationRules ="clr-namespace:ClientUI.ValidationRules"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,6 +14,8 @@
              TextElement.FontSize="12">
     <UserControl.Resources>
         <converters:ImagePathToImageConverter x:Key="imagePathToImageConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+        <converters:BoolToColorConverter x:Key="boolToColorConverter" />
     </UserControl.Resources>
 
     <Grid>
@@ -87,9 +90,48 @@
             <materialDesign:PackIcon Kind="Search" />
         </Button>
 
+        <!-- Commanding -->
         <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0">
             <materialDesign:Card Margin="10">
-                <!-- Commanding -->
+                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Commanding" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBox x:Name="TextBoxNewValue" Width="150" Margin="0,0,30,0" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">
+                            <TextBox.Text>
+                                <Binding Path="NewCommandingValue" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validationRules:AnalogValueValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <Button Content="Validate" 
+                                    Command="{Binding ValidationCommand}" 
+                                    CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}" 
+                                    Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=false}"/>
+                        <Button Content="Send Command" 
+                                    Command="{Binding SendCommandCommand}" 
+                                    CommandParameter="{Binding ElementName=TextBoxNewValue, Path=Text}"
+                                    Visibility="{Binding IsCommandValid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=true}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding CommandFeedback.Message}"
+                                    Margin="10"
+                                   Visibility="{Binding CommandFeedback.Visibility}"
+                                   Foreground="{Binding CommandFeedback.CommandExecuted, Converter={StaticResource boolToColorConverter}}"
+                                   FontSize="20" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Grid.Row="2"
+                                   TextWrapping="Wrap"/>
+                </Grid>
             </materialDesign:Card>
         </Grid>
     </Grid>

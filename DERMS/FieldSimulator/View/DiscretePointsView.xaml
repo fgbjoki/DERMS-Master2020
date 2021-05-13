@@ -27,7 +27,6 @@
                     CanUserSortColumns="False">
 
             <DataGrid.Columns>
-                <!-- if you want to use the pop up style (MateWirialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
                 <materialDesign:DataGridTextColumn
                             Header="Name"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"

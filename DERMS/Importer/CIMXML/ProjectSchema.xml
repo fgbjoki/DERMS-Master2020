@@ -349,8 +349,8 @@
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
 		<cim:IdentifiedObject.description>EnergyStorage2_2 active power</cim:IdentifiedObject.description>
@@ -359,11 +359,11 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:ID="EnergyStorage2_2_StateOfCharge">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>0.2</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>1</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>26</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage2_2"/>
 		<cim:IdentifiedObject.description>EnergyStorage2_2 state of charge</cim:IdentifiedObject.description>
@@ -391,19 +391,6 @@
 		<cim:IdentifiedObject.description>SolarPanel2_2 active power</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>SolarPanel2_2_ActivePower</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>SolarPanel2_2 ActivePower</ftn:IdentifiedObject.name>
-	</cim:Analog>
-	
-	<cim:Analog rdf:ID="SolarPanel2_2_DeltaPower">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
-		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#SolarPanel2_2"/>
-		<cim:IdentifiedObject.description>SolarPanel2_2 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>SolarPanel2_2_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>SolarPanel2_2 DeltaPower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_est2_2">
@@ -623,7 +610,7 @@
 	
 	<cim:WindGenerator rdf:ID="WindGenerator3_2">
 		<cim:WindGenerator.cutOutSpeed>15</cim:WindGenerator.cutOutSpeed>
-		<cim:WindGenerator.nominalSpeed>10</cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.nominalSpeed>3</cim:WindGenerator.nominalSpeed>
 		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EnergyStorage3_2"/>
@@ -649,19 +636,6 @@
 		<ftn:IdentifiedObject.name>WindGenerator3_2 ActivePower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
-	<cim:Analog rdf:ID="WindGenerator3_2_DeltaPower">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
-		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator3_2"/>
-		<cim:IdentifiedObject.description>WindGenerator3_2 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>WindGenerator3_2_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>WindGenerator3_2 DeltaPower</ftn:IdentifiedObject.name>
-	</cim:Analog>
-	
 	<cim:ConnectivityNode rdf:ID="conn_br_wg_3_2">
 		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Connects ACLineSegment3_2 with DER Group and Consumer.</cim:IdentifiedObject.description>
@@ -672,7 +646,7 @@
 	<cim:EnergyStorage rdf:ID="EnergyStorage3_2">
 		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WindGenerator3_2"/>
-		<cim:DER.nominalPower>10</cim:DER.nominalPower>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Energy Source for wind generator</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage3_2</cim:IdentifiedObject.mRID>
@@ -683,8 +657,8 @@
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>18</cim:Measurement.measurementAddress>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>4</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage3_2"/>
 		<cim:IdentifiedObject.description>EnergyStorage3_2 active power</cim:IdentifiedObject.description>
@@ -697,7 +671,7 @@
 		<cim:Analog.maxValue>1</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>28</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>16</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage3_2"/>
 		<cim:IdentifiedObject.description>EnergyStorage3_2 state of charge</cim:IdentifiedObject.description>
@@ -915,7 +889,7 @@
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>20</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>18</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer10_1"/>
 		<cim:IdentifiedObject.description>EnergyConsumer10_1 active power</cim:IdentifiedObject.description>
@@ -977,7 +951,7 @@
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>22</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>20</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyConsumer11_1"/>
 		<cim:IdentifiedObject.description>EnergyConsumer11_1 active power</cim:IdentifiedObject.description>
@@ -1065,25 +1039,12 @@
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>16</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>22</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator11_1"/>
 		<cim:IdentifiedObject.description>WindGenerator11_1 active power</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>WindGenerator11_1_ActivePower</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>WindGenerator11_1 ActivePower</ftn:IdentifiedObject.name>
-	</cim:Analog>
-	
-	<cim:Analog rdf:ID="WindGenerator11_1_DeltaPower">
-		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
-		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>8</cim:Measurement.measurementAddress>
-		<tdms:Measurement.measurementType>DeltaPower</tdms:Measurement.measurementType>
-		<cim:Measurement.PowerSystemResource rdf:resource="#WindGenerator11_1"/>
-		<cim:IdentifiedObject.description>WindGenerator11_1 delta power</cim:IdentifiedObject.description>
-		<cim:IdentifiedObject.mRID>WindGenerator11_1_DeltaPower</cim:IdentifiedObject.mRID>
-		<ftn:IdentifiedObject.name>WindGenerator11_1 DeltaPower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="ter_est11_1">
@@ -1108,8 +1069,8 @@
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>100</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
-		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>24</cim:Measurement.measurementAddress>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>8</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage11_1"/>
 		<cim:IdentifiedObject.description>EnergyStorage11_1 active power</cim:IdentifiedObject.description>
@@ -1122,7 +1083,7 @@
 		<cim:Analog.maxValue>1</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
-		<cim:Measurement.measurementAddress>30</cim:Measurement.measurementAddress>
+		<cim:Measurement.measurementAddress>24</cim:Measurement.measurementAddress>
 		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
 		<cim:Measurement.PowerSystemResource rdf:resource="#EnergyStorage11_1"/>
 		<cim:IdentifiedObject.description>EnergyStorage11_1 state of charge</cim:IdentifiedObject.description>

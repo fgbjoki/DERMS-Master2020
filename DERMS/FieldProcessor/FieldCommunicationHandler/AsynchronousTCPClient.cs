@@ -139,7 +139,7 @@ namespace FieldProcessor.TCPCommunicationHandler
                         new AsyncCallback(ReceiveCallback), state);
                 }
             }
-            catch (SocketException se)
+            catch (SocketException)
             {
                 connectionStateNotifier.Disconnected();
                 connectionFailed.Set();

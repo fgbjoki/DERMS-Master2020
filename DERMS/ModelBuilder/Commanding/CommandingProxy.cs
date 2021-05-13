@@ -1,4 +1,5 @@
-﻿using Common.Communication;
+﻿using ClientUI.Commanding.Type;
+using Common.Communication;
 using Common.DataTransferObjects;
 using Common.ServiceInterfaces.UIAdapter;
 using System;
@@ -9,49 +10,24 @@ using System.Threading.Tasks;
 
 namespace ClientUI.Commanding
 {
-    public class CommandingProxy : IBreakerCommanding
+    public class CommandingProxy
     {
-        private static CommandingProxy instance;
-        private static WCFClient<IBreakerCommanding> breakerCommandingProxy;
+        private static CommandingProxy instance;       
+
+        private CommandingProxy()
+        {
+            BreakerCommanding = new BreakerCommanding();
+            DERCommanding = new DERCommanding();
+        }
 
         static CommandingProxy()
         {
-            instance = new CommandingProxy();
-            breakerCommandingProxy = new WCFClient<IBreakerCommanding>("uiAdapterBreakerCommanding");
+            instance = new CommandingProxy();           
         }
 
         public static CommandingProxy Instance { get { return instance; } }
 
-        public CommandFeedbackMessageDTO SendBreakerCommand(long breakerGid, int breakerValue)
-        {
-            try
-            {
-                return breakerCommandingProxy.Proxy.SendBreakerCommand(breakerGid, breakerValue);
-            }
-            catch (Exception e)
-            {
-                return new CommandFeedbackMessageDTO()
-                {
-                    CommandExecuted = false,
-                    Message = "Command couldn't be executed. Check logs"
-                };
-            };
-        }
-
-        public CommandFeedbackMessageDTO ValidateCommand(long breakerGid, int breakerValue)
-        {
-            try
-            {
-                return breakerCommandingProxy.Proxy.ValidateCommand(breakerGid, breakerValue);
-            }
-            catch (Exception e)
-            {
-                return new CommandFeedbackMessageDTO()
-                {
-                    CommandExecuted = false,
-                    Message = "Command couldn't be executed. Check logs"
-                };
-            }
-        }
+        public IBreakerCommanding BreakerCommanding { get; private set; }
+        public IDERCommanding DERCommanding { get; set; }
     }
 }
