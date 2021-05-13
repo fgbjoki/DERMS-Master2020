@@ -13,5 +13,10 @@ namespace CalculationEngine.Commanding.Commands
         {
             return null;
         }
+
+        public virtual TimedCommand CreateScheduleCommand(double millisecondsTime)
+        {
+            return new TimedCommand(millisecondsTime, this);
+        }
     }
 }

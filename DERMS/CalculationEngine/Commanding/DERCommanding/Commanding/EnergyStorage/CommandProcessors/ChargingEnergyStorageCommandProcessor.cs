@@ -16,28 +16,22 @@ namespace CalculationEngine.Commanding.DERCommanding.Commanding.EnergyStorage.Co
                 CommandFeedback = CreateCommandFeedback(energyStorage, activePower)
             };
 
+            float capacity = energyStorage.Capacity * (upperStateOfCharge - energyStorage.StateOfCharge);
+
+            double secondsOfUse = CalculateSecondsOfStorageUsage(capacity, activePower);
+            dischargeCommand.SecondsOfUse = secondsOfUse;
+
             return dischargeCommand;
         }
 
         private CommandFeedback CreateCommandFeedback(Model.DERCommanding.EnergyStorage energyStorage, float activePower)
         {
             CommandFeedback commandFeedback = new CommandFeedback();
-            double secondsOfUse = CalculateSecondsOfCharging(energyStorage.Capacity, energyStorage.StateOfCharge, activePower);
 
             commandFeedback.Successful = true;
             commandFeedback.Message = $"Energy storage is now charging with '{-activePower}' active power.";
 
             return commandFeedback;
-        }
-
-        private double CalculateSecondsOfCharging(float capacity, float stateOfCharge, float commandedActivePower)
-        {
-            double capacityToCharge = capacity * (upperStateOfCharge - stateOfCharge);
-            double activePowerToCharge = capacityToCharge * 3600;
-
-            double secondsOfUse = capacityToCharge / commandedActivePower;
-
-            return secondsOfUse;
         }
     }
 }

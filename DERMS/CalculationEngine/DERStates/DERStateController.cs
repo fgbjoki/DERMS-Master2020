@@ -14,6 +14,8 @@ using Common.PubSub.Messages;
 using Common.PubSub.Messages.DERState;
 using CalculationEngine.TransactionProcessing.Storage.DERStates;
 using Common.ServiceInterfaces.CalculationEngine;
+using CalculationEngine.DERStates.CommandScheduler;
+using CalculationEngine.DERStates.CommandScheduler.Commands;
 
 namespace CalculationEngine.DERStates
 {
@@ -35,11 +37,14 @@ namespace CalculationEngine.DERStates
 
         private IDynamicPublisher dynamicPublisher;
 
-        public DERStateController(IStorage<EnergySource> energySourceStorage, DERStateStorage derStateStorage, ITopologyAnalysis topologyAnalysis, IDynamicPublisher dynamicPublisher)
+        private ISchedulerCommandExecutor schedulerCommandExecutor;
+
+        public DERStateController(IStorage<EnergySource> energySourceStorage, DERStateStorage derStateStorage, ITopologyAnalysis topologyAnalysis, IDynamicPublisher dynamicPublisher, ISchedulerCommandExecutor schedulerCommandExecutor)
         {
             this.derStateStorage = derStateStorage;
             this.dynamicPublisher = dynamicPublisher;
             this.energySourceStorage = energySourceStorage;
+            this.schedulerCommandExecutor = schedulerCommandExecutor;
 
             topologyReadyEvent = topologyAnalysis.ReadyEvent;
             topologyReader = topologyAnalysis.CreateReader();
@@ -92,7 +97,8 @@ namespace CalculationEngine.DERStates
             lock (locker)
             {
                 ICollection<long> energizedGids = null;
-                foreach (var energySource in energySourceStorage.GetAllEntities())
+                List<EnergySource> energySources = energySourceStorage.GetAllEntities();
+                foreach (var energySource in energySources)
                 {
                     if (energizedGids == null)
                     {
@@ -107,7 +113,8 @@ namespace CalculationEngine.DERStates
                     }      
                 }
 
-                foreach (var entity in derStateStorage.GetAllEntities())
+                List<DERState> derStates = derStateStorage.GetAllEntities();
+                foreach (var entity in derStates)
                 {
                     if (energizedGids.Contains(entity.GlobalId))
                     {
@@ -117,6 +124,8 @@ namespace CalculationEngine.DERStates
                     {
                         entity.IsEnergized = false;
                     }
+
+                    UpdateScheduledCommand(entity.GlobalId, entity.IsEnergized);
                 }
 
                 PublishDERStates();   
@@ -175,6 +184,21 @@ namespace CalculationEngine.DERStates
             }
 
             dynamicPublisher.Publish(publication);
+        }
+
+        private void UpdateScheduledCommand(long entityGid, bool shouldResumeCommand)
+        {
+            SchedulerCommand command;
+            if (shouldResumeCommand)
+            {
+                command = new ResumeCommand(entityGid);
+            }
+            else
+            {
+                command = new PauseCommand(entityGid);
+            }
+
+            schedulerCommandExecutor.ExecuteCommand(command);
         }
     }
 }

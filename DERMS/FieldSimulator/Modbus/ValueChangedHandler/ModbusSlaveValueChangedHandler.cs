@@ -35,14 +35,19 @@ namespace FieldSimulator.Modbus.ValueChangedHandler
 
         private void HoldingRegisterChangedHandler(int holdingRegister, int numberOfRegisters)
         {
-            for (int i = holdingRegister - 1; i < numberOfRegisters + holdingRegister - 1; i += 2)
+            int startingRegister = holdingRegister - 1;
+
+            for (int i = 0; i < numberOfRegisters / 2; i++)
             {
-                short value1 = modbusSlave.HoldingRegisters[i + 1];
-                short value2 = modbusSlave.HoldingRegisters[i + 2];
+                int currentRegisterAddress = startingRegister + i * 2;
+                int currentSlaveIndex = currentRegisterAddress / 2;
+
+                short value1 = modbusSlave.HoldingRegisters[currentRegisterAddress + 1];
+                short value2 = modbusSlave.HoldingRegisters[currentRegisterAddress + 2];
 
                 float newValue = converter.ConvertToFloat(value1, value2);
-                slaveRemotePoints.HoldingRegisters[i].FloatValue = newValue;
-                simulatorStorage.UpdateValue(RemotePointType.HoldingRegister, (ushort)i, newValue);
+                slaveRemotePoints.HoldingRegisters[currentSlaveIndex].FloatValue = newValue;
+                simulatorStorage.UpdateValue(RemotePointType.HoldingRegister, (ushort)(currentRegisterAddress), newValue);
             }
         }
 

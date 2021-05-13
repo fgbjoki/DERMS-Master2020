@@ -16,6 +16,9 @@ namespace CalculationEngine.Commanding.DERCommanding.Commanding.EnergyStorage.Co
                 CommandFeedback = CreateCommandFeedback(energyStorage, activePower)
             };
 
+            float capacity = energyStorage.Capacity * (energyStorage.StateOfCharge - lowerBoundStateOfCharge);
+            dischargeCommand.SecondsOfUse = CalculateSecondsOfStorageUsage(capacity, activePower);
+
             return dischargeCommand;
         }
 

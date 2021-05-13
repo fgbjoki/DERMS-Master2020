@@ -9,16 +9,24 @@ using CalculationEngine.Commanding.Commands;
 using Common.Communication;
 using Common.ServiceInterfaces.NetworkDynamicsService.Commands;
 using Common.DataTransferObjects.CalculationEngine;
+using CalculationEngine.DERStates.CommandScheduler;
+using CalculationEngine.Commanding.DERCommanding.TimedCommandCreator.EnergyStorage;
+using CalculationEngine.Commanding.DERCommanding.TimedCommandCreator;
+using CalculationEngine.DERStates.CommandScheduler.Commands;
 
 namespace CalculationEngine.Commanding.DERCommanding
 {
     public class DERCommandingProcessor : IDERCommandingProcessor
     {
-        private Dictionary<DMSType, DERCommandingPair> commandingPairs;
+        ISchedulerCommandExecutor scheduleCommandExecutor;
+
+        private Dictionary<DMSType, DERCommandingWrapper> commandingUnits;
         private WCFClient<INDSCommanding> ndsCommandingClient;
 
-        public DERCommandingProcessor(IDERStateDeterminator derStateDeterminator, IStorage<DistributedEnergyResource> DERStorage)
+        public DERCommandingProcessor(IDERStateDeterminator derStateDeterminator, IStorage<DistributedEnergyResource> DERStorage, ISchedulerCommandExecutor scheduleCommandExecutor)
         {
+            this.scheduleCommandExecutor = scheduleCommandExecutor;
+
             InitializeCommandingPairs(derStateDeterminator, DERStorage);
 
             ndsCommandingClient = new WCFClient<INDSCommanding>("ndsCommanding");
@@ -26,11 +34,11 @@ namespace CalculationEngine.Commanding.DERCommanding
 
         private void InitializeCommandingPairs(IDERStateDeterminator derStateDeterminator, IStorage<DistributedEnergyResource> DERStorage)
         {
-            commandingPairs = new Dictionary<DMSType, DERCommandingPair>()
+            commandingUnits = new Dictionary<DMSType, DERCommandingWrapper>()
             {
                 {
                     DMSType.ENERGYSTORAGE,
-                    new DERCommandingPair(new EnergyStorageCommandValidator(derStateDeterminator, DERStorage), new EnergyStorageCommandingUnit(DERStorage))
+                    new DERCommandingWrapper(new EnergyStorageCommandValidator(derStateDeterminator, DERStorage), new EnergyStorageCommandingUnit(DERStorage), new EnergyStorageSchedulerCommandCreator())
                 }
             };
         }
@@ -39,8 +47,8 @@ namespace CalculationEngine.Commanding.DERCommanding
         {
             DMSType derDMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(derGid);
 
-            DERCommandingPair commandingPair;
-            if (!commandingPairs.TryGetValue(derDMSType, out commandingPair))
+            DERCommandingWrapper commandingUnit;
+            if (!commandingUnits.TryGetValue(derDMSType, out commandingUnit))
             {
                 return new CommandFeedback()
                 {
@@ -49,7 +57,7 @@ namespace CalculationEngine.Commanding.DERCommanding
                 };
             }
 
-            return commandingPair.ValidateCommand(derGid, commandingValue);
+            return commandingUnit.ValidateCommand(derGid, commandingValue);
         }
 
         public CommandFeedback Command(long derGid, float commandingValue)
@@ -67,8 +75,8 @@ namespace CalculationEngine.Commanding.DERCommanding
         {
             DMSType derDMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(derGid);
 
-            DERCommandingPair commandingPair;
-            if (!commandingPairs.TryGetValue(derDMSType, out commandingPair))
+            DERCommandingWrapper commandingUnit;
+            if (!commandingUnits.TryGetValue(derDMSType, out commandingUnit))
             {
                 return new CommandFeedback()
                 {
@@ -77,7 +85,7 @@ namespace CalculationEngine.Commanding.DERCommanding
                 };
             }
 
-            Command ceCommand = commandingPair.CreateCommand(derGid, commandingValue);
+            Command ceCommand = commandingUnit.CreateCommand(derGid, commandingValue);
             if (ceCommand.CommandFeedback.Successful == false)
             {
                 return ceCommand.CommandFeedback;
@@ -85,6 +93,7 @@ namespace CalculationEngine.Commanding.DERCommanding
 
             if (SendCommandToNDS(ceCommand.CreateNDSCommand()))
             {
+                ScheduleCommand(ceCommand, commandingUnit);
                 return ceCommand.CommandFeedback;
             }
             else
@@ -107,6 +116,17 @@ namespace CalculationEngine.Commanding.DERCommanding
             {
                 return false;
             }
+        }
+
+        private void ScheduleCommand(Command ceCommand, ISchedulerCommandCreator timedCommandCreator)
+        {
+            SchedulerCommand schedulerCommand = timedCommandCreator.CreateSchedulerCommand(ceCommand);
+            if (schedulerCommand == null)
+            {
+                return;
+            }
+
+            scheduleCommandExecutor.ExecuteCommand(schedulerCommand);
         }
     }
 }

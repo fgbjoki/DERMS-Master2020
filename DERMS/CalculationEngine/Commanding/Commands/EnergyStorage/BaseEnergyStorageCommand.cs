@@ -6,6 +6,8 @@ namespace CalculationEngine.Commanding.Commands
     {
         public virtual float ActivePower { get; set; }
 
+        public double SecondsOfUse { get; set; }
+
         public override BaseCommand CreateNDSCommand()
         {
             ChangeAnalogRemotePointValue ndsAnalogCommand = new ChangeAnalogRemotePointValue()

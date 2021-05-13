@@ -25,6 +25,7 @@ using CalculationEngine.DERStates;
 using CalculationEngine.Commanding.BreakerCommanding;
 using CalculationEngine.Commanding.DERCommanding;
 using CalculationEngine.TransactionProcessing.Storage.DERCommanding;
+using CalculationEngine.DERStates.CommandScheduler;
 
 namespace CalculationEngine
 {
@@ -67,6 +68,9 @@ namespace CalculationEngine
 
         private EndpointConfiguration endpointConfiguration;
 
+        private SchedulerCommandExecutor schedulerCommandExecutor;
+        private ICommandScheduler commandScheduler;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -79,9 +83,11 @@ namespace CalculationEngine
 
             InitializeForTransaction();
 
+            InitializeCommandScheduler();
+
             energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, dynamicPublisher);
-            derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher);
-            derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage);
+            derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher, schedulerCommandExecutor);
+            derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
 
             InitializePubSub();
         }
@@ -95,6 +101,13 @@ namespace CalculationEngine
             topologyAnalysis.BreakerLoopCommandingValidator = breakerCommandingValidator;
 
             schemaRepresentation = new SchemaRepresentation();
+        }
+
+        private void InitializeCommandScheduler()
+        {
+            commandScheduler = new CommandScheduler();
+            schedulerCommandExecutor = new SchedulerCommandExecutor();
+            schedulerCommandExecutor.SetCommandScheduler(commandScheduler);
         }
 
         public bool Prepare()
