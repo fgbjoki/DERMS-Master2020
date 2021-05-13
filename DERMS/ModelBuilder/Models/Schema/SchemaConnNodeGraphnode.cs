@@ -15,7 +15,7 @@ namespace ClientUI.Models.Schema
         {
         }
 
-        public override Brush Outline
+        public override SolidColorBrush Outline
         {
             get
             {

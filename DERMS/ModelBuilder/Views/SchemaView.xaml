@@ -45,9 +45,12 @@
                         </ContextMenu>
                     </Border.ContextMenu>
                     <Border BorderThickness="3" CornerRadius="360"
-						    BorderBrush="{Binding Outline}" Width="{Binding Width}" Height="{Binding Height}">
+						    Width="{Binding Width}" Height="{Binding Height}">
                         <Border.Style>
                             <Style TargetType="Border">
+                                <Style.Setters>
+                                    <Setter Property="BorderBrush" Value="{Binding Outline}"/>
+                                </Style.Setters>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Located}" Value="True">
                                         <DataTrigger.EnterActions>

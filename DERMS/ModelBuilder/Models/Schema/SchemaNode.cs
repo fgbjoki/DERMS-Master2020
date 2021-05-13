@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ClientUI.Models.Schema
 {
@@ -28,6 +29,8 @@ namespace ClientUI.Models.Schema
             Children = new ObservableCollection<SchemaNode>();
 
             this.imageSource = imageSource;
+
+            Energized = false;
         }
 
         public ObservableCollection<SchemaNode> Children { get; set; }

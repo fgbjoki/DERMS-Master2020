@@ -13,7 +13,7 @@ namespace ClientUI.Models.Schema
         protected readonly SolidColorBrush blue = new SolidColorBrush(Colors.Blue);
         protected readonly SolidColorBrush green = new SolidColorBrush(Colors.Green);
 
-        private Brush outline;
+        private SolidColorBrush outline;
 
         public UINode(int width, int height)
         {
@@ -24,7 +24,7 @@ namespace ClientUI.Models.Schema
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public virtual Brush Outline
+        public virtual SolidColorBrush Outline
         {
             get { return outline; }
             set

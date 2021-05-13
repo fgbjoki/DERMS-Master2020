@@ -81,17 +81,26 @@ namespace ClientUI.ViewModels.Schema
 
         public void FindNode(long entityGid)
         {
-            bool doesCurrentSchemaHaveEntity = true;
-            if (SchemaViewModel == null || !SchemaViewModel.Locate(entityGid))
+            // Schema view has not been opened
+            if (SchemaViewModel == null)
             {
-                doesCurrentSchemaHaveEntity = false;
+                long neededSubstationGid = GetSubstationGidForEntity(entityGid);
+                if (neededSubstationGid == 0)
+                {
+                    return;
+                }
+
+                FetchAndOpenSchema(neededSubstationGid, entityGid);
+                return;
             }
 
-            if (doesCurrentSchemaHaveEntity)
+            // Entity is already on shown schema
+            if (SchemaViewModel.Locate(entityGid))
             {
                 return;
             }
 
+            // Find subnetwork containing specified entity
             long substationGid = GetSubstationGidForEntity(entityGid);
             if (substationGid == 0)
             {
@@ -113,6 +122,22 @@ namespace ClientUI.ViewModels.Schema
             }
 
             Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateSubstations(entities)));
+        }
+
+        private void FetchAndOpenSchema(long substationGid, long locatedEntityGid)
+        {
+            List<EnergySourceBrowseSchemaItem> entities = GetEntitiesFromService();
+
+            if (entities?.Count == 0)
+            {
+                return;
+            }
+
+            UpdateSubstations(entities);
+
+            SelectedEnergySource = EnergySources.First(x => x.GlobalId == substationGid);
+            ExecuteGetSchemaCommand(null);
+            SchemaViewModel.Locate(locatedEntityGid);
         }
 
         private void ExecuteClearSearchingNodeCommand(object param)
