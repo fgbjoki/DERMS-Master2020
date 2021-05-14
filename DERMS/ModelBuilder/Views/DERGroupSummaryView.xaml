@@ -41,7 +41,7 @@
             
                 <!-- Technology filter-->
                 <TextBlock Margin="50,0,0,0" Text="Technology:" VerticalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding GeneratorTypes}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedGeneratorType}">
+                <ComboBox ItemsSource="{Binding TechnologyTypes}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedTechnologyType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"/>
