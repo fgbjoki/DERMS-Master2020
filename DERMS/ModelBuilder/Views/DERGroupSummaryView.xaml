@@ -61,7 +61,7 @@
         Grid.Row="1"
         x:Name="itemDataGrid"
         AlternationCount="2"
-        ItemsSource="{Binding Items}"
+        ItemsSource="{Binding FilteredItems}"
         CanUserAddRows="False"
         AutoGenerateColumns="False"
         BorderBrush="Black"
