@@ -11,6 +11,7 @@ namespace ClientUI.Models.DERGroup
     public class DERGroupSummaryItem : IdentifiedObject
     {
         private float activePower;
+        private string location;
 
         public DERGroupSummaryItem()
         {
@@ -34,6 +35,20 @@ namespace ClientUI.Models.DERGroup
 
         public Generator Generator { get; set; }
 
+        public string Location
+        {
+            get { return location; }
+            set
+            {
+                if (location != value)
+                {
+                    SetProperty(ref location, value);
+                }
+            }
+        }
+
+        public long LocationGid { get; set; }
+
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {
             base.UpdateProperties(entity);
@@ -44,6 +59,8 @@ namespace ClientUI.Models.DERGroup
                 return;
             }
 
+            Location = dto.Location;
+            LocationGid = dto.LocationGid;
             ActivePower = dto.ActivePower;
             EnergyStorage.Update(dto.EnergyStorage);
             Generator.Update(dto.Generator);
