@@ -23,6 +23,22 @@ namespace ClientUI.Views
         public SchemaView()
         {
             InitializeComponent();
+
+            PreviewMouseWheel += SchemaView_PreviewMouseWheel;
+        }
+
+        private void SchemaView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.Modifiers != ModifierKeys.Control)
+                return;
+
+            double deltaScale = (e.Delta * 0.0005);
+
+            if (deltaScale != 0 && deltaScale + schemaScale.ScaleX > 0)
+            {
+                schemaScale.ScaleX += deltaScale;
+                schemaScale.ScaleY += deltaScale;
+            }
         }
     }
 }

@@ -9,6 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:ClientUI.Converters"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="http://prismlibrary.com/"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -94,9 +95,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TreeView Grid.Column="0" ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
-			  ItemsSource="{Binding Nodes}">
-        </TreeView>
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <TreeView
+                ItemContainerStyle="{StaticResource SchemaGraphNodeStyle}"
+			      ItemsSource="{Binding Nodes}">
+                <TreeView.LayoutTransform >
+                    <ScaleTransform x:Name="schemaScale"/>
+                </TreeView.LayoutTransform>
+            </TreeView>
+        </ScrollViewer>
 
         <Grid Grid.Column="1">
             <!-- TODO ADD WIDGETs for energy balance -->
