@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d"
+             Margin="0,0,40,0"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
@@ -19,15 +20,52 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <DataGrid
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Filter -->
+        <Border Grid.Row="0" Background="Gray" BorderBrush="Black" BorderThickness="1">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,10,0,10">
+                <!-- Source filter -->
+                <TextBlock Text="Source:"  VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding EnergySources}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedEnergySource}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SubstationName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            
+                <!-- Technology filter-->
+                <TextBlock Margin="50,0,0,0" Text="Technology:" VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding GeneratorTypes}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedGeneratorType}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            
+                <!-- Filter button -->
+                <Button Margin="20,0,0,0" Content="Filter" Command="{Binding FilterSummaryCommand}" />
+                
+                <!-- Clear filter button -->
+                <Button Margin="10,0,0,0" Content="Clear filter" Command="{Binding ClearFilterSummaryCommand}" />
+            </StackPanel>
+        </Border>
+        <!-- DataGrid -->
+        <DataGrid
+        Grid.Row="1"
         x:Name="itemDataGrid"
         AlternationCount="2"
         ItemsSource="{Binding Items}"
         CanUserAddRows="False"
         AutoGenerateColumns="False"
         BorderBrush="Black"
-        HeadersVisibility="All"
-        Margin="0,0,40,0">
+        HeadersVisibility="All">
 
         <DataGrid.Columns>
             <DataGridTextColumn
@@ -89,6 +127,7 @@
 
         </DataGrid.Columns>
     </DataGrid>
+    </Grid>
 
     <interaction:Interaction.Triggers>
         <interaction:EventTrigger EventName="MouseDoubleClick">
