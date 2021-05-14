@@ -13,6 +13,10 @@ namespace UIAdapter.Model.DERGroup
 
         public Generator Generator { get; set; }
 
+        public string Location { get; set; }
+
+        public long LocationGid { get; set; }
+
         public override float ActivePower
         {
             get
@@ -45,6 +49,7 @@ namespace UIAdapter.Model.DERGroup
 
             derGroupDto.EnergyStorage = EnergyStorage.CreateDTO();
             derGroupDto.Generator = Generator.CreateDTO();
+            derGroupDto.LocationGid = LocationGid;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace UIAdapter.TransactionProcessing.Storages.DERGroup
             };
         }
 
-        public void UpdateDERState(long derGid, float activePower)
+        public void UpdateDERState(long derGid, float activePower, long locationGid)
         {
             locker.EnterReadLock();
 
@@ -81,6 +81,7 @@ namespace UIAdapter.TransactionProcessing.Storages.DERGroup
                 }
 
                 locker.EnterWriteLock();
+                derGroup.LocationGid = locationGid;
                 derGroup.EnergyStorage.ActivePower = activePower;
                 locker.ExitWriteLock();
             }          

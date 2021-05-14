@@ -35,18 +35,6 @@ namespace ClientUI.Models.DERGroup
 
         public Generator Generator { get; set; }
 
-        public string Location
-        {
-            get { return location; }
-            set
-            {
-                if (location != value)
-                {
-                    SetProperty(ref location, value);
-                }
-            }
-        }
-
         public long LocationGid { get; set; }
 
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
@@ -59,7 +47,6 @@ namespace ClientUI.Models.DERGroup
                 return;
             }
 
-            Location = dto.Location;
             LocationGid = dto.LocationGid;
             ActivePower = dto.ActivePower;
             EnergyStorage.Update(dto.EnergyStorage);

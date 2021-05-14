@@ -16,6 +16,7 @@ using CalculationEngine.TransactionProcessing.Storage.DERStates;
 using Common.ServiceInterfaces.CalculationEngine;
 using CalculationEngine.DERStates.CommandScheduler;
 using CalculationEngine.DERStates.CommandScheduler.Commands;
+using System.Linq;
 
 namespace CalculationEngine.DERStates
 {
@@ -81,7 +82,7 @@ namespace CalculationEngine.DERStates
                         return;
                     }
 
-                    publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower));
+                    publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower, derState.ConnectedSourceGid));
 
                 }
                 if (publication.DERStates.Count > 0)
@@ -96,33 +97,28 @@ namespace CalculationEngine.DERStates
         {
             lock (locker)
             {
-                ICollection<long> energizedGids = null;
+                List<Tuple<long, ICollection<long>>> energizedGids = new List<Tuple<long, ICollection<long>>>();
+                
                 List<EnergySource> energySources = energySourceStorage.GetAllEntities();
                 foreach (var energySource in energySources)
                 {
-                    if (energizedGids == null)
-                    {
-                        energizedGids = topologyReader.Read(energySource.GlobalId);
-                    }
-                    else
-                    {
-                        foreach (long gid in topologyReader.Read(energySource.GlobalId))
-                        {
-                            energizedGids.Add(gid);
-                        }
-                    }      
+                    ICollection<long> entitiesConenctedToSource = topologyReader.Read(energySource.GlobalId);
+                    energizedGids.Add(new Tuple<long, ICollection<long>>(energySource.GlobalId, entitiesConenctedToSource));
                 }
 
                 List<DERState> derStates = derStateStorage.GetAllEntities();
                 foreach (var entity in derStates)
                 {
-                    if (energizedGids.Contains(entity.GlobalId))
+                    var sourceGid = energizedGids.FirstOrDefault(x => x.Item2.Contains(entity.GlobalId));
+                    if (sourceGid != null)
                     {
                         entity.IsEnergized = true;
+                        entity.ConnectedSourceGid = sourceGid.Item1;
                     }
                     else
                     {
                         entity.IsEnergized = false;
+                        entity.ConnectedSourceGid = 0;
                     }
 
                     UpdateScheduledCommand(entity.GlobalId, entity.IsEnergized);
@@ -180,7 +176,7 @@ namespace CalculationEngine.DERStates
             DERStateChanged publication = new DERStateChanged();
             foreach (var derState in derStateStorage.GetAllEntities())
             {
-                publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower));
+                publication.DERStates.Add(new DERStateWrapper(derState.GlobalId, derState.ActivePower, derState.ConnectedSourceGid));
             }
 
             dynamicPublisher.Publish(publication);
