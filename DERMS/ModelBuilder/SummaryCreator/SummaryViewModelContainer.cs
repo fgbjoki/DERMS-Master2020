@@ -8,6 +8,7 @@ namespace ClientUI.SummaryCreator
 {
     public enum ContentType
     {
+        SCADA,
         AnalogRemotePointSummary,
         AnalogRemotePointCommandingWindow,
         DiscreteRemotePointSummary,
