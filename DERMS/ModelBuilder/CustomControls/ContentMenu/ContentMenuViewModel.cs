@@ -32,7 +32,7 @@ namespace ClientUI.CustomControls
         {
             SummaryManager.Instance.EventAggregator.GetEvent<OpenSummaryEvent>().Subscribe(OpenSummary);
 
-            ContentItem scadaContent = new ContentItem(new SummaryWrapper("SCADA", ContentType.SCADA, PackIconKind.AlarmCheck));
+            ContentItem scadaContent = new ContentItem(new SummaryWrapper("SCADA", ContentType.NoActionContent, PackIconKind.AlarmCheck));
             scadaContent.AddChild(new ContentItem(new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent)));
             scadaContent.AddChild(new ContentItem(new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch)));
 
@@ -60,7 +60,7 @@ namespace ClientUI.CustomControls
 
         public void OpenSummaryCommand()
         {
-            if (selectedItem.SummaryInfo.SummaryType == ContentType.SCADA)
+            if (selectedItem.SummaryInfo.SummaryType == ContentType.NoActionContent)
             {
                 return;
             }
