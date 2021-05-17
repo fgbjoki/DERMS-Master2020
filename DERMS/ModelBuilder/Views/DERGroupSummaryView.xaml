@@ -7,7 +7,6 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d"
-             Margin="0,0,40,0"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
@@ -27,7 +26,7 @@
         </Grid.RowDefinitions>
         
         <!-- Filter -->
-        <Border Grid.Row="0" Background="Gray" BorderBrush="Black" BorderThickness="1">
+        <Border Grid.Row="0" Background="#FF686868" BorderBrush="Black" BorderThickness="1">
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,10,0,10">
                 <!-- Source filter -->
                 <TextBlock Text="Source:"  VerticalAlignment="Center"/>
@@ -61,7 +60,7 @@
         Grid.Row="1"
         x:Name="itemDataGrid"
         AlternationCount="2"
-        ItemsSource="{Binding FilteredItems}"
+        ItemsSource="{Binding Items}"
         CanUserAddRows="False"
         AutoGenerateColumns="False"
         BorderBrush="Black"

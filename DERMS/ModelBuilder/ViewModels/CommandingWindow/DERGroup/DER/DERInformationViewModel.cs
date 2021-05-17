@@ -39,7 +39,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         public DERInformationViewModel(long derGlobalId, WCFClient<IDERGroupSummaryJob> derGroupSummary, string imageUrl = "") : base(derGlobalId, derGroupSummary)
         {
             feedBackMessageTimer = new Timer();
-            feedBackMessageTimer.Interval = 1000 * 3;
+            feedBackMessageTimer.Interval = 1000 * 5;
             feedBackMessageTimer.AutoReset = false;
             feedBackMessageTimer.Elapsed += FeedBackMessageTimer_Elapsed;
 
