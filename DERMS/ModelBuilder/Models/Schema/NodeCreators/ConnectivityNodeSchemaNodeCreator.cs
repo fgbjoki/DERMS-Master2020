@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace ClientUI.Models.Schema.NodeCreators
 {
-    public class ConnectivityNodeSchemaNodeCreator : NonClicableSchemaNodeCreator
+    public class ConnectivityNodeSchemaNodeCreator : NonClickableSchemaNodeCreator
     {
         protected override void CustomConfiguration(SchemaNode node)
         {

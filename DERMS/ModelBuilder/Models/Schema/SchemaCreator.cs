@@ -15,7 +15,7 @@ namespace ClientUI.Models.Schema
         private Dictionary<DMSType, SchemaNodeCreator> creators;
         private InterConnectedBreakerSchemaNodeCreator interConnectedBreakerNodeCreator;
 
-        private NonClicableSchemaNodeCreator nonClicable;
+        private NonClickableSchemaNodeCreator nonClicable;
 
         public SchemaCreator()
         {
@@ -23,7 +23,7 @@ namespace ClientUI.Models.Schema
 
             interConnectedBreakerNodeCreator = new InterConnectedBreakerSchemaNodeCreator();
 
-            nonClicable = new NonClicableSchemaNodeCreator();
+            nonClicable = new NonClickableSchemaNodeCreator();
         }
 
         public SchemaGraphWrapper CreateSchema(SubSchemaDTO graphDto)
@@ -97,8 +97,8 @@ namespace ClientUI.Models.Schema
             {
                 { DMSType.BREAKER, new BreakerSchemaNodeCreator() },
                 { DMSType.CONNECTIVITYNODE, new ConnectivityNodeSchemaNodeCreator() },
-                { DMSType.ENERGYCONSUMER, /* TODO CHANGE THIS */ new NonClicableSchemaNodeCreator() },
-                { DMSType.ENERGYSOURCE, /* TODO CHANGE THIS*/ new NonClicableSchemaNodeCreator() },
+                { DMSType.ENERGYCONSUMER, new ConsumerSchemaNodeCreator() },
+                { DMSType.ENERGYSOURCE, /* TODO CHANGE THIS*/ new NonClickableSchemaNodeCreator() },
                 { DMSType.ENERGYSTORAGE, new EnergyStorageSchemaNodeCreator() },
                 { DMSType.WINDGENERATOR, new WindGeneratorSchemaNodeCreator() },
                 { DMSType.SOLARGENERATOR, new SolarPanelSchemaNodeCreator() },

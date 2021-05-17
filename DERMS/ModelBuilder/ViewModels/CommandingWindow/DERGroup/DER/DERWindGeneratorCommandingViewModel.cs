@@ -16,7 +16,7 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         private float startUpSpeed;
         private float nominalSpeed;
 
-        public DERWindGeneratorCommandingViewModel(long derGlobalId, WCFClient<IDERGroupSummaryJob> derGroupSummary) : base(derGlobalId, derGroupSummary, "../../Resources/DER/windturbine1.png")
+        public DERWindGeneratorCommandingViewModel(long derGlobalId, WCFClient<IDERGroupSummaryJob> derGroupSummary) : base(derGlobalId, derGroupSummary, "../../Resources/DER/windTurbine.png")
         {
         }
 

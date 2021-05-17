@@ -178,6 +178,7 @@
     <Compile Include="Models\Schema\NodeCreators\BreakerCommands\BreakerCommand.cs" />
     <Compile Include="Models\Schema\NodeCreators\BreakerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\ConnectivityNodeSchemaNodeCreator.cs" />
+    <Compile Include="Models\Schema\NodeCreators\ConsumerSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\EnergyStorageSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\GeneratorSchemaNodeCreator.cs" />
     <Compile Include="Models\Schema\NodeCreators\InterConnectedBreakerSchemaNodeCreator.cs" />
@@ -356,9 +357,6 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\switch-symbol-circuit-electric-97624.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\DER\windturbine.png" />
