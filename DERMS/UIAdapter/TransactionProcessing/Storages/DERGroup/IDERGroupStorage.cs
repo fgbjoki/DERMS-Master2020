@@ -2,6 +2,6 @@
 {
     public interface IDERGroupStorage
     {
-        void UpdateDERState(long derGid, float activePower);
+        void UpdateDERState(long derGid, float activePower, long locationGid);
     }
 }

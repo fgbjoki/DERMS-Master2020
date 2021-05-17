@@ -10,5 +10,8 @@ namespace Common.UIDataTransferObject.DERGroup
 
         [DataMember]
         public DERGroupEnergyStorageSummaryDTO EnergyStorage { get; set; }
+
+        [DataMember]
+        public long LocationGid { get; set; }
     }
 }

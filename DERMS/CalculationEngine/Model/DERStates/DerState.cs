@@ -25,5 +25,7 @@ namespace CalculationEngine.Model.DERStates
         public long ActivePowerMeasurementGid { get; set; }
 
         public bool IsEnergized { get; set; }
+
+        public long ConnectedSourceGid { get; set; }
     }
 }

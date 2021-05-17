@@ -17,7 +17,7 @@ namespace UIAdapter.PubSub.DynamicHandlers.DER
         {
             foreach (var derState in message.DERStates)
             {
-                derGroupStorage.UpdateDERState(derState.GlobalId, derState.ActivePower);
+                derGroupStorage.UpdateDERState(derState.GlobalId, derState.ActivePower, derState.ConnectedSourceGid);
             }
         }
     }

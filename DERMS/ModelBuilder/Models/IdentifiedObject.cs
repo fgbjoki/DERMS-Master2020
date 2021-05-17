@@ -1,4 +1,5 @@
-﻿using Common.UIDataTransferObject;
+﻿using Common.AbstractModel;
+using Common.UIDataTransferObject;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,23 @@ namespace ClientUI.Models
         public long GlobalId
         {
             get { return globalId; }
-            set { SetProperty(ref globalId, value); }
+            set
+            {
+                SetProperty(ref globalId, value);
+                DMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(value);
+            }
         }
 
         public string Name
         {
             get { return name; }
             set { SetProperty(ref name, value); }
+        }
+
+        public DMSType DMSType
+        {
+            get;
+            private set;
         }
 
         public void Update(IdentifiedObject entity)
