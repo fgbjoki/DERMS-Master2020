@@ -15,7 +15,7 @@ namespace ClientUI.Models.Schema
         private Dictionary<DMSType, SchemaNodeCreator> creators;
         private InterConnectedBreakerSchemaNodeCreator interConnectedBreakerNodeCreator;
 
-        private NonClickableSchemaNodeCreator nonClicable;
+        private NonClickableSchemaNodeCreator nonClickable;
 
         public SchemaCreator()
         {
@@ -23,7 +23,7 @@ namespace ClientUI.Models.Schema
 
             interConnectedBreakerNodeCreator = new InterConnectedBreakerSchemaNodeCreator();
 
-            nonClicable = new NonClickableSchemaNodeCreator();
+            nonClickable = new NonClickableSchemaNodeCreator();
         }
 
         public SchemaGraphWrapper CreateSchema(SubSchemaDTO graphDto)
