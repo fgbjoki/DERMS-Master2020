@@ -26,22 +26,25 @@ namespace ClientUI.CustomControls
 
     public class ContentMenuViewModel : BaseViewModel
     {
-        private SummaryWrapper selectedItem;
+        private ContentItem selectedItem;
 
         public ContentMenuViewModel()
         {
             SummaryManager.Instance.EventAggregator.GetEvent<OpenSummaryEvent>().Subscribe(OpenSummary);
 
-            Summaries = new ObservableCollection<SummaryWrapper>()
+            ContentItem scadaContent = new ContentItem(new SummaryWrapper("SCADA", ContentType.NoActionContent, PackIconKind.AlarmCheck));
+            scadaContent.AddChild(new ContentItem(new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent)));
+            scadaContent.AddChild(new ContentItem(new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch)));
+
+            Summaries = new ObservableCollection<ContentItem>()
             {
-                new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent),
-                new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch),
-                new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda),
-                new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)
+                scadaContent,
+                new ContentItem(new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda)),
+                new ContentItem(new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group))
             };
         }
 
-        public SummaryWrapper SelectedItem
+        public ContentItem SelectedItem
         {
             get { return selectedItem; }
             set
@@ -53,18 +56,23 @@ namespace ClientUI.CustomControls
                 }
             }
         }
-        public ObservableCollection<SummaryWrapper> Summaries { get; set; }
+        public ObservableCollection<ContentItem> Summaries { get; set; }
 
         public void OpenSummaryCommand()
         {
-            SummaryManager.Instance.EventAggregator.GetEvent<ChangeSummaryEvent>().Publish(new ChangeSummaryEventArgs(selectedItem.SummaryType));
+            if (selectedItem.SummaryInfo.SummaryType == ContentType.NoActionContent)
+            {
+                return;
+            }
+
+            SummaryManager.Instance.EventAggregator.GetEvent<ChangeSummaryEvent>().Publish(new ChangeSummaryEventArgs(selectedItem.SummaryInfo.SummaryType));
         }
 
         private void OpenSummary(OpenSummaryEvetnArgs summaryTypeArgs)
         {
-            if (selectedItem.SummaryType != summaryTypeArgs.ContentType)
+            if (selectedItem.SummaryInfo.SummaryType != summaryTypeArgs.ContentType)
             {
-                SelectedItem = Summaries.First(x => x.SummaryType == summaryTypeArgs.ContentType);
+                SelectedItem = Summaries.First(x => x.SummaryInfo.SummaryType == summaryTypeArgs.ContentType);
             }
         }
     }
