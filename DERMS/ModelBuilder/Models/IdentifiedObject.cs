@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace ClientUI.Models
 {
-    public abstract class IdentifiedObject : BindableBase
+    public class IdentifiedObject : BindableBase
     {
         private long globalId;
         private string name;
+        private string description;
+        private string mrid;
 
         public long GlobalId
         {
@@ -27,13 +29,43 @@ namespace ClientUI.Models
         public string Name
         {
             get { return name; }
-            set { SetProperty(ref name, value); }
+            set
+            {
+                if (name != value)
+                {
+                    SetProperty(ref name, value);
+                }
+            }
         }
 
         public DMSType DMSType
         {
             get;
             private set;
+        }
+
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                if (description != value)
+                {
+                    SetProperty(ref description, value);
+                }
+            }
+        }
+
+        public string MRID
+        {
+            get { return mrid; }
+            set
+            {
+                if (mrid != value)
+                {
+                    SetProperty(ref mrid, value);
+                }
+            }
         }
 
         public void Update(IdentifiedObject entity)
@@ -44,6 +76,7 @@ namespace ClientUI.Models
         protected virtual void UpdateProperties(IdentifiedObject entity)
         {
             this.Name = entity.Name;
+            this.Description = entity.Description;
         }
 
         public void Update(IdentifiedObjectDTO entity)
@@ -55,6 +88,7 @@ namespace ClientUI.Models
         {
             this.Name = entity.Name;
             this.GlobalId = entity.GlobalId;
+            this.Description = entity.Description;
         }
     }
 }

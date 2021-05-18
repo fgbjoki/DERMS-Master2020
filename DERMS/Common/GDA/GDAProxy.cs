@@ -16,6 +16,22 @@ namespace Common.GDA
             gdaProxy = new WCFClient<INetworkModelGDAContract>(gdaEndpointName);
         }
 
+        public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
+        {
+            ResourceDescription resultRd = new ResourceDescription();
+            try
+            {
+                resultRd = gdaProxy.Proxy.GetValues(resourceId, propIds);
+            }
+            catch (Exception e)
+            {
+                Logger.Logger.Instance.Log(e);
+                return null;
+            }
+
+            return resultRd;
+        }
+
         public List<ResourceDescription> GetExtentValues(ModelCode type, List<ModelCode> propertyIds)
         {
             List<ResourceDescription> resultRds = new List<ResourceDescription>();
@@ -41,7 +57,7 @@ namespace Common.GDA
             }
             catch (Exception e)
             {
-                Common.Logger.Logger.Instance.Log(e);
+                Logger.Logger.Instance.Log(e);
                 return null;
             }
 

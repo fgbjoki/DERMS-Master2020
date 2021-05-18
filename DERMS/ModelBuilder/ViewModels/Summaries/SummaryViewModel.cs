@@ -35,7 +35,7 @@ namespace ClientUI.ViewModels.Summaries
             }
         }
 
-        public T SelectedItem
+        public virtual T SelectedItem
         {
             get
             {
@@ -72,7 +72,7 @@ namespace ClientUI.ViewModels.Summaries
 
         protected abstract List<T> GetEntitiesFromService();
 
-        private void UpdateEntities(List<T> entities)
+        protected virtual void UpdateEntities(List<T> entities)
         {
             foreach (var entity in entities)
             {

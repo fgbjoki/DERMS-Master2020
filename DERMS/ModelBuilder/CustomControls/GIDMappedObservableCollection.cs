@@ -52,5 +52,17 @@ namespace ClientUI.CustomControls
                 Items[index].Update(item);
             }
         }
+
+        public bool Contains(long globalId)
+        {
+            return gidToIndexMap.ContainsKey(globalId);
+        }
+
+        protected override void ClearItems()
+        {
+            base.ClearItems();
+            gidToIndexMap.Clear();
+            indexToGidMap.Clear();
+        }
     }
 }

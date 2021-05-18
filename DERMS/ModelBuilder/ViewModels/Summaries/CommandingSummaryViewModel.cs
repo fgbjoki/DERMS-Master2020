@@ -9,7 +9,7 @@ using ClientUI.Models;
 
 namespace ClientUI.ViewModels.Summaries
 {
-    public abstract class CommandingSummaryViewModel<TSummaryItem, TDTO, TEventType, TEventArgType> : SummaryViewModel<TSummaryItem>
+    public abstract class CommandingSummaryViewModel<TSummaryItem, TEventType, TEventArgType> : SummaryViewModel<TSummaryItem>
         where TSummaryItem : IdentifiedObject
         where TEventType : OpenCommandingWindowEvent<TEventArgType>, new()
     {

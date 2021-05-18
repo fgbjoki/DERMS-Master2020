@@ -1,6 +1,7 @@
 ﻿using ClientUI.ViewModels;
 using ClientUI.ViewModels.Schema;
 using ClientUI.ViewModels.Summaries.DERGroupSummary;
+using ClientUI.ViewModels.Summaries.NetworkSummary;
 using ClientUI.ViewModels.Summaries.RemotePointSummaries;
 using System.Collections.Generic;
 
@@ -13,7 +14,8 @@ namespace ClientUI.SummaryCreator
         DiscreteRemotePointSummary,
         DiscreteRemotePointCommandingWindow,
         BrowseSchema,
-        DERGroupSummary
+        DERGroupSummary,
+        NetworkModelSummary
     }
 
     public class SummaryViewModelContainer
@@ -63,6 +65,7 @@ namespace ClientUI.SummaryCreator
             viewModels.Add(new AnalogRemotePointSummaryViewModel());
             viewModels.Add(new DiscreteRemotePointSummaryViewModel());
             viewModels.Add(new DERGroupSummaryViewModel());
+            viewModels.Add(new NetworkModelSummaryViewModel());
         }
     }
 }

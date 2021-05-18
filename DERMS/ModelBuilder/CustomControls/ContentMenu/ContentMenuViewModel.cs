@@ -37,7 +37,8 @@ namespace ClientUI.CustomControls
                 new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent),
                 new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch),
                 new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda),
-                new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)
+                new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group),
+                new SummaryWrapper("Network Model", ContentType.NetworkModelSummary, PackIconKind.Network)
             };
         }
 
