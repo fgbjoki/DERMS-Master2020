@@ -9,7 +9,7 @@ namespace ClientUI.Models.DERGroup.CommandingWindow.DERGroup
 {
     public class WindGenerator : Generator
     {
-        public WindGenerator() : base(GeneratorType.Wind, "../../Resources/DER/windturbine1.png")
+        public WindGenerator() : base(GeneratorType.Wind, "../../Resources/DER/windTurbine.png")
         {
         }
     }

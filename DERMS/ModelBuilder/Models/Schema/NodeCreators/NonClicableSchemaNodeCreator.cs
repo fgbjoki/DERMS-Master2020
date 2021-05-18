@@ -9,9 +9,9 @@ using System.Windows.Input;
 
 namespace ClientUI.Models.Schema.NodeCreators
 {
-    public class NonClicableSchemaNodeCreator : SchemaNodeCreator
+    public class NonClickableSchemaNodeCreator : SchemaNodeCreator
     {
-        public NonClicableSchemaNodeCreator() : base(null)
+        public NonClickableSchemaNodeCreator(string imageUrl = "") : base(imageUrl)
         {
         }
 

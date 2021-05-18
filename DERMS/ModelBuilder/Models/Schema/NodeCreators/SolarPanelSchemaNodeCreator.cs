@@ -8,7 +8,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class SolarPanelSchemaNodeCreator : GeneratorSchemaNodeCreator
     {
-        public SolarPanelSchemaNodeCreator() : base("../../Resources/solarpanel1.png")
+        public SolarPanelSchemaNodeCreator() : base("../../Resources/solarPanelSchema.png")
         {
         }
     }

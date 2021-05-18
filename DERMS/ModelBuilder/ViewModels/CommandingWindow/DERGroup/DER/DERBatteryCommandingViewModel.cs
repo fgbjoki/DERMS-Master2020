@@ -11,7 +11,6 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
 {
     public class DERBatteryCommandingViewModel : DERInformationViewModel
     {
-        private static readonly string energyStorageImageName = "energyStorage";
         private static readonly string imageDirectory = "../../Resources/DER/EnergyStorage";
         private float capacity;
         private float stateOfCharge;
@@ -61,19 +60,19 @@ namespace ClientUI.ViewModels.CommandingWindow.DERGroup.DER
         {
             if (stateOfCharge > 75)
             {
-                ImageSource = $"{imageDirectory}/{energyStorageImageName}100.png";
+                ImageSource = $"{imageDirectory}/100.png";
             }
             else if (stateOfCharge > 50)
             {
-                ImageSource = $"{imageDirectory}/{energyStorageImageName}75.png";
+                ImageSource = $"{imageDirectory}/75.png";
             }
             else if (stateOfCharge > 25)
             {
-                ImageSource = $"{imageDirectory}/{energyStorageImageName}50.png";
+                ImageSource = $"{imageDirectory}/50.png";
             }
             else
             {
-                ImageSource = $"{imageDirectory}/{energyStorageImageName}25.png";
+                ImageSource = $"{imageDirectory}/25.png";
             }
         }
     }
