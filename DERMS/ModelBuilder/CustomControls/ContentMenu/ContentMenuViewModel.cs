@@ -41,7 +41,7 @@ namespace ClientUI.CustomControls
                 scadaContent,
                 new ContentItem(new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda)),
                 new ContentItem(new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)),
-                new ContentItem(new SummaryWrapper("Network Model", ContentType.NetworkModelSummary, PackIconKind.Network)
+                new ContentItem(new SummaryWrapper("Network Model", ContentType.NetworkModelSummary, PackIconKind.Network))
             };
         }
 
