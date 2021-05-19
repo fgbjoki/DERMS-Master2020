@@ -39,5 +39,16 @@ namespace ClientUI.CustomControls
             ButtonCloseMenu.Visibility = Visibility.Visible;
             TextBlockSummaries.Visibility = Visibility.Visible;
         }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            ContentMenuViewModel viewModel = DataContext as ContentMenuViewModel;
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            viewModel.SelectedItem = e.NewValue as ContentItem;
+        }
     }
 }

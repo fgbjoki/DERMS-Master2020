@@ -16,14 +16,18 @@
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300"/>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="treeViewSummary"
+                        From="0.0" To="1.0" Duration="0:0:0.2"></DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="50"/>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="treeViewSummary"
+                        From="1.0" To="0.0" Duration="0:0:0.2"></DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
 
@@ -50,15 +54,20 @@
                     <materialDesign:PackIcon Kind="Menu" />
                 </Button>
             </Grid>
-            <ListView ItemsSource="{Binding Summaries}" SelectedItem="{Binding SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Margin="10" Kind="{Binding IconKind}" VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding SummaryName}" FontWeight="Bold" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <TreeView x:Name="treeViewSummary"
+                  ItemsSource="{Binding Summaries}" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  Grid.Row="1" 
+                  SelectedItemChanged="TreeView_SelectedItemChanged"
+                  Opacity="0">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type local:ContentItem}" ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Margin="10" Kind="{Binding SummaryInfo.IconKind}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding SummaryInfo.SummaryName}" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </UserControl>

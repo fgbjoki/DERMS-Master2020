@@ -9,7 +9,7 @@ namespace ClientUI.Models.DERGroup.CommandingWindow.DERGroup
 {
     public class SolarPanel : Generator
     {
-        public SolarPanel() : base(GeneratorType.Solar, "../../Resources/DER/solarpanel.png")
+        public SolarPanel() : base(GeneratorType.Solar, "../../Resources/DER/solarPanel.png")
         {
         }
     }

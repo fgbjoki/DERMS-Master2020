@@ -14,7 +14,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class EnergyStorageSchemaNodeCreator : SchemaNodeCreator
     {
-        public EnergyStorageSchemaNodeCreator() : base("../../Resources/energyStorage.png")
+        public EnergyStorageSchemaNodeCreator() : base("../../Resources/storageSchema.png")
         {
         }
 

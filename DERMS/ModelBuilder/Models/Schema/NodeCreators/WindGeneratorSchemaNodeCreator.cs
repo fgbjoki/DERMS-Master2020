@@ -8,7 +8,7 @@ namespace ClientUI.Models.Schema.NodeCreators
 {
     public class WindGeneratorSchemaNodeCreator : GeneratorSchemaNodeCreator
     {
-        public WindGeneratorSchemaNodeCreator() : base("../../Resources/windTurbine.png")
+        public WindGeneratorSchemaNodeCreator() : base("../../Resources/windTurbineSchema.png")
         {
         }
     }

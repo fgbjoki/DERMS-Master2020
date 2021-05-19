@@ -10,6 +10,7 @@ namespace ClientUI.SummaryCreator
 {
     public enum ContentType
     {
+        NoActionContent,
         AnalogRemotePointSummary,
         AnalogRemotePointCommandingWindow,
         DiscreteRemotePointSummary,
