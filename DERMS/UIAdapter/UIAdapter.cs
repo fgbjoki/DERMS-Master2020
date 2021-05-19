@@ -21,11 +21,14 @@ using Common.UIDataTransferObject.DERGroup;
 using UIAdapter.Commanding;
 using Common.Helpers.Breakers;
 using Common.DataTransferObjects;
+using UIAdapter.TransactionProcessing.Storages.NetworkModel;
+using UIAdapter.SummaryJobs.NetworkModelSummary;
+using Common.UIDataTransferObject.NetworkModel;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -40,11 +43,14 @@ namespace UIAdapter
         private AnalogRemotePointStorage analogRemotePointStorage;
         private DiscreteRemotePointStorage discreteRemotePointStorage;
 
+        private NetworkModelStorage networkModelStorage;
+
         private TransactionProcessing.Storages.DERGroup.DERGroupStorage derGroupStorage;
 
         private DERGroupSummaryJob derGroupSummaryJob;
         private AnalogRemotePointSummaryJob analogRemotePointSummaryJob;
         private DiscreteRemotePointSummaryJob discreteRemotePointSummaryJob;
+        private NetworkModelSummaryJob networkModelSummaryJob;
 
         private DynamicListenersManager dynamicListenerManager;
 
@@ -101,6 +107,7 @@ namespace UIAdapter
             derGroupSummaryJob = new DERGroupSummaryJob(derGroupStorage);
             analogRemotePointSummaryJob = new AnalogRemotePointSummaryJob(analogRemotePointStorage);
             discreteRemotePointSummaryJob = new DiscreteRemotePointSummaryJob(discreteRemotePointStorage);
+            networkModelSummaryJob = new NetworkModelSummaryJob(networkModelStorage);
         }
 
         private void InitializeDynamicHandlers()
@@ -139,6 +146,8 @@ namespace UIAdapter
 
         private void InitializeTransactionStorages()
         {
+            networkModelStorage = new NetworkModelStorage();
+
             analogRemotePointStorage = new AnalogRemotePointStorage();
             discreteRemotePointStorage = new DiscreteRemotePointStorage();
 
@@ -147,7 +156,11 @@ namespace UIAdapter
 
             derGroupStorage = new TransactionProcessing.Storages.DERGroup.DERGroupStorage();
 
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { analogRemotePointStorage, discreteRemotePointStorage, schemaEnergySourceStorage, schemaBreakerStorage, derGroupStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>()
+            {
+                analogRemotePointStorage, discreteRemotePointStorage,
+                schemaEnergySourceStorage, schemaBreakerStorage,
+                derGroupStorage, networkModelStorage });
         }
 
         private void LoadConfigurationFromAppConfig()
@@ -240,6 +253,16 @@ namespace UIAdapter
         public CommandFeedbackMessageDTO ValidateCommand(long derGid, float commandingValue)
         {
             return derCommanding.ValidateCommand(derGid, commandingValue);
+        }
+
+        public List<NetworkModelEntityDTO> GetAllEntities()
+        {
+            return networkModelSummaryJob.GetAllEntities();
+        }
+
+        NetworkModelEntityDTO INetworkModelSummaryJob.GetEntity(long globalId)
+        {
+            return networkModelSummaryJob.GetEntity(globalId);
         }
     }
 }

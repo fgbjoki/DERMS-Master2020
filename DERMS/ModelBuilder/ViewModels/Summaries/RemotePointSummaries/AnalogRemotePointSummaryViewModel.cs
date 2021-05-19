@@ -13,7 +13,7 @@ using ClientUI.Models.RemotePoints;
 
 namespace ClientUI.ViewModels.Summaries.RemotePointSummaries
 {
-    public class AnalogRemotePointSummaryViewModel : CommandingSummaryViewModel<AnalogRemotePointSummaryItem, AnalogRemotePointSummaryDTO, AnalogRemotePointOpenCommandingWindowEvent, AnalogRemotePointOpenCommandingWindowEventArgs>
+    public class AnalogRemotePointSummaryViewModel : CommandingSummaryViewModel<AnalogRemotePointSummaryItem, AnalogRemotePointOpenCommandingWindowEvent, AnalogRemotePointOpenCommandingWindowEventArgs>
     {
         private WCFClient<IAnalogRemotePointSummaryJob> summaryJob;
 

@@ -173,6 +173,13 @@
     <Compile Include="Models\DERGroup\EnergyStorage.cs" />
     <Compile Include="Models\DERGroup\Generator.cs" />
     <Compile Include="Models\IdentifiedObject.cs" />
+    <Compile Include="Models\NetworkModel\DistributedEnergyResource.cs" />
+    <Compile Include="Models\NetworkModel\EnergyStorage.cs" />
+    <Compile Include="Models\NetworkModel\EntityItem.cs" />
+    <Compile Include="Models\NetworkModel\Generators\Generator.cs" />
+    <Compile Include="Models\NetworkModel\Generators\SolarPanel.cs" />
+    <Compile Include="Models\NetworkModel\Generators\WindGenerator.cs" />
+    <Compile Include="Models\NetworkModel\Measurement.cs" />
     <Compile Include="Models\RemotePoints\AnalogRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\DiscreteRemotePointSummaryItem.cs" />
     <Compile Include="Models\RemotePoints\RemotePointSummaryItem.cs" />
@@ -225,6 +232,22 @@
     <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\DERGroupSummary\DERGroupSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\AnalogMeasurementEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BreakerEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\ConductingEquipmentEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\DiscreteMeasurementEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\DistributedEnergyResourceEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\EnergyConsumerEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\EnergySourceEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\EnergyStorageEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\MeasurementEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\SolarPanelEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\WindGeneratorEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\FilterOption.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BaseNetworkModelEntityInformationViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\NetworkModelSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\ViewModelCache\IViewModelCache.cs" />
+    <Compile Include="ViewModels\Summaries\NetworkSummary\ViewModelCache\ViewModelCache.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\AnalogRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\RemotePointSummaries\DiscreteRemotePointSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\SummaryViewModel.cs" />
@@ -266,6 +289,33 @@
     </Compile>
     <Compile Include="Views\MessageBox\MessageBoxView.xaml.cs">
       <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModelSummaryView.xaml.cs">
+      <DependentUpon>NetworkModelSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\AnalogMeasurementEntityInformationViewl.xaml.cs">
+      <DependentUpon>AnalogMeasurementEntityInformationViewl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\BreakerEntityInformationView.xaml.cs">
+      <DependentUpon>BreakerEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\DiscreteMeasurementEntityInformatinoView.xaml.cs">
+      <DependentUpon>DiscreteMeasurementEntityInformatinoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\EnergyConsumerEntityInformationView.xaml.cs">
+      <DependentUpon>EnergyConsumerEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\EnergySourceEntityInformationView.xaml.cs">
+      <DependentUpon>EnergySourceEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\EnergyStorageEntityInformationView.xaml.cs">
+      <DependentUpon>EnergyStorageEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\SolarPanelEntityInformationView.xaml.cs">
+      <DependentUpon>SolarPanelEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkModel\WindGeneratorEntityInformationView.xaml.cs">
+      <DependentUpon>WindGeneratorEntityInformationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SchemaView.xaml.cs">
       <DependentUpon>SchemaView.xaml</DependentUpon>
@@ -351,6 +401,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NetworkModelSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\AnalogMeasurementEntityInformationViewl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\BreakerEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\DiscreteMeasurementEntityInformatinoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\EnergyConsumerEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\EnergySourceEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\EnergyStorageEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\SolarPanelEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkModel\WindGeneratorEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SchemaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -362,6 +448,7 @@
   <ItemGroup>
     <Resource Include="Resources\DER\windturbine.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>

@@ -19,7 +19,6 @@ namespace NetworkManagementService.ServiceStates
         {
             currentModel = temporaryModel;
             currentWorkingModel = currentModel;
-            temporaryModel = null;
 
             return new IdleState();
         }

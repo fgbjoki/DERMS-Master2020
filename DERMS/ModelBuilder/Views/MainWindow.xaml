@@ -7,6 +7,7 @@
         xmlns:views="clr-namespace:ClientUI.Views"
         xmlns:viewModels="clr-namespace:ClientUI.ViewModels"
         xmlns:derGroupViewModel="clr-namespace:ClientUI.ViewModels.Summaries.DERGroupSummary"
+        xmlns:networkModelView="clr-namespace:ClientUI.ViewModels.Summaries.NetworkSummary"
         xmlns:summaryViewModels="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
         xmlns:browseSchemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
@@ -33,6 +34,9 @@
         <DataTemplate DataType="{x:Type derGroupViewModel:DERGroupSummaryViewModel}">
             <views:DERGroupSummaryView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type networkModelView:NetworkModelSummaryViewModel}">
+            <views:NetworkModelSummaryView/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.DataContext>
@@ -57,7 +61,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{Binding ContentViewModel.PageName}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
-                <Separator Grid.Row="1" Visibility="{Binding ContentVisible}" Margin="0,0,40,0"/>
+                <Border Grid.Row="1" Visibility="{Binding ContentVisible}" BorderThickness="0,0,0,1" BorderBrush="White" Margin="0,0,40,0"/>
                 <ContentControl Content="{Binding ContentViewModel}" Grid.Row="2" Margin="0,0,40,0"/>
             </Grid>
         </Grid>

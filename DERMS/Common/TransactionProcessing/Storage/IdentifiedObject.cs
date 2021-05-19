@@ -1,6 +1,6 @@
 ﻿namespace Common.ComponentStorage
 {
-    public abstract class IdentifiedObject
+    public class IdentifiedObject
     {
         public IdentifiedObject(long globalId)
         {

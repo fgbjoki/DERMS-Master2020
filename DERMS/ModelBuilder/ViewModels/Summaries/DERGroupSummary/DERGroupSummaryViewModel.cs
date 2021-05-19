@@ -14,7 +14,7 @@ using ClientUI.Common;
 
 namespace ClientUI.ViewModels.Summaries.DERGroupSummary
 {
-    public class DERGroupSummaryViewModel : CommandingSummaryViewModel<DERGroupSummaryItem, DERGroupSummaryDTO, DERGroupOpenCommandingWindowEvent, DERGroupOpenCommandingWindowEventArgs>
+    public class DERGroupSummaryViewModel : CommandingSummaryViewModel<DERGroupSummaryItem, DERGroupOpenCommandingWindowEvent, DERGroupOpenCommandingWindowEventArgs>
     {
         private WCFClient<IDERGroupSummaryJob> summaryJob;
 

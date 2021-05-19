@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="ClientUI.Views.NetworkModel.EnergyStorageEntityInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views.NetworkModel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewModels"
+             xmlns:measurementViews="clr-namespace:ClientUI.Views.NetworkModel"
+             mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type viewModels:AnalogMeasurementEntityInformationViewModel}">
+            <measurementViews:AnalogMeasurementEntityInformationView />
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Energy storage" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="28"/>
+
+        <Grid Grid.Row="1" Margin="60,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Description" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="GlobalId" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding GlobalId, StringFormat={}0x{0:X16}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Nominal active power" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding NominalPower, StringFormat={}{0} kW}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Capacity" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Capacity, StringFormat={}{0} kWh}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+        </Grid>
+
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0,1,0,0" BorderBrush="White" Margin="0,35,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <TextBlock Text="Measurements" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                    <ListView ItemsSource="{Binding MeasurementViewModels}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card>
+                                    <ContentControl Margin="10" Content="{Binding}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center"/>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

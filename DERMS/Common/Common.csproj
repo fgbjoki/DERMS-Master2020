@@ -100,6 +100,7 @@
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDERGroupSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDiscreteRemotePointSummaryJob.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\INetworkModelSummaryJob.cs" />
     <Compile Include="ServiceLocator\ServiceLocator.cs" />
     <Compile Include="TransactionProcessing\Storage\Helpers\AnalogEntityMapper.cs" />
     <Compile Include="TransactionProcessing\Storage\Helpers\IAnalogEntityMapper.cs" />
@@ -138,6 +139,18 @@
     <Compile Include="UIDataTransferObject\DERGroup\GeneratorType.cs" />
     <Compile Include="UIDataTransferObject\DistributedEnergyResourceDTO.cs" />
     <Compile Include="UIDataTransferObject\IdentifiedObjectDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\AnalogMeasurementDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\BreakerDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\ConductingEquipmentDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\ConsumerDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\DistributedEnergyResourceDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\EnergySourceDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\EnergyStorageDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\SolarPanelDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\WindGeneratorDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\DiscreteMeasurementDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\MeasurementDTO.cs" />
+    <Compile Include="UIDataTransferObject\NetworkModel\NetworkModelEntityDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\AlarmingEnums.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\AnalogRemotePointSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\RemotePoints\DiscreteRemotePointSummaryDTO.cs" />

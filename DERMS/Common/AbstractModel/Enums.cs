@@ -1,12 +1,18 @@
-﻿namespace Common.AbstractModel
+﻿using System.Runtime.Serialization;
+
+namespace Common.AbstractModel
 {
     public enum MeasurementType : short
     {
+        [EnumMember]
         ActiveEnergy = 0,
+        [EnumMember]
         ActivePower = 1,
+        [EnumMember]
         Discrete = 2,
         Humidity = 3,
         Money = 4,
+        [EnumMember]
         Percent = 5,
         SkyCover = 7,
         Status = 8,
@@ -18,10 +24,14 @@
         DeltaPower = 14
     }
 
+    [DataContract]
     public enum SignalDirection: short
     {
+        [EnumMember]
         Read = 1,
+        [EnumMember]
         Write = 2,
+        [EnumMember]
         ReadWrite = 3,
     }
 
