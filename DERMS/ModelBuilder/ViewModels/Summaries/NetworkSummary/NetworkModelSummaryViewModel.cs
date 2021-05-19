@@ -11,19 +11,25 @@ using Common.AbstractModel;
 using Common.Communication;
 using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using Common.UIDataTransferObject.NetworkModel;
+using ClientUI.ViewModels.Summaries.NetworkSummary.Cache;
+using ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewModels;
 
 namespace ClientUI.ViewModels.Summaries.NetworkSummary
 {
     public class NetworkModelSummaryViewModel : SummaryViewModel<IdentifiedObject>
     {
-        private FilterOption selectedFilterOption;
+        private IViewModelCache viewModelCache;
 
-        private IdentifiedObject selectedItem;
+        private FilterOption selectedFilterOption;
 
         private WCFClient<INetworkModelSummaryJob> networkModelSummaryJob;
 
-        public NetworkModelSummaryViewModel() : base("Network Model Summary", ContentType.NetworkModelSummary)
+        private BaseNetworkModelEntityInformationViewModel currentViewModel;
+
+        public NetworkModelSummaryViewModel(IViewModelCache viewModelCache) : base("Network Model Summary", ContentType.NetworkModelSummary)
         {
+            this.viewModelCache = viewModelCache;
+
             networkModelSummaryJob = new WCFClient<INetworkModelSummaryJob>("uiNetworkModelEndpoint");
 
             FilteredItems = new GIDMappedObservableCollection<IdentifiedObject>();
@@ -51,6 +57,21 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
 
         public ObservableCollection<FilterOption> FilterOptions { get; set; }
 
+        public BaseNetworkModelEntityInformationViewModel CurrentViewModel
+        {
+            get
+            {
+                return currentViewModel;
+            }
+            set
+            {
+                if (currentViewModel != value)
+                {
+                    SetProperty(ref currentViewModel, value);
+                }
+            }
+        }
+
         public FilterOption SelectedFilterOption
         {
             get { return selectedFilterOption; }
@@ -74,6 +95,7 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
             set
             {
                 base.SelectedItem = value;
+                ChangeViewModel(base.SelectedItem);
             }
         }
 
@@ -114,6 +136,28 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
                 }
 
                 FilteredItems.AddOrUpdateEntity(entity);
+            }
+        }
+
+        private void ChangeViewModel(IdentifiedObject selectedItem)
+        {
+            if (selectedItem == null)
+            {
+                CurrentViewModel = null;
+                return;
+            }
+
+            var viewModel = viewModelCache.GetViewModel(selectedItem.DMSType);
+
+            try
+            {
+                NetworkModelEntityDTO dto = networkModelSummaryJob.Proxy.GetEntity(selectedItem.GlobalId);
+                viewModel.PopulateFields(dto);
+                CurrentViewModel = viewModel;
+            }
+            catch
+            {
+                // show error
             }
         }
 

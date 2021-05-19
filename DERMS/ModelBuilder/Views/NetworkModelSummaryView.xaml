@@ -5,12 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewModels"
+             xmlns:views="clr-namespace:ClientUI.Views.NetworkModel"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
              TextElement.FontSize="14"
              FontFamily="{materialDesign:MaterialDesignFont}">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type viewModels:EnergyStorageEntityInformationViewModel}">
+            <views:EnergyStorageEntityInformationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:WindGeneratorEntityInformationViewModel}">
+            <views:WindGeneratorEntityInformationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:SolarPanelEntityInformationViewModel}">
+            <views:SolarPanelEntityInformationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:BreakerEntityInformationViewModel}">
+            <views:BreakerEntityInformationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:EnergyConsumerEntityInformationViewModel}">
+            <views:EnergyConsumerEntityInformationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:EnergySourceEntityInformationViewModel}">
+            <views:EnergySourceEntityInformationView />
+        </DataTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -34,7 +56,7 @@
 
                 <Grid Grid.Row="1" Background="#FF1F1F1F">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding FilteredItems}">
+                        <ListView ItemsSource="{Binding FilteredItems}" SelectedItem="{Binding SelectedItem}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -63,7 +85,7 @@
                 <Separator/>
             </StackPanel>
 
-            <ContentControl Grid.Row="1" Content="{Binding ContentViewModel}" Margin="10"/>
+            <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" Margin="10"/>
             
         </Grid>
         </Border>

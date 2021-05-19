@@ -2,11 +2,7 @@
 using Common.GDA;
 using Common.Logger;
 using Common.UIDataTransferObject.NetworkModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UIAdapter.NetworkModel.ConductingEquipment;
 using UIAdapter.NetworkModel.Measurement;
 
