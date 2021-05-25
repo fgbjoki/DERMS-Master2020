@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <converters:ImagePathToImageConverter x:Key="imagePathToImageConverter"/>
-            
+
             <HierarchicalDataTemplate DataType="{x:Type model:SchemaNode}" 
 									  ItemsSource="{Binding Children}">
                 <Border CornerRadius="40">

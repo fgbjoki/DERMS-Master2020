@@ -133,7 +133,9 @@
     <Compile Include="Commanding\CommandingProxy.cs" />
     <Compile Include="Commanding\Type\BreakerCommanding.cs" />
     <Compile Include="Commanding\Type\DERCommanding.cs" />
+    <Compile Include="Common\AttachableProperties\ViewTypeAttachableProperty.cs" />
     <Compile Include="Common\ContextAction.cs" />
+    <Compile Include="Common\DERGroup\TileFillOption.cs" />
     <Compile Include="Common\MessageBox\MessageBoxCreator.cs" />
     <Compile Include="Common\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -141,8 +143,11 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\BoolToSolidColorConverter.cs" />
+    <Compile Include="Converters\LoadToLinerGradientConverter.cs" />
     <Compile Include="Converters\Schema\HorizontalLineConverter.cs" />
     <Compile Include="Converters\Schema\VerticalLineConverter.cs" />
+    <Compile Include="Converters\StateOfChargeToLinearGradientConverter.cs" />
+    <Compile Include="Converters\ViewTypeToVisibilityConverter.cs" />
     <Compile Include="CustomControls\CommandWindow.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentItem.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentMenu.xaml.cs">
@@ -232,6 +237,8 @@
     <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\DERGroupSummary\DERGroupSummaryViewModel.cs" />
+    <Compile Include="Common\ViewType\ViewTypeOption.cs" />
+    <Compile Include="ViewModels\Summaries\DERGroupSummary\TechnologyType.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\AnalogMeasurementEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BreakerEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\ConductingEquipmentEntityInformationViewModel.cs" />
