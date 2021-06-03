@@ -1,4 +1,5 @@
 ﻿using ClientUI.ViewModels;
+using ClientUI.ViewModels.Forecast.Production;
 using ClientUI.ViewModels.Schema;
 using ClientUI.ViewModels.Summaries.DERGroupSummary;
 using ClientUI.ViewModels.Summaries.NetworkSummary;
@@ -17,7 +18,8 @@ namespace ClientUI.SummaryCreator
         DiscreteRemotePointCommandingWindow,
         BrowseSchema,
         DERGroupSummary,
-        NetworkModelSummary
+        NetworkModelSummary,
+        ProductionForecast
     }
 
     public class SummaryViewModelContainer
@@ -52,14 +54,15 @@ namespace ClientUI.SummaryCreator
             List<ContentViewModel> viewModels = new List<ContentViewModel>();
 
             CreateSummaryViewModels(viewModels);
-            CreateSchemaViewModels(viewModels);
+            CreateAdditionalViewModels(viewModels);
 
             return viewModels;
         }
 
-        private void CreateSchemaViewModels(List<ContentViewModel> viewModels)
+        private void CreateAdditionalViewModels(List<ContentViewModel> viewModels)
         {     
             viewModels.Add(new BrowseSchemaViewModel());
+            viewModels.Add(new ProductionForecastViewModel());
         }
 
         private void CreateSummaryViewModels(List<ContentViewModel> viewModels)

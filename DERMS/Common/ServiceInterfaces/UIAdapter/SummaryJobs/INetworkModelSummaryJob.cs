@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.UIDataTransferObject.NetworkModel;
 using System.ServiceModel;
+using Common.AbstractModel;
 
 namespace Common.ServiceInterfaces.UIAdapter.SummaryJobs
 {
@@ -9,6 +10,9 @@ namespace Common.ServiceInterfaces.UIAdapter.SummaryJobs
     {
         [OperationContract]
         List<NetworkModelEntityDTO> GetAllEntities();
+
+        [OperationContract(Name ="GetAllEntitiesWithFilter")]
+        List<NetworkModelEntityDTO> GetAllEntities(List<DMSType> entityTypes);
 
         [OperationContract]
         NetworkModelEntityDTO GetEntity(long globalId);

@@ -42,5 +42,20 @@ namespace Common.WeatherAPI
                 return dataByHour[hour];
             }
         }
+
+        public void LoadAstroDetails(WeatherAstroData astroData)
+        {
+            Sunrise = astroData.Sunrise;
+            Sunset = astroData.Sunset;
+        }
+
+        public DateTime DayTime
+        {
+            get { return date; }
+        }
+
+        public TimeSpan Sunrise { get; private set; }
+
+        public TimeSpan Sunset { get; private set; }
     }
 }

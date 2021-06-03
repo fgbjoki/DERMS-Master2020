@@ -24,11 +24,14 @@ using Common.DataTransferObjects;
 using UIAdapter.TransactionProcessing.Storages.NetworkModel;
 using UIAdapter.SummaryJobs.NetworkModelSummary;
 using Common.UIDataTransferObject.NetworkModel;
+using Common.UIDataTransferObject.Forecast.Production;
+using UIAdapter.Forecast.Production;
+using Common.AbstractModel;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -59,6 +62,8 @@ namespace UIAdapter
         private IBreakerCommanding breakerCommanding;
         private IDERCommanding derCommanding;
 
+        private IProductionForecast productionForecast;
+
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
@@ -66,6 +71,7 @@ namespace UIAdapter
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
             breakerCommanding = new BreakerCommandingProxy(breakerMessageMapping);
             derCommanding = new DERCommandingProxy();
+            productionForecast = new ProductionForecastAggregator();
 
             InitializeTransactionStorages();
 
@@ -263,6 +269,16 @@ namespace UIAdapter
         NetworkModelEntityDTO INetworkModelSummaryJob.GetEntity(long globalId)
         {
             return networkModelSummaryJob.GetEntity(globalId);
+        }
+
+        public ProductionForecastDTO GetProductionForecast(int hours)
+        {
+            return productionForecast.GetProductionForecast(hours);
+        }
+
+        public List<NetworkModelEntityDTO> GetAllEntities(List<DMSType> entityTypes)
+        {
+            return networkModelSummaryJob.GetAllEntities(entityTypes);
         }
     }
 }

@@ -63,6 +63,8 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\ForecastDTO.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\ForecastSampleDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\CommandFeedback.cs" />
     <Compile Include="DataTransferObjects\CommandFeedbackMessageDTO.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERCommandingProcessor.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERStateDeterminator.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\ISchemaRepresentation.cs" />
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\BaseCommand.cs" />
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\ChangeAnalogRemotePointValue.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\INDSCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IDERCommanding.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\ISchema.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDERGroupSummaryJob.cs" />
@@ -138,6 +142,7 @@
     <Compile Include="UIDataTransferObject\DERGroup\DERGroupSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\DERGroup\GeneratorType.cs" />
     <Compile Include="UIDataTransferObject\DistributedEnergyResourceDTO.cs" />
+    <Compile Include="UIDataTransferObject\Forecast\Production\ProductionForecastDTO.cs" />
     <Compile Include="UIDataTransferObject\IdentifiedObjectDTO.cs" />
     <Compile Include="UIDataTransferObject\NetworkModel\AnalogMeasurementDTO.cs" />
     <Compile Include="UIDataTransferObject\NetworkModel\ConductingEquipment\BreakerDTO.cs" />
@@ -163,6 +168,7 @@
     <Compile Include="UIDataTransferObject\Schema\SubSchemaNodeDTO.cs" />
     <Compile Include="WeatherAPI\IWeatherClient.cs" />
     <Compile Include="WeatherAPI\WeatherApiClient.cs" />
+    <Compile Include="WeatherAPI\WeatherAstroData.cs" />
     <Compile Include="WeatherAPI\WeatherDataEnumerator.cs" />
     <Compile Include="WeatherAPI\WeatherDayData.cs" />
     <Compile Include="WeatherAPI\WeatherDayXMLParser.cs" />
@@ -177,6 +183,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\NServiceBus.7.4.4\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

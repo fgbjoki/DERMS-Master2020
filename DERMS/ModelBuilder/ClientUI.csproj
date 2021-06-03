@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
@@ -226,6 +234,12 @@
     <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\EntityCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\DisplayTypeControl.cs" />
+    <Compile Include="ViewModels\Forecast\Production\DTOConverter.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionForecastOption.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionForecastViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\PowerType.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\ProductionSeriesManager.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
     <Compile Include="ViewModels\Schema\ISchemaNodeLocator.cs" />
@@ -243,7 +257,7 @@
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\MeasurementEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\SolarPanelEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\WindGeneratorEntityInformationViewModel.cs" />
-    <Compile Include="ViewModels\Summaries\NetworkSummary\FilterOption.cs" />
+    <Compile Include="Common\EntityFilterOption.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BaseNetworkModelEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\NetworkModelSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\ViewModelCache\IViewModelCache.cs" />
@@ -316,6 +330,9 @@
     </Compile>
     <Compile Include="Views\NetworkModel\WindGeneratorEntityInformationView.xaml.cs">
       <DependentUpon>WindGeneratorEntityInformationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductionForecastView.xaml.cs">
+      <DependentUpon>ProductionForecastView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SchemaView.xaml.cs">
       <DependentUpon>SchemaView.xaml</DependentUpon>
@@ -434,6 +451,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NetworkModel\WindGeneratorEntityInformationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductionForecastView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
