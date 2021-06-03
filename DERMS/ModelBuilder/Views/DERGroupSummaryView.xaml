@@ -169,7 +169,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Border Width="100" Height="100" CornerRadius="2" SnapsToDevicePixels="True" Background="Black" BorderBrush="Black" BorderThickness="3" Opacity="1">
+                        <Border Width="120" Height="120" CornerRadius="2" SnapsToDevicePixels="True" Background="Black" BorderBrush="Black" BorderThickness="3" Opacity="1">
                             <Border.InputBindings>
                                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.DataGridItemDoubleClicked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
 
@@ -215,7 +215,6 @@
                                                                 </Border>
                                                             </Grid>
                                                             <ControlTemplate.Triggers>
-                                                                <!-- Getting vertical style working using technique described here: http://stackoverflow.com/a/6849237/7532 -->
                                                                 <Trigger Property="Orientation" Value="Vertical">
                                                                     <Setter TargetName="Root" Property="LayoutTransform">
                                                                         <Setter.Value>
@@ -239,7 +238,8 @@
                                         </ProgressBar.Style>
                                     </ProgressBar>
                                     <StackPanel Orientation="Vertical" Margin="10">
-                                        <TextBlock Text="{Binding ActivePower}" Foreground="White"/>
+                                        <TextBlock Text="{Binding ActivePower, StringFormat={}AP: {0:N2} kW}" Foreground="White"/>
+                                        <TextBlock Text="{Binding EnergyStorage.ActivePower, StringFormat={}Flex: {0:N2} kW}" Foreground="White" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}SoC: {0:N2}%}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="White"/>
                                 </Grid>
@@ -313,9 +313,8 @@
                                         </ProgressBar.Style>
                                     </ProgressBar>
                                     <StackPanel Orientation="Vertical" Margin="10">
-                                        <TextBlock Text="{Binding ActivePower, StringFormat={}Current:{0}}" Foreground="White"/>
-                                        <TextBlock Text="{Binding MinimumNominalPower, StringFormat={}Min:{0}}" Foreground="White"/>
-                                        <TextBlock Text="{Binding MaximumNominalPower, StringFormat={}Max:{0}}" Foreground="White"/>
+                                        <TextBlock Text="{Binding ActivePower, StringFormat={}AP: {0:N2} kW}" Foreground="White"/>
+                                        <TextBlock Text="{Binding EnergyStorage.ActivePower, StringFormat={}Flex: {0:N2} kW}" Foreground="White" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}SoC: {0:N2}%}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="White"/>
                                 </Grid>
