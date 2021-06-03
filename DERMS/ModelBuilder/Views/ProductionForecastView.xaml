@@ -130,9 +130,12 @@
                                 Visibility="{Binding DisplayControl.DisplayEntity, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}" />
                     </lvc:CartesianChart.Series>
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis IsEnabled="True" ShowLabels="True" Foreground="White" Title="Hour [h]" FontSize="14">
+                        <lvc:Axis IsEnabled="True" ShowLabels="True"
+                                  Foreground="White" Title="Hour [h]" 
+                                  FontSize="12"
+                                  LabelFormatter="{Binding LabelFormater}">
                             <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"/>
+                                <lvc:Separator Step="{Binding AxisXStep}"/>
                             </lvc:Axis.Separator>
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>

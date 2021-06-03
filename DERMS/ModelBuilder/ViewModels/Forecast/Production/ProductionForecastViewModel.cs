@@ -23,6 +23,7 @@ namespace ClientUI.ViewModels.Forecast.Production
 {
     public class ProductionForecastViewModel : SummaryViewModel<IdentifiedObject>
     {
+        private DateTime now;
         private List<DMSType> entitiesOfIntereset;
         private WCFClient<IProductionForecast> client;
         private WCFClient<INetworkModelSummaryJob> networkModel;
@@ -57,6 +58,7 @@ namespace ClientUI.ViewModels.Forecast.Production
 
             InitializeProductionTypeFilters();
             InitializeFilterOptions();
+            InitializeTimeParsingXAxis();
         }
 
         public ProductionForecastOption SelectedProductionType
@@ -121,6 +123,10 @@ namespace ClientUI.ViewModels.Forecast.Production
         public ChartValues<float> WindProduction { get; set; }
 
         public ChartValues<float> EntityProduction { get; set; }
+
+        public Func<double, string> LabelFormater { get; set; }
+
+        public double AxisXStep { get; set; }
 
         public override void StartProcessing()
         {
@@ -249,6 +255,19 @@ namespace ClientUI.ViewModels.Forecast.Production
             {
                 FilteredEntityItems.AddOrUpdateEntity(item);
             }
+        }
+
+        private void InitializeTimeParsingXAxis()
+        {
+            now = DateTime.Now;
+            now = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0);
+
+            AxisXStep = 1;
+            LabelFormater = value =>
+            {
+                var currTimeSpan = now + TimeSpan.FromHours(value);
+                return currTimeSpan.ToString(@"hh\:00 tt");
+            };
         }
     }
 }
