@@ -11,6 +11,9 @@ namespace ClientUI.Models.DERGroup
     public class DERGroupSummaryItem : IdentifiedObject
     {
         private float activePower;
+        private float minimumNominalPower;
+        private float maximumNominalPower;
+
         private string location;
 
         public DERGroupSummaryItem()
@@ -37,6 +40,30 @@ namespace ClientUI.Models.DERGroup
 
         public long LocationGid { get; set; }
 
+        public float MinimumNominalPower
+        {
+            get { return minimumNominalPower; }
+            set
+            {
+                if (minimumNominalPower != value)
+                {
+                    SetProperty(ref minimumNominalPower, value);
+                }
+            }
+        }
+
+        public float MaximumNominalPower
+        {
+            get { return maximumNominalPower; }
+            set
+            {
+                if (maximumNominalPower != value)
+                {
+                    SetProperty(ref maximumNominalPower, value);
+                }
+            }
+        }
+
         protected override void UpdateProperties(IdentifiedObjectDTO entity)
         {
             base.UpdateProperties(entity);
@@ -51,6 +78,9 @@ namespace ClientUI.Models.DERGroup
             ActivePower = dto.ActivePower;
             EnergyStorage.Update(dto.EnergyStorage);
             Generator.Update(dto.Generator);
+
+            MinimumNominalPower = -dto.EnergyStorage.NominalPower;
+            MaximumNominalPower = dto.Generator.NominalPower + dto.EnergyStorage.NominalPower;
         }
 
         protected override void UpdateProperties(IdentifiedObject entity)
