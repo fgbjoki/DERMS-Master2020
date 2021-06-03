@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientUI.ViewModels.Summaries.NetworkSummary
+namespace ClientUI.Common
 {
-    public class FilterOption
+    public class EntityFilterOption
     {
-        public FilterOption(string name, DMSType dmsType)
+        public EntityFilterOption(string name, DMSType dmsType)
         {
             Name = name;
             DMSType = dmsType;

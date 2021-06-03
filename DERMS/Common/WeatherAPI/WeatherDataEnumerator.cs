@@ -5,7 +5,7 @@ namespace Common.WeatherAPI
     class WeatherDataEnumerator : IEnumerator<WeatherHourData>
     {
         private WeatherHourData[] dataByHour;
-        private byte currentElement = 0;
+        private int currentElement = -1;
 
         public WeatherDataEnumerator(WeatherHourData[] dataByHour)
         {
@@ -30,7 +30,7 @@ namespace Common.WeatherAPI
 
         public bool MoveNext()
         {
-            if (currentElement == dataByHour.Length)
+            if (currentElement == dataByHour.Length - 1)
             {
                 return false;
             }
@@ -41,7 +41,7 @@ namespace Common.WeatherAPI
 
         public void Reset()
         {
-            currentElement = 0;
+            currentElement = -1;
         }
 
         public void Dispose()

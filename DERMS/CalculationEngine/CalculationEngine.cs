@@ -26,11 +26,15 @@ using CalculationEngine.Commanding.BreakerCommanding;
 using CalculationEngine.Commanding.DERCommanding;
 using CalculationEngine.TransactionProcessing.Storage.DERCommanding;
 using CalculationEngine.DERStates.CommandScheduler;
+using CalculationEngine.TransactionProcessing.Storage.Forecast;
+using CalculationEngine.Forecast.ProductionForecast;
+using CalculationEngine.Forecast.WeatherForecast;
+using Common.WeatherAPI;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -52,6 +56,8 @@ namespace CalculationEngine
 
         private DERStateStorage derStateStorage;
 
+        private ProductionForecastStorage productionForecastStorage;
+
         private SchemaRepresentation schemaRepresentation;
 
         private DynamicPublisher dynamicPublisher;
@@ -71,6 +77,10 @@ namespace CalculationEngine
         private SchedulerCommandExecutor schedulerCommandExecutor;
         private ICommandScheduler commandScheduler;
 
+        private IWeatherForecastStorage weatherForecastStorage;
+
+        private IProductionForecast productionForecast;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -88,6 +98,7 @@ namespace CalculationEngine
             energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, dynamicPublisher);
             derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher, schedulerCommandExecutor);
             derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
+            productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
 
             InitializePubSub();
         }
@@ -147,6 +158,8 @@ namespace CalculationEngine
             breakerMessageMapping = new BreakerMessageMapping();
             graphManipulator = new GraphBranchManipulator();
             modelResourcesDesc = new ModelResourcesDesc();
+
+            weatherForecastStorage = new WeatherForecastStorage(new WeatherApiClient("3b1ff7b44cbc4a7fa8d124540202911", "Novi Sad"));
         }
 
         private void InitializeStorages()
@@ -159,12 +172,14 @@ namespace CalculationEngine
             derStateStorage = new DERStateStorage();
 
             derCommandingStorage = new DERCommandingStorage();
+
+            productionForecastStorage = new ProductionForecastStorage();
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage, productionForecastStorage });
         }
 
         private EndpointConfiguration InitializeDynamicPublisher()
@@ -252,6 +267,16 @@ namespace CalculationEngine
         public CommandFeedback ValidateCommand(long derGid, float commandingValue)
         {
             return derCommandingProcessor.ValidateCommand(derGid, commandingValue);
+        }
+
+        public ForecastDTO ForecastProductionMinutely(int minutes)
+        {
+            return productionForecast.ForecastProductionMinutely(minutes);
+        }
+
+        public ForecastDTO ForecastProductionHourly(int hours)
+        {
+            return productionForecast.ForecastProductionHourly(hours);
         }
     }
 }

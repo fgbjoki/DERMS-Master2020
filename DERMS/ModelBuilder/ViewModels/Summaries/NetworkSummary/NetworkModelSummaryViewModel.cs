@@ -13,6 +13,7 @@ using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using Common.UIDataTransferObject.NetworkModel;
 using ClientUI.ViewModels.Summaries.NetworkSummary.Cache;
 using ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewModels;
+using ClientUI.Common;
 
 namespace ClientUI.ViewModels.Summaries.NetworkSummary
 {
@@ -20,7 +21,7 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
     {
         private IViewModelCache viewModelCache;
 
-        private FilterOption selectedFilterOption;
+        private EntityFilterOption selectedFilterOption;
 
         private WCFClient<INetworkModelSummaryJob> networkModelSummaryJob;
 
@@ -39,15 +40,15 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
 
         private void InitializeFilterOptions()
         {
-            FilterOptions = new ObservableCollection<FilterOption>()
+            FilterOptions = new ObservableCollection<EntityFilterOption>()
             {
-                new FilterOption("", DMSType.MASK_TYPE),
-                new FilterOption("Wind generator", DMSType.WINDGENERATOR),
-                new FilterOption("Solar panel", DMSType.SOLARGENERATOR),
-                new FilterOption("Energy storage", DMSType.ENERGYSTORAGE),
-                new FilterOption("Consumer", DMSType.ENERGYCONSUMER),
-                new FilterOption("Energy source", DMSType.ENERGYSOURCE),
-                new FilterOption("Breaker", DMSType.BREAKER),
+                new EntityFilterOption("", DMSType.MASK_TYPE),
+                new EntityFilterOption("Wind generator", DMSType.WINDGENERATOR),
+                new EntityFilterOption("Solar panel", DMSType.SOLARGENERATOR),
+                new EntityFilterOption("Energy storage", DMSType.ENERGYSTORAGE),
+                new EntityFilterOption("Consumer", DMSType.ENERGYCONSUMER),
+                new EntityFilterOption("Energy source", DMSType.ENERGYSOURCE),
+                new EntityFilterOption("Breaker", DMSType.BREAKER),
             };
 
             SelectedFilterOption = FilterOptions[0];
@@ -55,7 +56,7 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
 
         public GIDMappedObservableCollection<IdentifiedObject> FilteredItems { get; set; }
 
-        public ObservableCollection<FilterOption> FilterOptions { get; set; }
+        public ObservableCollection<EntityFilterOption> FilterOptions { get; set; }
 
         public BaseNetworkModelEntityInformationViewModel CurrentViewModel
         {
@@ -72,7 +73,7 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary
             }
         }
 
-        public FilterOption SelectedFilterOption
+        public EntityFilterOption SelectedFilterOption
         {
             get { return selectedFilterOption; }
             set

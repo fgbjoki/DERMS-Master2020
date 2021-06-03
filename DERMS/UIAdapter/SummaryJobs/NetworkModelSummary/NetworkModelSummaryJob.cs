@@ -1,4 +1,5 @@
-﻿using Common.ComponentStorage;
+﻿using Common.AbstractModel;
+using Common.ComponentStorage;
 using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using Common.UIDataTransferObject.NetworkModel;
 using System.Collections.Generic;
@@ -22,6 +23,15 @@ namespace UIAdapter.SummaryJobs.NetworkModelSummary
         public List<NetworkModelEntityDTO> GetAllEntities()
         {
             List<NetworkModelItem> entities = storage.GetAllEntities();
+
+            return ConvertEntities(entities);
+        }
+
+        public List<NetworkModelEntityDTO> GetAllEntities(List<DMSType> entityTypes)
+        {
+            List<NetworkModelItem> entities = storage.GetAllEntities();
+
+            entities.RemoveAll(x => !entityTypes.Contains(x.DMSType));
 
             return ConvertEntities(entities);
         }
