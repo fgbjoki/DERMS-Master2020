@@ -12,19 +12,6 @@
             <Border BorderThickness="1" BorderBrush="White" CornerRadius="5" Margin="0,2,10,10">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="10,10,0,10" VerticalAlignment="Center">
-                            <Run Text="Maximum power increase: "/>
-                            <Run Text="{Binding MaximumIncrease}" />
-                            <Run Text=" kW"/>
-                        </TextBlock>
-
-                        <TextBlock Margin="40,10,0,10" VerticalAlignment="Center">
-                            <Run Text="Maximum power decrease: "/>
-                            <Run Text="{Binding MaximumDecrease, StringFormat={}{0:#.##;#.##;0}}" />
-                            <Run Text=" kW"/>
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10,10,0,10" Text="Setpoint: " VerticalAlignment="Center"/>
                         <TextBox Width="150" Margin="20,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Right">
                             <TextBox.Resources>

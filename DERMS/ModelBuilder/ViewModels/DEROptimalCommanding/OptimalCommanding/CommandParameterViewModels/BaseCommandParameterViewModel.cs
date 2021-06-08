@@ -11,9 +11,6 @@ namespace ClientUI.ViewModels.DEROptimalCommanding.OptimalCommanding.CommandPara
 {
     public abstract class BaseCommandParameterViewModel : BaseViewModel
     {
-        private float maximumIncrease;
-        private float maximumDecrease;
-
         private float setPoint;
 
         private bool setpointValid;
@@ -23,36 +20,9 @@ namespace ClientUI.ViewModels.DEROptimalCommanding.OptimalCommanding.CommandPara
         protected BaseCommandParameterViewModel(CommandRequestDTO requestType)
         {
             this.requestType = requestType;
-            // TODO REMOVE THIS
-            MaximumIncrease = 1500;
-            MaximumDecrease = -1500;
         }
 
         public CommandRequestDTO RequestType { get { return requestType; } }
-
-        public float MaximumIncrease
-        {
-            get { return maximumIncrease; }
-            set
-            {
-                if (maximumIncrease != value)
-                {
-                    SetProperty(ref maximumIncrease, value);
-                }
-            }
-        }
-
-        public float MaximumDecrease
-        {
-            get { return maximumDecrease; }
-            set
-            {
-                if (maximumDecrease != value)
-                {
-                    SetProperty(ref maximumDecrease, value);
-                }
-            }
-        }
 
         public float SetPoint
         {
@@ -74,7 +44,5 @@ namespace ClientUI.ViewModels.DEROptimalCommanding.OptimalCommanding.CommandPara
                 SetProperty(ref setpointValid, value);
             }
         }
-
-
     }
 }
