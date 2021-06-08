@@ -18,7 +18,7 @@ namespace CalculationEngine.Commanding.DERCommanding.CommandValidation.EnergySto
             validationFeedback.Successful = energyStorage.StateOfCharge > lowerBoundStateOfCharge;
             if (!validationFeedback.Successful)
             {
-                validationFeedback.Message = "Cannot discharge energy storage which exceeds lower boudn of state of charge!";
+                validationFeedback.Message = $"Cannot discharge energy storage which exceeds lower bound state of charge ({lowerBoundStateOfCharge * 100}%)!";
             }
 
             return validationFeedback;

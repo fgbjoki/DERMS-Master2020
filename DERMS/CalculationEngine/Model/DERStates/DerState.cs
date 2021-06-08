@@ -22,6 +22,8 @@ namespace CalculationEngine.Model.DERStates
             }
         }
 
+        public float NominalPower { get; set; }
+
         public long ActivePowerMeasurementGid { get; set; }
 
         public bool IsEnergized { get; set; }

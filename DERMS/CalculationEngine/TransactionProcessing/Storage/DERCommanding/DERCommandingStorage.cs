@@ -59,6 +59,10 @@ namespace CalculationEngine.TransactionProcessing.Storage.DERCommanding
             {
                 ((EnergyStorage)entity).StateOfCharge = newValue;
             }
+            else if (analogOwner.MeasurementType == MeasurementType.ActivePower)
+            {
+                entity.ActivePower = newValue;
+            }
 
             locker.ExitWriteLock();
         }
@@ -81,7 +85,7 @@ namespace CalculationEngine.TransactionProcessing.Storage.DERCommanding
 
             if (entityDMSType == DMSType.ENERGYSTORAGE)
             {
-                entityAdded &= AddEnergyStorage(item as EnergyStorage);
+                entityAdded &= AddMeasurementMapping(item as EnergyStorage);
             }
 
             locker.ExitWriteLock();
@@ -94,10 +98,12 @@ namespace CalculationEngine.TransactionProcessing.Storage.DERCommanding
             return new DERCommandingStorage(analogEntityMapper);
         }
 
-        private bool AddEnergyStorage(EnergyStorage energyStorage)
+        private bool AddMeasurementMapping(EnergyStorage energyStorage)
         {
             bool addedMeasurement;
+
             addedMeasurement = analogEntityMapper.AddAnalogOwner(energyStorage.StateOfChargeMeasurementGid, MeasurementType.Percent, energyStorage.GlobalId);
+            addedMeasurement &= analogEntityMapper.AddAnalogOwner(energyStorage.ActivePowerMeasurementGid, MeasurementType.ActivePower, energyStorage.GlobalId);
 
             return addedMeasurement;
         }

@@ -89,6 +89,11 @@
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\EnergyStorage\SchedulerCommandCreator\IdleStateCommandCreator.cs" />
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\EnergyStorage\SchedulerCommandCreator\RemoveCommandCreator.cs" />
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\ISchedulerCommandCreator.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\BaseDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\IDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\NominalPowerPercentageOptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\UniformReserveUsageDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\DEROptimalCommandingProcessor.cs" />
     <Compile Include="DERStates\CommandScheduler\CommandScheduler.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\AddCommand.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\PauseCommand.cs" />

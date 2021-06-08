@@ -152,6 +152,7 @@
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\BoolToSolidColorConverter.cs" />
     <Compile Include="Converters\LoadToLinerGradientConverter.cs" />
+    <Compile Include="Converters\MultiValueBindingConverter.cs" />
     <Compile Include="Converters\Schema\HorizontalLineConverter.cs" />
     <Compile Include="Converters\Schema\VerticalLineConverter.cs" />
     <Compile Include="Converters\StateOfChargeToLinearGradientConverter.cs" />
@@ -162,6 +163,11 @@
       <DependentUpon>ContentMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\ContentMenu\ContentMenuViewModel.cs" />
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollection.xaml.cs">
+      <DependentUpon>FeedbackIconCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollectionViewModel.cs" />
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackType.cs" />
     <Compile Include="CustomControls\GIDMappedObservableCollection.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
@@ -220,6 +226,8 @@
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
     <Compile Include="ValidationRules\BinaryValueValidationRule.cs" />
+    <Compile Include="ValidationRules\BindingProxy.cs" />
+    <Compile Include="ValidationRules\DoubleRangeValidationRule.cs" />
     <Compile Include="ValidationRules\IsTextNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -239,6 +247,18 @@
     <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\EntityCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\DEROptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandingTypeOption.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\BaseCommandParameterViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\Commands\CalculateCommand.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\NominalPowerBasedOptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\ReserveBasedOptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\BaseCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\BaseSummarySuggestedValueViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\NominalPowerBasedCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\NominalPowerBasedSuggestedValueViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\ReserveBasedCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\ReserveSuggestedValueViewModel.cs" />
     <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\DisplayTypeControl.cs" />
     <Compile Include="ViewModels\Forecast\Production\DTOConverter.cs" />
     <Compile Include="ViewModels\Forecast\Production\ProductionForecastOption.cs" />
@@ -295,6 +315,15 @@
     </Compile>
     <Compile Include="Views\DERGroupSummaryView.xaml.cs">
       <DependentUpon>DERGroupSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommandingView.xaml.cs">
+      <DependentUpon>DEROptimalCommandingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommanding\CommandingParameters\NominalPowerPercentageCommandingView.xaml.cs">
+      <DependentUpon>NominalPowerPercentageCommandingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommanding\CommandingParameters\ReserveBasedCommandingView.xaml.cs">
+      <DependentUpon>ReserveBasedCommandingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiscreteRemotePointSummaryView.xaml.cs">
       <DependentUpon>DiscreteRemotePointSummaryView.xaml</DependentUpon>
@@ -365,6 +394,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomStyles\MyTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -402,6 +435,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DERGroupSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommandingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommanding\CommandingParameters\NominalPowerPercentageCommandingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommanding\CommandingParameters\ReserveBasedCommandingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,11 +8,8 @@
 
         public float Capacity { get; set; }
 
-        public float StateOfCharge
-        { get;
-            set; }
-        public long StateOfChargeMeasurementGid { get; set; }
+        public float StateOfCharge { get; set; }
 
-        public long ActivePowerMeasurementGid { get; set; }
+        public long StateOfChargeMeasurementGid { get; set; }
     }
 }
