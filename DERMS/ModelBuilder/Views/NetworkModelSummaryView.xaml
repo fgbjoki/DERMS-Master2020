@@ -38,16 +38,16 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- Entity list and filtration -->
-        <Border Grid.Column="0" BorderThickness="1,0,1,1" BorderBrush="White">
             <Grid>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,10,0,0">
+            <Grid Grid.Row="0">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Filter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <ComboBox Margin="0,10,0,19" ItemsSource="{Binding FilterOptions}" SelectedItem="{Binding SelectedFilterOption}" DisplayMemberPath="Name" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="70"/>
@@ -70,11 +70,10 @@
                     </ScrollViewer>
                 </Grid>
             </Grid>
-        </Border>
         
+            <Border Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="White"/>
         <!-- Entity information -->
-        <Border Grid.Column="1" BorderThickness="0,0,1,1" BorderBrush="White">
-            <Grid>
+            <Grid Grid.Column="1" Margin="2,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -82,12 +81,11 @@
 
             <StackPanel Grid.Row="0" Orientation="Vertical">
                 <TextBlock Margin="0,10,0,10" Text="Entity information" HorizontalAlignment="Center"/>
-                <Separator/>
+                <Separator Margin="10,0,0,0"/>
             </StackPanel>
 
             <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" Margin="10"/>
             
         </Grid>
-        </Border>
     </Grid>
 </UserControl>
