@@ -63,6 +63,8 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Communication\WCFDuplexClient.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\DEROptimalCommanding\DEROptimalCommandingFeedbackDTO.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\DEROptimalCommanding\DERUnitFeedbackDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\ForecastDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\ForecastSampleDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
@@ -88,8 +90,12 @@
     <Compile Include="PubSub\Subscriptions\ISubscription.cs" />
     <Compile Include="PubSub\Subscriptions\Subscription.cs" />
     <Compile Include="PubSub\Subscriptions\Topic.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\DEROptimalCommand.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\NominalPowerDEROptimalCommand.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\UniformReserveDEROptimalCommand.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERCommandingProcessor.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IDEROptimalCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERStateDeterminator.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\ISchemaRepresentation.cs" />
@@ -99,6 +105,7 @@
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\INDSCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IDERCommanding.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\IDEROptimalCommandingProxy.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\ISchema.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
@@ -141,6 +148,9 @@
     <Compile Include="UIDataTransferObject\DERGroup\DERGroupGeneratorSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\DERGroup\DERGroupSummaryDTO.cs" />
     <Compile Include="UIDataTransferObject\DERGroup\GeneratorType.cs" />
+    <Compile Include="UIDataTransferObject\DEROptimalCommanding\CommandRequestDTO.cs" />
+    <Compile Include="UIDataTransferObject\DEROptimalCommanding\CommandSequenceRequest.cs" />
+    <Compile Include="UIDataTransferObject\DEROptimalCommanding\SuggsetedCommandSequenceDTO.cs" />
     <Compile Include="UIDataTransferObject\DistributedEnergyResourceDTO.cs" />
     <Compile Include="UIDataTransferObject\Forecast\Production\ProductionForecastDTO.cs" />
     <Compile Include="UIDataTransferObject\IdentifiedObjectDTO.cs" />

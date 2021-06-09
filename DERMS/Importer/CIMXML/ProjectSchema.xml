@@ -646,7 +646,7 @@
 	<cim:EnergyStorage rdf:ID="EnergyStorage3_2">
 		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WindGenerator3_2"/>
-		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:DER.nominalPower>100</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubstationGrbavica"/>
 		<cim:IdentifiedObject.description>Energy Source for wind generator</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>EnergyStorage3_2</cim:IdentifiedObject.mRID>

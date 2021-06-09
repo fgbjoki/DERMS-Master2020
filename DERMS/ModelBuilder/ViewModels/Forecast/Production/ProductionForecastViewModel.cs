@@ -266,7 +266,7 @@ namespace ClientUI.ViewModels.Forecast.Production
             LabelFormater = value =>
             {
                 var currTimeSpan = now + TimeSpan.FromHours(value);
-                return currTimeSpan.ToString(@"hh\:00 tt");
+                return currTimeSpan.ToString(@"HH\:00", System.Globalization.CultureInfo.InstalledUICulture);
             };
         }
     }

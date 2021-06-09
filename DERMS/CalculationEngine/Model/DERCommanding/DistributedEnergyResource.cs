@@ -9,5 +9,8 @@ namespace CalculationEngine.Model.DERCommanding
         }
 
         public float NominalPower { get; set; }
+
+        public float ActivePower { get; set; }
+        public long ActivePowerMeasurementGid { get; set; }
     }
 }

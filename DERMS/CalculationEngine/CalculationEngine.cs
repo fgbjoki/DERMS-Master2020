@@ -30,11 +30,14 @@ using CalculationEngine.TransactionProcessing.Storage.Forecast;
 using CalculationEngine.Forecast.ProductionForecast;
 using CalculationEngine.Forecast.WeatherForecast;
 using Common.WeatherAPI;
+using Common.DataTransferObjects.CalculationEngine.DEROptimalCommanding;
+using Common.ServiceInterfaces.CalculationEngine.DEROptimalCommanding;
+using CalculationEngine.Commanding.DEROptimalCommanding;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -81,6 +84,8 @@ namespace CalculationEngine
 
         private IProductionForecast productionForecast;
 
+        private IDEROptimalCommanding derOptimalCommanding;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -99,6 +104,7 @@ namespace CalculationEngine
             derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher, schedulerCommandExecutor);
             derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
             productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
+            derOptimalCommanding = new DEROptimalCommandingProcessor(derCommandingProcessor, derStateStorage, derCommandingStorage);
 
             InitializePubSub();
         }
@@ -241,7 +247,6 @@ namespace CalculationEngine
 
         public void UpdateBreakers()
         {
-            throw new NotImplementedException();
         }
 
         public bool ValidateCommand(long breakerGid, BreakerState breakerState)
@@ -277,6 +282,11 @@ namespace CalculationEngine
         public ForecastDTO ForecastProductionHourly(int hours)
         {
             return productionForecast.ForecastProductionHourly(hours);
+        }
+
+        public DEROptimalCommandingFeedbackDTO CreateCommand(DEROptimalCommand command)
+        {
+            return derOptimalCommanding.CreateCommand(command);
         }
     }
 }

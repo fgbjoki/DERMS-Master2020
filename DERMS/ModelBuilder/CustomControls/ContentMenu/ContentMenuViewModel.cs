@@ -36,11 +36,15 @@ namespace ClientUI.CustomControls
             scadaContent.AddChild(new ContentItem(new SummaryWrapper("Analog Remote Point", ContentType.AnalogRemotePointSummary, PackIconKind.SettingsInputComponent)));
             scadaContent.AddChild(new ContentItem(new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch)));
 
+            ContentItem derGroup = new ContentItem(new SummaryWrapper("DER Summaries", ContentType.NoActionContent, PackIconKind.VectorUnion));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("DER Optimal Load Distribution", ContentType.DEROptimalCommanding, PackIconKind.Computer)));
+
             Summaries = new ObservableCollection<ContentItem>()
             {
                 scadaContent,
                 new ContentItem(new SummaryWrapper("Schema", ContentType.BrowseSchema, PackIconKind.ViewAgenda)),
-                new ContentItem(new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)),
+                derGroup,
                 new ContentItem(new SummaryWrapper("Network Model", ContentType.NetworkModelSummary, PackIconKind.Network)),
                 new ContentItem(new SummaryWrapper("Production Forecast", ContentType.ProductionForecast, PackIconKind.ChartScatterPlot))
             };

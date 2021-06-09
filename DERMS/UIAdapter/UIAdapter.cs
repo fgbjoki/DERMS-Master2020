@@ -27,11 +27,13 @@ using Common.UIDataTransferObject.NetworkModel;
 using Common.UIDataTransferObject.Forecast.Production;
 using UIAdapter.Forecast.Production;
 using Common.AbstractModel;
+using Common.UIDataTransferObject.DEROptimalCommanding;
+using UIAdapter.Commanding.DEROptimalCommanding;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast, IDEROptimalCommandingProxy
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -63,6 +65,7 @@ namespace UIAdapter
         private IDERCommanding derCommanding;
 
         private IProductionForecast productionForecast;
+        private IDEROptimalCommandingProxy derOptimalCommandingProxy;
 
         public UIAdapter()
         {
@@ -76,6 +79,7 @@ namespace UIAdapter
             InitializeTransactionStorages();
 
             InitializeSchemaRepresentation();
+            derOptimalCommandingProxy = new DEROptimalCommandingProxy(derCommanding, networkModelStorage, derGroupStorage);
 
             InitializeJobs();
 
@@ -279,6 +283,16 @@ namespace UIAdapter
         public List<NetworkModelEntityDTO> GetAllEntities(List<DMSType> entityTypes)
         {
             return networkModelSummaryJob.GetAllEntities(entityTypes);
+        }
+
+        public SuggsetedCommandSequenceDTO GetSuggestedCommandSequence(CommandRequestDTO commandSequenceRequest, float setPoint)
+        {
+            return derOptimalCommandingProxy.GetSuggestedCommandSequence(commandSequenceRequest, setPoint);
+        }
+
+        public CommandFeedbackMessageDTO ExecuteCommandSequence(CommandSequenceRequest commandSequence)
+        {
+            return derOptimalCommandingProxy.ExecuteCommandSequence(commandSequence);
         }
     }
 }
