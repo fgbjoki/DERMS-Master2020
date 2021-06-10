@@ -33,6 +33,7 @@ using Common.WeatherAPI;
 using Common.DataTransferObjects.CalculationEngine.DEROptimalCommanding;
 using Common.ServiceInterfaces.CalculationEngine.DEROptimalCommanding;
 using CalculationEngine.Commanding.DEROptimalCommanding;
+using CalculationEngine.TransactionProcessing.Storage.EnergyImporter;
 
 namespace CalculationEngine
 {
@@ -86,6 +87,9 @@ namespace CalculationEngine
 
         private IDEROptimalCommanding derOptimalCommanding;
 
+        private IEnergyImporterProcessor energyImporter;
+        private EnergyImproterStorage energyImporterStorage;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -100,7 +104,8 @@ namespace CalculationEngine
 
             InitializeCommandScheduler();
 
-            energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, dynamicPublisher);
+            energyImporter = new EnergyImporterProcessor(energyImporterStorage);
+            energyBalanceCalculator = new EnergyBalanceCalculator(energyBalanceStorage, topologyAnalysis, energyImporter, dynamicPublisher);
             derStateDeterminator = new DERStateController(energyBalanceStorage.EnergySourceStorage, derStateStorage, topologyAnalysis, dynamicPublisher, schedulerCommandExecutor);
             derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
             productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
@@ -180,12 +185,14 @@ namespace CalculationEngine
             derCommandingStorage = new DERCommandingStorage();
 
             productionForecastStorage = new ProductionForecastStorage();
+
+            energyImporterStorage = new EnergyImproterStorage();
         }
 
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage, productionForecastStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage, productionForecastStorage, energyImporterStorage });
         }
 
         private EndpointConfiguration InitializeDynamicPublisher()

@@ -7,9 +7,9 @@ namespace CalculationEngine.Forecast.ProductionForecast.Formulas
     {
         protected override float CalculateProduction(SolarPanel generator, WeatherDataInfo weatherData)
         {
-            float solarInsolation = 990 * (1 - 3 * weatherData.CloudCover);
+            float solarInsolation = 990 * (1 - weatherData.CloudCover/100);
             float cellTemperature = weatherData.TemperatureC + 0.025f * solarInsolation;
-            return generator.NominalPower * solarInsolation * 0.00095f * -(1 - 0.005f * (cellTemperature - 25));
+            return generator.NominalPower * solarInsolation * 0.00095f * (1 - 0.005f * (cellTemperature - 25));
         }
 
         protected override bool IsWeatherDataOutOfBounds(SolarPanel generator, WeatherDataInfo weatherData)
