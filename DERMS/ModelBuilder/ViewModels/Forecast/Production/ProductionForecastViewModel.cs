@@ -18,6 +18,7 @@ using Common.ServiceInterfaces.UIAdapter.SummaryJobs;
 using Common.UIDataTransferObject.NetworkModel;
 using ClientUI.CustomControls;
 using ClientUI.ViewModels.Forecast.Production.ProductionSeriesManager;
+using ClientUI.ViewModels.Forecast.Weahter;
 
 namespace ClientUI.ViewModels.Forecast.Production
 {
@@ -43,6 +44,8 @@ namespace ClientUI.ViewModels.Forecast.Production
             entitiesOfIntereset = new List<DMSType>() { DMSType.SOLARGENERATOR, DMSType.WINDGENERATOR };
 
             FilteredEntityItems = new GIDMappedObservableCollection<IdentifiedObject>();
+
+            WeatherForecastViewModel = new WeatherForecastViewModel();
 
             TotalProduction = new ChartValues<float>();
             SolarProduction = new ChartValues<float>();
@@ -126,6 +129,8 @@ namespace ClientUI.ViewModels.Forecast.Production
 
         public Func<double, string> LabelFormater { get; set; }
 
+        public WeatherForecastViewModel WeatherForecastViewModel { get; set; }
+
         public double AxisXStep { get; set; }
 
         public override void StartProcessing()
@@ -144,6 +149,8 @@ namespace ClientUI.ViewModels.Forecast.Production
             {
                 seriesManager.PopulateChart(data.Item1, data.Item2);
             }
+
+            WeatherForecastViewModel.LoadWeatherForecastData();
         }
 
         protected override List<IdentifiedObject> GetEntitiesFromService()

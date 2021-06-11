@@ -34,11 +34,12 @@ using Common.DataTransferObjects.CalculationEngine.DEROptimalCommanding;
 using Common.ServiceInterfaces.CalculationEngine.DEROptimalCommanding;
 using CalculationEngine.Commanding.DEROptimalCommanding;
 using CalculationEngine.TransactionProcessing.Storage.EnergyImporter;
+using Common.DataTransferObjects;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding, IWeatherForecastStorage
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -294,6 +295,16 @@ namespace CalculationEngine
         public DEROptimalCommandingFeedbackDTO CreateCommand(DEROptimalCommand command)
         {
             return derOptimalCommanding.CreateCommand(command);
+        }
+
+        public List<WeatherDataInfo> GetMinutesWeatherInfo(int minutes)
+        {
+            return weatherForecastStorage.GetMinutesWeatherInfo(minutes);
+        }
+
+        public List<WeatherDataInfo> GetHourlyWeatherInfo(int hours)
+        {
+            return weatherForecastStorage.GetHourlyWeatherInfo(hours);
         }
     }
 }

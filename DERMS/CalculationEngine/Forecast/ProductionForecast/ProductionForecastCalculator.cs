@@ -3,6 +3,7 @@ using CalculationEngine.Forecast.WeatherForecast;
 using CalculationEngine.Model.Forecast.ProductionForecast;
 using Common.AbstractModel;
 using Common.ComponentStorage;
+using Common.DataTransferObjects;
 using Common.DataTransferObjects.CalculationEngine;
 using Common.Logger;
 using Common.ServiceInterfaces.CalculationEngine;

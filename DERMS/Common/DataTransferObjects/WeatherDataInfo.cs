@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CalculationEngine.Forecast.WeatherForecast
+namespace Common.DataTransferObjects
 {
     public class WeatherDataInfo
     {

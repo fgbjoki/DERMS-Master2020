@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ClientUI.Views.WeatherForecastType.WeatherForecastView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.Views.WeatherForecastType"
+             xmlns:viewModel="clr-namespace:ClientUI.ViewModels.Forecast.Weahter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d">
+    <materialDesign:Card Grid.Row="0" Margin="0,10,0,10">
+        <Grid d:DataContext="{x:Type viewModel:WeatherForecastViewModel}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <TextBlock Text="Weather forecast" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                <Separator />
+            </StackPanel>
+
+            <Grid Grid.Row="1" MinHeight="300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Margin="5">
+                    <local:WeatherForecastTypeView DataContext="{Binding TemperatureViewModel}" />
+                </Grid>
+
+                <Grid Grid.Column="1" Margin="5">
+                    <local:WeatherForecastTypeView DataContext="{Binding WindViewModel}"/>
+                </Grid>
+
+                <Grid Grid.Column="2" Margin="5">
+                    <local:WeatherForecastTypeView DataContext="{Binding CloudCoverViewModel}" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
