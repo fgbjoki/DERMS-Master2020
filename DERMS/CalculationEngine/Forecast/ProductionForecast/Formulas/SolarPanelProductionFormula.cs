@@ -1,5 +1,5 @@
 ﻿using CalculationEngine.Model.Forecast.ProductionForecast;
-using CalculationEngine.Forecast.WeatherForecast;
+using Common.DataTransferObjects;
 
 namespace CalculationEngine.Forecast.ProductionForecast.Formulas
 {

@@ -119,8 +119,6 @@
     <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\InterpolationValueCreator.cs" />
     <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\RegressionFunctionCreator.cs" />
     <Compile Include="Forecast\WeatherForecast\DataConverter\WeatherDataConverter.cs" />
-    <Compile Include="Forecast\WeatherForecast\IWeatherForecastStorage.cs" />
-    <Compile Include="Forecast\WeatherForecast\WeatherDataInfo.cs" />
     <Compile Include="Forecast\WeatherForecast\WeatherForecastStorage.cs" />
     <Compile Include="Helpers\Topology\BreakerLoopFinder.cs" />
     <Compile Include="CalculationEngine.cs" />

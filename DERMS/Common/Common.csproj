@@ -70,6 +70,7 @@
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\CommandFeedback.cs" />
     <Compile Include="DataTransferObjects\CommandFeedbackMessageDTO.cs" />
+    <Compile Include="DataTransferObjects\WeatherDataInfo.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
     <Compile Include="Helpers\MultipleAutoResetEvent.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERStateDeterminator.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\ISchemaRepresentation.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IWeatherForecastStorage.cs" />
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\BaseCommand.cs" />
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\ChangeAnalogRemotePointValue.cs" />
     <Compile Include="ServiceInterfaces\NetworkDynamicsService\Commands\ChangeDiscreteRemotePointValue.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="ServiceInterfaces\UIAdapter\IDEROptimalCommandingProxy.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\IProductionForecast.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\ISchema.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\IWeatherForecast.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IAnalogRemotePointSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDERGroupSummaryJob.cs" />
     <Compile Include="ServiceInterfaces\UIAdapter\SummaryJobs\IDiscreteRemotePointSummaryJob.cs" />

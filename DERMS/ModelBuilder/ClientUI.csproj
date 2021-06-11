@@ -265,6 +265,11 @@
     <Compile Include="ViewModels\Forecast\Production\ProductionForecastViewModel.cs" />
     <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\PowerType.cs" />
     <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\ProductionSeriesManager.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\BaseWeatherTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\CloudCoverTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\TemperatureTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\WeatherForecastViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\WindTypeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
     <Compile Include="ViewModels\Schema\ISchemaNodeLocator.cs" />
@@ -372,6 +377,12 @@
     </Compile>
     <Compile Include="Views\SchemaView.xaml.cs">
       <DependentUpon>SchemaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WeatherForecastType\WeatherForecastTypeView.xaml.cs">
+      <DependentUpon>WeatherForecastTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WeatherForecastType\WeatherForecastView.xaml.cs">
+      <DependentUpon>WeatherForecastView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -511,6 +522,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SchemaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WeatherForecastType\WeatherForecastTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WeatherForecastType\WeatherForecastView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

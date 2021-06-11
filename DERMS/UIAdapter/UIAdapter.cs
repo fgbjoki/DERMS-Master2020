@@ -29,11 +29,12 @@ using UIAdapter.Forecast.Production;
 using Common.AbstractModel;
 using Common.UIDataTransferObject.DEROptimalCommanding;
 using UIAdapter.Commanding.DEROptimalCommanding;
+using UIAdapter.Forecast.Weather;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast, IDEROptimalCommandingProxy
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast, IDEROptimalCommandingProxy, IWeatherForecast
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -64,6 +65,7 @@ namespace UIAdapter
         private IBreakerCommanding breakerCommanding;
         private IDERCommanding derCommanding;
 
+        private IWeatherForecast weatherForecast;
         private IProductionForecast productionForecast;
         private IDEROptimalCommandingProxy derOptimalCommandingProxy;
 
@@ -74,6 +76,7 @@ namespace UIAdapter
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
             breakerCommanding = new BreakerCommandingProxy(breakerMessageMapping);
             derCommanding = new DERCommandingProxy();
+            weatherForecast = new WeatherForecastProxy();
             productionForecast = new ProductionForecastAggregator();
 
             InitializeTransactionStorages();
@@ -293,6 +296,11 @@ namespace UIAdapter
         public CommandFeedbackMessageDTO ExecuteCommandSequence(CommandSequenceRequest commandSequence)
         {
             return derOptimalCommandingProxy.ExecuteCommandSequence(commandSequence);
+        }
+
+        public List<WeatherDataInfo> GetHourlyWeatherForecast(int hours)
+        {
+            return weatherForecast.GetHourlyWeatherForecast(hours);
         }
     }
 }

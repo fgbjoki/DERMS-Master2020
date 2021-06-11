@@ -1,5 +1,7 @@
 ﻿using CalculationEngine.Forecast.WeatherForecast.DataConverter;
+using Common.DataTransferObjects;
 using Common.Logger;
+using Common.ServiceInterfaces.CalculationEngine;
 using Common.WeatherAPI;
 using System;
 using System.Collections.Generic;

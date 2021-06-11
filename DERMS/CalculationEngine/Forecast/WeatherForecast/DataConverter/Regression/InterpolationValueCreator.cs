@@ -1,4 +1,5 @@
 ﻿using CalculationEngine.Forecast.WeatherForecast.DataConverter.Regression.Functions;
+using Common.DataTransferObjects;
 using Common.WeatherAPI;
 using System;
 using System.Collections.Generic;
