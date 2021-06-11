@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:helper="clr-namespace:ClientUI.Common"
+             xmlns:viewModel="clr-namespace:ClientUI.ViewModels.Schema"
              xmlns:model="clr-namespace:ClientUI.Models.Schema"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:ClientUI.Converters"
+             xmlns:pieChart="clr-namespace:ClientUI.CustomControls.PieChart"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cmd="http://prismlibrary.com/"
              mc:Ignorable="d">
@@ -91,7 +93,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -106,21 +108,24 @@
         </ScrollViewer>
 
         <Grid Grid.Column="1">
-            <!-- TODO ADD WIDGETs for energy balance -->
-            <StackPanel Orientation="Vertical">
-                <TextBlock>
-                    <Run Text="Demand energy: "/>
-                    <Run Text="{Binding EnergyBalance.DemandEnergy, StringFormat={}{0:N2} kWh}"/>
-                </TextBlock>
-                <TextBlock>
-                    <Run Text="Produced energy: "/>
-                    <Run Text="{Binding EnergyBalance.ProducedEnergy, StringFormat={}{0:N2} kWh}"/>
-                </TextBlock>
-                <TextBlock>
-                    <Run Text="Imported energy: "/>
-                    <Run Text="{Binding EnergyBalance.ImportedEnergy, StringFormat={}{0:N2} kWh}"/>
-                </TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" Margin="5" Grid.Row="0">
+                <TextBlock Text="Demand energy" FontSize="24" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding EnergyBalance.DemandEnergy, StringFormat={}{0:N2} kWh}" HorizontalAlignment="Center" Margin="0,3,0,0" FontSize="24"/>
             </StackPanel>
+            <pieChart:PieChartView Grid.Row="1" DataContext="{Binding ResponseViewModel}"/>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center" Text="DER production" FontSize="24"/>
+                <pieChart:PieChartView Grid.Row="1" DataContext="{Binding ProductionPerTypeViewModel}"/>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

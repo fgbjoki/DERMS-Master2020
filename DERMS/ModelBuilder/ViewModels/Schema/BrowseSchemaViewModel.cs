@@ -121,7 +121,11 @@ namespace ClientUI.ViewModels.Schema
                 return;
             }
 
-            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateSubstations(entities)));
+            try
+            {
+                Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateSubstations(entities)));
+            }
+            catch { }
         }
 
         private void FetchAndOpenSchema(long substationGid, long locatedEntityGid)

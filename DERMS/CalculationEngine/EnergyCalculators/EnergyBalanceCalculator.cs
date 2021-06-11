@@ -84,25 +84,30 @@ namespace CalculationEngine.EnergyCalculators
 
                     IEnumerable<long> connectedNodeGids = topologyReader.Read(energySource.GlobalId);
 
-                    float demandValue = energyConsumption.Calculate(energySource.GlobalId, connectedNodeGids);
-                    float producedValue = energyProduction.Calculate(energySource.GlobalId, connectedNodeGids);
+                    ClearDERProduction(calculation);
+
+                    float demandValue = energyConsumption.Calculate(calculation, connectedNodeGids);
+                    float producedValue = energyProduction.Calculate(calculation, connectedNodeGids);
 
                     calculation.Demand = demandValue;
                     calculation.Production = producedValue;
 
                     LogCurrentEnergyBalance(calculation);
 
+                    float powerToImport = calculation.Demand - calculation.Production;
+
+                    energyImporter.ChangeSourceImportPower(energySource.GlobalId, powerToImport);
+
                     EnergyBalanceChanged newEnergyBalance = new EnergyBalanceChanged()
                     {
                         DemandEnergy = calculation.Demand,
                         EnergySourceGid = calculation.EnergySourceGid,
                         ImportedEnergy = calculation.Imported,
-                        ProducedEnergy = calculation.Production
+                        ProducedEnergy = calculation.Production,
+                        SolarEnergyProduced = calculation.DERProductions[0].TotalProduction,
+                        WindEnergyProduced = calculation.DERProductions[1].TotalProduction,
+                        EnergyStorageEnergyProduced = calculation.DERProductions[2].TotalProduction
                     };
-
-                    float powerToImport = newEnergyBalance.DemandEnergy - newEnergyBalance.ProducedEnergy;
-
-                    energyImporter.ChangeSourceImportPower(energySource.GlobalId, powerToImport);
 
                     dynamicPublisher.Publish(newEnergyBalance);
                 }
@@ -150,11 +155,10 @@ namespace CalculationEngine.EnergyCalculators
                             return;
                         }
 
-                        calculatingUnit.Recalculate(calculation, delta);
+                        calculatingUnit.Recalculate(calculation, conductingEquipmentGid, delta);
 
                         LogCurrentEnergyBalance(calculation);
                     }
-
                 }
 
                 foreach (var calculation in energyBalanceCalculations.Values)
@@ -164,7 +168,10 @@ namespace CalculationEngine.EnergyCalculators
                         DemandEnergy = calculation.Demand,
                         EnergySourceGid = calculation.EnergySourceGid,
                         ImportedEnergy = calculation.Imported,
-                        ProducedEnergy = calculation.Production
+                        ProducedEnergy = calculation.Production,
+                        SolarEnergyProduced = calculation.DERProductions[0].TotalProduction,
+                        WindEnergyProduced = calculation.DERProductions[1].TotalProduction,
+                        EnergyStorageEnergyProduced = calculation.DERProductions[2].TotalProduction
                     };
 
                     float powerToImport = calculation.Demand - calculation.Production;
@@ -185,12 +192,22 @@ namespace CalculationEngine.EnergyCalculators
             };
         }
 
+        private void ClearDERProduction(EnergyBalanceCalculation calculation)
+        {
+            calculation.DERProductions.ForEach(x => x.TotalProduction = 0);
+        }
+
         private void LogCurrentEnergyBalance(EnergyBalanceCalculation calculation)
         {
             Logger.Instance.Log($"Source: {calculation.EnergySourceGid}");
             Logger.Instance.Log($"Demand: {calculation.Demand}");
             Logger.Instance.Log($"Production: {calculation.Production}");
             Logger.Instance.Log($"Imported: {calculation.Imported}\n");
+        }
+
+        private CalculationObject GetObjectCaluclation(long conductingEquipmentGid)
+        {
+            return energyBalanceStorage.GetEntity(conductingEquipmentGid);
         }
 
         private float ChangeAnalogValue(long measurementGid, float newMeasurementValue)

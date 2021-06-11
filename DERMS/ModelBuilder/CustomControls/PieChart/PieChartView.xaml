@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ClientUI.CustomControls.PieChart.PieChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClientUI.CustomControls.PieChart"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d">
+    <Grid d:DataContext="{x:Type local:PieCharViewModel}">
+        <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" LegendLocation="Bottom" Hoverable="False" VerticalAlignment="Top" MinWidth="300" MinHeight="300" InnerRadius="70" Series="{Binding SeriesCollection}">
+            <lvc:PieChart.ChartLegend>
+                <lvc:DefaultLegend BulletSize="20"></lvc:DefaultLegend>
+            </lvc:PieChart.ChartLegend>
+            <lvc:PieChart.DataTooltip>
+                <lvc:DefaultTooltip BulletSize="20"></lvc:DefaultTooltip>
+            </lvc:PieChart.DataTooltip>
+        </lvc:PieChart>
+    </Grid>
+</UserControl>
