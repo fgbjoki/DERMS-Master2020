@@ -1,10 +1,14 @@
 ﻿using ClientUI.Common;
+using ClientUI.CustomControls.PieChart;
 using ClientUI.Models.Schema;
 using ClientUI.Models.Schema.Nodes;
 using Common.AbstractModel;
 using Common.Communication;
 using Common.ServiceInterfaces.UIAdapter;
 using Common.UIDataTransferObject.Schema;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +38,8 @@ namespace ClientUI.ViewModels.Schema
 
             Nodes = new ObservableCollection<SchemaNode>();
 
+            InitializePieCharts();
+
             InitializeGraph(graphWrapper);
 
             InitializeTimer();
@@ -44,6 +50,10 @@ namespace ClientUI.ViewModels.Schema
         public long EnergySourceGlobalId { get; set; }
 
         public SchemaEnergyBalance EnergyBalance { get { return energyBalance; } }
+
+        public ResponsePieChartViewModel ResponseViewModel { get; set; }
+
+        public ProductionPerTypePieChartViewModel ProductionPerTypeViewModel { get; set; }
 
         public void StopProcessingGraph()
         {
@@ -94,14 +104,23 @@ namespace ClientUI.ViewModels.Schema
 
         private void Update(SubSchemaConductingEquipmentEnergized currentNodeStates, SchemaEnergyBalanceDTO energyBalance)
         {
-            EnergyBalance.DemandEnergy = energyBalance.DemandEnergy;
-            EnergyBalance.ImportedEnergy = energyBalance.ImportedEnergy;
-            EnergyBalance.ProducedEnergy = EnergyBalance.ProducedEnergy;
+            PopulateEnergyBalance(energyBalance);
 
             foreach (var newNodeState in currentNodeStates.Nodes.Values)
             {
                 PopulateNodesWithNewStates(newNodeState);
             }
+        }
+
+        private void PopulateEnergyBalance(SchemaEnergyBalanceDTO energyBalance)
+        {
+            EnergyBalance.DemandEnergy = energyBalance.DemandEnergy;
+            ResponseViewModel.Imported = EnergyBalance.ImportedEnergy = energyBalance.ImportedEnergy;
+            ResponseViewModel.DERs = EnergyBalance.ProducedEnergy = energyBalance.ProducedEnergy;
+
+            ProductionPerTypeViewModel.SolarEnergyProduced = energyBalance.SolarEnergyProduction;
+            ProductionPerTypeViewModel.WindEnergyProduced = energyBalance.WindEnergyProduction;
+            ProductionPerTypeViewModel.EnergyStorageEnergyProduced = energyBalance.EnergyStorageEnergyProduction;
         }
 
         private void PopulateNodesWithNewStates(SubSchemaNodeDTO dtoNode)
@@ -138,5 +157,16 @@ namespace ClientUI.ViewModels.Schema
             fetchNewDataTimer.Elapsed += FetchNewDataTimer_Elapsed;
         }
 
+        private void InitializePieCharts()
+        {
+            ResponseViewModel = new ResponsePieChartViewModel();
+            ResponseViewModel.Imported = energyBalance.ImportedEnergy;
+            ResponseViewModel.DERs = energyBalance.ProducedEnergy;
+
+            ProductionPerTypeViewModel = new ProductionPerTypePieChartViewModel();
+            ProductionPerTypeViewModel.SolarEnergyProduced = energyBalance.SolarEnergyProduced;
+            ProductionPerTypeViewModel.WindEnergyProduced = energyBalance.WindEnergyProduced;
+            ProductionPerTypeViewModel.EnergyStorageEnergyProduced = energyBalance.EnergyStorageEnergyProduced;
+        }
     }
 }

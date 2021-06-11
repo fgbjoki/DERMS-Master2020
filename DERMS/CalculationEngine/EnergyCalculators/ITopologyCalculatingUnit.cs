@@ -4,7 +4,7 @@ namespace CalculationEngine.EnergyCalculators
 {
     public interface ITopologyCalculatingUnit
     {
-        float Calculate(long sourceGid, IEnumerable<long> connectedNodesGids);
-        void Recalculate(EnergyBalanceCalculation energyBalance, float delta);
+        float Calculate(EnergyBalanceCalculation energyBalanceCalculation, IEnumerable<long> connectedNodesGids);
+        void Recalculate(EnergyBalanceCalculation energyBalance, long conductingEquipmentGid, float delta);
     }
 }

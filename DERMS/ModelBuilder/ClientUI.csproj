@@ -169,6 +169,12 @@
     <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollectionViewModel.cs" />
     <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackType.cs" />
     <Compile Include="CustomControls\GIDMappedObservableCollection.cs" />
+    <Compile Include="CustomControls\PieChart\PieChartView.xaml.cs">
+      <DependentUpon>PieChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PieChart\PieCharViewModel.cs" />
+    <Compile Include="CustomControls\PieChart\ProductionPerTypePieChartViewModel.cs" />
+    <Compile Include="CustomControls\PieChart\ResponsePieChartViewModel.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
     <Compile Include="Events\ContentMenu\OpenSummaryEvent.cs" />
@@ -406,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\PieChart\PieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
