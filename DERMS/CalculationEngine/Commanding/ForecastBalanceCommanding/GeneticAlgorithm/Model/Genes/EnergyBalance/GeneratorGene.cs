@@ -2,9 +2,9 @@
 
 namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorithm.Model.EnergyBalance.Genes
 {
-    public abstract class GeneratorGene : DERGene
+    public class GeneratorGene : DERGene
     {
-        public GeneratorGene(long globalId, float nominalPower, float activePower) : base(globalId, nominalPower, activePower)
+        public GeneratorGene(long globalId, float activePower) : base(globalId, 0, activePower)
         {
         }
 

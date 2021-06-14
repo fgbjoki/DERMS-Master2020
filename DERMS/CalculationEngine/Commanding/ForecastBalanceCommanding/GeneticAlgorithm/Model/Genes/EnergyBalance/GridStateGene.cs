@@ -12,6 +12,8 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
 
         public List<DERGene> DERGenes { get; set; }
 
+        public float EnergyDemand { get; set; }
+
         public override void PopulateValues(Gene g)
         {
             base.PopulateValues(g);
@@ -25,6 +27,8 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
             {
                 DERGenes[i].PopulateValues(gridStateGene.DERGenes[i]);
             }
+
+            gridStateGene.EnergyDemand = EnergyDemand;
         }
     }
 }

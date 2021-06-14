@@ -8,6 +8,6 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
         /// <summary>
         /// Interval in seconds between two grid gene states.
         /// </summary>
-        public ulong IntervalSimulation { get; set; }
+        public ulong SimulationInterval { get; set; }
     }
 }

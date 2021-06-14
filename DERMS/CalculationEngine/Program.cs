@@ -14,6 +14,10 @@ namespace CalculationEngine
             serviceHost.Open();
 
             Console.WriteLine("Calculation Engine ready...");
+            Console.WriteLine("Press enter to debug...");
+            Console.ReadLine();
+            calculationEngine.Compute();
+            Console.WriteLine("Press enter to stop the service...");
             Console.ReadLine();
         }
     }

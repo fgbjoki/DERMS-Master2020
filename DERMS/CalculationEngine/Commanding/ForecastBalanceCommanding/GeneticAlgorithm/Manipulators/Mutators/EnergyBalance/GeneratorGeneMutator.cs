@@ -6,7 +6,7 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
     {
         public override void Mutate(GeneratorGene gene)
         {
-            gene.IsEnergized = random.Next(0, 1) == 1 ? true : false;
+            gene.IsEnergized = random.Next(0, 2) == 1 ? true : false;
         }
     }
 }

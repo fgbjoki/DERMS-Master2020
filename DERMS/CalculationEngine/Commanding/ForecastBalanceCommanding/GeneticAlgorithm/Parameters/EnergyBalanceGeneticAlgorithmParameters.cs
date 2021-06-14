@@ -12,22 +12,21 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
 {
     public class EnergyBalanceGeneticAlgorithmParameters : BaseGeneticAlgorithmParameters<GridStateGene>
     {
-        public EnergyBalanceGeneticAlgorithmParameters(float lowerBoundStateOfCharge = 0.2f, float upperBoundStateOfCharge = 1f, ulong simulationInterval = 15 * 60)
+        public EnergyBalanceGeneticAlgorithmParameters(BoundaryParameteres boundaryParameters)
         {
-            FitnessParameters = new EnergyBalanceFitnessparamter();
+            BoundaryParameters = boundaryParameters;
 
-            EnergyStorageActivePowerCalculation esAPCalculator = new EnergyStorageActivePowerCalculation(lowerBoundStateOfCharge, upperBoundStateOfCharge, simulationInterval);
-            GridStateFitnessCalculator gridStateFitnessCalculator = new GridStateFitnessCalculator(FitnessParameters);
+            EnergyStorageActivePowerCalculation esAPCalculator = new EnergyStorageActivePowerCalculation(boundaryParameters);
+            GridStateFitnessCalculator gridStateFitnessCalculator = new GridStateFitnessCalculator(BoundaryParameters);
 
             ManipulatorWrapper = new ManipulatorsWrapper<GridStateGene>()
             {
                 ChromosomeSelector = new EnergyBalanceSelector(gridStateFitnessCalculator),
-                Mutator = new GridStateGeneMutator(esAPCalculator),
-                GeneCreator = new GridStateChromosomeCreator(new GridStateGeneCreator(esAPCalculator))
+                Mutator = new GridStateGeneMutator(esAPCalculator) { SimulationInterval = boundaryParameters.SimulationInterval },
+                GeneCreator = new GridStateChromosomeCreator(new GridStateGeneCreator(esAPCalculator) { SimulationInterval = boundaryParameters.SimulationInterval })
             };
         }
 
-
-        public EnergyBalanceFitnessparamter FitnessParameters { get; set; }
+        public BoundaryParameteres BoundaryParameters { get; set; }
     }
 }

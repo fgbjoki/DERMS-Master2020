@@ -18,7 +18,7 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
             foreach (var indexToMutate in GetMutationIndexes(population.Chromosomes.Count, numberOfChromosomesToMutate))
             {
                 var chromosome = population.Chromosomes[indexToMutate];
-                int numberOfGenesToMutate = Convert.ToInt32(Math.Round(chromosome.Genes.Count * mutationProbability));
+                int numberOfGenesToMutate = Convert.ToInt32(Math.Round(chromosome.Genes.Count * geneMutationRatio));
 
                 foreach (var geneIndexToMutate in GetMutationIndexes(chromosome.Genes.Count, numberOfGenesToMutate))
                 {

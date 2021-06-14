@@ -6,15 +6,15 @@ using CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorithm.He
 
 namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorithm.Manipulators.FitnessCalculators.EnergyBalance
 {
-    public class GridStateFitnessCalculator : BaseFitnessCalculator<GridStateGene, EnergyBalanceFitnessparamter>
+    public class GridStateFitnessCalculator : BaseFitnessCalculator<GridStateGene, BoundaryParameteres>
     {
         private EnergyStorageGeneFitnessCalculator energyStorageFitnessCalculator;
         private GeneratorGeneFitnessCalculator generatorFitnessCalculator;
         private NetworkEnergyImportFitnessCalculator networkImportFitnessCalculator;
 
-        private EnergyBalanceFitnessparamter fitnessParameters;
+        private BoundaryParameteres fitnessParameters;
 
-        public GridStateFitnessCalculator(EnergyBalanceFitnessparamter fitnessParameters)
+        public GridStateFitnessCalculator(BoundaryParameteres fitnessParameters)
         {
             this.fitnessParameters = fitnessParameters;
 
@@ -23,7 +23,7 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
             networkImportFitnessCalculator = new NetworkEnergyImportFitnessCalculator();
         }
 
-        public override double Calculate(Chromosome<GridStateGene> chromosome)
+        public override void Calculate(Chromosome<GridStateGene> chromosome)
         {
             LoadFitnessParameters();
 
@@ -32,6 +32,7 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
 
             foreach (var gridStateGene in chromosome.Genes)
             {
+                float geneResponse = 0;
                 foreach (var gene in gridStateGene.DERGenes)
                 {
                     IDERGeneFitnessCalculator geneFitnessCalculator = null;
@@ -46,21 +47,21 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
                     }
 
                     fitnessValue += geneFitnessCalculator.Calculate(gene);
-                    response += gene.ActivePower;
+                    geneResponse += gene.ActivePower;
                 }
+
+                double networkFitnessValue = networkImportFitnessCalculator.Calculate(gridStateGene.EnergyDemand, geneResponse);
+                if (double.IsInfinity(networkFitnessValue))
+                {
+                    chromosome.FitnessValue = networkFitnessValue;
+                    return;
+                }
+
+                response += geneResponse;
+                fitnessValue += networkFitnessValue;
             }
 
-            double networkFitnessValue = networkImportFitnessCalculator.Calculate(fitnessParameters.EnergyDemand, response);
-
-            if (double.IsInfinity(networkFitnessValue))
-            {
-                return networkFitnessValue;
-            }
-
-            fitnessValue += networkFitnessValue;
             chromosome.FitnessValue = fitnessValue;
-
-            return fitnessValue;
         }
 
         private float CostOfNetworkEnergyUse

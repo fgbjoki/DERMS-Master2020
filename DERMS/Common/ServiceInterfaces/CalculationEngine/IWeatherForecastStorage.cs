@@ -12,5 +12,7 @@ namespace Common.ServiceInterfaces.CalculationEngine
 
         [OperationContract]
         List<WeatherDataInfo> GetHourlyWeatherInfo(int hours);
+
+        List<WeatherDataInfo> GetNextDayWeatherInfo();
     }
 }

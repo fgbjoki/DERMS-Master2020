@@ -3,7 +3,7 @@ using CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorithm.Mo
 
 namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorithm.Manipulators.FitnessCalculators.EnergyBalance
 {
-    public abstract class EnergyBalanceFitnessCalculator : BaseFitnessCalculator<EnergyBalanceGene, EnergyBalanceFitnessparamter>
+    public abstract class EnergyBalanceFitnessCalculator : BaseFitnessCalculator<EnergyBalanceGene, BoundaryParameteres>
     {
     }
 }

@@ -6,6 +6,6 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
     public abstract class BaseFitnessCalculator<GeneType, FitnessParameterType>
         where GeneType : Gene, new()
     {
-        public abstract double Calculate(Chromosome<GeneType> chromosome);
+        public abstract void Calculate(Chromosome<GeneType> chromosome);
     }
 }

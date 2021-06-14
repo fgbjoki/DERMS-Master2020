@@ -27,7 +27,6 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
         private Timer algorithmStopper;
         private bool shouldContinue;
 
-
         public GeneticAlgorithm(TT parameters)
         {
             locker = new object();
@@ -90,7 +89,7 @@ namespace CalculationEngine.Commanding.ForecastBalanceCommanding.GeneticAlgorith
         private void Crossover(Population<T> currentPopulation)
         {
             BaseChromosomeCreator<T> chromosomeCreator = GetChromosomeCreator();
-            crossoverManipulator.Crossover<T>(chromosomeCreator, currentPopulation, parameters.PopulationSize);
+            crossoverManipulator.Crossover(chromosomeCreator, currentPopulation, parameters.PopulationSize);
         }
 
         private void SetUpTimer()
