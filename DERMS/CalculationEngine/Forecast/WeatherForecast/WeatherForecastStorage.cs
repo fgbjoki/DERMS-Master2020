@@ -147,6 +147,29 @@ namespace CalculationEngine.Forecast.WeatherForecast
             return info;
         }
 
+        public List<WeatherDataInfo> GetNextDayWeatherInfo()
+        {
+            List<WeatherDataInfo> info;
+
+            locker.AcquireReaderLock(lockerTimeout);
+
+            int minutesADay = 60 * 24;
+            DateTime currentTime = weatherData[currentWeatherData].CurrentTime;
+            int minutesUntillNextDay = minutesADay - (currentTime.Hour * 60 + currentTime.Minute);
+
+            if (minutesUntillNextDay + currentWeatherData + minutesADay >= weatherData.Count)
+            {
+                locker.ReleaseReaderLock();
+                return new List<WeatherDataInfo>();
+            }
+
+            info = weatherData.GetRange(currentWeatherData + minutesUntillNextDay, minutesADay);
+
+            locker.ReleaseReaderLock();
+            
+            return info;
+        }
+
         public List<WeatherDataInfo> GetHourlyWeatherInfo(int hours)
         {
             List<WeatherDataInfo> info = new List<WeatherDataInfo>(hours + 1);

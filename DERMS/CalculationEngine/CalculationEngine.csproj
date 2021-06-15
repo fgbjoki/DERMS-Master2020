@@ -94,6 +94,64 @@
     <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\NominalPowerPercentageOptimalCommandingProcessor.cs" />
     <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\UniformReserveUsageDEROptimalCommandingProcessor.cs" />
     <Compile Include="Commanding\DEROptimalCommanding\DEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\EnergyBalanceForecastProcessor.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\ModelAggeragation\EnergyStorageAggregator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\EnergyBalanceGeneticAlgorithm.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\GeneCreators\BaseInitialGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\GeneCreators\EnergyStorageInitialGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\GeneCreators\GeneratorInitialGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\GeneCreators\InitialDERGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\GridStateInitialPopulationCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\InputParameters.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\Model\DEREntity.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\Model\EnergyStorageEntity.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\InitialPopulationCreators\Model\GeneratorEntity.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\ChromosomeCreators\BaseChromosomeCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\ChromosomeCreators\GridStateChromosomeCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\CrossoverManipulators\CrossoverManipulator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\GeneCreators\EnergyBalance\GridStateGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\Mutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\EnergyBalance\GridStateGeneMutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Parameters\BaseGeneticAlgorithmParameters.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\GeneticAlgorithm.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Helpers\EnergyStorageActivePowerCalculation.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Helpers\FitnessParameters\BaseFitnessParameter.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Helpers\FitnessParameters\BoundaryParameters.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\ManipulatorsWrapper.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\BaseFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\EnergyBalanceFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\GeneFitnessCalculators\BaseDERGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\GeneFitnessCalculators\EnergyStorageGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\GeneFitnessCalculators\GeneratorGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\GeneFitnessCalculators\IDERGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\GridStateFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\FitnessCalculators\EnergyBalance\NetworkEnergyImportFitnessCalculator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\GeneCreators\BaseGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\GeneCreators\EnergyBalance\EnergyBalanceGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\GeneCreators\EnergyBalance\EnergyStorageGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\GeneCreators\EnergyBalance\GeneratorGeneCreator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\BaseGeneMutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\EnergyBalance\EnergyBalanceGeneMutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\EnergyBalance\EnergyStorageGeneMutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Mutators\EnergyBalance\GeneratorGeneMutator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Selectors\BaseChromosomeSelector.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Selectors\EnergyBalanceSelectors\EnergyBalanceSelector.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Selectors\EnergyBalanceSelectors\TopFitnessValueGenesSelector.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Manipulators\Selectors\EnergyBalanceSelectors\WorstFitnessValueGenesSelector.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Chromosomes\Chromosome.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\EnergyBalance\DERGene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\EnergyBalance\EnergyBalanceGene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\EnergyBalance\EnergyStorageGene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\Gene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\EnergyBalance\GeneratorGene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Genes\EnergyBalance\GridStateGene.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Model\Populations\Population.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Parameters\Convergation\ConvergationParameters.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\GeneticAlgorithm\Parameters\EnergyBalanceGeneticAlgorithmParameters.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\IEnergyBalanceForecast.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\Production\GeneratorProduction.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\Production\ProductionDataAggregator.cs" />
+    <Compile Include="Commanding\ForecastBalanceCommanding\Production\ProductionForecast.cs" />
     <Compile Include="DERStates\CommandScheduler\CommandScheduler.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\AddCommand.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\PauseCommand.cs" />
@@ -108,6 +166,8 @@
     <Compile Include="DERStates\DERStateController.cs" />
     <Compile Include="EnergyCalculators\EnergyImporterProcessor.cs" />
     <Compile Include="EnergyCalculators\IEnergyImporterProcessor.cs" />
+    <Compile Include="Extensions\RandomExtension.cs" />
+    <Compile Include="Extensions\RangeMapper.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\IProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\ProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\SolarPanelProductionFormula.cs" />
@@ -278,7 +338,9 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commanding\ForecastBalanceCommanding\Consumption\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>
