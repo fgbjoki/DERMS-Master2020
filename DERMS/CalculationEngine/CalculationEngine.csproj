@@ -59,6 +59,60 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commanding\BalanceForecastCommanding\BalanceForecastCommandProcessor.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\IConsumptionPreparation.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Production\EnergyStorageDataPreparator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Production\GeneratorProduction.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Production\GeneratorDataPreparator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\DomainParameters.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\EnergyBalanceGeneticAlgorithm.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Chromosomes\BaseChromosomeFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Chromosomes\EnergyBalanceFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Chromosomes\EnergyImportFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Genes\BaseDERGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Genes\EnergyStorageGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Genes\GeneratorGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Calculators\Genes\IDERGeneFitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\FitnessCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Fitness\Parameters\EnergyBalanceFitnessParameters.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\GeneticAlgorithm.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\GeneticAlgorithmParameters.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Helpers\EnergyStorageActivePowerCalculator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\GeneCreators\BaseInitialGeneCreator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\GeneCreators\EnergyStorageInitialGeneCreator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\GeneCreators\GeneratorInitialGeneCreator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\GeneCreators\InitialDERGeneCreator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\InitialPopulationCreationParameters.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\InitialPopulationCreator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\DEREntity.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\EnergyStorageEntity.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\GeneratorEntity.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Chromosome\ChromosomeCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\PopulationCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Genes\BaseGeneCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Genes\EnergyStorageGeneCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Genes\GeneratorGeneCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Genes\IDERGeneCrossover.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Chromosome\BaseChromosomeMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Chromosome\EnergyBalanceChromosomeMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Gene\BaseGeneMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Gene\EnergyStorageGeneMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Gene\GeneratorGeneMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Gene\IDERGeneMutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Mutators\Mutator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Selectors\Chromosome\BaseChromosomeSelector.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Selectors\Chromosome\PercentageBasedSelection.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Selectors\Chromosome\TopPercentageChromosomeSelector.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Selectors\Chromosome\WorstPercentageChromosomeSelector.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Selectors\BaseSelector.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Chromosome.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Genes\DERGene.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Genes\EnergyStorageGene.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Genes\Gene.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Genes\GeneratorGene.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Model\Population.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\MutationParameterConfigurator\MutationParameterConfigurator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Parameters\GeneticAlgorithmParameters.cs" />
     <Compile Include="Commanding\BreakerCommanding\BreakerCommandingUnit.cs" />
     <Compile Include="Commanding\Commands\Command.cs" />
     <Compile Include="Commanding\Commands\EnergyStorage\BaseEnergyStorageCommand.cs" />
@@ -108,6 +162,7 @@
     <Compile Include="DERStates\DERStateController.cs" />
     <Compile Include="EnergyCalculators\EnergyImporterProcessor.cs" />
     <Compile Include="EnergyCalculators\IEnergyImporterProcessor.cs" />
+    <Compile Include="Extensions\RandomExtension.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\IProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\ProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\SolarPanelProductionFormula.cs" />
@@ -278,7 +333,9 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commanding\BalanceForecastCommanding\Parameters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>

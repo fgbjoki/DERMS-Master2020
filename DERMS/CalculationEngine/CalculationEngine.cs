@@ -35,6 +35,7 @@ using Common.ServiceInterfaces.CalculationEngine.DEROptimalCommanding;
 using CalculationEngine.Commanding.DEROptimalCommanding;
 using CalculationEngine.TransactionProcessing.Storage.EnergyImporter;
 using Common.DataTransferObjects;
+using CalculationEngine.Commanding.BalanceForecastCommanding;
 
 namespace CalculationEngine
 {
@@ -91,6 +92,8 @@ namespace CalculationEngine
         private IEnergyImporterProcessor energyImporter;
         private EnergyImproterStorage energyImporterStorage;
 
+        private BalanceForecastCommandProcessor balanceForecastCommandingProcessor;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -111,6 +114,8 @@ namespace CalculationEngine
             derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
             productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
             derOptimalCommanding = new DEROptimalCommandingProcessor(derCommandingProcessor, derStateStorage, derCommandingStorage);
+
+            balanceForecastCommandingProcessor = new BalanceForecastCommandProcessor(weatherForecastStorage, productionForecastStorage, derCommandingStorage);
 
             InitializePubSub();
         }
@@ -305,6 +310,11 @@ namespace CalculationEngine
         public List<WeatherDataInfo> GetHourlyWeatherInfo(int hours)
         {
             return weatherForecastStorage.GetHourlyWeatherInfo(hours);
+        }
+
+        public void Compute()
+        {
+            balanceForecastCommandingProcessor.Compute();
         }
     }
 }
