@@ -13,11 +13,6 @@ namespace CalculationEngine
             ServiceHost serviceHost = new ServiceHost(calculationEngine);
             serviceHost.Open();
 
-            Console.WriteLine("Press enter to COMPUTE...");
-            Console.ReadLine();
-
-            calculationEngine.Compute();
-
             Console.WriteLine("Calculation Engine ready...");
             Console.ReadLine();
         }

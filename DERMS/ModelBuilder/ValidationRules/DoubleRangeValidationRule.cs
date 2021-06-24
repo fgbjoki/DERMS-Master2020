@@ -11,6 +11,12 @@ namespace ClientUI.ValidationRules
 {
     public class DoubleRangeDependency : DependencyObject
     {
+        public DoubleRangeDependency()
+        {
+            MinValue = -float.MaxValue;
+            MaxValue = float.MaxValue;
+        }
+
         public float MinValue
         {
             get { return (float)GetValue(MinValueProperty); }
@@ -66,12 +72,12 @@ namespace ClientUI.ValidationRules
                 return new ValidationResult(false, "Provided value is not a number.");
             }
 
-            //if ((doubleValue < DoubleRange.MinValue) || (doubleValue > DoubleRange.MaxValue))
-            //{
-            //    Validation.Valid = false;
-            //    return new ValidationResult(false,
-            //      $"Please enter a value in the range: ({DoubleRange.MinValue})  -  ({DoubleRange.MaxValue}).");
-            //}
+            if ((doubleValue < DoubleRange.MinValue) || (doubleValue > DoubleRange.MaxValue))
+            {
+                Validation.Valid = false;
+                return new ValidationResult(false,
+                  $"Please enter a value in the range: ({DoubleRange.MinValue})  -  ({DoubleRange.MaxValue}).");
+            }
 
             Validation.Valid = true;
             return ValidationResult.ValidResult;

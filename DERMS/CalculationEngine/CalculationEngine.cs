@@ -36,11 +36,13 @@ using CalculationEngine.Commanding.DEROptimalCommanding;
 using CalculationEngine.TransactionProcessing.Storage.EnergyImporter;
 using Common.DataTransferObjects;
 using CalculationEngine.Commanding.BalanceForecastCommanding;
+using Common.DataTransferObjects.CalculationEngine.EnergyBalanceForecast;
+using Common.UIDataTransferObject.EnergyBalanceForecast;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding, IWeatherForecastStorage
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding, IWeatherForecastStorage, IEnergyBalanceForecast
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -312,9 +314,9 @@ namespace CalculationEngine
             return weatherForecastStorage.GetHourlyWeatherInfo(hours);
         }
 
-        public void Compute()
+        public DERStateCommandingSequenceDTO Compute(DomainParametersDTO domainParameters)
         {
-            balanceForecastCommandingProcessor.Compute();
+            return balanceForecastCommandingProcessor.Compute(domainParameters);
         }
     }
 }

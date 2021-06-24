@@ -39,6 +39,7 @@ namespace ClientUI.CustomControls
             ContentItem derGroup = new ContentItem(new SummaryWrapper("DER Summaries", ContentType.NoActionContent, PackIconKind.VectorUnion));
             derGroup.Children.Add(new ContentItem(new SummaryWrapper("DERGroups", ContentType.DERGroupSummary, PackIconKind.Group)));
             derGroup.Children.Add(new ContentItem(new SummaryWrapper("Optimal Load Distribution", ContentType.DEROptimalCommanding, PackIconKind.Computer)));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("Energy Balance Forecast", ContentType.DEREnergyBalanceCommanding, PackIconKind.Computer)));
 
             Summaries = new ObservableCollection<ContentItem>()
             {

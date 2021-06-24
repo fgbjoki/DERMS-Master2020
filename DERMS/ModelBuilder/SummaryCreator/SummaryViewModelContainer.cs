@@ -1,4 +1,5 @@
 ﻿using ClientUI.ViewModels;
+using ClientUI.ViewModels.DEREnergyBalance;
 using ClientUI.ViewModels.DEROptimalCommanding;
 using ClientUI.ViewModels.Forecast.Production;
 using ClientUI.ViewModels.Schema;
@@ -21,7 +22,8 @@ namespace ClientUI.SummaryCreator
         DERGroupSummary,
         NetworkModelSummary,
         ProductionForecast,
-        DEROptimalCommanding
+        DEROptimalCommanding,
+        DEREnergyBalanceCommanding
     }
 
     public class SummaryViewModelContainer
@@ -66,6 +68,7 @@ namespace ClientUI.SummaryCreator
             viewModels.Add(new BrowseSchemaViewModel());
             viewModels.Add(new ProductionForecastViewModel());
             viewModels.Add(new DEROptimalCommandingViewModel());
+            viewModels.Add(new DEREnergyBalanceForecastViewModel());
         }
 
         private void CreateSummaryViewModels(List<ContentViewModel> viewModels)

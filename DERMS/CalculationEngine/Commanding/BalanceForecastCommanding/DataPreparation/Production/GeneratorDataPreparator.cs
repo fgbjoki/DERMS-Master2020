@@ -13,12 +13,10 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.DataPreparation
     public class GeneratorDataPreparator
     {
         private Dictionary<DMSType, IProductionFormula> productionFormulas;
-        private IWeatherForecastStorage weatherForecast;
         private IStorage<Generator> storage;
 
-        public GeneratorDataPreparator(IWeatherForecastStorage weatherForecast, IStorage<Generator> storage)
+        public GeneratorDataPreparator(IStorage<Generator> storage)
         {
-            this.weatherForecast = weatherForecast;
             this.storage = storage;
 
             productionFormulas = new Dictionary<DMSType, IProductionFormula>()
@@ -28,10 +26,8 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.DataPreparation
             };
         }
 
-        public List<GeneratorProduction> GenerateData()
+        public List<GeneratorProduction> GenerateData(WeatherDataInfo weatherData)
         {
-            WeatherDataInfo weatherData = weatherForecast.GetMinutesWeatherInfo(1).First();
-
             var generators = storage.GetAllEntities();
 
             List<GeneratorProduction> generatorProduction = new List<GeneratorProduction>(generators.Count);

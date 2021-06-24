@@ -1,9 +1,4 @@
 ﻿using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Fitness.Parameters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm
 {
@@ -12,12 +7,12 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
         public EnergyBalanceFitnessParameters FitnessParameters { get; set; }
 
         /// <summary>
-        /// Simulation interval used for calculating energy uses/losses.
+        /// Simulation interval used for calculating energy uses/losses. Time is represented in seconds.
         /// </summary>
         public ulong SimulationInterval { get; set; }
 
         /// <summary>
-        /// Maximum seconds for algorithm to compute.
+        /// Maximum seconds for algorithm to compute. Time is represented in seconds.
         /// </summary>
         public double CalculatingTime { get; set; }
 

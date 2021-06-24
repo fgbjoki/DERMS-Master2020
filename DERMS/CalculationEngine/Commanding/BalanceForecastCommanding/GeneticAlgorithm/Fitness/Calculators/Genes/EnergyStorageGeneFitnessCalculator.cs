@@ -6,6 +6,11 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         protected override float Calculate(EnergyStorageGene gene, DomainParameters domainParameters)
         {
+            if (gene.ActivePower < 0)
+            {
+                return 0;
+            }
+
             return gene.ActivePower * domainParameters.FitnessParameters.CostOfEnergyStorageUsePerKWH * domainParameters.SimulationInterval / 3600;
         }
     }

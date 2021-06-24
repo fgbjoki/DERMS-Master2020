@@ -14,7 +14,7 @@ namespace ClientUI.Common.MessageBox
         {
             MessageBoxView messageBoxView = new MessageBoxView()
             {
-                DataContext = new MessageBoxViewModel(title, text, packIconKind)
+                DataContext = new MessageBoxViewModel(text, title, packIconKind)
             };
 
             Show(messageBoxView);

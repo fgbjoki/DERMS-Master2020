@@ -13,5 +13,6 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
 
         public List<T> Genes { get; set; }
         public float FitnessValue { get; set; }
+        public float ImportedEnergy { get; set; }
     }
 }

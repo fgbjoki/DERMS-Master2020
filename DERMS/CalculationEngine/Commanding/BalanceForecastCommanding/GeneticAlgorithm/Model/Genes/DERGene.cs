@@ -6,8 +6,6 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         private long globalId;
 
-
-
         public long GlobalId
         {
             get { return globalId; }

@@ -43,9 +43,11 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
                 response += gene.ActivePower * domainParameters.SimulationInterval / 3600;
             }
 
-            fitnessValue += importCalculator.Calculate(domainParameters, response);
+            float importedEnergyCost = importCalculator.Calculate(domainParameters, response);
+            fitnessValue += importedEnergyCost;
 
             chromosome.FitnessValue = fitnessValue;
+            chromosome.ImportedEnergy = importedEnergyCost / domainParameters.FitnessParameters.CostOfEnergyImportPerKWH;
         }
     }
 }
