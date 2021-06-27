@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetworkModelService
 {
-    [EventSource(Name = "MyCompany-ServiceFabricApp-NetworkModelService")]
+    [EventSource(Name = "NetworkModelService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
