@@ -224,7 +224,7 @@ namespace NetworkManagementService.Components
             locker.ExitWriteLock();
         }
 
-        public async Task<bool> Prepare()
+        public bool Prepare()
         {
             try
             {
@@ -243,7 +243,7 @@ namespace NetworkManagementService.Components
             return true;
         }
 
-        public async Task<bool> Commit()
+        public bool Commit()
         {
             try
             {
@@ -265,7 +265,7 @@ namespace NetworkManagementService.Components
             return true;
         }
 
-        public async Task<bool> Rollback()
+        public bool Rollback()
         {
             try
             {

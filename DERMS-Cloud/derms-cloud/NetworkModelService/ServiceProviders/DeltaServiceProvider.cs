@@ -2,8 +2,8 @@
 using Core.Common.ServiceInterfaces.NMS;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
+using NetworkManagementService;
 using System.Fabric;
-using System.Threading.Tasks;
 
 namespace NetworkModelService.ServiceProviders
 {
@@ -22,22 +22,22 @@ namespace NetworkModelService.ServiceProviders
             this.nmsInstanceString = nmsInstanceString;
         }
 
-        public async Task<UpdateResult> ApplyUpdate(Delta delta)
+        public UpdateResult ApplyUpdate(Delta delta)
         {
             ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta started");
 
-            var reliableInstance = await stateManager.GetOrAddAsync<IReliableDictionary<string, INetworkModelDeltaContract>>(nmsInstanceString);
+            var reliableInstance = stateManager.GetOrAddAsync<IReliableDictionary<string, NetworkModel>>(nmsInstanceString).GetAwaiter().GetResult();
 
             using (var tx = stateManager.CreateTransaction())
             {
-                var deltaContract = await reliableInstance.TryGetValueAsync(tx, nmsInstanceString);
+                var deltaContract = reliableInstance.TryGetValueAsync(tx, nmsInstanceString).GetAwaiter().GetResult();
                 if (!deltaContract.HasValue)
                 {
                     ServiceEventSource.Current.ServiceMessage(context, "NMS - Instance not found! Cannot apply delta.");
                     return new UpdateResult() { Result = ResultType.Failed, Message = "Internal error." };
                 }
 
-                var result = await deltaContract.Value.ApplyUpdate(delta);
+                var result = deltaContract.Value.ApplyUpdate(delta);
                 ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta finished");
                 return result;
             }

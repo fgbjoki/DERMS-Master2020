@@ -32,9 +32,9 @@ namespace NetworkManagementService
             Initialize();
         }
 
-        public Task<UpdateResult> ApplyUpdate(Delta delta)
+        public UpdateResult ApplyUpdate(Delta delta)
         {
-            return new Task<UpdateResult>(() => deltaProcessor.ApplyDelta(delta));
+            return deltaProcessor.ApplyDelta(delta);
         }
 
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds)
@@ -105,19 +105,19 @@ namespace NetworkManagementService
             return new List<Delta>(0);
         }
 
-        public async Task<bool> Prepare()
+        public bool Prepare()
         {
-            return await transactionParticipant.Prepare();
+            return transactionParticipant.Prepare();
         }
 
-        public async Task<bool> Commit()
+        public bool Commit()
         {
-            return await transactionParticipant.Commit();
+            return transactionParticipant.Commit();
         }
 
-        public async Task<bool> Rollback()
+        public bool Rollback()
         {
-            return await transactionParticipant.Rollback();
+            return transactionParticipant.Rollback();
         }
 
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)

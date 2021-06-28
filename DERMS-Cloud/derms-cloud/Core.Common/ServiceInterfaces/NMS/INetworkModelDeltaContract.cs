@@ -13,6 +13,6 @@ namespace Core.Common.ServiceInterfaces.NMS
         /// <param name="delta">Object which contains model changes</param>		
         /// <returns>Result of model changes</returns>
         [OperationContract]
-        Task<UpdateResult> ApplyUpdate(Delta delta);
+        UpdateResult ApplyUpdate(Delta delta);
     }
 }

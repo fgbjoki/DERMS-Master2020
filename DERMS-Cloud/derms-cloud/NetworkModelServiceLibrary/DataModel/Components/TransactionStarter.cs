@@ -26,7 +26,7 @@ namespace NetworkManagementService.Components
             this.serviceName = serviceName;
             this.serviceEndpoint = serviceEndpoint;
 
-            transactionManager = new WCFClient<ITransactionManager>("transactionManagerEndpoint");
+            transactionManager = new WCFClient<ITransactionManager>(new NetTcpBinding(), new EndpointAddress("net.tcp://localhost:12345/ITransactionManager"));
 
             InitializeServices();
         }
@@ -35,12 +35,12 @@ namespace NetworkManagementService.Components
         {
             try
             {
-                if (!transactionManager.Proxy.StartEnlist().GetAwaiter().GetResult())
+                if (!transactionManager.Proxy.StartEnlist())
                 {
                     return false;
                 }
 
-                if (!transactionManager.Proxy.EnlistService(serviceName, serviceEndpoint).GetAwaiter().GetResult())
+                if (!transactionManager.Proxy.EnlistService(serviceName, serviceEndpoint))
                 {
                     return false;
                 }
@@ -50,7 +50,7 @@ namespace NetworkManagementService.Components
                     transactionManager.Proxy.EndEnlist(false);
                 }
 
-                if (!transactionManager.Proxy.EndEnlist(true).GetAwaiter().GetResult())
+                if (!transactionManager.Proxy.EndEnlist(true))
                 {
                     // THIS IS IS NOT SUPPOSED TO HAPPEN, IF IT DOES, TRANSACTION COORDINATOR IS IN FAULT
                     return false;
