@@ -20,11 +20,15 @@ namespace NetworkManagementService.DataModel.Wires
 
         public float PFixed { get; set; }
 
+        [DataMember]
+        public ConsumerType ConsumerType { get; set; }
+
         public override bool HasProperty(ModelCode property)
         {
             switch (property)
             {
                 case ModelCode.ENERGYCONSUMER_PFIXED:
+                case ModelCode.ENERGYCONSUMER_TYPE:
                     return true;
                 default:
                     return base.HasProperty(property);
@@ -38,6 +42,9 @@ namespace NetworkManagementService.DataModel.Wires
                 case ModelCode.ENERGYCONSUMER_PFIXED:
                     property.SetValue(PFixed);
                     break;
+                case ModelCode.ENERGYCONSUMER_TYPE:
+                    property.SetValue((short)ConsumerType);
+                    break;
                 default:
                     base.GetProperty(property);
                     break;
@@ -50,6 +57,9 @@ namespace NetworkManagementService.DataModel.Wires
             {
                 case ModelCode.ENERGYCONSUMER_PFIXED:
                     PFixed = property.AsFloat();
+                    break;
+                case ModelCode.ENERGYCONSUMER_TYPE:
+                    ConsumerType = (ConsumerType)property.AsEnum();
                     break;
                 default:
                     base.SetProperty(property);
@@ -66,7 +76,7 @@ namespace NetworkManagementService.DataModel.Wires
         {
             EnergyConsumer compareObject = x as EnergyConsumer;
 
-            return compareObject != null && PFixed == compareObject.PFixed && base.Equals(x);
+            return compareObject != null && PFixed == compareObject.PFixed && base.Equals(x) && ConsumerType == compareObject.ConsumerType;
         }
 
         public override object Clone()
