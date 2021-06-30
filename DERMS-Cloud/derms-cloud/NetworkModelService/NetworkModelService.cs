@@ -2,7 +2,6 @@
 using Core.Common.ServiceInterfaces.NMS;
 using Core.Common.ServiceInterfaces.Transaction;
 using Core.Common.Transaction;
-using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -13,7 +12,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Fabric;
 using System.Fabric.Description;
-using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using System.Threading;
@@ -52,7 +50,7 @@ namespace NetworkModelService
                     int port = endpoint.Port;
                     string uri = $"net.tcp://localhost:{port}/NetworkModel/INetworkModelDeltaContract";
                     var listener = new WcfCommunicationListener<INetworkModelDeltaContract>(
-                        wcfServiceObject: new DeltaServiceProvider(StateManager, this.Context, ApplyDelta),
+                        wcfServiceObject: new DeltaServiceProvider(this.Context, ApplyDelta),
                         serviceContext: context,
                         listenerBinding: new NetTcpBinding() {MaxBufferSize = 2147483647, MaxReceivedMessageSize = 2147483647},
                         address: new EndpointAddress(uri)
