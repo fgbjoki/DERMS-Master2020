@@ -38,9 +38,13 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             {
                 DERMSConverter.PopulateConductingEquipmentProperties(cimEnergyConsumer, rd, importHelper, report);
 
-                if (cimEnergyConsumer.PfixedHasValue)
+                if (cimEnergyConsumer.TypeHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_PFIXED, cimEnergyConsumer.Pfixed));
+                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_TYPE, (short)ConsumerTypeMap(cimEnergyConsumer.Type)));
+                }
+                else
+                {
+                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_TYPE, (short)Common.AbstractModel.ConsumerType.Home));
                 }
             }
         }
@@ -609,6 +613,21 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             }
         }
 
+        private static Common.AbstractModel.ConsumerType ConsumerTypeMap(CustomConsumerType consumerType)
+        {
+            switch (consumerType)
+            {
+                case CustomConsumerType.Block:
+                    return Common.AbstractModel.ConsumerType.Block;
+                case CustomConsumerType.Building:
+                    return Common.AbstractModel.ConsumerType.Building;
+                case CustomConsumerType.Home:
+                    return Common.AbstractModel.ConsumerType.Home;
+                default:
+                    return -1;
+            }
+        }
+
         private static Common.AbstractModel.MeasurementType MeasurementTypeMap(DERMS.MeasurementType measurementType)
         {
             switch (measurementType)
@@ -639,8 +658,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     return Common.AbstractModel.MeasurementType.Unitless;
                 case DERMS.MeasurementType.WindSpeed:
                     return Common.AbstractModel.MeasurementType.WindSpeed;
-                case DERMS.MeasurementType.DeltaPower:
-                    return Common.AbstractModel.MeasurementType.DeltaPower;
                 default:
                     return 0;
             }
