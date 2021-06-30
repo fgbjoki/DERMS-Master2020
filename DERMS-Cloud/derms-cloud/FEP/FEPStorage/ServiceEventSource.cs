@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Fabric;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace FEPStorage
 {
@@ -54,6 +49,23 @@ namespace FEPStorage
             if (this.IsEnabled())
             {
                 WriteEvent(MessageEventId, message);
+            }
+        }
+
+        [NonEvent]
+        public void ServiceMessage(StatefulServiceContext serviceContext, string message)
+        {
+            if (this.IsEnabled())
+            {
+                ServiceMessage(
+                    serviceContext.ServiceName.ToString(),
+                    serviceContext.ServiceTypeName,
+                    serviceContext.ReplicaId,
+                    serviceContext.PartitionId,
+                    serviceContext.CodePackageActivationContext.ApplicationName,
+                    serviceContext.CodePackageActivationContext.ApplicationTypeName,
+                    serviceContext.NodeContext.NodeName,
+                    message);
             }
         }
 

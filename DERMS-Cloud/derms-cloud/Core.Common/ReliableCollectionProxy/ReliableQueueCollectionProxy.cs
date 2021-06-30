@@ -3,7 +3,7 @@ using Microsoft.ServiceFabric.Data.Collections;
 
 namespace Core.Common.ReliableCollectionProxy
 {
-    public static class ReliableQueueCollectionAccessor
+    public static class ReliableQueueCollectionProxy
     {
         public static void Enqueue<T>(IReliableStateManager stateManager, string queueName, T item)
         {

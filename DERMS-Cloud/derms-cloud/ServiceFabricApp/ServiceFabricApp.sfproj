@@ -32,6 +32,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FEP\FEPStorage\FEPStorage.csproj" />
+    <ProjectReference Include="..\FEP\FieldProcessor\CommandingService\CommandingService.csproj" />
+    <ProjectReference Include="..\FEP\FieldProcessor\CommunicationService\CommunicationService.csproj" />
+    <ProjectReference Include="..\FEP\FieldProcessor\PollingService\PollingService.csproj" />
+    <ProjectReference Include="..\FEP\FieldProcessor\ValueExtractor\ValueExtractor.csproj" />
     <ProjectReference Include="..\NetworkModelService\NetworkModelService.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

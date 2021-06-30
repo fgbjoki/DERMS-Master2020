@@ -74,7 +74,7 @@ namespace NetworkManagementService.Components
                             bool dequeuedItem = false;
                             do
                             {
-                                dequeuedItem = ReliableQueueCollectionAccessor.Dequeue(stateManager, "transactionQueue", out successfulExecution);
+                                dequeuedItem = ReliableQueueCollectionProxy.Dequeue(stateManager, "transactionQueue", out successfulExecution);
 
                             } while (!dequeuedItem);
 
