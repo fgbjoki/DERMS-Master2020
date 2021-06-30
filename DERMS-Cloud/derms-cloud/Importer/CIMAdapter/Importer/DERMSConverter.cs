@@ -38,9 +38,13 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             {
                 DERMSConverter.PopulateConductingEquipmentProperties(cimEnergyConsumer, rd, importHelper, report);
 
-                if (cimEnergyConsumer.PfixedHasValue)
+                if (cimEnergyConsumer.TypeHasValue)
                 {
-                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_PFIXED, cimEnergyConsumer.Pfixed));
+                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_TYPE, (short)ConsumerTypeMap(cimEnergyConsumer.Type)));
+                }
+                else
+                {
+                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_TYPE, (short)Core.Common.AbstractModel.ConsumerType.Home));
                 }
             }
         }
@@ -609,6 +613,21 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             }
         }
 
+        private static Core.Common.AbstractModel.ConsumerType ConsumerTypeMap(CustomConsumerType consumerType)
+        {
+            switch (consumerType)
+            {
+                case CustomConsumerType.Block:
+                    return Core.Common.AbstractModel.ConsumerType.Block;
+                case CustomConsumerType.Building:
+                    return Core.Common.AbstractModel.ConsumerType.Building;
+                case CustomConsumerType.Home:
+                    return Core.Common.AbstractModel.ConsumerType.Home;
+            }
+
+            throw new System.Exception("Enum mapping does not exist.");
+        }
+
         private static Core.Common.AbstractModel.MeasurementType MeasurementTypeMap(DERMS.MeasurementType measurementType)
         {
             switch (measurementType)
@@ -639,8 +658,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     return Core.Common.AbstractModel.MeasurementType.Unitless;
                 case DERMS.MeasurementType.WindSpeed:
                     return Core.Common.AbstractModel.MeasurementType.WindSpeed;
-                case DERMS.MeasurementType.DeltaPower:
-                    return Core.Common.AbstractModel.MeasurementType.DeltaPower;
                 default:
                     return 0;
             }

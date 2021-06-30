@@ -3,6 +3,17 @@
 namespace Core.Common.AbstractModel
 {
     [DataContract]
+    public enum ConsumerType : short
+    {
+        [EnumMember]
+        Home = 0,
+        [EnumMember]
+        Building = 1,
+        [EnumMember]
+        Block = 2,
+    }
+
+    [DataContract]
     public enum MeasurementType : short
     {
         [EnumMember]
