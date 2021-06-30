@@ -1,8 +1,10 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Measurement
 {
+    [DataContract]
     public class Discrete : Measurement
     {
         public Discrete(long globalId) : base(globalId)
@@ -16,10 +18,13 @@ namespace NetworkManagementService.DataModel.Measurement
             MinValue = copyObject.MinValue;
         }
 
+        [DataMember]
         public int MinValue { get; set; }
-               
+
+        [DataMember]
         public int MaxValue { get; set; }
 
+        [DataMember]
         public int CurrentValue { get; set; }
 
         public int DOM { get; set; }

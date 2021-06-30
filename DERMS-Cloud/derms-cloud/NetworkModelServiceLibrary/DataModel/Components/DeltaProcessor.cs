@@ -1,15 +1,18 @@
 ﻿using Core.Common.GDA;
-using Core.Common.ServiceInterfaces.Transaction;
+using Core.Common.ReliableCollectionProxy;
+using Microsoft.ServiceFabric.Data;
+using Microsoft.ServiceFabric.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.ServiceModel.Configuration;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace NetworkManagementService.Components
 {
-    internal sealed class DeltaProcessor : IDeltaProcessor
+    public sealed class DeltaProcessor : IDeltaProcessor
     {
         private readonly string serviceName = "NetworkManagementSystem";
         private string serviceUrlForTransaction;
@@ -18,20 +21,19 @@ namespace NetworkManagementService.Components
 
         private ITransactionStarter transactionStarter;
 
-        private Semaphore transactionFinishedSempahore;
+        private IReliableStateManager stateManager;
 
-        public DeltaProcessor(IInsertionComponent modelController, Semaphore sempahore)
+        public DeltaProcessor(IInsertionComponent modelController, IReliableStateManager stateManager)
         {
             LoadConfigurationFromAppConfig();
             transactionStarter = new TransactionStarter(serviceName, serviceUrlForTransaction);
 
-            transactionFinishedSempahore = sempahore;
             this.modelController = modelController;
+            this.stateManager = stateManager;
         }
 
         public UpdateResult ApplyDelta(Delta delta, bool isInitializing = false)
         {
-
             bool isModelValid = true;
             UpdateResult updateResult = new UpdateResult();
 
@@ -55,18 +57,27 @@ namespace NetworkManagementService.Components
             catch (Exception e)
             {
                 isModelValid = false;
-                updateResult.Message = e.Message;
+                updateResult.Message = e.Message + $"\nStackTrace:\n{e.StackTrace}";
                 updateResult.Result = ResultType.Failed;
+
+                return updateResult;
             }
             finally
             {
+                bool successfulExecution = false;
                 if (isModelValid)
                 {
                     if (!isInitializing)
                     {
                         if (transactionStarter.StartTransaction(delta.InsertOperations.Select(x => x.Id)))
                         {
-                            transactionFinishedSempahore.WaitOne();
+                            bool dequeuedItem = false;
+                            do
+                            {
+                                dequeuedItem = ReliableQueueCollectionAccessor.Dequeue(stateManager, "transactionQueue", out successfulExecution);
+
+                            } while (!dequeuedItem);
+
                         }
                         else
                         {
@@ -76,15 +87,18 @@ namespace NetworkManagementService.Components
                         }
                     }
                 }
-
-                if (updateResult.Result == ResultType.Succeeded)
+                if (successfulExecution == true)
                 {
-                    string mesage = "Applying delta to network model successfully finished.";
-                    // LOG 
-                    updateResult.Message = mesage;
+                        string mesage = "Applying delta to network model successfully finished.";
+                        // LOG 
+                        updateResult.Message = mesage;
+                }
+                else
+                {
+                    updateResult.Result = ResultType.Failed;
+                    updateResult.Message = "Transaction failed.";
                 }
             }
-
 
             return updateResult;
         }
@@ -97,7 +111,7 @@ namespace NetworkManagementService.Components
             for (int i = 0; i < endpoints.Count; i++)
             {
                 ServiceEndpointElement endpoint = endpoints[i];
-                if (endpoint.Contract.Equals(typeof(ITransaction).ToString()))
+                if (endpoint.Contract.Equals(typeof(Core.Common.ServiceInterfaces.Transaction.ITransaction).ToString()))
                 {
                     transactionAddition = $"/{endpoint.Address.OriginalString}";
                 }

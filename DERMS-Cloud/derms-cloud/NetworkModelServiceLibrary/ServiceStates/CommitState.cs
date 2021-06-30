@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 
 namespace NetworkManagementService.ServiceStates
 {
-    internal sealed class CommitState : ServiceState
+    [DataContract]
+    public sealed class CommitState : ServiceState
     {
         public CommitState() : base(ServiceStateEnum.Commit)
         {

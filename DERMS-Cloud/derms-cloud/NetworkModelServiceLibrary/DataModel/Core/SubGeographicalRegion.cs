@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class SubGeographicalRegion : IdentifiedObject
     {
         public SubGeographicalRegion(long globalId) : base(globalId)
@@ -17,8 +19,10 @@ namespace NetworkManagementService.DataModel.Core
             GeographicalRegion = copyObject.GeographicalRegion;
         }
 
+        [DataMember]
         public List<long> Substations { get; set; }
 
+        [DataMember]
         public long GeographicalRegion { get; set; }
 
         public override bool HasProperty(ModelCode property)

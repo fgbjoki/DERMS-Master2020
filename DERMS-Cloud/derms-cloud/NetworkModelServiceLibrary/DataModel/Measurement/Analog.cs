@@ -1,8 +1,10 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Measurement
 {
+    [DataContract]
     public class Analog : Measurement
     {
         public Analog(long globalId) : base(globalId)
@@ -17,10 +19,13 @@ namespace NetworkManagementService.DataModel.Measurement
             CurrentValue = copyObject.CurrentValue;
         }
 
+        [DataMember]
         public float MinValue { get; set; }
 
+        [DataMember]
         public float MaxValue { get; set; }
 
+        [DataMember]
         public float CurrentValue { get; set; }
 
         public override bool HasProperty(ModelCode property)

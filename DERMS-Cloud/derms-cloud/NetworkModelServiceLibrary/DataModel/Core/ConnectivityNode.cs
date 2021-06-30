@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Topology
 {
+    [DataContract]
     public class ConnectivityNode : IdentifiedObject
     {
         public ConnectivityNode(long globalId) : base(globalId)
@@ -18,7 +20,9 @@ namespace NetworkManagementService.DataModel.Topology
             Terminals = copyObject.Terminals;
         }
 
+        [DataMember]
         public long ConnectivityNodeContainer { get; set; }
+        [DataMember]
         public List<long> Terminals { get; set; } = new List<long>(2);
 
         public override bool HasProperty(ModelCode property)

@@ -1,17 +1,41 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using NetworkManagementService.DataModel.DER_Specific;
+using NetworkManagementService.DataModel.Measurement;
+using NetworkManagementService.DataModel.Topology;
+using NetworkManagementService.DataModel.Wires;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public enum TypeOfReference : short
     {
+        [EnumMember]
         Reference = 1,
+        [EnumMember]
         Target = 2,
+        [EnumMember]
         Both = 3,
     }
 
+    [DataContract]
+    [KnownType(typeof(GeographicalRegion))]
+    [KnownType(typeof(SubGeographicalRegion))]
+    [KnownType(typeof(Breaker))]
+    [KnownType(typeof(EnergyConsumer))]
+    [KnownType(typeof(EnergySource))]
+    [KnownType(typeof(Substation))]
+    [KnownType(typeof(Terminal))]
+    [KnownType(typeof(EnergyStorage))]
+    [KnownType(typeof(SolarGenerator))]
+    [KnownType(typeof(WindGenerator))]
+    [KnownType(typeof(ACLineSegment))]
+    [KnownType(typeof(ConnectivityNode))]
+    [KnownType(typeof(Analog))]
+    [KnownType(typeof(Discrete))]
     public class IdentifiedObject : ICloneable
     {
         /// <summary>
@@ -62,7 +86,8 @@ namespace NetworkManagementService.DataModel.Core
 
         /// <summary>
         /// Gets or sets global id of the entity (identified object).
-        /// </summary>			
+        /// </summary>		
+        [DataMember]
         public long GlobalId
         {
             get
@@ -76,6 +101,7 @@ namespace NetworkManagementService.DataModel.Core
             }
         }
 
+        [DataMember]
         /// <summary>
         /// Gets or sets name of the entity (identified object).
         /// </summary>			
@@ -92,6 +118,7 @@ namespace NetworkManagementService.DataModel.Core
             }
         }
 
+        [DataMember]
         /// <summary>
         /// Gets or sets mrid of the entity (identified object).
         /// </summary>			
@@ -101,6 +128,7 @@ namespace NetworkManagementService.DataModel.Core
             set { mrid = value; }
         }
 
+        [DataMember]
         /// <summary>
         /// Gets or sets description of the entity (identified object).
         /// </summary>			

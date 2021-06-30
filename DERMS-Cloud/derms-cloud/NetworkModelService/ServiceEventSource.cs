@@ -82,6 +82,23 @@ namespace NetworkModelService
             }
         }
 
+        [NonEvent]
+        public void ServiceMessage(StatefulServiceContext serviceContext, string message)
+        {
+            if (this.IsEnabled())
+            {
+                ServiceMessage(
+                    serviceContext.ServiceName.ToString(),
+                    serviceContext.ServiceTypeName,
+                    serviceContext.ReplicaId,
+                    serviceContext.PartitionId,
+                    serviceContext.CodePackageActivationContext.ApplicationName,
+                    serviceContext.CodePackageActivationContext.ApplicationTypeName,
+                    serviceContext.NodeContext.NodeName,
+                    message);
+            }
+        }
+
         // For very high-frequency events it might be advantageous to raise events using WriteEventCore API.
         // This results in more efficient parameter handling, but requires explicit allocation of EventData structure and unsafe code.
         // To enable this code path, define UNSAFE conditional compilation symbol and turn on unsafe code support in project properties.

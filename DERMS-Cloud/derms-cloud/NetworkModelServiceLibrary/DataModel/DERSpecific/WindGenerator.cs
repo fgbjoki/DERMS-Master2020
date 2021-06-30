@@ -1,8 +1,10 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.DER_Specific
 {
+    [DataContract]
     public class WindGenerator : Generator
     {
         public WindGenerator(long globalId) : base(globalId)
@@ -15,10 +17,13 @@ namespace NetworkManagementService.DataModel.DER_Specific
 
         }
 
+        [DataMember]
         public float StartUpSpeed { get; set; }
 
+        [DataMember]
         public float CutOutSpeed { get; set; }
 
+        [DataMember]
         public float NominalSpeed { get; set; }
 
         public override bool HasProperty(ModelCode property)

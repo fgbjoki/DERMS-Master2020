@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using Core.Common.GDA;
 using NetworkManagementService.DataModel.Core;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.DER_Specific
 {
+    [DataContract]
     public class EnergyStorage : DistributedEnergyResource
     {
         public EnergyStorage(long globalId) : base(globalId)
@@ -23,10 +25,13 @@ namespace NetworkManagementService.DataModel.DER_Specific
 
         public EnergyStorageState State { get; set; }
 
+        [DataMember]
         public float StateOfCharge { get; set; }
 
+        [DataMember]
         public float Capacity { get; set; }
 
+        [DataMember]
         public long Generator { get; set; }
 
         public override bool HasProperty(ModelCode property)

@@ -7,9 +7,11 @@ using NetworkManagementService.DataModel.Wires;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService
 {
+    [DataContract]
     public class Container
     {
         /// <summary>
@@ -24,6 +26,7 @@ namespace NetworkManagementService
         {
         }
 
+        [DataMember]
         /// <summary>
         /// Gets or sets dictionary of entities (identified objects) inside container.
         /// </summary>	

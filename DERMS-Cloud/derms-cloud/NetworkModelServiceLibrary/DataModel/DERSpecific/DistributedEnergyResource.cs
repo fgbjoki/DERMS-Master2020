@@ -1,9 +1,11 @@
 ﻿using NetworkManagementService.DataModel.Core;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.DER_Specific
 {
+    [DataContract]
     public class DistributedEnergyResource : ConductingEquipment
     {
         public DistributedEnergyResource(long globalId) : base (globalId)
@@ -18,10 +20,13 @@ namespace NetworkManagementService.DataModel.DER_Specific
             NominalPower = copyObject.NominalPower;
         }
 
+        [DataMember]
         public float ActivePower { get; set; }
 
+        [DataMember]
         public float SetPoint { get; set; }
 
+        [DataMember]
         public float NominalPower { get; set; }
 
         public override bool HasProperty(ModelCode property)

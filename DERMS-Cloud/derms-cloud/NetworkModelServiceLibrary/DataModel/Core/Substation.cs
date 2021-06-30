@@ -1,8 +1,10 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class Substation : EquipmentContainer
     {
         public Substation(long globalId) : base(globalId)
@@ -15,6 +17,7 @@ namespace NetworkManagementService.DataModel.Core
             SubGeographicalRegion = copyObject.SubGeographicalRegion;
         }
 
+        [DataMember]
         public long SubGeographicalRegion { get; set; }
 
         public override bool HasProperty(ModelCode property)

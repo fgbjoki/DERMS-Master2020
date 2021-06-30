@@ -1,9 +1,11 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using NetworkManagementService.DataModel.Core;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Wires
 {
+    [DataContract]
     public class Switch : ConductingEquipment
     {
         public Switch(long globalId) : base(globalId)
@@ -16,6 +18,7 @@ namespace NetworkManagementService.DataModel.Wires
             NormalOpen = copyObject.NormalOpen;
         }
 
+        [DataMember]
         public bool NormalOpen { get; set; }
 
         public override bool HasProperty(ModelCode property)

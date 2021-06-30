@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 
 namespace NetworkManagementService.ServiceStates
 {
-    internal sealed class RollbackState : ServiceState
+    [DataContract]
+    public sealed class RollbackState : ServiceState
     {
         public RollbackState() : base(ServiceStateEnum.Rollback)
         {

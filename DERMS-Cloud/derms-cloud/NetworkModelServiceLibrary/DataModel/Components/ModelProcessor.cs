@@ -1,12 +1,15 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using Core.Common.ReliableCollectionProxy;
 using Core.Common.ServiceInterfaces.Transaction;
+using Core.Common.Transaction;
+using Microsoft.ServiceFabric.Data;
+using Microsoft.ServiceFabric.Data.Collections;
 using NetworkManagementService.DataModel.Core;
 using NetworkManagementService.ServiceStates;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetworkManagementService.Components
 {
@@ -16,7 +19,7 @@ namespace NetworkManagementService.Components
         CurrentModel
     }
 
-    public sealed class ModelProcessor : IInsertionComponent, ITransaction, IStorageComponent
+    public sealed class ModelProcessor : IInsertionComponent, Core.Common.ServiceInterfaces.Transaction.ITransaction, IStorageComponent
     {
         /// <summary>
         /// Defines current state of the service.
@@ -45,39 +48,28 @@ namespace NetworkManagementService.Components
         /// </summary>
         private ReaderWriterLockSlim locker;
 
-        /// <summary>
-        /// Semaphore to indicate when transaction is finished.
-        /// </summary>
-        /// <param name="sempahore">Semaphore.</param>
-        private Semaphore transactionFinishedSemaphore;
+        private IReliableStateManager stateManager;
 
-        public ModelProcessor(Semaphore semaphore)
+        public ModelProcessor(IReliableStateManager stateManager)
         {
-            transactionFinishedSemaphore = semaphore;
+            this.stateManager = stateManager;
 
             locker = new ReaderWriterLockSlim();
 
             currentServiceState = new IdleState();
+            ReliableCollectionProxy.AddVariable(stateManager, currentServiceState, "currentServiceState");
 
             currentModel = new Dictionary<DMSType, Container>(typeof(DMSType).GetEnumValues().Length);
+            ReliableCollectionProxy.AddVariable(stateManager, currentModel, "currentModel");
+
             currentWorkingModel = currentModel;
-        }
-
-        public Dictionary<DMSType, Container> Model
-        {
-            get
-            {
-                Dictionary<DMSType, Container> returnDictionary = null;
-                locker.EnterReadLock();
-                returnDictionary = currentWorkingModel;
-                locker.ExitReadLock();
-
-                return returnDictionary;
-            }
+            ReliableCollectionProxy.AddVariable(stateManager, currentWorkingModel, "currentWorkingModel");
         }
 
         public void InsertEntity(ResourceDescription rd)
         {
+            currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
+
             if (currentServiceState.CurrentState != ServiceStateEnum.ApplyDelta)
             {
                 // LOG
@@ -117,7 +109,9 @@ namespace NetworkManagementService.Components
                 else
                 {
                     container = new Container();
-                    temporaryModel.Add(type, container);
+                    var tempModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+                    tempModel.Add(type, container);
+                    ReliableCollectionProxy.SetVariable(stateManager, tempModel, "temporaryModel");
                 }
 
                 // create entity and add it to container
@@ -213,14 +207,38 @@ namespace NetworkManagementService.Components
         public void ApplyDeltaPreparation()
         {
             locker.EnterWriteLock();
+            currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
+
+            currentModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentModel");
+            currentWorkingModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
+            temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+
             currentServiceState = currentServiceState.ApplyDelta(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+
+            ReliableCollectionProxy.SetVariable(stateManager, currentModel, "currentModel");
+            ReliableCollectionProxy.SetVariable(stateManager, currentWorkingModel, "currentWorkingModel");
+            ReliableCollectionProxy.SetVariable(stateManager, temporaryModel, "temporaryModel");
+
+            ReliableCollectionProxy.SetVariable(stateManager, currentServiceState, "currentServiceState");
             locker.ExitWriteLock();
         }
 
         public void ApplyDeltaFailed()
         {
             locker.EnterWriteLock();
+            currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
+
+            currentModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentModel");
+            currentWorkingModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
+            temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+
             currentServiceState = currentServiceState.ChangeToIdleState(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+
+            ReliableCollectionProxy.SetVariable(stateManager, currentModel, "currentModel");
+            ReliableCollectionProxy.SetVariable(stateManager, currentWorkingModel, "currentWorkingModel");
+            ReliableCollectionProxy.SetVariable(stateManager, temporaryModel, "temporaryModel");
+            ReliableCollectionProxy.SetVariable(stateManager, currentServiceState, "currentServiceState");
+
             locker.ExitWriteLock();
         }
 
@@ -229,13 +247,25 @@ namespace NetworkManagementService.Components
             try
             {
                 locker.EnterWriteLock();
+                currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
+
+                currentModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentModel");
+                currentWorkingModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
+                temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+
                 currentServiceState = currentServiceState.Prepare(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentModel, "currentModel");
+                ReliableCollectionProxy.SetVariable(stateManager, currentWorkingModel, "currentWorkingModel");
+                ReliableCollectionProxy.SetVariable(stateManager, temporaryModel, "temporaryModel");
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentServiceState, "currentServiceState");
                 locker.ExitWriteLock();
             }
             catch
             {
-                // LOG
-                transactionFinishedSemaphore.Release();
+                ReliableQueueCollectionAccessor.Enqueue(stateManager, "transactionQueue", false);
+
                 locker.ExitWriteLock();
                 return false;
             }
@@ -248,19 +278,30 @@ namespace NetworkManagementService.Components
             try
             {
                 locker.EnterWriteLock();
+                currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
+
+                currentModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentModel");
+                currentWorkingModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
+                temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+
                 currentServiceState = currentServiceState.Commit(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentModel, "currentModel");
+                ReliableCollectionProxy.SetVariable(stateManager, currentWorkingModel, "currentWorkingModel");
+                ReliableCollectionProxy.SetVariable(stateManager, temporaryModel, "temporaryModel");
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentServiceState, "currentServiceState");
                 locker.ExitWriteLock();
 
-                transactionFinishedSemaphore.Release();
             }
             catch (Exception e)
             {
-                // LOG
-
-                transactionFinishedSemaphore.Release();
+                ReliableQueueCollectionAccessor.Enqueue(stateManager, "transactionQueue", false);
                 locker.ExitWriteLock();
                 return false;
             }
+
+            ReliableQueueCollectionAccessor.Enqueue(stateManager, "transactionQueue", true);
 
             return true;
         }
@@ -270,19 +311,32 @@ namespace NetworkManagementService.Components
             try
             {
                 locker.EnterWriteLock();
-                currentServiceState = currentServiceState.Rollback(ref currentModel, ref currentWorkingModel, ref temporaryModel);
-                locker.ExitWriteLock();
+                currentServiceState = ReliableCollectionProxy.GetVariable<ServiceState>(stateManager, "currentServiceState");
 
-                transactionFinishedSemaphore.Release();
+                currentModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentModel");
+                currentWorkingModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
+                temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
+
+                currentServiceState = currentServiceState.Rollback(ref currentModel, ref currentWorkingModel, ref temporaryModel);
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentModel, "currentModel");
+                ReliableCollectionProxy.SetVariable(stateManager, currentWorkingModel, "currentWorkingModel");
+                ReliableCollectionProxy.SetVariable(stateManager, temporaryModel, "temporaryModel");
+
+                ReliableCollectionProxy.SetVariable(stateManager, currentServiceState, "currentServiceState");
+                locker.ExitWriteLock();
             }
             catch (Exception e)
             {
                 // LOG
 
-                transactionFinishedSemaphore.Release();
+                ReliableQueueCollectionAccessor.Enqueue(stateManager, "transactionQueue", false);
+
                 locker.ExitWriteLock();
                 return false;
             }
+
+            ReliableQueueCollectionAccessor.Enqueue(stateManager, "transactionQueue", false);
 
             return true;
         }
@@ -298,7 +352,7 @@ namespace NetworkManagementService.Components
             foreach (DMSType type in Enum.GetValues(typeof(DMSType)))
             {
                 typesCounters[(short)type] = 0;
-
+                var temporaryModel = ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel");
                 if (temporaryModel.ContainsKey(type))
                 {
                     typesCounters[(short)type] = GetContainer(type, accesScope).Count;
@@ -349,7 +403,9 @@ namespace NetworkManagementService.Components
 
         private Dictionary<DMSType, Container> GetModelBasedOnScope(ModelAccessScope accessScope = ModelAccessScope.CurrentModel)
         {
-            return accessScope == ModelAccessScope.ApplyDelta ? temporaryModel : currentWorkingModel;
+            return accessScope == ModelAccessScope.ApplyDelta 
+                ? ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "temporaryModel")
+                : ReliableCollectionProxy.GetVariable<Dictionary<DMSType, Container>>(stateManager, "currentWorkingModel");
         }
 
         public List<long> GetEntitiesIdByDMSType(DMSType dmsType, ModelAccessScope accessScope = ModelAccessScope.CurrentModel)

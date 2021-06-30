@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
       
 namespace NetworkManagementService.ServiceStates
 {
-    class ApplyDeltaState : ServiceState
+    [DataContract]
+    public class ApplyDeltaState : ServiceState
     {
         internal ApplyDeltaState() : base(ServiceStateEnum.ApplyDelta)
         {

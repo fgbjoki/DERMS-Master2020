@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using NetworkManagementService.DataModel.Core;
 
 namespace NetworkManagementService.DataModel.DER_Specific
 {
+    [DataContract]
     public class Generator : DistributedEnergyResource
     {
         public Generator(long globalId) : base(globalId)
@@ -17,8 +19,10 @@ namespace NetworkManagementService.DataModel.DER_Specific
             DeltaPower = copyObject.DeltaPower;
         }
 
+        [DataMember]
         public float DeltaPower { get; set; }
 
+        [DataMember]
         public long Storage { get; set; }
 
         public override bool HasProperty(ModelCode property)

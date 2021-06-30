@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class ConnectivityNodeContainer : PowerSystemResource
     {
         public ConnectivityNodeContainer(long globalId) : base(globalId)
@@ -16,7 +18,7 @@ namespace NetworkManagementService.DataModel.Core
             ConnectivityNodes = copyObject.ConnectivityNodes;
         }
 
-
+        [DataMember]
         public List<long> ConnectivityNodes { get; set; } = new List<long>();
 
         public override bool HasProperty(ModelCode property)

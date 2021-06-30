@@ -1,8 +1,9 @@
 ﻿using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.Components
 {
-    internal interface IDeltaProcessor
+    public interface IDeltaProcessor
     {
         /// <summary>
         /// Applies given delta on the current model.

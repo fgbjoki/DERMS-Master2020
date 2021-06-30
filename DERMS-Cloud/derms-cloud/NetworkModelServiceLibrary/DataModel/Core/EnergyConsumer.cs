@@ -1,9 +1,11 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using NetworkManagementService.DataModel.Core;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Wires
 {
+    [DataContract]
     public class EnergyConsumer : ConductingEquipment
     {
         public EnergyConsumer(long globalId) : base(globalId)

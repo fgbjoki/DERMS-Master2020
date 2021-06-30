@@ -1,9 +1,11 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class PowerSystemResource : IdentifiedObject
     {
         /// <summary>
@@ -25,6 +27,7 @@ namespace NetworkManagementService.DataModel.Core
             Measurements = powerSystemResource.Measurements;
         }
 
+        [DataMember]
         /// <summary>
         /// Measurements for given <see cref="PowerSystemResource"/>.
         /// </summary>

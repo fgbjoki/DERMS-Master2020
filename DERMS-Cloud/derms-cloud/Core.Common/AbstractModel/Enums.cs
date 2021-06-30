@@ -2,6 +2,7 @@
 
 namespace Core.Common.AbstractModel
 {
+    [DataContract]
     public enum MeasurementType : short
     {
         [EnumMember]

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class Terminal : IdentifiedObject
     {
         public Terminal(long globalId) : base(globalId)
@@ -18,10 +20,13 @@ namespace NetworkManagementService.DataModel.Core
             ConductingEquipment = copyObject.ConductingEquipment;
         }
 
+        [DataMember]
         public long ConnectivityNode { get; set; }
 
+        [DataMember]
         public long ConductingEquipment { get; set; }
 
+        [DataMember]
         public List<long> Measurements { get; set; }
 
         public override bool HasProperty(ModelCode property)

@@ -2,9 +2,11 @@
 using NetworkManagementService.DataModel.Core;
 using System.Collections.Generic;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Measurement
 {
+    [DataContract]
     public class Measurement : IdentifiedObject
     {
         public Measurement(long globalId) : base(globalId)
@@ -21,14 +23,19 @@ namespace NetworkManagementService.DataModel.Measurement
             PowerSystemResource = copy.PowerSystemResource;
         }
 
+        [DataMember]
         public long Terminal { get; set; }
 
+        [DataMember]
         public long PowerSystemResource { get; set; }
 
+        [DataMember]
         public int MeasurementAddress { get; set; }
 
+        [DataMember]
         public SignalDirection Direction { get; set; }
 
+        [DataMember]
         public MeasurementType MeasurementType { get; set; }
 
         public override void GetReferences(Dictionary<ModelCode, List<long>> references, TypeOfReference refType)

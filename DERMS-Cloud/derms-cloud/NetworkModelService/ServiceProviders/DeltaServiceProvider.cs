@@ -3,6 +3,7 @@ using Core.Common.ServiceInterfaces.NMS;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
 using NetworkManagementService;
+using System;
 using System.Fabric;
 
 namespace NetworkModelService.ServiceProviders
@@ -14,33 +15,24 @@ namespace NetworkModelService.ServiceProviders
         private IReliableStateManager stateManager;
         private StatefulServiceContext context;
 
-        public DeltaServiceProvider(IReliableStateManager stateManager, StatefulServiceContext context, string nmsInstanceString)
+        private Func<Delta, UpdateResult> applyDelta;
+
+        public DeltaServiceProvider(IReliableStateManager stateManager, StatefulServiceContext context, Func<Delta, UpdateResult> applyDelta)
         {
             this.context = context;
             this.stateManager = stateManager;
             
-            this.nmsInstanceString = nmsInstanceString;
+            this.applyDelta = applyDelta;
         }
 
         public UpdateResult ApplyUpdate(Delta delta)
         {
             ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta started");
 
-            var reliableInstance = stateManager.GetOrAddAsync<IReliableDictionary<string, NetworkModel>>(nmsInstanceString).GetAwaiter().GetResult();
+            var result = applyDelta(delta);
+            ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta finished");
+            return result;
 
-            using (var tx = stateManager.CreateTransaction())
-            {
-                var deltaContract = reliableInstance.TryGetValueAsync(tx, nmsInstanceString).GetAwaiter().GetResult();
-                if (!deltaContract.HasValue)
-                {
-                    ServiceEventSource.Current.ServiceMessage(context, "NMS - Instance not found! Cannot apply delta.");
-                    return new UpdateResult() { Result = ResultType.Failed, Message = "Internal error." };
-                }
-
-                var result = deltaContract.Value.ApplyUpdate(delta);
-                ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta finished");
-                return result;
-            }
         }
     }
 }

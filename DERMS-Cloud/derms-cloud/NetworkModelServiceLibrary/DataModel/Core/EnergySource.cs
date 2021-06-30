@@ -1,9 +1,11 @@
 ﻿using NetworkManagementService.DataModel.Core;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.DataModel.Wires
 {
+    [DataContract]
     public class EnergySource : ConductingEquipment
     {
         public EnergySource(long globalId) : base(globalId)
@@ -16,6 +18,7 @@ namespace NetworkManagementService.DataModel.Wires
             ActivePower = copyObject.ActivePower;
         }
 
+        [DataMember]
         public float ActivePower { get; set; }
 
         public override bool HasProperty(ModelCode property)

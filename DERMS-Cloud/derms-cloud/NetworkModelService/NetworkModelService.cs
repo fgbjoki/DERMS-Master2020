@@ -1,4 +1,5 @@
-﻿using Core.Common.ServiceInterfaces.NMS;
+﻿using Core.Common.GDA;
+using Core.Common.ServiceInterfaces.NMS;
 using Core.Common.ServiceInterfaces.Transaction;
 using Core.Common.Transaction;
 using Microsoft.ServiceFabric.Data.Collections;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Fabric;
 using System.Fabric.Description;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using System.Threading;
@@ -24,12 +26,11 @@ namespace NetworkModelService
     /// </summary>
     internal sealed class NetworkModelService : StatefulService
     {
-        private readonly string nmsInstance = "nmsInstance";
+        private NetworkModel networkModel;
 
         public NetworkModelService(StatefulServiceContext context)
             : base(context)
         {
-
         }
 
         /// <summary>
@@ -49,32 +50,34 @@ namespace NetworkModelService
 
                     EndpointResourceDescription endpoint = context.CodePackageActivationContext.GetEndpoint("ServiceEndpoint");
                     int port = endpoint.Port;
-                    string uri = $"net.tcp://{host}:{port}/NetworkModel/INetworkModelDeltaContract";
+                    string uri = $"net.tcp://localhost:{port}/NetworkModel/INetworkModelDeltaContract";
                     var listener = new WcfCommunicationListener<INetworkModelDeltaContract>(
-                        wcfServiceObject: new DeltaServiceProvider(StateManager, this.Context, nmsInstance),
-                        serviceContext: this.Context,
+                        wcfServiceObject: new DeltaServiceProvider(StateManager, this.Context, ApplyDelta),
+                        serviceContext: context,
                         listenerBinding: new NetTcpBinding() {MaxBufferSize = 2147483647, MaxReceivedMessageSize = 2147483647},
                         address: new EndpointAddress(uri)
                         );
 
                     return listener;
-                }),
+                }, "NMSDeltaService"),
                 new ServiceReplicaListener((context) =>
                 {
                     string host = host = context.NodeContext.IPAddressOrFQDN;
-
-                    EndpointResourceDescription endpoint = context.CodePackageActivationContext.GetEndpoint("ServiceEndpoint");
-                    int port = endpoint.Port;
                     string uri = LoadConfigurationFromAppConfig();
                     var listener = new WcfCommunicationListener<ITransaction>(
-                        wcfServiceObject: new NMSTransactionParticipant(StateManager, this.Context, ServiceEventSource.Current.ServiceMessage),
-                        serviceContext: this.Context,
+                        wcfServiceObject: new TransactionParticipant(StateManager, Context, "NMS", ServiceEventSource.Current.ServiceMessage, new TransactionSteps()
+                        {
+                            Rollback = Rollback,
+                            Commit = Commit,
+                            Prepare = Prepare
+                        }),
+                        serviceContext: context,
                         listenerBinding: new NetTcpBinding(),
                         address: new EndpointAddress(uri)
                         );
 
                     return listener;
-                })
+                }, "NMSTransactionService")
             };
 
             return replicaListners;
@@ -88,32 +91,30 @@ namespace NetworkModelService
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Initialization of NMS Service started");
-            NetworkModel networkModel = new NetworkModel();
-            var nmsInstanceReliableCollection = StateManager.GetOrAddAsync<IReliableDictionary<string, NetworkModel>>(nmsInstance).GetAwaiter().GetResult();
-
-            using (var tx = StateManager.CreateTransaction())
-            {
-                if (!nmsInstanceReliableCollection.ContainsKeyAsync(tx, nmsInstance).GetAwaiter().GetResult())
-                {
-                    await nmsInstanceReliableCollection.AddAsync(tx, nmsInstance, networkModel);
-                }
-
-                await tx.CommitAsync();
-            }
-
-            var transactionInstanceReliableCollection = StateManager.GetOrAddAsync<IReliableDictionary<string, NetworkModel>>(TransactionParticipant.TransactionParticipantString).GetAwaiter().GetResult();
-            using (var tx = StateManager.CreateTransaction())
-            {
-                if (!transactionInstanceReliableCollection.ContainsKeyAsync(tx, TransactionParticipant.TransactionParticipantString).GetAwaiter().GetResult())
-                {
-                    await transactionInstanceReliableCollection.AddAsync(tx, TransactionParticipant.TransactionParticipantString, networkModel);
-                }
-
-                await tx.CommitAsync();
-            }
+            networkModel = new NetworkModel(StateManager);
 
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Initialization of NMS Service finished");
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Started");
+        }
+
+        private bool Prepare()
+        {
+            return networkModel.Prepare();
+        }
+
+        private bool Commit()
+        {
+            return networkModel.Commit();
+        }
+
+        private bool Rollback()
+        {
+            return networkModel.Rollback();
+        }
+
+        private UpdateResult ApplyDelta(Delta delta)
+        {
+            return networkModel.ApplyUpdate(delta);
         }
 
         private string LoadConfigurationFromAppConfig()

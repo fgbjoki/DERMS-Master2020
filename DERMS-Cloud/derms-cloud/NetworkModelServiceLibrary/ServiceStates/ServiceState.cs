@@ -1,25 +1,39 @@
 ﻿using Core.Common.AbstractModel;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.ServiceStates
 {
-    internal enum ServiceStateEnum
+    [DataContract]
+    public enum ServiceStateEnum
     {
+        [EnumMember]
         Idle,
+        [EnumMember]
         ApplyDelta,
+        [EnumMember]
         Prepare,
+        [EnumMember]
         Commit,
+        [EnumMember]
         Rollback
     }
 
-    internal abstract class ServiceState
+    [DataContract]
+    [KnownType(typeof(IdleState))]
+    [KnownType(typeof(RollbackState))]
+    [KnownType(typeof(CommitState))]
+    [KnownType(typeof(PrepareState))]
+    [KnownType(typeof(ApplyDeltaState))]
+    public abstract class ServiceState
     {
-        protected ServiceState(ServiceStateEnum serviceState)
+        public ServiceState(ServiceStateEnum serviceState)
         {
             CurrentState = serviceState;
         }
 
+        [DataMember]
         public ServiceStateEnum CurrentState { get; private set; }
 
         public abstract ServiceState ChangeToIdleState(ref Dictionary<DMSType, Container> currentModel,

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 
 namespace NetworkManagementService.DataModel.Core
 {
+    [DataContract]
     public class Equipment : PowerSystemResource
     {
         public Equipment(long globalId) : base(globalId)
@@ -16,6 +18,7 @@ namespace NetworkManagementService.DataModel.Core
             EquipmentContainer = copyObject.EquipmentContainer;
         }
 
+        [DataMember]
         public long EquipmentContainer { get; set; }
 
         public override bool HasProperty(ModelCode property)

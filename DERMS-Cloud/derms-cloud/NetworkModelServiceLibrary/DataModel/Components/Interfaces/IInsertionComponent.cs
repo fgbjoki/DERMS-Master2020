@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NetworkManagementService.Components
 {
-    interface IInsertionComponent
+    public interface IInsertionComponent
     {
         void InsertEntity(ResourceDescription rd);
 

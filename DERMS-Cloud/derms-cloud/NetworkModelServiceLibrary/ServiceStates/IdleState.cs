@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 
 namespace NetworkManagementService.ServiceStates
 {
-    internal sealed class IdleState : ServiceState
+    [DataContract]
+    public sealed class IdleState : ServiceState
     {
         public IdleState() : base(ServiceStateEnum.Idle)
         {

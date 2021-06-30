@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Core.Common.AbstractModel;
 
 namespace NetworkManagementService.ServiceStates
 {
-    internal class PrepareState : ServiceState
+    [DataContract]
+    public class PrepareState : ServiceState
     {
-        internal PrepareState() : base(ServiceStateEnum.Prepare)
+        public PrepareState() : base(ServiceStateEnum.Prepare)
         {
         }
 

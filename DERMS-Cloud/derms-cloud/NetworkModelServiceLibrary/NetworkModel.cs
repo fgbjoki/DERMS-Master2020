@@ -8,26 +8,30 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Core.Common.ServiceInterfaces.NMS;
+using Microsoft.ServiceFabric.Data;
+using System.Runtime.Serialization;
+using Core.Common.Transaction;
+using Core.Common.ReliableCollectionProxy;
 
 namespace NetworkManagementService
 {
-    public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract, ITransaction
+    public class NetworkModel : INetworkModelDeltaContract, INetworkModelGDAContract, Core.Common.ServiceInterfaces.Transaction.ITransaction
     {
-        private ModelResourcesDesc resourcesDescs;
-
         private IDeltaProcessor deltaProcessor;
-        private ITransaction transactionParticipant;
+        private Core.Common.ServiceInterfaces.Transaction.ITransaction transactionParticipant;
         private INetworkModelGDAContract gdaProcessor;
 
-        public NetworkModel()
-        {
-            Semaphore deltaWaitSemaphore = new Semaphore(0, 1);
+        private IReliableStateManager stateManager;
 
-            ModelProcessor modelProcessor = new ModelProcessor(deltaWaitSemaphore);
+        public NetworkModel(IReliableStateManager stateManager)
+        {
+            this.stateManager = stateManager;
+
+            ModelProcessor modelProcessor = new ModelProcessor(stateManager);
 
             transactionParticipant = modelProcessor;
-            gdaProcessor = new GDAProcessor(modelProcessor);
-            deltaProcessor = new DeltaProcessor(modelProcessor, deltaWaitSemaphore);
+            gdaProcessor = new GDAProcessor(modelProcessor, stateManager);
+            deltaProcessor = new DeltaProcessor(modelProcessor, stateManager);
 
             Initialize();
         }

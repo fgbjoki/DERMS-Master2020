@@ -6,19 +6,26 @@ using NetworkManagementService.DataModel.Core;
 using NetworkManagementService.Components.GDA;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using Core.Common.ReliableCollectionProxy;
+using Microsoft.ServiceFabric.Data;
+using System.Threading;
 
 namespace NetworkManagementService.Components
 {
     class GDAProcessor : INetworkModelGDAContract
     {
-        private Dictionary<int, ResourceIterator> resourceItMap = new Dictionary<int, ResourceIterator>();
-        private int resourceItId = 0;
-
         private IStorageComponent storageComponent;
+        private IReliableStateManager stateManager;
 
-        public GDAProcessor(IStorageComponent storageComponent)
+        public GDAProcessor(IStorageComponent storageComponent, IReliableStateManager stateManager)
         {
             this.storageComponent = storageComponent;
+            this.stateManager = stateManager;
+
+            ReliableCollectionProxy.SetVariable(stateManager, 0, "resourceItId");
+
+            Dictionary<int, ResourceIterator> resourceItMap = new Dictionary<int, ResourceIterator>();
+            ReliableCollectionProxy.SetVariable(stateManager, resourceItMap, "resourceItMap");
         }
 
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds)
@@ -353,16 +360,22 @@ namespace NetworkManagementService.Components
 
         private int AddIterator(ResourceIterator iterator)
         {
+            var resourceItMap = ReliableCollectionProxy.GetVariable<Dictionary<int, ResourceIterator>>(stateManager, "resourceItMap");
             lock (resourceItMap)
             {
-                int iteratorId = ++resourceItId;
+                var resourceItId = ReliableCollectionProxy.GetVariable<int>(stateManager, "resourceItId");
+                var iteratorId = Interlocked.Increment(ref resourceItId);
+                ReliableCollectionProxy.SetVariable(stateManager, resourceItId, "resourceItId");
                 resourceItMap.Add(iteratorId, iterator);
+                ReliableCollectionProxy.SetVariable(stateManager, resourceItId, "resourceItMap");
                 return iteratorId;
             }
         }
 
         private ResourceIterator GetIterator(int iteratorId)
         {
+            var resourceItMap = ReliableCollectionProxy.GetVariable<Dictionary<int, ResourceIterator>>(stateManager, "resourceItMap");
+
             lock (resourceItMap)
             {
                 if (resourceItMap.ContainsKey(iteratorId))
@@ -378,9 +391,14 @@ namespace NetworkManagementService.Components
 
         private bool RemoveIterator(int iteratorId)
         {
+            var resourceItMap = ReliableCollectionProxy.GetVariable<Dictionary<int, ResourceIterator>>(stateManager, "resourceItMap");
+
             lock (resourceItMap)
             {
-                return resourceItMap.Remove(iteratorId);
+                bool successful = resourceItMap.Remove(iteratorId);
+                ReliableCollectionProxy.SetVariable(stateManager, resourceItMap, "resourceItMap");
+
+                return successful;
             }
         }
     }
