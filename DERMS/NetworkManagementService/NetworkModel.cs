@@ -18,7 +18,6 @@ namespace NetworkManagementService
         private IDeltaProcessor deltaProcessor;
         private ITransaction transactionParticipant;
         private INetworkModelGDAContract gdaProcessor;
-        private IInsertionComponent insertionProcessor;
 
         public NetworkModel()
         {
@@ -26,7 +25,6 @@ namespace NetworkManagementService
 
             ModelProcessor modelProcessor = new ModelProcessor(deltaWaitSemaphore);
 
-            insertionProcessor = modelProcessor;
             transactionParticipant = modelProcessor;
             gdaProcessor = new GDAProcessor(modelProcessor);
             deltaProcessor = new DeltaProcessor(modelProcessor, deltaWaitSemaphore);
@@ -81,7 +79,7 @@ namespace NetworkManagementService
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void Initialize()

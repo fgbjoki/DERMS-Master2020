@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetworkModelService
 {
-    [EventSource(Name = "MyCompany-ServiceFabricApp-NetworkModelService")]
+    [EventSource(Name = "NetworkModelService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
@@ -79,6 +79,23 @@ namespace NetworkModelService
                     serviceContext.CodePackageActivationContext.ApplicationTypeName,
                     serviceContext.NodeContext.NodeName,
                     finalMessage);
+            }
+        }
+
+        [NonEvent]
+        public void ServiceMessage(StatefulServiceContext serviceContext, string message)
+        {
+            if (this.IsEnabled())
+            {
+                ServiceMessage(
+                    serviceContext.ServiceName.ToString(),
+                    serviceContext.ServiceTypeName,
+                    serviceContext.ReplicaId,
+                    serviceContext.PartitionId,
+                    serviceContext.CodePackageActivationContext.ApplicationName,
+                    serviceContext.CodePackageActivationContext.ApplicationTypeName,
+                    serviceContext.NodeContext.NodeName,
+                    message);
             }
         }
 
