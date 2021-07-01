@@ -111,6 +111,7 @@
     <Compile Include="GDA\PropertyValue.cs" />
     <Compile Include="GDA\ResourceDescription.cs" />
     <Compile Include="GDA\UpdateResult.cs" />
+    <Compile Include="ListenerDepedencyInjection\ObjectProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReliableCollectionProxy\ReliableDictionaryProxy.cs" />
     <Compile Include="ReliableCollectionProxy\ReliableQueueCollectionProxy.cs" />
