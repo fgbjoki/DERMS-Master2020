@@ -56,16 +56,6 @@ namespace Common.ServiceInterfaces
         int GetExtentValues(DMSType dmsType, List<ModelCode> propIds, List<long> gids);
 
         /// <summary>
-        /// Gets id of the resource iterator that holds descriptions for all entities related to specified source.
-        /// </summary>
-        /// <param name="source">Resource id of entity that is start for association search</param>
-        /// <param name="propIds">List of requested property ids</param>
-        /// <param name="association">Relation between source and entities that should be returned</param>		
-        /// <returns>Id of the resource iterator for the requested entities</returns>
-        [OperationContract]
-        int GetRelatedValues(long source, List<ModelCode> propIds, Association association);
-
-        /// <summary>
         /// Gets list of next n resource descriptions from the iterator.
         /// </summary>
         /// <param name="n">Number of next resources that should be returned</param>
@@ -73,22 +63,6 @@ namespace Common.ServiceInterfaces
         /// <returns>List of resource descriptions</returns>
         [OperationContract]
         List<ResourceDescription> IteratorNext(int n, int id);
-
-        /// <summary>
-        /// Resets current position in resource iterator to the iterator's beginning
-        /// </summary>
-        /// <param name="id">Id of the resource iterator</param>
-        /// <returns>TRUE if current position in iterator is successfully reseted</returns>
-        [OperationContract]
-        bool IteratorRewind(int id);
-
-        /// <summary>
-        /// Gets the total number of the resource descriptions in resource iterator.
-        /// </summary>
-        /// <param name="id">Id of the resource iterator</param>
-        /// <returns>Total number of resources in resource iterator</returns>
-        [OperationContract]
-        int IteratorResourcesTotal(int id);
 
         /// <summary>
         /// Gets the number of resource descriptions left from current position in iterator to iterator's end

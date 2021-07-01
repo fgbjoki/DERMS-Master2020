@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace Core.Common.Transaction.Storage
 {
-    public interface IStorage<T> : ICloneable
+    public interface IStorage<T>
     {
         bool AddEntity(T entity);
 
@@ -19,5 +18,7 @@ namespace Core.Common.Transaction.Storage
         void UpdateEntityProperty(long entityGid, Predicate<T> predicate);
 
         void ShallowCopyEntities(IStorage<T> storage);
+
+        IStorage<T> CreateTransactionCopy();
     }
 }

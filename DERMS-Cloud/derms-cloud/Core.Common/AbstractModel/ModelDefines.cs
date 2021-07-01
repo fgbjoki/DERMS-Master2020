@@ -1,7 +1,40 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Core.Common.AbstractModel
 {
+    [DataContract]
+    public class DMSTypeWrapper : IEquatable<DMSTypeWrapper>, IComparable<DMSTypeWrapper>, IEquatable<DMSType>
+    {
+        [DataMember]
+        public DMSType DMSType { get; set; }
+
+        public DMSTypeWrapper(DMSType dmsType)
+        {
+            DMSType = dmsType;
+        }
+
+        public DMSTypeWrapper()
+        {
+
+        }
+
+        public int CompareTo(DMSTypeWrapper other)
+        {
+            return DMSType.CompareTo(other.DMSType);
+        }
+
+        public bool Equals(DMSTypeWrapper other)
+        {
+            return DMSType == other.DMSType;
+        }
+
+        public bool Equals(DMSType other)
+        {
+            return DMSType == other;
+        }
+    }
+
     public enum DMSType : short
     {
         MASK_TYPE = unchecked((short)0xFFFF),

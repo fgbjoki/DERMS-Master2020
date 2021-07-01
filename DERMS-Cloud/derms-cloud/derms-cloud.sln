@@ -26,15 +26,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMParser", "Importer\CIMPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMAdapter", "Importer\CIMAdapter\CIMAdapter.csproj", "{F680D34F-C148-4314-8914-B2DF3E7B17AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{E144DDCC-5EBD-4611-BF4E-750E6A420403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{E144DDCC-5EBD-4611-BF4E-750E6A420403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollingService", "FEP\FieldProcessor\PollingService\PollingService.csproj", "{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollingService", "FEP\FieldProcessor\PollingService\PollingService.csproj", "{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandingService", "FEP\FieldProcessor\CommandingService\CommandingService.csproj", "{42A3B755-8BF2-40F2-8CAE-FBA34657F779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandingService", "FEP\FieldProcessor\CommandingService\CommandingService.csproj", "{42A3B755-8BF2-40F2-8CAE-FBA34657F779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationService", "FEP\FieldProcessor\CommunicationService\CommunicationService.csproj", "{64DC5632-5BE8-4DDA-9CD6-C0892B7E11E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationService", "FEP\FieldProcessor\CommunicationService\CommunicationService.csproj", "{64DC5632-5BE8-4DDA-9CD6-C0892B7E11E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueExtractor", "FEP\FieldProcessor\ValueExtractor\ValueExtractor.csproj", "{CF7D355E-8400-44F5-9A64-BD5BC68A359C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueExtractor", "FEP\FieldProcessor\ValueExtractor\ValueExtractor.csproj", "{CF7D355E-8400-44F5-9A64-BD5BC68A359C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,9 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using Core.Common.ReliableCollectionProxy;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
+using Microsoft.ServiceFabric.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,11 +13,12 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
     public abstract class StorageTransactionProcessor<T> : IStorageTransactionProcessor
         where T : IdentifiedObject
     {
+        protected readonly string newNeededGidsDictionary = "newNeededGids";
+        protected readonly string preparedObjectsDictionary = "preparedObjects";
+
         protected static readonly ModelResourcesDesc modelRescDesc = new ModelResourcesDesc();
 
         private Dictionary<DMSType, IStorageItemCreator> storageItemCreators;
-
-        private List<DMSType> primaryTypes;
 
         private AutoResetEvent commitDone;
 
@@ -29,10 +32,10 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
             this.storage = storage;
             this.storageItemCreators = storageItemCreators;
 
-            primaryTypes = GetPrimaryTypes();
+            temporaryTransactionStorage = storage.CreateTransactionCopy();
         }
 
-        public virtual bool Commit()
+        public virtual bool Commit(IReliableStateManager stateManager)
         {
             bool commited = true;
 
@@ -40,16 +43,16 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
 
             commitDone.Set();
 
-            DisposeTransactionResources();
+            DisposeTransactionResources(stateManager);
 
             return commited;
         }
 
-        public bool Prepare(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
+        public bool Prepare(IReliableStateManager stateManager, Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
-            temporaryTransactionStorage = (IStorage<T>)storage.Clone();
+            temporaryTransactionStorage.ShallowCopyEntities(storage);
 
-            if (!ProcessPrimaryEntities(affectedEntities))
+            if (!ProcessPrimaryEntities(stateManager, affectedEntities))
             {
                 Log($"[{this.GetType().Name}] Failed on Prepare!");
                 return false;
@@ -64,15 +67,16 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
             return true;
         }
 
-        public virtual bool Rollback()
+        public virtual bool Rollback(IReliableStateManager stateManager)
         {
-            DisposeTransactionResources();
+            DisposeTransactionResources(stateManager);
 
             return true;
         }
 
-        public bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> neededGids)
+        public bool ApplyChanges(Dictionary<DMSType, List<long>> insertedEntities, IReliableStateManager stateManager)
         {
+            var primaryTypes = GetPrimaryTypes();
             foreach (var newEntitiesPerType in insertedEntities)
             {
                 if (!primaryTypes.Contains(newEntitiesPerType.Key))
@@ -89,14 +93,16 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
                     }
                 }
 
-                if (!neededGids.ContainsKey(newEntitiesPerType.Key))
+                DMSTypeWrapper key = new DMSTypeWrapper(newEntitiesPerType.Key);
+
+                if (!ReliableDictionaryProxy.EntityExists<HashSet<long>, DMSTypeWrapper>(stateManager, key, newNeededGidsDictionary))
                 {
-                    neededGids[newEntitiesPerType.Key] = new HashSet<long>(newEntitiesPerType.Value);
+                    ReliableDictionaryProxy.AddOrUpdateEntity(stateManager, new HashSet<long>(newEntitiesPerType.Value), key, newNeededGidsDictionary);
                 }
 
             }
 
-            AddAdditionalEntities(insertedEntities, neededGids);
+            AddAdditionalEntities(insertedEntities, stateManager);
 
             return true;
         }
@@ -104,9 +110,8 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
         protected abstract List<DMSType> GetPrimaryTypes();
 
 
-        protected virtual void AddAdditionalEntities(Dictionary<DMSType, List<long>> insertedEntities, Dictionary<DMSType, HashSet<long>> newNeededGids)
+        protected virtual void AddAdditionalEntities(Dictionary<DMSType, List<long>> insertedEntities, IReliableStateManager stateManager)
         {
-            return;
         }
 
         protected virtual bool AdditionalProcessing(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
@@ -114,15 +119,14 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
             return true;
         }
 
-        protected virtual void DisposeTransactionResources()
+        protected virtual void DisposeTransactionResources(IReliableStateManager stateManager)
         {
-            preparedObjects.Clear();
-            temporaryTransactionStorage = null;
+            
         }
 
-        private bool ProcessPrimaryEntities(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
+        private bool ProcessPrimaryEntities(IReliableStateManager stateManager, Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
         {
-            preparedObjects = new Dictionary<long, T>();
+            ReliableDictionaryProxy.CreateDictionary<T, long>(stateManager, preparedObjectsDictionary);
 
             foreach (var oneTypeEntities in GetProcessingOrder(affectedEntities))
             {
@@ -143,7 +147,7 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
                     }
 
                     temporaryTransactionStorage.AddEntity(newItem);
-                    preparedObjects.Add(newItem.GlobalId, newItem);
+                    ReliableDictionaryProxy.AddOrUpdateEntity(stateManager, newItem, newItem.GlobalId, preparedObjectsDictionary);
                 }
             }
 

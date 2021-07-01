@@ -4,7 +4,8 @@ using System.Fabric;
 
 namespace Core.Common.Transaction
 {
-    public class TransactionParticipant : ServiceInterfaces.Transaction.ITransaction
+    public class TransactionParticipant<T> : ServiceInterfaces.Transaction.ITransaction
+        where T : class, ServiceInterfaces.Transaction.ITransaction
     {
         protected IReliableStateManager stateManager;
         protected Action<StatefulServiceContext, string> log;
@@ -12,17 +13,17 @@ namespace Core.Common.Transaction
 
         protected string serviceName;
 
-        private TransactionSteps transactionSteps;
+        private ListenerDepedencyInjection.ObjectProxy<T> transactionObject;
 
         public static string TransactionParticipantString { get; } = "TransactionParticipants";
 
-        public TransactionParticipant(IReliableStateManager stateManager, StatefulServiceContext context, string serviceName, Action<StatefulServiceContext, string> log, TransactionSteps transactionSteps)
+        public TransactionParticipant(IReliableStateManager stateManager, StatefulServiceContext context, string serviceName, Action<StatefulServiceContext, string> log, ListenerDepedencyInjection.ObjectProxy<T> transactionObject)
         {
             this.stateManager = stateManager;
             this.context = context;
 
             this.serviceName = serviceName;
-            this.transactionSteps = transactionSteps;
+            this.transactionObject = transactionObject;
             this.log = log;
         }
 
@@ -30,7 +31,7 @@ namespace Core.Common.Transaction
         {
             log.Invoke(context, $"{serviceName} - Transaction commit called.");
 
-            bool commited = transactionSteps.Commit();
+            bool commited = transactionObject.Instance.Commit();
 
             log.Invoke(context, $"{serviceName} - Transaction commit {GetExecutionString(commited)}.");
             return commited;
@@ -40,7 +41,7 @@ namespace Core.Common.Transaction
         {
             log.Invoke(context, $"{serviceName} - Transaction prepare called.");
 
-            bool prepared = transactionSteps.Prepare();
+            bool prepared = transactionObject.Instance.Prepare();
 
             log.Invoke(context, $"{serviceName} - Transaction prepare {GetExecutionString(prepared)}.");
             return prepared;
@@ -50,7 +51,7 @@ namespace Core.Common.Transaction
         {
             log.Invoke(context, $"{serviceName} - Transaction rollback called.");
 
-            bool rollbacked = transactionSteps.Rollback();
+            bool rollbacked = transactionObject.Instance.Rollback();
 
             log.Invoke(context, $"{serviceName} - Transaction rollback {GetExecutionString(rollbacked)}.");
             return rollbacked;

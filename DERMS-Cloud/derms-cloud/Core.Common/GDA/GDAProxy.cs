@@ -1,4 +1,5 @@
-﻿using Common.ServiceInterfaces;
+﻿using Core.Common.AbstractModel;
+using Core.Common.Communication.ServiceFabric.NMS;
 using System;
 using System.Collections.Generic;
 
@@ -6,139 +7,113 @@ namespace Core.Common.GDA
 {
     public class GDAProxy
     {
-        //private static readonly int iteratorGetResources = 100;
-        //WCFClient<INetworkModelGDAContract> gdaProxy;
+        private static readonly int iteratorGetResources = 100;
+        GDAWCFClient gdaProxy;
 
-        //public GDAProxy(string gdaEndpointName)
-        //{
-        //    gdaProxy = new WCFClient<INetworkModelGDAContract>(gdaEndpointName);
-        //}
+        public GDAProxy()
+        {
+            gdaProxy = new GDAWCFClient();
+        }
 
-        //public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
-        //{
-        //    ResourceDescription resultRd = new ResourceDescription();
-        //    try
-        //    {
-        //        resultRd = gdaProxy.Proxy.GetValues(resourceId, propIds);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Logger.Logger.Instance.Log(e);
-        //        return null;
-        //    }
+        public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
+        {
+            ResourceDescription resultRd = new ResourceDescription();
+            try
+            {
+                resultRd = gdaProxy.GetValues(resourceId, propIds);
+            }
+            catch (Exception e)
+            {
+                //Logger.Logger.Instance.Log(e);
+                return null;
+            }
 
-        //    return resultRd;
-        //}
+            return resultRd;
+        }
 
-        //public List<ResourceDescription> GetExtentValues(ModelCode type, List<ModelCode> propertyIds)
-        //{
-        //    List<ResourceDescription> resultRds = new List<ResourceDescription>();
-        //    int iteratorId = 0;
-        //    try
-        //    {
-        //        iteratorId = gdaProxy.Proxy.GetExtentValues(type, propertyIds);
+        public List<ResourceDescription> GetExtentValues(ModelCode type, List<ModelCode> propertyIds)
+        {
+            List<ResourceDescription> resultRds = new List<ResourceDescription>();
+            int iteratorId = 0;
+            try
+            {
+                iteratorId = gdaProxy.GetExtentValues(type, propertyIds);
 
-        //        if (iteratorId == 0)
-        //        {
-        //            return resultRds;
-        //        }
+                if (iteratorId == 0)
+                {
+                    return resultRds;
+                }
 
-        //        while (gdaProxy.Proxy.IteratorResourcesLeft(iteratorId) > 0)
-        //        {
-        //            List<ResourceDescription> rds = gdaProxy.Proxy.IteratorNext(iteratorGetResources, iteratorId);
+                while (gdaProxy.IteratorResourcesLeft(iteratorId) > 0)
+                {
+                    List<ResourceDescription> rds = gdaProxy.IteratorNext(iteratorGetResources, iteratorId);
 
-        //            if (rds.Count > 0)
-        //            {
-        //                resultRds.AddRange(rds);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Logger.Logger.Instance.Log(e);
-        //        return null;
-        //    }
+                    if (rds.Count > 0)
+                    {
+                        resultRds.AddRange(rds);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //Logger.Logger.Instance.Log(e);
+                return null;
+            }
 
-        //    return resultRds;
-        //}
+            return resultRds;
+        }
 
-        //public List<ResourceDescription> GetExtentValues(ModelCode type, List<ModelCode> propertyIds, List<long> gids)
-        //{
-        //    List<ResourceDescription> resultRds = new List<ResourceDescription>();
-        //    int iteratorId = 0;
-        //    try
-        //    {
-        //        iteratorId = gdaProxy.Proxy.GetExtentValues(type, propertyIds, gids);
+        public List<ResourceDescription> GetExtentValues(ModelCode type, List<ModelCode> propertyIds, List<long> gids)
+        {
+            List<ResourceDescription> resultRds = new List<ResourceDescription>();
+            int iteratorId = 0;
+            try
+            {
+                iteratorId = gdaProxy.GetExtentValues(type, propertyIds, gids);
 
-        //        IterateThroughEntities(iteratorId, resultRds);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
+                IterateThroughEntities(iteratorId, resultRds);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
 
-        //    return resultRds;
-        //}
+            return resultRds;
+        }
 
-        //public List<ResourceDescription> GetExtentValues(DMSType type, List<ModelCode> propertyIds, List<long> gids)
-        //{
-        //    List<ResourceDescription> resultRds = new List<ResourceDescription>();
-        //    int iteratorId = 0;
-        //    try
-        //    {
-        //        iteratorId = gdaProxy.Proxy.GetExtentValues(type, propertyIds, gids);
+        public List<ResourceDescription> GetExtentValues(DMSType type, List<ModelCode> propertyIds, List<long> gids)
+        {
+            List<ResourceDescription> resultRds = new List<ResourceDescription>();
+            int iteratorId = 0;
+            try
+            {
+                iteratorId = gdaProxy.GetExtentValues(type, propertyIds, gids);
 
-        //        IterateThroughEntities(iteratorId, resultRds);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
+                IterateThroughEntities(iteratorId, resultRds);
+            }
+            catch (Exception e)
+            {
+                
+            }
 
-        //    return resultRds;
-        //}
+            return resultRds;
+        }
 
-        //public List<ResourceDescription> GetRelatedValues(long source, List<ModelCode> propIds, Association association)
-        //{
-        //    List<ResourceDescription> resultRds = new List<ResourceDescription>();
-        //    int iteratorId = 0;
-        //    try
-        //    {
-        //        iteratorId = gdaProxy.Proxy.GetRelatedValues(source, propIds, association);
+        private void IterateThroughEntities(int iteratorId, List<ResourceDescription> resultRds)
+        {
+            if (iteratorId == 0)
+            {
+                return;
+            }
+            while (gdaProxy.IteratorResourcesLeft(iteratorId) > 0)
+            {
+                List<ResourceDescription> rds = gdaProxy.IteratorNext(iteratorGetResources, iteratorId);
 
-        //        IterateThroughEntities(iteratorId, resultRds);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
-
-        //    return resultRds;
-        //}
-
-        //private void IterateThroughEntities(int iteratorId, List<ResourceDescription> resultRds)
-        //{
-        //    if (iteratorId == 0)
-        //    {
-        //        return;
-        //    }
-
-        //    try
-        //    {
-        //        while (gdaProxy.Proxy.IteratorResourcesLeft(iteratorId) > 0)
-        //        {
-        //            List<ResourceDescription> rds = gdaProxy.Proxy.IteratorNext(iteratorGetResources, iteratorId);
-
-        //            if (rds.Count > 0)
-        //            {
-        //                resultRds.AddRange(rds);
-        //            }
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //}
+                if (rds.Count > 0)
+                {
+                    resultRds.AddRange(rds);
+                }
+            }
+        }
     }
 }
