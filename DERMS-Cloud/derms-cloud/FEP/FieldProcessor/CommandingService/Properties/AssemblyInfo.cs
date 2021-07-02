@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FEPStorage")]
+[assembly: AssemblyTitle("CommandingService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FEPStorage")]
+[assembly: AssemblyProduct("CommandingService")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0771b8db-b2e8-464e-a45a-b9fa917b72d5")]
+[assembly: Guid("4325f4c9-b2b8-48a6-804b-d85b0435cdc6")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -28,6 +28,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMAdapter", "Importer\CIMA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{956116B7-11CE-4996-B661-C9F504E5F7C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationService", "FEP\FieldProcessor\CommunicationService\CommunicationService.csproj", "{F12896C9-6C17-4BD9-BD68-C025F3C7347C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandingService", "FEP\FieldProcessor\CommandingService\CommandingService.csproj", "{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollingService", "FEP\FieldProcessor\PollingService\PollingService.csproj", "{5338B74F-47A8-4CCE-B2AB-9F1723129749}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -135,6 +141,30 @@ Global
 		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x64.ActiveCfg = Release|x64
 		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x64.Build.0 = Release|x64
 		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x86.ActiveCfg = Release|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Debug|x64.ActiveCfg = Debug|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Debug|x64.Build.0 = Debug|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Debug|x86.ActiveCfg = Debug|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Release|Any CPU.ActiveCfg = Release|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Release|x64.ActiveCfg = Release|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Release|x64.Build.0 = Release|x64
+		{F12896C9-6C17-4BD9-BD68-C025F3C7347C}.Release|x86.ActiveCfg = Release|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Debug|x64.ActiveCfg = Debug|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Debug|x64.Build.0 = Debug|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Debug|x86.ActiveCfg = Debug|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Release|Any CPU.ActiveCfg = Release|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Release|x64.ActiveCfg = Release|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Release|x64.Build.0 = Release|x64
+		{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}.Release|x86.ActiveCfg = Release|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Debug|x64.ActiveCfg = Debug|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Debug|x64.Build.0 = Debug|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Debug|x86.ActiveCfg = Debug|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|Any CPU.ActiveCfg = Release|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x64.ActiveCfg = Release|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x64.Build.0 = Release|x64
+		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

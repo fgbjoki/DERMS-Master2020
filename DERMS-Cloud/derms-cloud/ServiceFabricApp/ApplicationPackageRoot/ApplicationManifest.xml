@@ -7,6 +7,11 @@
     <Parameter Name="CommunicationService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="CommandingService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="PollingService_InstanceCount" DefaultValue="-1" />-->
+    <Parameter Name="PollingService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="CommandingService_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="CommunicationService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="CommunicationService_PartitionCount" DefaultValue="1" />
+    <Parameter Name="CommunicationService_TargetReplicaSetSize" DefaultValue="3" />
     <Parameter Name="FEPStorage_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="FEPStorage_PartitionCount" DefaultValue="1" />
     <Parameter Name="FEPStorage_TargetReplicaSetSize" DefaultValue="3" />
@@ -18,6 +23,18 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="PollingServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CommandingServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CommunicationServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="FEPStoragePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
   </ServiceManifestImport>
@@ -26,6 +43,11 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
+    <!-- The section below creates instances of service types, when an instance of this 
+         application type is created. You can also create one or more instances of service type using the 
+         ServiceFabric PowerShell module.
+         
+         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
     <!--<Service Name="ValueExtractor" ServicePackageActivationMode="ExclusiveProcess">
       <StatelessService ServiceTypeName="ValueExtractorType" InstanceCount="[ValueExtractor_InstanceCount]">
         <SingletonPartition />
@@ -46,11 +68,21 @@
         <SingletonPartition />
       </StatelessService>
     </Service>-->
-    <!-- The section below creates instances of service types, when an instance of this 
-         application type is created. You can also create one or more instances of service type using the 
-         ServiceFabric PowerShell module.
-         
-         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="PollingService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="PollingServiceType" InstanceCount="[PollingService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="CommandingService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="CommandingServiceType" InstanceCount="[CommandingService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+    <Service Name="CommunicationService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="CommunicationServiceType" TargetReplicaSetSize="[CommunicationService_TargetReplicaSetSize]" MinReplicaSetSize="[CommunicationService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[CommunicationService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
     <Service Name="FEPStorage" ServicePackageActivationMode="ExclusiveProcess">
       <StatefulService ServiceTypeName="FEPStorageType" TargetReplicaSetSize="[FEPStorage_TargetReplicaSetSize]" MinReplicaSetSize="[FEPStorage_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[FEPStorage_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
