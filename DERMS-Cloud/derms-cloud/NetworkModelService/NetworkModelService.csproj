@@ -112,6 +112,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />
     <Compile Include="ServiceProviders\DeltaServiceProvider.cs" />
+    <Compile Include="ServiceProviders\GDAServiceProvider.cs" />
+    <Compile Include="TransactionParticipant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PackageRoot\Config\Settings.xml" />

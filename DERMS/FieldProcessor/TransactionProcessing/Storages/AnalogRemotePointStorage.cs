@@ -7,7 +7,6 @@ using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Common.Logger;
 using Common.ServiceLocator;
 using FieldProcessor.RemotePointAddressCollector;
-using System;
 
 namespace FieldProcessor.TransactionProcessing.Storages
 {

@@ -1,6 +1,5 @@
 ﻿using Core.Common.GDA;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace Core.Common.ServiceInterfaces.NMS
 {

@@ -91,7 +91,7 @@ namespace NetworkManagementService.Components
             {
                 return client.Proxy.ApplyChanges(insertedGids, new List<long>(0), new List<long>(0));
             }
-            catch
+            catch (Exception e)
             {
                 // log e
                 return false;

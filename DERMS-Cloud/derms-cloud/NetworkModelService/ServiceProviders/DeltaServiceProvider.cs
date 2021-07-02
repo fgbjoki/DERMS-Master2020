@@ -1,7 +1,7 @@
 ﻿using Core.Common.GDA;
+using Core.Common.ListenerDepedencyInjection;
 using Core.Common.ServiceInterfaces.NMS;
-using Microsoft.ServiceFabric.Data;
-using System;
+using NetworkManagementService;
 using System.Fabric;
 
 namespace NetworkModelService.ServiceProviders
@@ -10,23 +10,22 @@ namespace NetworkModelService.ServiceProviders
     {
         private StatefulServiceContext context;
 
-        private Func<Delta, UpdateResult> applyDelta;
+        private ObjectProxy<NetworkModel> networkModelService;
 
-        public DeltaServiceProvider(StatefulServiceContext context, Func<Delta, UpdateResult> applyDelta)
+        public DeltaServiceProvider(StatefulServiceContext context, ObjectProxy<NetworkModel> networkModelService)
         {
             this.context = context;
-            
-            this.applyDelta = applyDelta;
+
+            this.networkModelService = networkModelService;
         }
 
         public UpdateResult ApplyUpdate(Delta delta)
         {
             ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta started");
 
-            var result = applyDelta(delta);
+            var result = networkModelService.Instance.ApplyUpdate(delta);
             ServiceEventSource.Current.ServiceMessage(context, "NMS - Apply Delta finished");
             return result;
-
         }
     }
 }

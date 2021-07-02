@@ -24,11 +24,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 			return Channel.GetExtentValues(entityType, propIds); 
 		}	
 
-		public int GetRelatedValues(long source, List<ModelCode> propIds, Association association)
-		{
-			return Channel.GetRelatedValues(source, propIds, association);
-		}
-
 		
 		public bool IteratorClose(int id)
 		{
@@ -43,16 +38,6 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter
 		public int IteratorResourcesLeft(int id)
 		{
 			return Channel.IteratorResourcesLeft(id);
-		}
-
-		public int IteratorResourcesTotal(int id)
-		{
-			return Channel.IteratorResourcesTotal(id);
-		}
-
-		public bool IteratorRewind(int id)
-		{
-			return Channel.IteratorRewind(id);
 		}
 
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)

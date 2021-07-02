@@ -3,7 +3,7 @@ using Microsoft.ServiceFabric.Data.Collections;
 
 namespace Core.Common.ReliableCollectionProxy
 {
-    public static class ReliableCollectionProxy
+    public static class ReliableVariableProxy
     {
         public static T GetVariable<T>(IReliableStateManager stateManager, string variableName)
         {

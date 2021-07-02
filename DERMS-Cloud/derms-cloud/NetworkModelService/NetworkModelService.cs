@@ -1,7 +1,7 @@
-﻿using Core.Common.GDA;
+﻿using Common.ServiceInterfaces;
+using Core.Common.ListenerDepedencyInjection;
 using Core.Common.ServiceInterfaces.NMS;
 using Core.Common.ServiceInterfaces.Transaction;
-using Core.Common.Transaction;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -24,11 +24,12 @@ namespace NetworkModelService
     /// </summary>
     internal sealed class NetworkModelService : StatefulService
     {
-        private NetworkModel networkModel;
+        private ObjectProxy<NetworkModel> networkModel;
 
         public NetworkModelService(StatefulServiceContext context)
             : base(context)
         {
+            networkModel = new ObjectProxy<NetworkModel>();
         }
 
         /// <summary>
@@ -44,13 +45,13 @@ namespace NetworkModelService
             {
                 new ServiceReplicaListener((context) =>
                 {
-                    string host = host = context.NodeContext.IPAddressOrFQDN;
+                    string host = context.NodeContext.IPAddressOrFQDN;
 
                     EndpointResourceDescription endpoint = context.CodePackageActivationContext.GetEndpoint("ServiceEndpoint");
                     int port = endpoint.Port;
-                    string uri = $"net.tcp://localhost:{port}/NetworkModel/INetworkModelDeltaContract";
+                    string uri = $"net.tcp://{host}:{port}/NetworkModel/INetworkModelDeltaContract";
                     var listener = new WcfCommunicationListener<INetworkModelDeltaContract>(
-                        wcfServiceObject: new DeltaServiceProvider(this.Context, ApplyDelta),
+                        wcfServiceObject: new DeltaServiceProvider(this.Context, networkModel),
                         serviceContext: context,
                         listenerBinding: new NetTcpBinding() {MaxBufferSize = 2147483647, MaxReceivedMessageSize = 2147483647},
                         address: new EndpointAddress(uri)
@@ -60,15 +61,26 @@ namespace NetworkModelService
                 }, "NMSDeltaService"),
                 new ServiceReplicaListener((context) =>
                 {
+                    string host = context.NodeContext.IPAddressOrFQDN;
+
+                    EndpointResourceDescription endpoint = context.CodePackageActivationContext.GetEndpoint("ServiceEndpoint");
+                    int port = endpoint.Port;
+                    string uri = $"net.tcp://{host}:{port}/NetworkModel/INetworkModelGDAContract";
+                    var listener = new WcfCommunicationListener<INetworkModelGDAContract>(
+                        wcfServiceObject: new GDAServiceProvider(this.Context, networkModel),
+                        serviceContext: context,
+                        listenerBinding: new NetTcpBinding(),
+                        address: new EndpointAddress(uri)
+                        );
+
+                    return listener;
+                }, "NMSGDAService"),
+                new ServiceReplicaListener((context) =>
+                {
                     string host = host = context.NodeContext.IPAddressOrFQDN;
-                    string uri = LoadConfigurationFromAppConfig();
+                    string uri = LoadConfigurationFromAppConfig(host);
                     var listener = new WcfCommunicationListener<ITransaction>(
-                        wcfServiceObject: new TransactionParticipant(StateManager, Context, "NMS", ServiceEventSource.Current.ServiceMessage, new TransactionSteps()
-                        {
-                            Rollback = Rollback,
-                            Commit = Commit,
-                            Prepare = Prepare
-                        }),
+                        wcfServiceObject: new TransactionParticipant<NetworkModel>(StateManager, Context, "NMS", ServiceEventSource.Current.ServiceMessage, networkModel),
                         serviceContext: context,
                         listenerBinding: new NetTcpBinding(),
                         address: new EndpointAddress(uri)
@@ -89,33 +101,13 @@ namespace NetworkModelService
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Initialization of NMS Service started");
-            networkModel = new NetworkModel(StateManager);
+            networkModel.Instance = new NetworkModel(StateManager);
 
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Initialization of NMS Service finished");
             ServiceEventSource.Current.ServiceMessage(Context, "NMS - Started");
         }
 
-        private bool Prepare()
-        {
-            return networkModel.Prepare();
-        }
-
-        private bool Commit()
-        {
-            return networkModel.Commit();
-        }
-
-        private bool Rollback()
-        {
-            return networkModel.Rollback();
-        }
-
-        private UpdateResult ApplyDelta(Delta delta)
-        {
-            return networkModel.ApplyUpdate(delta);
-        }
-
-        private string LoadConfigurationFromAppConfig()
+        private string LoadConfigurationFromAppConfig(string host)
         {
             ServicesSection serviceSection = ConfigurationManager.GetSection("system.serviceModel/services") as ServicesSection;
             ServiceEndpointElementCollection endpoints = serviceSection.Services[0].Endpoints;
@@ -129,7 +121,7 @@ namespace NetworkModelService
                 }
             }
 
-            return serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition;
+            return (serviceSection.Services[0].Host.BaseAddresses[0].BaseAddress + transactionAddition).Replace("localhost", host);
         }
     }
 }

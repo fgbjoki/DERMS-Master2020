@@ -1,17 +1,11 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using Common.ServiceInterfaces;
-using Core.Common.ServiceInterfaces.Transaction;
 using NetworkManagementService.Components;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Core.Common.ServiceInterfaces.NMS;
 using Microsoft.ServiceFabric.Data;
-using System.Runtime.Serialization;
-using Core.Common.Transaction;
-using Core.Common.ReliableCollectionProxy;
 
 namespace NetworkManagementService
 {
@@ -46,11 +40,6 @@ namespace NetworkManagementService
             return gdaProcessor.GetExtentValues(entityType, propIds);
         }
 
-        public int GetRelatedValues(long source, List<ModelCode> propIds, Association association)
-        {
-            return gdaProcessor.GetRelatedValues(source, propIds, association);
-        }
-
         public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
         {
             return gdaProcessor.GetValues(resourceId, propIds);
@@ -74,11 +63,6 @@ namespace NetworkManagementService
         public int IteratorResourcesTotal(int id)
         {
             return gdaProcessor.IteratorResourcesLeft(id);
-        }
-
-        public bool IteratorRewind(int id)
-        {
-            return IteratorRewind(id);
         }
 
         public void Dispose()
