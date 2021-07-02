@@ -2,62 +2,56 @@
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using System.Collections.Generic;
+using System.ServiceModel;
 using System.Threading.Tasks;
 
 namespace Core.Common.Communication.ServiceFabric.NMS
 {
-    public class GDAWCFClient : BaseServiceFabricWCFClient<INetworkModelGDAContract>, INetworkModelGDAContract
+    public class GDAWCFClient : ClientBase<INetworkModelGDAContract>, INetworkModelGDAContract
     {
-        public GDAWCFClient() : base("fabric:/ServiceFabricApp/NetworkModel/INetworkModelGDAContract")
+        public GDAWCFClient() : base(new NetTcpBinding(),new EndpointAddress("net.tcp://localhost:11112/NetworkModel/INetworkModelGDAContract"))
         {
 
         }
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.GetExtentValues(entityType, propIds))).GetAwaiter().GetResult();
+            return CreateChannel().GetExtentValues(entityType, propIds);
         }
 
         public int GetExtentValues(ModelCode entityType, List<ModelCode> propIds, List<long> gids)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.GetExtentValues(entityType, propIds, gids))).GetAwaiter().GetResult();
+            return CreateChannel().GetExtentValues(entityType, propIds, gids);
         }
 
         public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.GetExtentValues(dmsType, propIds))).GetAwaiter().GetResult();
+            return CreateChannel().GetExtentValues(dmsType, propIds);
         }
 
         public int GetExtentValues(DMSType dmsType, List<ModelCode> propIds, List<long> gids)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.GetExtentValues(dmsType, propIds, gids))).GetAwaiter().GetResult();
+            
+            return CreateChannel().GetExtentValues(dmsType, propIds, gids);
         }
 
         public ResourceDescription GetValues(long resourceId, List<ModelCode> propIds)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.GetValues(resourceId, propIds))).GetAwaiter().GetResult();
+            return CreateChannel().GetValues(resourceId, propIds);
         }
 
         public bool IteratorClose(int id)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.IteratorClose(id))).GetAwaiter().GetResult();
+            return CreateChannel().IteratorClose(id);
         }
 
         public List<ResourceDescription> IteratorNext(int n, int id)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.IteratorNext(n, id))).GetAwaiter().GetResult();
+            return CreateChannel().IteratorNext(n, id);
         }
 
         public int IteratorResourcesLeft(int id)
         {
-            var client = BuildClient(1);
-            return client.InvokeWithRetryAsync(x => Task.FromResult(x.Channel.IteratorResourcesLeft(id))).GetAwaiter().GetResult();
+            return CreateChannel().IteratorResourcesLeft(id);
         }
     }
 }

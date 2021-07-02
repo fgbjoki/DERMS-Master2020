@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
 
@@ -15,7 +16,9 @@ namespace Core.Common.ReliableCollectionProxy
 
             using (var tx = stateManager.CreateTransaction())
             {
-                dictionary.ClearAsync().GetAwaiter().GetResult();
+                dictionary.ClearAsync(TimeSpan.FromSeconds(60), CancellationToken.None).GetAwaiter().GetResult();
+
+                tx.CommitAsync().GetAwaiter().GetResult();
             }
         }
 
@@ -27,7 +30,7 @@ namespace Core.Common.ReliableCollectionProxy
 
             using (var tx = stateManager.CreateTransaction())
             {
-                return dictionary.ContainsKeyAsync(tx, key).GetAwaiter().GetResult();
+                return dictionary.ContainsKeyAsync(tx, key, TimeSpan.FromSeconds(60), CancellationToken.None).GetAwaiter().GetResult();
             }
         }
 
@@ -50,11 +53,6 @@ namespace Core.Common.ReliableCollectionProxy
         public static EntityType GetEntity<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName)
             where KeyType : IComparable<KeyType>, IEquatable<KeyType>
         {
-            if (!EntityExists<EntityType, KeyType>(stateManager, key, dictionaryName))
-            {
-                return default(EntityType);
-            }
-
             var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<KeyType, EntityType>>(dictionaryName).GetAwaiter().GetResult();
 
             using (var tx = stateManager.CreateTransaction())

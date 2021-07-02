@@ -10,6 +10,7 @@ using Core.Common.Transaction.StorageTransactionProcessor;
 using Core.Common.Transaction.Storage;
 using Core.Common.ReliableCollectionProxy;
 using Microsoft.ServiceFabric.Data;
+using Core.Common.PropertyWrappers.EnumWrappers;
 
 namespace Core.Common.Transaction
 {
@@ -28,20 +29,26 @@ namespace Core.Common.Transaction
 
         private IReliableStateManager stateManager;
 
-        public TransactionManager(IReliableStateManager stateManager, string serviceName, string serviceEndpoint)
+        private Action<string> log;
+
+        public TransactionManager(IReliableStateManager stateManager, string serviceName, string serviceEndpoint, Action<string> log)
         {
+            this.log = log;
             this.serviceName = serviceName;
             this.stateManager = stateManager;
             this.serviceEndpoint = serviceEndpoint;
 
             gdaProxy = new GDAProxy();
+            neededProperties = new Dictionary<DMSType, List<ModelCode>>();
         }
 
         public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
         {
-            ReliableDictionaryProxy.CreateDictionary<HashSet<long>, DMSTypeWrapper>(stateManager, newNeededGidsDictionary);
+            log($"[{GetType().Name}] Apply changes called");
+            ReliableDictionaryProxy.CreateDictionary<HashSet<long>, int>(stateManager, newNeededGidsDictionary);
             Dictionary<DMSType, List<long>> groupedEntities = insertedEntities.GroupBy(x => (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(x)).ToDictionary(x => x.Key, x => x.ToList());
 
+            log($"[{GetType().Name}] Applying changes on each transaction processor");
             foreach (var transactionProcessor in transactionProcessors)
             {
                 if (!transactionProcessor.ApplyChanges(groupedEntities, stateManager))
@@ -49,38 +56,45 @@ namespace Core.Common.Transaction
                     return false;
                 }
             }
-
+            log($"[{GetType().Name}] Apply changes finished");
             return Enlist();
         }
 
         public bool Commit()
         {
+            log($"[{GetType().Name}] Commit called");
             bool isSuccessful = true;
             foreach (var transactionProcessor in transactionProcessors)
             {
                 isSuccessful &= transactionProcessor.Commit(stateManager);
             }
 
+            log($"[{GetType().Name}] Commit successful: " + isSuccessful);
+
             return isSuccessful;
         }
 
         public bool Prepare()
         {
+            log($"[{GetType().Name}] Prepare called");
             Dictionary<DMSType, List<ResourceDescription>> affectedEntities = GetNewDataFromNMS();
 
             foreach (var transactionProcessor in transactionProcessors)
             {
                 if (!transactionProcessor.Prepare(stateManager, affectedEntities))
                 {
+                    log($"[{GetType().Name}] Prepare failed");
                     return false;
                 }
             }
 
+            log($"[{GetType().Name}] Prepare succeeded");
             return true;
         }
 
         public bool Rollback()
         {
+            log($"[{GetType().Name}] Rollback called");
             bool isSuccessful = true;
             foreach (var transactoinProcessor in transactionProcessors)
             {
@@ -105,12 +119,14 @@ namespace Core.Common.Transaction
         {
             try
             {
+                log($"[{GetType().Name}] Enlisting service into transaction");
                 WCFClient<ITransactionManager> transactionManager = new WCFClient<ITransactionManager>("transactionManagerEndpoint");
 
                 return transactionManager.Proxy.EnlistService(serviceName, serviceEndpoint);
             }
             catch (Exception e)
             {
+                log($"[{GetType().Name}] Error while enlisting service into transaction.");
                 //Common.Logger.Logger.Instance.Log(e);
                 return false;
             }
@@ -118,6 +134,7 @@ namespace Core.Common.Transaction
 
         private Dictionary<DMSType, List<ResourceDescription>> GetNewDataFromNMS()
         {
+            log($"[{GetType().Name}] Fetching data from NMS");
             Dictionary<DMSType, List<ResourceDescription>> nmsData = new Dictionary<DMSType, List<ResourceDescription>>(neededProperties.Count);
 
             foreach (var typeProperties in neededProperties)
@@ -126,19 +143,21 @@ namespace Core.Common.Transaction
 
                 DMSType neededDMSType = typeProperties.Key;
 
-                HashSet<long> neededGids = ReliableDictionaryProxy.GetEntity<HashSet<long>, DMSTypeWrapper>(stateManager, new DMSTypeWrapper(neededDMSType), newNeededGidsDictionary);
+                HashSet<long> neededGids = ReliableDictionaryProxy.GetEntity<HashSet<long>, int>(stateManager, (int)neededDMSType, newNeededGidsDictionary);
                 if (neededGids == null)
                 {
                     continue;
                 }
 
-                rds = gdaProxy.GetExtentValues(typeProperties.Key, typeProperties.Value, neededGids.ToList());
+                rds = gdaProxy.GetExtentValues(neededDMSType, typeProperties.Value, neededGids.ToList());
 
                 if (rds?.Count > 0)
                 {
                     nmsData[neededDMSType] = rds;
                 }
             }
+
+            log($"[{GetType().Name}] Data fetched from NMS");
 
             return nmsData;
         }

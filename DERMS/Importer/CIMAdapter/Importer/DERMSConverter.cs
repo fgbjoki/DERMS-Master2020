@@ -1,6 +1,7 @@
 ﻿using Common.AbstractModel;
 using Common.GDA;
 using DERMS;
+using System;
 
 namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
 {
@@ -623,9 +624,9 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                     return Common.AbstractModel.ConsumerType.Building;
                 case CustomConsumerType.Home:
                     return Common.AbstractModel.ConsumerType.Home;
-                default:
-                    return -1;
             }
+
+            throw new ArgumentException("Enum mapping is not valid");
         }
 
         private static Common.AbstractModel.MeasurementType MeasurementTypeMap(DERMS.MeasurementType measurementType)

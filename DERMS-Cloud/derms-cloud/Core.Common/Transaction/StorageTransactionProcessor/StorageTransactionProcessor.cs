@@ -1,5 +1,6 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using Core.Common.PropertyWrappers.EnumWrappers;
 using Core.Common.ReliableCollectionProxy;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
@@ -13,16 +14,14 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
     public abstract class StorageTransactionProcessor<T> : IStorageTransactionProcessor
         where T : IdentifiedObject
     {
-        protected readonly string newNeededGidsDictionary = "newNeededGids";
-        protected readonly string preparedObjectsDictionary = "preparedObjects";
+        protected readonly string newNeededGidsDictionary;
+        protected readonly string preparedObjectsDictionary;
 
         protected static readonly ModelResourcesDesc modelRescDesc = new ModelResourcesDesc();
 
         private Dictionary<DMSType, IStorageItemCreator> storageItemCreators;
 
         private AutoResetEvent commitDone;
-
-        protected Dictionary<long, T> preparedObjects;
 
         protected IStorage<T> storage;
         protected IStorage<T> temporaryTransactionStorage;
@@ -31,6 +30,9 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
         {
             this.storage = storage;
             this.storageItemCreators = storageItemCreators;
+
+            newNeededGidsDictionary = "newNeededGids";
+            preparedObjectsDictionary = GetType().Name + "preparedObjects";
 
             temporaryTransactionStorage = storage.CreateTransactionCopy();
         }
@@ -41,7 +43,7 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
 
             storage.ShallowCopyEntities(temporaryTransactionStorage);
 
-            commitDone.Set();
+            //commitDone.Set();
 
             DisposeTransactionResources(stateManager);
 
@@ -93,9 +95,9 @@ namespace Core.Common.Transaction.StorageTransactionProcessor
                     }
                 }
 
-                DMSTypeWrapper key = new DMSTypeWrapper(newEntitiesPerType.Key);
+                int key = (int)newEntitiesPerType.Key;
 
-                if (!ReliableDictionaryProxy.EntityExists<HashSet<long>, DMSTypeWrapper>(stateManager, key, newNeededGidsDictionary))
+                if (!ReliableDictionaryProxy.EntityExists<HashSet<long>, int>(stateManager, key, newNeededGidsDictionary))
                 {
                     ReliableDictionaryProxy.AddOrUpdateEntity(stateManager, new HashSet<long>(newEntitiesPerType.Value), key, newNeededGidsDictionary);
                 }

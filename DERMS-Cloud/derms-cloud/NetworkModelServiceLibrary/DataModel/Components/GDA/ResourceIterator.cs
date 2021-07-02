@@ -3,26 +3,25 @@ using Core.Common.AbstractModel;
 using Core.Common.GDA;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace NetworkManagementService.Components.GDA
 {
+    [DataContract]
     public class ResourceIterator
     {
-        private INetworkModelGDAContract gdaProcessor = null;
-
         private List<long> globalDs = new List<long>();
         private Dictionary<DMSType, List<ModelCode>> class2PropertyIDs = new Dictionary<DMSType, List<ModelCode>>();
 
         private int lastReadIndex = 0; // index of the last read resource description
         private int maxReturnNo = 5000;
 
+        [DataMember]
+        public List<long> GlobalDs { get => globalDs; set => globalDs = value; }
+        [DataMember]
+        public Dictionary<DMSType, List<ModelCode>> Class2PropertyIDs { get => class2PropertyIDs; set => class2PropertyIDs = value; }
 
-        public ResourceIterator(INetworkModelGDAContract gdaProcessor)
-        {
-            this.gdaProcessor = gdaProcessor;
-        }
-
-        public ResourceIterator(List<long> globalIDs, Dictionary<DMSType, List<ModelCode>> class2PropertyIDs, INetworkModelGDAContract gdaProcessor) : this(gdaProcessor)
+        public ResourceIterator(List<long> globalIDs, Dictionary<DMSType, List<ModelCode>> class2PropertyIDs)
         {
             this.globalDs = globalIDs;
             this.class2PropertyIDs = class2PropertyIDs;
@@ -38,7 +37,7 @@ namespace NetworkManagementService.Components.GDA
             return globalDs.Count;
         }
 
-        public List<ResourceDescription> Next(int n)
+        public List<ResourceDescription> Next(int n, INetworkModelGDAContract gdaProcessor)
         {
             try
             {
@@ -65,7 +64,7 @@ namespace NetworkManagementService.Components.GDA
                     lastReadIndex += n;
                 }
 
-                List<ResourceDescription> result = CollectData(resultIDs);
+                List<ResourceDescription> result = CollectData(resultIDs, gdaProcessor);
 
                 return result;
             }
@@ -77,7 +76,7 @@ namespace NetworkManagementService.Components.GDA
             }
         }
 
-        public List<ResourceDescription> GetRange(int index, int n)
+        public List<ResourceDescription> GetRange(int index, int n, INetworkModelGDAContract gdaProcessor)
         {
             try
             {
@@ -88,7 +87,7 @@ namespace NetworkManagementService.Components.GDA
 
                 List<long> resultIDs = globalDs.GetRange(index, n);
 
-                List<ResourceDescription> result = CollectData(resultIDs);
+                List<ResourceDescription> result = CollectData(resultIDs, gdaProcessor);
 
                 return result;
             }
@@ -105,7 +104,7 @@ namespace NetworkManagementService.Components.GDA
             lastReadIndex = 0;
         }
 
-        private List<ResourceDescription> CollectData(List<long> resultIDs)
+        private List<ResourceDescription> CollectData(List<long> resultIDs, INetworkModelGDAContract gdaProcessor)
         {
             try
             {

@@ -1,6 +1,11 @@
+﻿using Microsoft.ServiceFabric.Services.Runtime;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Fabric;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FEPStorage
 {
@@ -8,6 +13,13 @@ namespace FEPStorage
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
+
+        static ServiceEventSource()
+        {
+            // A workaround for the problem where ETW activities do not get tracked until Tasks infrastructure is initialized.
+            // This problem will be fixed in .NET Framework 4.6.2.
+            Task.Run(() => { });
+        }
 
         // Instance constructor is private to enforce singleton semantics
         private ServiceEventSource() : base() { }
@@ -43,7 +55,7 @@ namespace FEPStorage
         }
 
         private const int MessageEventId = 1;
-        [Event(MessageEventId, Level = EventLevel.Informational, Message="{0}")]
+        [Event(MessageEventId, Level = EventLevel.Informational, Message = "{0}")]
         public void Message(string message)
         {
             if (this.IsEnabled())
@@ -91,17 +103,17 @@ namespace FEPStorage
         // This results in more efficient parameter handling, but requires explicit allocation of EventData structure and unsafe code.
         // To enable this code path, define UNSAFE conditional compilation symbol and turn on unsafe code support in project properties.
         private const int ServiceMessageEventId = 2;
-        [Event(ServiceMessageEventId, Level=EventLevel.Informational, Message="{7}")]
+        [Event(ServiceMessageEventId, Level = EventLevel.Informational, Message = "{7}")]
         private
 #if UNSAFE
         unsafe
 #endif
         void ServiceMessage(
-            string serviceName, 
-            string serviceTypeName, 
+            string serviceName,
+            string serviceTypeName,
             long replicaOrInstanceId,
-            Guid partitionId, 
-            string applicationName, 
+            Guid partitionId,
+            string applicationName,
             string applicationTypeName,
             string nodeName,
             string message)

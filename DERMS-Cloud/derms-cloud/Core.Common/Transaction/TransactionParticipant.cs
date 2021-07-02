@@ -1,11 +1,13 @@
-﻿using Microsoft.ServiceFabric.Data;
+﻿using Core.Common.ServiceInterfaces.NMS;
+using Microsoft.ServiceFabric.Data;
 using System;
+using System.Collections.Generic;
 using System.Fabric;
 
 namespace Core.Common.Transaction
 {
-    public class TransactionParticipant<T> : ServiceInterfaces.Transaction.ITransaction
-        where T : class, ServiceInterfaces.Transaction.ITransaction
+    public class TransactionParticipant<T> : ServiceInterfaces.Transaction.ITransaction, IModelPromotionParticipant
+        where T : class, ServiceInterfaces.Transaction.ITransaction, IModelPromotionParticipant
     {
         protected IReliableStateManager stateManager;
         protected Action<StatefulServiceContext, string> log;
@@ -15,8 +17,6 @@ namespace Core.Common.Transaction
 
         private ListenerDepedencyInjection.ObjectProxy<T> transactionObject;
 
-        public static string TransactionParticipantString { get; } = "TransactionParticipants";
-
         public TransactionParticipant(IReliableStateManager stateManager, StatefulServiceContext context, string serviceName, Action<StatefulServiceContext, string> log, ListenerDepedencyInjection.ObjectProxy<T> transactionObject)
         {
             this.stateManager = stateManager;
@@ -25,6 +25,12 @@ namespace Core.Common.Transaction
             this.serviceName = serviceName;
             this.transactionObject = transactionObject;
             this.log = log;
+        }
+
+        public bool ApplyChanges(List<long> insertedEntities, List<long> updatedEntities, List<long> deletedEntities)
+        {
+            log(context, $"{serviceName} - Apply changes called.");
+            return transactionObject.Instance.ApplyChanges(insertedEntities, updatedEntities, deletedEntities);
         }
 
         public bool Commit()

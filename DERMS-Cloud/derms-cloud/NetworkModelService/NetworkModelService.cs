@@ -1,9 +1,7 @@
 ﻿using Common.ServiceInterfaces;
-using Core.Common.GDA;
 using Core.Common.ListenerDepedencyInjection;
 using Core.Common.ServiceInterfaces.NMS;
 using Core.Common.ServiceInterfaces.Transaction;
-using Core.Common.Transaction;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;

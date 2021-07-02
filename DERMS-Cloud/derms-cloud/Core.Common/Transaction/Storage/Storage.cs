@@ -28,7 +28,7 @@ namespace Core.Common.Transaction.Storage
 
             commitDone = new AutoResetEvent(false);
 
-            ReliableDictionaryProxy.CreateDictionary<T, long>(stateManager, dictionaryName);
+            ReliableDictionaryProxy.CreateDictionary<T, long>(stateManager, this.dictionaryName);
         }
 
         [DataMember]
@@ -98,7 +98,7 @@ namespace Core.Common.Transaction.Storage
         {
             Storage<T> copyStorage = storage as Storage<T>;
 
-            ReliableDictionaryProxy.CopyDictionary<T, long>(stateManager, dictionaryName, copyStorage.dictionaryName);
+            ReliableDictionaryProxy.CopyDictionary<T, long>(stateManager, copyStorage.dictionaryName, dictionaryName);
         }
 
         protected abstract IStorage<T> CreateNewStorage(string name, string dictionaryName);

@@ -1,14 +1,11 @@
 ﻿using Core.Common.GDA;
 using Core.Common.ReliableCollectionProxy;
 using Microsoft.ServiceFabric.Data;
-using Microsoft.ServiceFabric.Data.Collections;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.ServiceModel.Configuration;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NetworkManagementService.Components
 {
@@ -40,7 +37,6 @@ namespace NetworkManagementService.Components
             try
             {
                 modelController.ApplyDeltaPreparation();
-                // LOG "Applying  delta to network model.";
 
                 Dictionary<short, int> typesCounters = modelController.GetCounters();
                 Dictionary<long, long> globalIdPairs = new Dictionary<long, long>();

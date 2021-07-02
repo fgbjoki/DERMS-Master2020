@@ -26,8 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMParser", "Importer\CIMPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMAdapter", "Importer\CIMAdapter\CIMAdapter.csproj", "{F680D34F-C148-4314-8914-B2DF3E7B17AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{E144DDCC-5EBD-4611-BF4E-750E6A420403}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollingService", "FEP\FieldProcessor\PollingService\PollingService.csproj", "{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandingService", "FEP\FieldProcessor\CommandingService\CommandingService.csproj", "{42A3B755-8BF2-40F2-8CAE-FBA34657F779}"
@@ -35,6 +33,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationService", "FEP\FieldProcessor\CommunicationService\CommunicationService.csproj", "{64DC5632-5BE8-4DDA-9CD6-C0892B7E11E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueExtractor", "FEP\FieldProcessor\ValueExtractor\ValueExtractor.csproj", "{CF7D355E-8400-44F5-9A64-BD5BC68A359C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{956116B7-11CE-4996-B661-C9F504E5F7C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,18 +135,6 @@ Global
 		{F680D34F-C148-4314-8914-B2DF3E7B17AF}.Release|x64.Build.0 = Release|x64
 		{F680D34F-C148-4314-8914-B2DF3E7B17AF}.Release|x86.ActiveCfg = Release|x86
 		{F680D34F-C148-4314-8914-B2DF3E7B17AF}.Release|x86.Build.0 = Release|x86
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|x64.Build.0 = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Debug|x86.Build.0 = Debug|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|x64.ActiveCfg = Release|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|x64.Build.0 = Release|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|x86.ActiveCfg = Release|Any CPU
-		{E144DDCC-5EBD-4611-BF4E-750E6A420403}.Release|x86.Build.0 = Release|Any CPU
 		{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B899769-CBFC-4DC2-9931-6A4FA3D4A900}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -195,6 +183,14 @@ Global
 		{CF7D355E-8400-44F5-9A64-BD5BC68A359C}.Release|x64.Build.0 = Release|Any CPU
 		{CF7D355E-8400-44F5-9A64-BD5BC68A359C}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF7D355E-8400-44F5-9A64-BD5BC68A359C}.Release|x86.Build.0 = Release|Any CPU
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Debug|x64.ActiveCfg = Debug|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Debug|x64.Build.0 = Debug|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Debug|x86.ActiveCfg = Debug|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|Any CPU.ActiveCfg = Release|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x64.ActiveCfg = Release|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x64.Build.0 = Release|x64
+		{956116B7-11CE-4996-B661-C9F504E5F7C7}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
