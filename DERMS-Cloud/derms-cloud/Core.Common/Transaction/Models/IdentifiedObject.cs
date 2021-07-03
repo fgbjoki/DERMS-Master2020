@@ -1,7 +1,7 @@
 ﻿using Core.Common.AbstractModel;
 using System.Runtime.Serialization;
 
-namespace Core.Common.Transaction.Storage
+namespace Core.Common.Transaction.Models
 {
     [DataContract]
     public class IdentifiedObject

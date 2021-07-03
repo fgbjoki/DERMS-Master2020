@@ -1,6 +1,6 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.GDA;
-using Core.Common.Transaction.Storage;
+using Core.Common.Transaction.Models;
 using System.Collections.Generic;
 
 namespace Core.Common.Transaction.StorageItemCreator

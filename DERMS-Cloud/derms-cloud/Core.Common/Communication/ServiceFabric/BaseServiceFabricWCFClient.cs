@@ -9,7 +9,7 @@ namespace Core.Common.Communication.ServiceFabric
     public abstract class BaseServiceFabricWCFClient<T>
         where T : class
     {
-        private readonly string serviceUri;
+        protected readonly string serviceUri;
 
         protected BaseServiceFabricWCFClient(string serviceUri)
         {

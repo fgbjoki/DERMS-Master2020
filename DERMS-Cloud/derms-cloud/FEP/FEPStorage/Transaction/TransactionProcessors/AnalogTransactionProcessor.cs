@@ -7,6 +7,7 @@ using FEPStorage.Model;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using System;
+using Microsoft.ServiceFabric.Data;
 
 namespace FieldProcessor.TransactionProcessing
 {
@@ -28,45 +29,45 @@ namespace FieldProcessor.TransactionProcessing
             return new List<DMSType>() { DMSType.MEASUREMENTANALOG };
         }
 
-        //public override bool Commit(IreliableStateManager)
-        //{
-        //    bool commited = base.Commit();
+        public override bool Commit(IReliableStateManager stateManager)
+        {
+            bool commited = base.Commit(stateManager);
 
-        //    if (commited == false)
-        //    {
-        //        return false;
-        //    }
+            if (commited == false)
+            {
+                return false;
+            }
 
-        //    remotePointDependentUnits.ForEach(x => x.Commit());
-        //    remotePointDependentUnits.ForEach(x => x.RelaseTransactionResources());
+            //remotePointDependentUnits.ForEach(x => x.Commit());
+            //remotePointDependentUnits.ForEach(x => x.RelaseTransactionResources());
 
-        //    return commited;
-        //}
+            return commited;
+        }
 
-        //public override bool Rollback()
-        //{
-        //    remotePointDependentUnits.ForEach(x => x.Rollback());
-        //    return base.Rollback();
-        //}
+        public override bool Rollback(IReliableStateManager stateManager)
+        {
+            //remotePointDependentUnits.ForEach(x => x.Rollback());
+            return base.Rollback(stateManager);
+        }
 
-        //protected override bool AdditionalProcessing(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
-        //{
-        //    bool isProcessingValid = base.AdditionalProcessing(affectedEntities);
+        protected override bool AdditionalProcessing(Dictionary<DMSType, List<ResourceDescription>> affectedEntities)
+        {
+            bool isProcessingValid = base.AdditionalProcessing(affectedEntities);
 
-        //    if (isProcessingValid == false)
-        //    {
-        //        return false;
-        //    }
+            if (isProcessingValid == false)
+            {
+                return false;
+            }
 
-        //    return AdditionalProcessing();
-        //}
+            return AdditionalProcessing();
+        }
 
-        //private bool AdditionalProcessing()
-        //{
-        //    remotePointDependentUnits.ForEach(x => x.Prepare(preparedObjects.Values.ToList()));
+        private bool AdditionalProcessing()
+        {
+            //remotePointDependentUnits.ForEach(x => x.Prepare(preparedObjects.Values.ToList()));
 
-        //    return true;
-        //}
+            return true;
+        }
 
         protected override void Log(string text)
         {

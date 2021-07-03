@@ -1,11 +1,11 @@
-﻿using Microsoft.ServiceFabric.Services.Communication.Runtime;
+﻿using CommandingService.CommandingProcessor;
+using Core.Common.ServiceInterfaces.FEP.CommandingService;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
-using System;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace CommandingService
 {
@@ -24,28 +24,23 @@ namespace CommandingService
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            return new[] { new ServiceInstanceListener((context) =>
+                {
+                    var listener = new WcfCommunicationListener<ICommanding>(
+                        wcfServiceObject: new ReceiveCommandingProcessor(Log),
+                        serviceContext: context,
+                        listenerBinding: new NetTcpBinding(SecurityMode.None),
+                        endpointResourceName: "ServiceEndpointCE"
+                    );
+                    return listener;
+
+                })
+            };
         }
 
-        /// <summary>
-        /// This is the main entry point for your service instance.
-        /// </summary>
-        /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
-        protected override async Task RunAsync(CancellationToken cancellationToken)
+        private void Log(string text)
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
-
-            long iterations = 0;
-
-            while (true)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
-
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
+            ServiceEventSource.Current.ServiceMessage(Context, text);
         }
     }
 }

@@ -1,18 +1,17 @@
 ﻿using Core.Common.ListenerDepedencyInjection;
+using Core.Common.ServiceInterfaces.FEP.FEPStorage;
 using Core.Common.ServiceInterfaces.NMS;
 using Core.Common.ServiceInterfaces.Transaction;
 using Core.Common.Transaction;
 using Core.Common.Transaction.Storage;
+using FEPStorage.Storage;
 using FEPStorage.Transaction.Storage;
-using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
-using System;
 using System.Collections.Generic;
 using System.Fabric;
 using System.Fabric.Description;
-using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +24,7 @@ namespace FEPStorage
     internal sealed class FEPStorage : StatefulService
     {
         private ObjectProxy<TransactionManager> transactionManager;
+        private RemotePointStorage remotePointStorage;
         private string localUrl = "net.tcp://host:port/FEPStorage";
 
         public FEPStorage(StatefulServiceContext context)
@@ -37,6 +37,8 @@ namespace FEPStorage
             localUrl = localUrl.Replace("host", host).Replace("port", port.ToString());
 
             transactionManager = new ObjectProxy<TransactionManager>();
+
+            remotePointStorage = new RemotePointStorage();
         }
 
         /// <summary>
@@ -74,7 +76,19 @@ namespace FEPStorage
                         );
 
                     return listener;
-                }, "FEPStorageModelPromotionService")
+                }, "FEPStorageModelPromotionService"),
+                new ServiceReplicaListener((context) =>
+                {
+                    string uri = localUrl + "/IFEPStorage";
+                     var listener = new WcfCommunicationListener<IFEPStorage>(
+                        wcfServiceObject: remotePointStorage,
+                        serviceContext: context,
+                        listenerBinding: new NetTcpBinding(),
+                        address: new EndpointAddress(uri)
+                        );
+
+                    return listener;
+                }, "FEPStorageService")
             };
 
             return replicaListners;
@@ -88,8 +102,14 @@ namespace FEPStorage
         private void InitializeTransactionManager()
         {
             Log("FEPStorage - Initializing storages for transaction");
+            var analogStorage = new AnalogRemotePointStorage(StateManager, Log);
+            var discreteStorage = new DiscreteRemotePointStorage(StateManager, Log);
+
+            remotePointStorage.AnalogStorage = analogStorage;
+            remotePointStorage.DiscreteStorage = discreteStorage;
+
             transactionManager.Instance = new TransactionManager(StateManager, "FEPStorage", localUrl + "/Transaction", Log);
-            transactionManager.Instance.LoadTransactionProcessors(new List<ITransactionStorage>(2) { new AnalogRemotePointStorage(StateManager, Log), new DiscreteRemotePointStorage(StateManager, Log) });
+            transactionManager.Instance.LoadTransactionProcessors(new List<ITransactionStorage>(2) { analogStorage, discreteStorage});
             Log("FEPStorage - Initialization for transaction finished");
         }
 

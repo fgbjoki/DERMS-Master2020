@@ -9,7 +9,7 @@ namespace FieldProcessor.CommandingProcessor
 {
     public class WriteRegisterRequestCommandCreator : WriteRequestCommandCreator
     {
-        public WriteRegisterRequestCommandCreator(IStorage<RemotePoint> storage) : base(storage, ModbusFunctionCode.WriteSingleRegister)
+        public WriteRegisterRequestCommandCreator(IStorage<RemotePoint> storage) : base(storage, ModbusFunctionCode.PresetMultipleRegisters)
         {
         }
 

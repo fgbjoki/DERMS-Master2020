@@ -1,15 +1,11 @@
-﻿using Microsoft.ServiceFabric.Services.Runtime;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics.Tracing;
 using System.Fabric;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationService
+namespace MessageAggregatorService
 {
-    [EventSource(Name = "MyCompany-ServiceFabricApp-CommunicationService")]
+    [EventSource(Name = "MyCompany-ServiceFabricApp-MessageAggregatorService")]
     internal sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
@@ -61,6 +57,23 @@ namespace CommunicationService
             if (this.IsEnabled())
             {
                 WriteEvent(MessageEventId, message);
+            }
+        }
+
+        [NonEvent]
+        public void ServiceMessage(StatefulServiceContext serviceContext, string message)
+        {
+            if (this.IsEnabled())
+            {
+                ServiceMessage(
+                    serviceContext.ServiceName.ToString(),
+                    serviceContext.ServiceTypeName,
+                    serviceContext.ReplicaId,
+                    serviceContext.PartitionId,
+                    serviceContext.CodePackageActivationContext.ApplicationName,
+                    serviceContext.CodePackageActivationContext.ApplicationTypeName,
+                    serviceContext.NodeContext.NodeName,
+                    message);
             }
         }
 

@@ -1,7 +1,6 @@
-﻿using Core.Common.Transaction.Storage;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
-namespace FEPStorage.Model
+namespace Core.Common.Transaction.Models.FEP.FEPStorage
 {
     [DataContract]
     public class RemotePoint : IdentifiedObject
