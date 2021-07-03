@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CIMAdapter", "Importer\CIMA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FEPStorage", "FEP\FEPStorage\FEPStorage.csproj", "{956116B7-11CE-4996-B661-C9F504E5F7C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationService", "FEP\FieldProcessor\CommunicationService\CommunicationService.csproj", "{F12896C9-6C17-4BD9-BD68-C025F3C7347C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageAggregatorService", "FEP\FieldProcessor\CommunicationService\MessageAggregatorService.csproj", "{F12896C9-6C17-4BD9-BD68-C025F3C7347C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandingService", "FEP\FieldProcessor\CommandingService\CommandingService.csproj", "{4325F4C9-B2B8-48A6-804B-D85B0435CDC6}"
 EndProject

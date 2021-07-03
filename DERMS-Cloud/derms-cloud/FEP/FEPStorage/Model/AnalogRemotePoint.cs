@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using Core.Common.Transaction.Models.FEP.FEPStorage;
+using System.Runtime.Serialization;
 
 namespace FEPStorage.Model
 {

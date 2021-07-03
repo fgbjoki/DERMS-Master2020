@@ -1,4 +1,5 @@
 ﻿using Core.Common.ReliableCollectionProxy;
+using Core.Common.Transaction.Models;
 using Core.Common.Transaction.StorageTransactionProcessor;
 using Microsoft.ServiceFabric.Data;
 using System;
@@ -94,7 +95,7 @@ namespace Core.Common.Transaction.Storage
             return entity != null;
         }
 
-        public void ShallowCopyEntities(IStorage<T> storage)
+        public virtual void ShallowCopyEntities(IStorage<T> storage)
         {
             Storage<T> copyStorage = storage as Storage<T>;
 

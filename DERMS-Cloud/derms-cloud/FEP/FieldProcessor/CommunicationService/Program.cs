@@ -2,9 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace CommunicationService
+namespace MessageAggregatorService
 {
     internal static class Program
     {
@@ -20,10 +19,10 @@ namespace CommunicationService
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
-                ServiceRuntime.RegisterServiceAsync("CommunicationServiceType",
-                    context => new CommunicationService(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("MessageAggregatorServiceType",
+                    context => new MessageAggregatorService(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(CommunicationService).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(MessageAggregatorService).Name);
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);

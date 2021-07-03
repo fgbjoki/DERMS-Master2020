@@ -2,6 +2,7 @@
 using Core.Common.GDA;
 using Core.Common.PropertyWrappers.EnumWrappers;
 using Core.Common.ReliableCollectionProxy;
+using Core.Common.Transaction.Models;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using Microsoft.ServiceFabric.Data;

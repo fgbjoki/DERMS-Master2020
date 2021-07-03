@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
+using Core.Common.Transaction.Models;
+using Core.Common.Transaction.Models.FEP.FEPStorage;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using FEPStorage.Model;

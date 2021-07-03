@@ -111,13 +111,11 @@
   <ItemGroup>
     <Compile Include="Model\AnalogRemotePoint.cs" />
     <Compile Include="Model\DiscreteRemotePoint.cs" />
-    <Compile Include="Model\RemotePoint.cs" />
-    <Compile Include="Model\RemotePointType.cs" />
-    <Compile Include="Model\RemotePointTypeWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FEPStorage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />
+    <Compile Include="Storage\RemotePointStorage.cs" />
     <Compile Include="Transaction\StorageItemCreators\AnalogStorageItemCreator.cs" />
     <Compile Include="Transaction\StorageItemCreators\DiscreteStorageItemCreator.cs" />
     <Compile Include="Transaction\Storage\AnalogRemotePointStorage.cs" />

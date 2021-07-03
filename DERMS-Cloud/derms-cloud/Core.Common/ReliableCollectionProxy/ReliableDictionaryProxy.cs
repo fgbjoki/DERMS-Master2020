@@ -50,6 +50,20 @@ namespace Core.Common.ReliableCollectionProxy
             }
         }
 
+        public static void Remove<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName)
+            where KeyType : IComparable<KeyType>, IEquatable<KeyType>
+
+        {
+            var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<KeyType, EntityType>>(dictionaryName).GetAwaiter().GetResult();
+
+            using (var tx = stateManager.CreateTransaction())
+            {
+                dictionary.TryRemoveAsync(tx, key, TimeSpan.FromSeconds(60), CancellationToken.None).GetAwaiter().GetResult();
+
+                tx.CommitAsync().GetAwaiter().GetResult();
+            }
+        }
+
         public static EntityType GetEntity<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName)
             where KeyType : IComparable<KeyType>, IEquatable<KeyType>
         {
