@@ -130,11 +130,14 @@
     <Compile Include="AbstractModel\ModelException.cs" />
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\ServiceFabric\BaseServiceFabricWCFClient.cs" />
+    <Compile Include="Communication\ServiceFabric\FEP\CommandSenderWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\FEP\FEPStorageWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\NMS\GDAWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\WCFClient.cs" />
     <Compile Include="Communication\WCFClient.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="FEP\CommandingService\ChangeRemotePointValueCommand.cs" />
+    <Compile Include="FEP\CommandingService\Command.cs" />
     <Compile Include="FEP\ModbusMessages\ModbusFunctionCode.cs" />
     <Compile Include="FEP\ModbusMessages\ModbusMessageHeader.cs" />
     <Compile Include="FEP\ModbusMessages\ModbusSingleWriteMessage.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="ReliableCollectionProxy\AsyncEnumeratorHandler.cs" />
     <Compile Include="ReliableCollectionProxy\ReliableDictionaryProxy.cs" />
     <Compile Include="ReliableCollectionProxy\ReliableQueueCollectionProxy.cs" />
+    <Compile Include="ServiceInterfaces\FEP\CommandingService\ICommanding.cs" />
     <Compile Include="ServiceInterfaces\FEP\FEPStorage\IFEPStorage.cs" />
     <Compile Include="ServiceInterfaces\FEP\FieldCommunicator\IFiledCommunicator.cs" />
     <Compile Include="ServiceInterfaces\FEP\FieldValueExtractor\IFieldValueExtractor.cs" />

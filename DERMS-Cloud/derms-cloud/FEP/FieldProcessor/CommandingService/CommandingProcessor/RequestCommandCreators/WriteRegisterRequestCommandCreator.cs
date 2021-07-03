@@ -1,15 +1,15 @@
 ﻿using System;
-using Common.SCADA.FieldProcessor;
-using FieldProcessor.Model;
-using Common.Logger;
-using Common.ComponentStorage;
-using FieldProcessor.ModbusMessages;
+using Core.Common.Transaction.Models.FEP.FEPStorage;
+using Core.Common.FEP.ModbusMessages;
+using Core.Common.FEP.ModbusMessages.RequestMessages;
+using Core.Common.FEP.CommandingService;
+using Core.Common.ServiceInterfaces.FEP.FEPStorage;
 
-namespace FieldProcessor.CommandingProcessor
+namespace CommandingService.CommandingProcessor.RequestCommandCreators
 {
     public class WriteRegisterRequestCommandCreator : WriteRequestCommandCreator
     {
-        public WriteRegisterRequestCommandCreator(IStorage<RemotePoint> storage) : base(storage, ModbusFunctionCode.PresetMultipleRegisters)
+        public WriteRegisterRequestCommandCreator(IFEPStorage fepStorage, Action<string> log) : base(fepStorage, ModbusFunctionCode.PresetMultipleRegisters, log)
         {
         }
 
@@ -27,13 +27,13 @@ namespace FieldProcessor.CommandingProcessor
 
             if (remotePoint == null)
             {
-                Logger.Instance.Log($"Cannot find entity with gid: 0x{command.GlobalId:X16}.");
+                Log($"Cannot find entity with gid: 0x{command.GlobalId:X16}.");
                 return null;
             }
 
             if (remotePoint.Type != RemotePointType.HoldingRegister)
             {
-                Logger.Instance.Log($"Cannot command {remotePoint.Type.ToString()} remote point type.");
+                Log($"Cannot command {remotePoint.Type} remote point type.");
                 return null;
             }
 
