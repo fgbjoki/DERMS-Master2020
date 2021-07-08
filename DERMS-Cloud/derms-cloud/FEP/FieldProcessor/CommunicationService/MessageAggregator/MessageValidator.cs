@@ -37,6 +37,7 @@ namespace MessageAggregatorService.MessageAggregator
         public MessageValidator(IReliableStateManager stateManager, Action<string> log)
         {
             this.log = log;
+            this.stateManager = stateManager;
 
             locker = new ReaderWriterLock();
 

@@ -6,6 +6,11 @@ namespace Core.Common.Transaction.Models
     [DataContract]
     public class IdentifiedObject
     {
+        public IdentifiedObject()
+        {
+
+        }
+
         public IdentifiedObject(long globalId)
         {
             GlobalId = globalId;
@@ -13,7 +18,7 @@ namespace Core.Common.Transaction.Models
         }
 
         [DataMember]
-        public long GlobalId { get; private set; }
+        public long GlobalId { get; set; }
 
         [DataMember]
         public string Name { get; set; }
@@ -22,7 +27,7 @@ namespace Core.Common.Transaction.Models
         public DMSType DMSType
         {
             get;
-            private set;
+            set;
         }
     }
 }

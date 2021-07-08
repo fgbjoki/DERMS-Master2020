@@ -4,7 +4,6 @@ using Core.Common.Transaction.Models.FEP.FEPStorage;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using Core.Common.Transaction.StorageTransactionProcessor;
-using FEPStorage.Model;
 using FieldProcessor.TransactionProcessing;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Microsoft.ServiceFabric.Data;

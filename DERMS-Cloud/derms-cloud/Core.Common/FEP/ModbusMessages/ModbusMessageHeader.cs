@@ -12,6 +12,9 @@ namespace Core.Common.FEP.ModbusMessages
     /// --------------------------------------------------------------------------------------------
 
     [DataContract]
+    [KnownType(typeof(ModbusReadRequestMessage))]
+    [KnownType(typeof(ModbusReadAnalogRequestMessage))]
+    [KnownType(typeof(ModbusReadDigitalRequestMessage))]
     public class ModbusMessageHeader : IRequestMessage
     {
         private static readonly int transactionIdentifierOffset = 0;

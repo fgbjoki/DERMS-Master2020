@@ -1,11 +1,10 @@
 ﻿using Core.Common.AbstractModel;
+using Core.Common.Transaction.Models.FEP.FEPStorage;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using Core.Common.Transaction.StorageTransactionProcessor;
-using FEPStorage.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FEPStorage.Transaction.StorageTransactionProcessor
 {

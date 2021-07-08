@@ -1,9 +1,9 @@
-﻿using Microsoft.ServiceFabric.Services.Communication.Runtime;
+﻿using Core.Common.Communication.ServiceFabric.FEP;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
-using System;
+using PollingService.Service;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,9 +14,12 @@ namespace PollingService
     /// </summary>
     internal sealed class PollingService : StatelessService
     {
+        private IPollingInvoker pollingIvoker;
         public PollingService(StatelessServiceContext context)
             : base(context)
-        { }
+        {
+            pollingIvoker = new PollingInvoker(new FEPStorageWCFClient(), new CommandSenderWCFClient(), Log);
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -33,19 +36,12 @@ namespace PollingService
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
+            await pollingIvoker.StartAquisition(cancellationToken);
+        }
 
-            long iterations = 0;
-
-            while (true)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
-
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
+        private void Log(string text)
+        {
+            ServiceEventSource.Current.ServiceMessage(Context, text);
         }
     }
 }

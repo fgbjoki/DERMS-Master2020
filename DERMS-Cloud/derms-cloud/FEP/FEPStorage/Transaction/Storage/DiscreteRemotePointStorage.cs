@@ -1,9 +1,9 @@
 ﻿using Core.Common.AbstractModel;
 using Core.Common.ReliableCollectionProxy;
+using Core.Common.Transaction.Models.FEP.FEPStorage;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using Core.Common.Transaction.StorageTransactionProcessor;
-using FEPStorage.Model;
 using FEPStorage.Transaction.StorageTransactionProcessor;
 using FieldProcessor.TransactionProcessing.StorageItemCreators;
 using Microsoft.ServiceFabric.Data;
