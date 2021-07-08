@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandingService", "FEP\Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollingService", "FEP\FieldProcessor\PollingService\PollingService.csproj", "{5338B74F-47A8-4CCE-B2AB-9F1723129749}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldCommunicationService", "FEP\FieldProcessor\FieldCommunicationService\FieldCommunicationService.csproj", "{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,14 @@ Global
 		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x64.ActiveCfg = Release|x64
 		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x64.Build.0 = Release|x64
 		{5338B74F-47A8-4CCE-B2AB-9F1723129749}.Release|x86.ActiveCfg = Release|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Debug|x64.ActiveCfg = Debug|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Debug|x64.Build.0 = Debug|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Debug|x86.ActiveCfg = Debug|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Release|Any CPU.ActiveCfg = Release|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Release|x64.ActiveCfg = Release|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Release|x64.Build.0 = Release|x64
+		{24F3C3C2-A46C-488D-94D9-788ABE31EE8E}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

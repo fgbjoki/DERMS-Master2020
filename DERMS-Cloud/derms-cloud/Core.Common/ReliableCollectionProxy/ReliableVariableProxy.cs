@@ -21,6 +21,18 @@ namespace Core.Common.ReliableCollectionProxy
             }
         }
 
+        public static T GetVariable<T>(IReliableStateManager stateManager, string variableName, ITransaction tx)
+        {
+            var reliableInstance = stateManager.GetOrAddAsync<IReliableDictionary<string, T>>(variableName).GetAwaiter().GetResult();
+            var transactionObject = reliableInstance.TryGetValueAsync(tx, variableName).GetAwaiter().GetResult();
+            if (!transactionObject.HasValue)
+            {
+                return default(T);
+            }
+
+            return transactionObject.Value;
+        }
+
         public static void SetVariable<T>(IReliableStateManager stateManager, T variable, string variableName)
         {
             var reliableCollection = stateManager.GetOrAddAsync<IReliableDictionary<string, T>>(variableName).GetAwaiter().GetResult();
@@ -31,6 +43,13 @@ namespace Core.Common.ReliableCollectionProxy
 
                 tx.CommitAsync().GetAwaiter().GetResult();
             }
+        }
+
+        public static void SetVariable<T>(IReliableStateManager stateManager, T variable, string variableName, ITransaction tx)
+        {
+            var reliableCollection = stateManager.GetOrAddAsync<IReliableDictionary<string, T>>(variableName).GetAwaiter().GetResult();
+
+            reliableCollection.SetAsync(tx, variableName, variable).GetAwaiter().GetResult();
         }
 
         public static async void AddVariable<T>(IReliableStateManager stateManager, T variable, string variableName)

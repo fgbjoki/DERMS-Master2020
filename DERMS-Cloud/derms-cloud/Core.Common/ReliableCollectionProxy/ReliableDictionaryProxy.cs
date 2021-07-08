@@ -34,6 +34,15 @@ namespace Core.Common.ReliableCollectionProxy
             }
         }
 
+        public static bool EntityExists<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName, ITransaction tx)
+            where KeyType : IComparable<KeyType>, IEquatable<KeyType>
+
+        {
+            var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<KeyType, EntityType>>(dictionaryName).GetAwaiter().GetResult();
+
+            return dictionary.ContainsKeyAsync(tx, key, TimeSpan.FromSeconds(60), CancellationToken.None).GetAwaiter().GetResult();
+        }
+
         public static bool AddOrUpdateEntity<EntityType, KeyType>(IReliableStateManager stateManager, EntityType entity, KeyType key, string dictionaryName)
             where KeyType : IComparable<KeyType>, IEquatable<KeyType>
 
@@ -50,6 +59,17 @@ namespace Core.Common.ReliableCollectionProxy
             }
         }
 
+        public static bool AddOrUpdateEntity<EntityType, KeyType>(IReliableStateManager stateManager, EntityType entity, KeyType key, string dictionaryName, ITransaction tx)
+            where KeyType : IComparable<KeyType>, IEquatable<KeyType>
+
+        {
+            var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<KeyType, EntityType>>(dictionaryName).GetAwaiter().GetResult();
+
+            dictionary.AddOrUpdateAsync(tx, key, entity, (entityKey, value) => value).GetAwaiter().GetResult();
+
+            return true;
+        }
+
         public static void Remove<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName)
             where KeyType : IComparable<KeyType>, IEquatable<KeyType>
 
@@ -62,6 +82,15 @@ namespace Core.Common.ReliableCollectionProxy
 
                 tx.CommitAsync().GetAwaiter().GetResult();
             }
+        }
+
+        public static void Remove<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName, ITransaction tx)
+            where KeyType : IComparable<KeyType>, IEquatable<KeyType>
+
+        {
+            var dictionary = stateManager.GetOrAddAsync<IReliableDictionary<KeyType, EntityType>>(dictionaryName).GetAwaiter().GetResult();
+
+            dictionary.TryRemoveAsync(tx, key, TimeSpan.FromSeconds(60), CancellationToken.None).GetAwaiter().GetResult();
         }
 
         public static EntityType GetEntity<EntityType, KeyType>(IReliableStateManager stateManager, KeyType key, string dictionaryName)

@@ -1,9 +1,11 @@
-﻿using Core.Common.FEP.ModbusMessages;
+﻿using Core.Common.Communication.ServiceFabric.FEP;
+using Core.Common.FEP.ModbusMessages;
 using Core.Common.FEP.ModbusMessages.ResponseMessages;
 using Core.Common.ReliableCollectionProxy;
 using Core.Common.ServiceInterfaces.FEP.FieldCommunicator;
 using Core.Common.ServiceInterfaces.FEP.FieldValueExtractor;
 using Core.Common.ServiceInterfaces.FEP.MessageAggregator;
+using FieldProcessor.TCPCommunicationHandler;
 using Microsoft.ServiceFabric.Data;
 using System;
 using System.Collections.Generic;
@@ -15,18 +17,19 @@ namespace MessageAggregatorService.MessageAggregator
     {
         private readonly int lockerTimeout = 60000; // 60 seconds
         private readonly string sentMessagesDictionary = "sentMessages";
+        private readonly string currentTransactionIdentifierVariable = "currentTransactionIdentifier";
 
         private Dictionary<ModbusFunctionCode, IResponseCommandCreator> responseCreators;
 
         private ModbusMessageHeader validationHeader;
-
-        private int currentTransactionIdentifier;
 
         private ReaderWriterLock locker;
 
         private IReliableStateManager stateManager;
 
         private Action<string> log;
+
+        private ModbusMessageArbitrator messageArbitrator;
 
         // TODO INITIALIZE
         private IFiledCommunicator fieldCommunicator;
@@ -39,69 +42,85 @@ namespace MessageAggregatorService.MessageAggregator
             this.log = log;
             this.stateManager = stateManager;
 
-            locker = new ReaderWriterLock();
+            messageArbitrator = new ModbusMessageArbitrator(stateManager);
+            fieldCommunicator = new CommunicationServiceWCFClient();
 
             InitializeCommandCreators();
 
             validationHeader = new ModbusMessageHeader();
 
             ReliableDictionaryProxy.CreateDictionary<ModbusMessageHeader, ushort>(stateManager, sentMessagesDictionary);
+            ReliableVariableProxy.AddVariable(stateManager, 0, currentTransactionIdentifierVariable);
         }
 
         public bool SendCommand(ModbusMessageHeader command)
         {
-            bool commandSent = true;
-
-            if (command.TransactionIdentifier == 0)
+            using (var tx = stateManager.CreateTransaction())
             {
-                GenerateTransactionIdentifier(command);
-            }
+                bool commandSent = true;
 
-            if (ReliableDictionaryProxy.EntityExists<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary))
-            {
-                Log($"[{GetType().Name}] Command with transction identifier \'{command.TransactionIdentifier}\' already sent! Skipping further processing of this command.");
-                commandSent = false;
-            }
-            else
-            {
-                ReliableDictionaryProxy.AddOrUpdateEntity(stateManager, command, command.TransactionIdentifier, sentMessagesDictionary);
+                if (command.TransactionIdentifier == 0)
+                {
+                    GenerateTransactionIdentifier(command);
+                }
 
-                Log($"[{GetType().Name}] Sending command with transaction identifier \'{command.TransactionIdentifier}\'.");
-                fieldCommunicator.Send(command.TransfromMessageToBytes());
-            }
+                if (ReliableDictionaryProxy.EntityExists<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary, tx))
+                {
+                    Log($"[{GetType().Name}] Command with transction identifier \'{command.TransactionIdentifier}\' already sent! Skipping further processing of this command.");
+                    commandSent = false;
+                }
+                else
+                {
+                    ReliableDictionaryProxy.AddOrUpdateEntity(stateManager, command, command.TransactionIdentifier, sentMessagesDictionary, tx);
 
-            if (commandSent)
-            {
-                Log($"[{GetType().Name}] Command with transaction identifier \'{command.TransactionIdentifier}\' is now queued for data transmission.");
-            }
-            else if (ReliableDictionaryProxy.EntityExists<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary))
-            {
-                ReliableDictionaryProxy.Remove<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary);
-            }
+                    Log($"[{GetType().Name}] Sending command with transaction identifier \'{command.TransactionIdentifier}\'.");
+                    fieldCommunicator.Send(command.TransfromMessageToBytes());
+                }
 
-            return commandSent;
+                if (commandSent)
+                {
+                    Log($"[{GetType().Name}] Command with transaction identifier \'{command.TransactionIdentifier}\' is now queued for data transmission.");
+                }
+                else if (ReliableDictionaryProxy.EntityExists<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary, tx))
+                {
+                    ReliableDictionaryProxy.Remove<ModbusMessageHeader, ushort>(stateManager, command.TransactionIdentifier, sentMessagesDictionary, tx);
+                }
+
+                tx.CommitAsync().GetAwaiter().GetResult();
+
+                return commandSent;
+            }
         }
 
         public void ReceiveCommand(byte[] receivedBytes)
         {
-            if (receivedBytes == null)
+            if (receivedBytes == null || receivedBytes.Length == 0)
             {
                 return;
             }
 
-            validationHeader.ConvertMessageFromBytes(receivedBytes);
-
-            ModbusMessageHeader requestCommand = ReliableDictionaryProxy.GetEntity<ModbusMessageHeader, ushort>(stateManager, validationHeader.TransactionIdentifier, sentMessagesDictionary);
-            if (requestCommand == null)
+            List<byte[]> messages = messageArbitrator.ReceiveData(receivedBytes, receivedBytes.Length);
+            if (messages == null)
             {
-                Log($"[{GetType().Name}] Response message received with invalid \'transaction identifier\' ({validationHeader.TransactionIdentifier})");
-
                 return;
             }
 
-            ReliableDictionaryProxy.Remove<ModbusMessageHeader, ushort>(stateManager, validationHeader.TransactionIdentifier, sentMessagesDictionary);
+            foreach (var message in messages)
+            {
+                validationHeader.ConvertMessageFromBytes(message);
 
-            ProcessCommand(requestCommand, receivedBytes);
+                ModbusMessageHeader requestCommand = ReliableDictionaryProxy.GetEntity<ModbusMessageHeader, ushort>(stateManager, validationHeader.TransactionIdentifier, sentMessagesDictionary);
+                if (requestCommand == null)
+                {
+                    Log($"[{GetType().Name}] Response message received with invalid \'transaction identifier\' ({validationHeader.TransactionIdentifier})");
+
+                    return;
+                }
+
+                ReliableDictionaryProxy.Remove<ModbusMessageHeader, ushort>(stateManager, validationHeader.TransactionIdentifier, sentMessagesDictionary);
+
+                ProcessCommand(requestCommand, receivedBytes);
+            }        
         }
 
         private void InitializeCommandCreators()
@@ -153,13 +172,14 @@ namespace MessageAggregatorService.MessageAggregator
         private void ExtractValues(ModbusMessageHeader request, ModbusMessageHeader response)
         {
             Log($"[{GetType().Name}] Sending command with transaction id: {request.TransactionIdentifier} to value extractor.");
-            fieldValueExtractor.ExtractValues(request, response);
+            fieldValueExtractor?.ExtractValues(request, response);
         }
 
         private void GenerateTransactionIdentifier(ModbusMessageHeader command)
         {
             locker.AcquireWriterLock(lockerTimeout);
 
+            int currentTransactionIdentifier = ReliableVariableProxy.GetVariable<int>(stateManager, currentTransactionIdentifierVariable);
             if (currentTransactionIdentifier == ushort.MaxValue - 1)
             {
                 currentTransactionIdentifier = 0;
@@ -168,6 +188,8 @@ namespace MessageAggregatorService.MessageAggregator
             locker.ReleaseWriterLock();
 
             Interlocked.Increment(ref currentTransactionIdentifier);
+
+            ReliableVariableProxy.SetVariable(stateManager, currentTransactionIdentifier, currentTransactionIdentifierVariable);
 
             command.TransactionIdentifier = (ushort)currentTransactionIdentifier;
         }

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="ServiceFabricAppType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
+    <Parameter Name="FieldCommunicationService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="PollingService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="CommandingService_InstanceCount" DefaultValue="-1" />
     <Parameter Name="MessageAggregatorService_MinReplicaSetSize" DefaultValue="3" />
@@ -16,6 +17,10 @@
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="FieldCommunicationServicePkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="PollingServicePkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
@@ -37,6 +42,11 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
+    <Service Name="FieldCommunicationService" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="FieldCommunicationServiceType" InstanceCount="[FieldCommunicationService_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
     <Service Name="PollingService" ServicePackageActivationMode="ExclusiveProcess">
       <StatelessService ServiceTypeName="PollingServiceType" InstanceCount="[PollingService_InstanceCount]">
         <SingletonPartition />
