@@ -7,6 +7,7 @@ using Core.Common.Transaction.Storage;
 using FEPStorage.Storage;
 using FEPStorage.Transaction.Storage;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Communication.Wcf;
 using Microsoft.ServiceFabric.Services.Communication.Wcf.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using System.Collections.Generic;

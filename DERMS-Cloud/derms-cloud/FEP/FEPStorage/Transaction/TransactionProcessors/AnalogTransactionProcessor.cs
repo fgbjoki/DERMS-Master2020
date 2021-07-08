@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using Core.Common.AbstractModel;
 using Core.Common.GDA;
-using System.Linq;
 using Core.Common.Transaction.StorageTransactionProcessor;
-using FEPStorage.Model;
 using Core.Common.Transaction.Storage;
 using Core.Common.Transaction.StorageItemCreator;
 using System;
 using Microsoft.ServiceFabric.Data;
+using Core.Common.Transaction.Models.FEP.FEPStorage;
 
 namespace FieldProcessor.TransactionProcessing
 {

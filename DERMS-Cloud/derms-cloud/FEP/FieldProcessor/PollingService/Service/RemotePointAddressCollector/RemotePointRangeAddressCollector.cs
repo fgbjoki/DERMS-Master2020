@@ -1,65 +1,29 @@
-﻿using FieldProcessor.Model;
+﻿using Core.Common.Transaction.Models.FEP.FEPStorage;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FieldProcessor.RemotePointAddressCollector
+namespace PollingService.Service.RemotePointAddressCollector
 {
-    public class AddressRange
-    {
-        public AddressRange(ushort startAddress)
-        {
-            StartAddress = startAddress;
-            RangeSize = 1;
-        }
-
-        public ushort StartAddress { get; private set; }
-        public ushort RangeSize { get; private set; }
-
-        public void IncrementAddressRange()
-        {
-            RangeSize++;
-        }
-    }
-
-    public class RemotePointRangeAddressCollector : RemotePointAddressCollector, IRemotePointRangeAddressCollector
+    public class RemotePointRangeAddressCollector : IRemotePointRangeAddressCollector
     {
         private readonly int maximumNumberOfAnalogPointsInArray = 31; // ((2000 bits / 8)/2)/2 / 2 => 8 byte values
         private readonly int maximumNumberOfDiscretePointsInArray = 2000;
 
-        private Dictionary<RemotePointType, List<AddressRange>> addressRanges;
-
-        public RemotePointRangeAddressCollector()
+        public Dictionary<RemotePointType, List<AddressRange>> CreateAddressRanges(List<RemotePoint> remotePoints)
         {
-            addressRanges = new Dictionary<RemotePointType, List<AddressRange>>()
+            Dictionary<RemotePointType, List<AddressRange>> addressRanges = new Dictionary<RemotePointType, List<AddressRange>>()
             {
                 { RemotePointType.Coil, new List<AddressRange>() },
                 { RemotePointType.DiscreteInput, new List<AddressRange>() },
                 { RemotePointType.HoldingRegister, new List<AddressRange>() },
                 { RemotePointType.InputRegister, new List<AddressRange>() },
             };
-        }
 
-        public override void Commit()
-        {
-            locker.AcquireWriterLock(lockerTimeout);
-
-            foreach (var pair in transactionCopy)
+            Dictionary<RemotePointType, List<RemotePoint>> sortedRemotePoints = remotePoints.GroupBy(x => x.Type).ToDictionary(x => x.Key, y => y.ToList());
+            foreach (var remotePointType in sortedRemotePoints)
             {
-                addressRanges[pair.Key] = CreateAddressRanges(pair.Key, pair.Value.Values.ToList());
+                addressRanges[remotePointType.Key] = CreateAddressRanges(remotePointType.Key, remotePointType.Value);
             }
-
-            locker.ReleaseWriterLock();
-        }
-
-        public List<AddressRange> GetAddressRanges(RemotePointType remotePointType)
-        {
-            List<AddressRange> addressRanges;
-
-            locker.AcquireReaderLock(lockerTimeout);
-
-            addressRanges = this.addressRanges[remotePointType];
-
-            locker.ReleaseReaderLock();
 
             return addressRanges;
         }

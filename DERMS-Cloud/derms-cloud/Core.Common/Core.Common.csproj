@@ -175,6 +175,8 @@
     <Compile Include="ServiceInterfaces\Transaction\ITransaction.cs" />
     <Compile Include="ServiceInterfaces\Transaction\ITransactionManager.cs" />
     <Compile Include="ReliableCollectionProxy\ReliableVariableProxy.cs" />
+    <Compile Include="Transaction\Models\FEP\FEPStorage\AnalogRemotePoint.cs" />
+    <Compile Include="Transaction\Models\FEP\FEPStorage\DiscreteRemotePoint.cs" />
     <Compile Include="Transaction\Models\FEP\FEPStorage\RemotePoint.cs" />
     <Compile Include="Transaction\Models\FEP\FEPStorage\RemotePointType.cs" />
     <Compile Include="Transaction\StorageItemCreator\IStorageItemCreator.cs" />
