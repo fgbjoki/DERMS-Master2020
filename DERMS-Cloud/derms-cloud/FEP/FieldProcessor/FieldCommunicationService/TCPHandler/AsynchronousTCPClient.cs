@@ -1,5 +1,4 @@
-﻿using Core.Common.ServiceInterfaces.FEP.CommunicationService;
-using Core.Common.ServiceInterfaces.FEP.FieldCommunicator;
+﻿using Core.Common.ServiceInterfaces.FEP.FieldCommunicator;
 using Core.Common.ServiceInterfaces.FEP.MessageAggregator;
 using System;
 using System.Net;
