@@ -131,7 +131,9 @@
     <Compile Include="AbstractModel\ModelResourcesDesc.cs" />
     <Compile Include="Communication\ServiceFabric\BaseServiceFabricWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\FEP\CommandSenderWCFClient.cs" />
+    <Compile Include="Communication\ServiceFabric\FEP\CommunicationServiceWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\FEP\FEPStorageWCFClient.cs" />
+    <Compile Include="Communication\ServiceFabric\FEP\ResponseReceiverWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\NMS\GDAWCFClient.cs" />
     <Compile Include="Communication\ServiceFabric\WCFClient.cs" />
     <Compile Include="Communication\WCFClient.cs" />
