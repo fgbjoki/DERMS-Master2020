@@ -32,11 +32,11 @@
 	<!--    NEXT free
 	
 		Analog addresses:
-			Read : 78
-			ReadWrite: 28
+			Read : 110
+			ReadWrite: 38
 			
 		Discrete addresses:
-			ReadWrite: 15
+			ReadWrite: 20
 	-->
 	
 	
@@ -196,6 +196,7 @@
 	</cim:ConnectivityNode>
 	
 	<!-- END ACLineSegment1_1 -->
+	
 	
 	
 	<!-- ACLineSegment3_1 -->
@@ -694,6 +695,7 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment3_4 -->
+	
 	
 	
 	<!-- ACLineSegment2_1 -->
@@ -1431,6 +1433,7 @@
 	<!-- END Energy Source Liman-->
 	
 	
+	
 	<!-- ACLineSegment9_1 -->
 	
 	<cim:Terminal rdf:ID="T_ACLS9_1_a">
@@ -1464,6 +1467,7 @@
 	</cim:ConnectivityNode>
 	
 	<!-- END ACLineSegment9_1 -->
+	
 	
 	
 	<!-- ACLineSegment10_1 -->
@@ -1527,7 +1531,6 @@
 		<ftn:IdentifiedObject.name>Analog ECon10_1 ActivePower</ftn:IdentifiedObject.name>
 	</cim:Analog>
 	
-
 	<!-- END ACLineSegment10_1 -->
 	
 	
@@ -1998,6 +2001,446 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment10_5 -->
+	
+	
+	<!-- ACLineSegment10_6 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS10_6_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_5_ECon10_5_a_ECon10_5_b_ACLS10_6"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_6_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_6 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS10_6">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment10_6</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS10_6_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_6_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_6 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment10_6 with storage and wind generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS10_6 EStorage10_6 B_WG10_6 ACLS10_7</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_EStorage10_6_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EStorage10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7"/>
+		<cim:IdentifiedObject.description>Terminal of EnergyStorage 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_EStorage10_6_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal EStorage10_6 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EStorage10_6">
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#WG10_6"/>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>EnergyStorage for wind generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EStorage10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage 10_6</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="A_EStorage10_6_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>32</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage10_6"/>
+		<cim:IdentifiedObject.description>EnergyStorage10_6 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage10_6_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage10_6 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="A_EStorage10_6_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>92</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage10_6"/>
+		<cim:IdentifiedObject.description>EnergyStorage10_6 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage10_6_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage10_6 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_B_WG10_6_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_WG10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for WindGenerator 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_WG10_6_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_WG10_6 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="B_WG10_6">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Breaker of WindGenerator 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>B_WG10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Breaker WG10_6</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:Discrete rdf:ID="D_B_WG10_6">
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>17</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#B_WG10_6"/>
+		<cim:IdentifiedObject.description>Defines breaker state of WG10_6 breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>D_B_WG10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete Breaker_WG10_6</ftn:IdentifiedObject.name>
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:ID="T_B_WG10_6_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_WG10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_WG10_6_WG10_6"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for WindGenerator 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_WG10_6_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_WG10_6 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_B_WG10_6_WG10_6">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects breaker with WindGenerator 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_B_WG10_6_WG10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode B_WG10_6 WG10_6</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_WG10_6_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#WG10_6"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_WG10_6_WG10_6"/>
+		<cim:IdentifiedObject.description>Terminal of WindGenerator 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_WG10_6_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal WG10_6 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:WindGenerator rdf:ID="WG10_6">
+		<cim:WindGenerator.cutOutSpeed>15</cim:WindGenerator.cutOutSpeed>
+		<cim:WindGenerator.nominalSpeed>3</cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
+		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#EStorage10_6"/>
+		<cim:DER.activePower>0</cim:DER.activePower>
+		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
+		<cim:DER.setPoint>0</cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Wind generator on ACLineSegment 10_6</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WG10_6</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator 10_6</ftn:IdentifiedObject.name>
+	</cim:WindGenerator>
+	
+	<cim:Analog rdf:ID="A_WG10_6_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>94</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WG10_6"/>
+		<cim:IdentifiedObject.description>WindGenerator10_6 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_WG10_6_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog WindGenerator10_6 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment10_6 -->
+	
+	
+	<!-- ACLineSegment10_7 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS10_7_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_7"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_6_EStorage10_6_B_WG10_6_ACLS10_7"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_7</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_7_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_7 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS10_7">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 10_7</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS10_7</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment10_7</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS10_7_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_7"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_7_ECon10_7_ACLS10_8"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_7</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_7_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_7 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS10_7_ECon10_7_ACLS10_8">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment10_7 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS10_7_ECon10_7_ACLS10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS10_7 ECon10_7 ACLS10_8</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon10_7_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon10_7"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_7_ECon10_7_ACLS10_8"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon10_7_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer10_7 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon10_7">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 10_7</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon10_7</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 10_7</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon10_7_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>96</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon10_7"/>
+		<cim:IdentifiedObject.description>EnergyConsumer10_7 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon10_7_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon10_7 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment10_7 -->
+	
+	
+	<!-- ACLineSegment10_8 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS10_8_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_7_ECon10_7_ACLS10_8"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_8_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_8 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS10_8">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment10_8</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS10_8_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_8_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_8 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment10_8 with solar generator and storage</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS10_8 EStorage10_8 B_SG10_8 ACLS10_9</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_EStorage10_8_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EStorage10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9"/>
+		<cim:IdentifiedObject.description>Terminal of EnergyStorage 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_EStorage10_8_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal EStorage10_8 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EStorage10_8">
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#SG10_8"/>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>EnergyStorage for solar generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EStorage10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage 10_8</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="A_EStorage10_8_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>34</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage10_8"/>
+		<cim:IdentifiedObject.description>EnergyStorage10_8 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage10_8_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage10_8 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="A_EStorage10_8_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>98</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage10_8"/>
+		<cim:IdentifiedObject.description>EnergyStorage10_8 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage10_8_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage10_8 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_B_SG10_8_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG10_8_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG10_8 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="B_SG10_8">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Breaker of SolarGenerator 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>B_SG10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Breaker SG10_8</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:Discrete rdf:ID="D_B_SG10_8">
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>18</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#B_SG10_8"/>
+		<cim:IdentifiedObject.description>Defines breaker state of SG10_8 breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>D_B_SG10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete Breaker_SG10_8</ftn:IdentifiedObject.name>
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:ID="T_B_SG10_8_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG10_8_SG10_8"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG10_8_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG10_8 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_B_SG10_8_SG10_8">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects breaker with SolarGenerator 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_B_SG10_8_SG10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode B_SG10_8 SG10_8</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_SG10_8_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#SG10_8"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG10_8_SG10_8"/>
+		<cim:IdentifiedObject.description>Terminal of SolarGenerator 10_8</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_SG10_8_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal SG10_8 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:SolarGenerator rdf:ID="SG10_8">
+		<cim:Generator.Storage rdf:resource="#EStorage10_8"/>
+		<cim:DER.nominalPower>8</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Solar Panel for Liman</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SG10_8</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>SolarGenerator 10_8</ftn:IdentifiedObject.name>
+	</cim:SolarGenerator>
+	
+	<cim:Analog rdf:ID="A_SG10_8_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>100</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#SG10_8"/>
+		<cim:IdentifiedObject.description>SolarGenerator10_8 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_SG10_8_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog SolarGenerator10_8 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment10_8 -->
+	
+	
+	<!-- ACLineSegment10_9 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS10_9_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_9"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_8_EStorage10_8_B_SG10_8_ACLS10_9"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_9</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_9_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_9 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS10_9">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 10_9</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS10_9</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment10_9</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS10_9_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS10_9"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_9_ECon10_9"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment10_9</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS10_9_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS10_9 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS10_9_ECon10_9">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment10_9 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS10_9_ECon10_9</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS10_9 ECon10_9</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon10_9_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon10_9"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS10_9_ECon10_9"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon10_9_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer10_9 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon10_9">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 10_9</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon10_9</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 10_9</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon10_9_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>102</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon10_9"/>
+		<cim:IdentifiedObject.description>EnergyConsumer10_9 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon10_9_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon10_9 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment10_9 -->
 	
 	
 	
@@ -2565,6 +3008,7 @@
 	<!-- END ACLineSegment11_4 -->
 	
 	
+	
 	<!-- ACLineSegment12_1 -->
 	
 	<cim:Terminal rdf:ID="T_ACLS12_1_a">
@@ -2782,6 +3226,377 @@
 	<!-- END ACLineSegment12_2 -->
 	
 	
+	<!-- ACLineSegment12_3 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS12_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_2_EStorage12_2_B_SG12_2_ACLS12_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS12_3">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment12_3</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS12_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment12_3 with wind generator, storage and consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS12_3 EStorage12_3 B_WG12_3 ECon12_3 ACLS12_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_EStorage12_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EStorage12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4"/>
+		<cim:IdentifiedObject.description>Terminal of EnergyStorage 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_EStorage12_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal EStorage12_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EStorage12_3">
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#WG12_3"/>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>EnergyStorage for wind generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EStorage12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage 12_3</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="A_EStorage12_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>30</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage12_3"/>
+		<cim:IdentifiedObject.description>EnergyStorage12_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage12_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage12_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="A_EStorage12_3_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>86</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage12_3"/>
+		<cim:IdentifiedObject.description>EnergyStorage12_3 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage12_3_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage12_3 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_B_WG12_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_WG12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for WindGenerator 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_WG12_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_WG12_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="B_WG12_3">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Breaker of WindGenerator 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>B_WG12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Breaker WG12_3</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:Discrete rdf:ID="D_B_WG12_3">
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>16</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#B_WG12_3"/>
+		<cim:IdentifiedObject.description>Defines breaker state of WG12_3 breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>D_B_WG12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete Breaker_WG12_3</ftn:IdentifiedObject.name>
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:ID="T_B_WG12_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_WG12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_WG12_3_WG12_3"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for WindGenerator 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_WG12_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_WG12_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_B_WG12_3_WG12_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects breaker with WindGenerator 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_B_WG12_3_WG12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode B_WG12_3 WG12_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_WG12_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#WG12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_WG12_3_WG12_3"/>
+		<cim:IdentifiedObject.description>Terminal of WindGenerator 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_WG12_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal WG12_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:WindGenerator rdf:ID="WG12_3">
+		<cim:WindGenerator.cutOutSpeed>15</cim:WindGenerator.cutOutSpeed>
+		<cim:WindGenerator.nominalSpeed>3</cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
+		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#EStorage12_3"/>
+		<cim:DER.activePower>0</cim:DER.activePower>
+		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
+		<cim:DER.setPoint>0</cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Wind generator on ACLineSegment 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>WG12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>WindGenerator 12_3</ftn:IdentifiedObject.name>
+	</cim:WindGenerator>
+	
+	<cim:Analog rdf:ID="A_WG12_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>88</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#WG12_3"/>
+		<cim:IdentifiedObject.description>WindGenerator12_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_WG12_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog WindGenerator12_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon12_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon12_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon12_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer12_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon12_3">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 12_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon12_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 12_3</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon12_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>90</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon12_3"/>
+		<cim:IdentifiedObject.description>EnergyConsumer12_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon12_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon12_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment12_3 -->
+	
+	
+	<!-- ACLineSegment12_4 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS12_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_3_EStorage12_3_B_WG12_3_ECon12_3_ACLS12_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS12_4">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment12_4</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS12_4_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_4_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_4 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment12_4 with wind generator and storage</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS12_4 EStorage12_4 B_SG12_4 ECon12_4 ACLS12_5</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_EStorage12_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EStorage12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5"/>
+		<cim:IdentifiedObject.description>Terminal of EnergyStorage 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_EStorage12_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal EStorage12_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EStorage12_4">
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#SG12_4"/>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>EnergyStorage for solar generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EStorage12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage 12_4</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="A_EStorage12_4_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>36</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage12_4"/>
+		<cim:IdentifiedObject.description>EnergyStorage12_4 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage12_4_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage12_4 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="A_EStorage12_4_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>104</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage12_4"/>
+		<cim:IdentifiedObject.description>EnergyStorage12_4 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage12_4_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage12_4 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_B_SG12_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG12_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG12_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="B_SG12_4">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Breaker of SolarGenerator 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>B_SG12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Breaker SG12_4</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:Discrete rdf:ID="D_B_SG12_4">
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>19</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#B_SG12_4"/>
+		<cim:IdentifiedObject.description>Defines breaker state of SG12_4 breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>D_B_SG12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete Breaker_SG12_4</ftn:IdentifiedObject.name>
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:ID="T_B_SG12_4_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG12_4_SG12_4"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG12_4_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG12_4 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_B_SG12_4_SG12_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects breaker with SolarGenerator 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_B_SG12_4_SG12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode B_SG12_4 SG12_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_SG12_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#SG12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG12_4_SG12_4"/>
+		<cim:IdentifiedObject.description>Terminal of SolarGenerator 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_SG12_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal SG12_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:SolarGenerator rdf:ID="SG12_4">
+		<cim:Generator.Storage rdf:resource="#EStorage12_4"/>
+		<cim:DER.nominalPower>8</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Solar Panel for Liman</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SG12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>SolarGenerator 12_4</ftn:IdentifiedObject.name>
+	</cim:SolarGenerator>
+	
+	<cim:Analog rdf:ID="A_SG12_4_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>106</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#SG12_4"/>
+		<cim:IdentifiedObject.description>SolarGenerator12_4 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_SG12_4_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog SolarGenerator12_4 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon12_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon12_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon12_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer12_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon12_4">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 12_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon12_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 12_4</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon12_4_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>108</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon12_4"/>
+		<cim:IdentifiedObject.description>EnergyConsumer12_4 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon12_4_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon12_4 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment12_4 -->
+	
+	
+	
 	<!-- ACLineSegment15_1 -->
 	
 	<cim:Terminal rdf:ID="T_ACLS15_1_a">
@@ -2968,6 +3783,287 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment15_1 -->
+	
+	
+	<!-- ACLineSegment15_2 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS15_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_1_EStorage15_1_B_WG15_1_ECon15_1_ACLS15_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS15_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 15_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS15_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment15_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS15_2_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_2_ECon15_2_ACLS15_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_2 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS15_2_ECon15_2_ACLS15_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment15_2 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS15_2_ECon15_2_ACLS15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS15_2 ECon15_2 ACLS15_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon15_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon15_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_2_ECon15_2_ACLS15_3"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon15_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer15_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon15_2">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 15_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon15_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 15_2</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon15_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>78</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon15_2"/>
+		<cim:IdentifiedObject.description>EnergyConsumer15_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon15_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon15_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment15_2 -->
+	
+	
+	<!-- ACLineSegment15_3 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS15_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_2_ECon15_2_ACLS15_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS15_3">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment15_3</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS15_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment15_3 with solar generator and storage</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS15_3 EStorage15_3 B_SG15_3 ACLS15_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_EStorage15_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#EStorage15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4"/>
+		<cim:IdentifiedObject.description>Terminal of EnergyStorage 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_EStorage15_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal EStorage15_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyStorage rdf:ID="EStorage15_3">
+		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.Generator rdf:resource="#SG15_3"/>
+		<cim:DER.nominalPower>4800</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>EnergyStorage for solar generator</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>EStorage15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>EnergyStorage 15_3</ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:Analog rdf:ID="A_EStorage15_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>28</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage15_3"/>
+		<cim:IdentifiedObject.description>EnergyStorage15_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage15_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage15_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Analog rdf:ID="A_EStorage15_3_StateOfCharge">
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>1</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>80</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Percent</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#EStorage15_3"/>
+		<cim:IdentifiedObject.description>EnergyStorage15_3 state of charge</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_EStorage15_3_StateOfCharge</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog EnergyStorage15_3 StateOfCharge</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_B_SG15_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG15_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG15_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:Breaker rdf:ID="B_SG15_3">
+		<cim:Switch.normalOpen>false</cim:Switch.normalOpen>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Breaker of SolarGenerator 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>B_SG15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Breaker SG15_3</ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:Discrete rdf:ID="D_B_SG15_3">
+		<tdms:Discrete.currentValue>0</tdms:Discrete.currentValue>
+		<cim:Discrete.maxValue>1</cim:Discrete.maxValue>
+		<cim:Discrete.minValue>0</cim:Discrete.minValue>
+		<tdms:Measurement.direction>ReadWrite</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>15</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>Discrete</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#B_SG15_3"/>
+		<cim:IdentifiedObject.description>Defines breaker state of SG15_3 breaker</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>D_B_SG15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Discrete Breaker_SG15_3</ftn:IdentifiedObject.name>
+	</cim:Discrete>
+	
+	<cim:Terminal rdf:ID="T_B_SG15_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#B_SG15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG15_3_SG15_3"/>
+		<cim:IdentifiedObject.description>Terminal of Breaker for SolarGenerator 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_B_SG15_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal B_SG15_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_B_SG15_3_SG15_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects breaker with SolarGenerator 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_B_SG15_3_SG15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode B_SG15_3 SG15_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_SG15_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#SG15_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_B_SG15_3_SG15_3"/>
+		<cim:IdentifiedObject.description>Terminal of SolarGenerator 15_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_SG15_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal SG15_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:SolarGenerator rdf:ID="SG15_3">
+		<cim:Generator.Storage rdf:resource="#EStorage15_3"/>
+		<cim:DER.nominalPower>8</cim:DER.nominalPower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Solar Panel for Liman</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>SG15_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>SolarGenerator 15_3</ftn:IdentifiedObject.name>
+	</cim:SolarGenerator>
+	
+	<cim:Analog rdf:ID="A_SG15_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>82</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#SG15_3"/>
+		<cim:IdentifiedObject.description>SolarGenerator15_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_SG15_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog SolarGenerator15_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment15_3 -->
+	
+	
+	<!-- ACLineSegment15_4 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS15_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_3_EStorage15_3_B_SG15_3_ACLS15_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS15_4">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 15_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS15_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment15_4</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS15_4_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS15_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_4_ECon15_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment15_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS15_4_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS15_4 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS15_4_ECon15_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment15_4 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS15_4_ECon15_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS15_4 ECon15_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon15_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon15_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS15_4_ECon15_4"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon15_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer15_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon15_4">
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 15_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon15_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 15_4</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon15_4_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>84</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon15_4"/>
+		<cim:IdentifiedObject.description>EnergyConsumer15_4 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon15_4_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon15_4 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment15_4 -->
 	
 	
 	<!-- END Substation Liman -->
