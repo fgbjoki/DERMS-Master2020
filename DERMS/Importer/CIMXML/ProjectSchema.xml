@@ -32,7 +32,7 @@
 	<!--    NEXT free
 	
 		Analog addresses:
-			Read : 122
+			Read : 150
 			ReadWrite: 40
 			
 		Discrete addresses:
@@ -240,6 +240,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon3_1_a">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Bursac family</cim:IdentifiedObject.description>
@@ -261,6 +262,7 @@
 	</cim:Analog>
 	
 	<cim:Terminal rdf:ID="T_ECon3_1_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:Terminal.ConductingEquipment rdf:resource="#ECon3_1_b"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS3_1_ECon3_1_a_ECon3_1_b_ACLS3_2"/>
 		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
@@ -645,6 +647,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon3_4_a">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Jovanov family</cim:IdentifiedObject.description>
@@ -674,6 +677,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon3_4_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Petrovic family</cim:IdentifiedObject.description>
@@ -739,6 +743,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon2_1_a">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Jovanovic family</cim:IdentifiedObject.description>
@@ -768,6 +773,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon2_1_b">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Popovic family</cim:IdentifiedObject.description>
@@ -1109,6 +1115,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon2_3">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is Danilovic</cim:IdentifiedObject.description>
@@ -1311,7 +1318,7 @@
 	<cim:Terminal rdf:ID="T_ACLS2_5_b">
 		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS2_5"/>
 		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS2_5_ACLS4_1_ACLS7_1"/>
-		<cim:IdentifiedObject.description>Terminal of ACLineSegment1_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment2_5</cim:IdentifiedObject.description>
 		<cim:IdentifiedObject.mRID>T_ACLS2_5_b</cim:IdentifiedObject.mRID>
 		<ftn:IdentifiedObject.name>Terminal ACLS2_5 b</ftn:IdentifiedObject.name>
 	</cim:Terminal>
@@ -1368,6 +1375,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon4_1">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is 4_1</cim:IdentifiedObject.description>
@@ -1389,6 +1397,333 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment4_1 -->
+	
+	
+	<!-- ACLineSegment4_2 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS4_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_1_ECon4_1_ACLS4_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS4_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 4_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS4_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment4_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS4_2_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_2_ECon4_2_ACLS4_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_2 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS4_2_ECon4_2_ACLS4_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment4_2 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS4_2_ECon4_2_ACLS4_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS4_2 ECon4_2 ACLS4_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon4_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon4_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_2_ECon4_2_ACLS4_3"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon4_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer4_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon4_2">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 4_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon4_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 4_2</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon4_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>126</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon4_2"/>
+		<cim:IdentifiedObject.description>EnergyConsumer4_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon4_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon4_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment4_2 -->
+	
+	
+	<!-- ACLineSegment4_3 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS4_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_2_ECon4_2_ACLS4_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS4_3">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 4_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS4_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment4_3</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS4_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_3_ECon4_3_ACLS4_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS4_3_ECon4_3_ACLS4_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment4_3 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS4_3_ECon4_3_ACLS4_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS4_3 ECon4_3 ACLS4_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon4_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon4_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_3_ECon4_3_ACLS4_4"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon4_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer4_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon4_3">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 4_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon4_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 4_3</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon4_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>128</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon4_3"/>
+		<cim:IdentifiedObject.description>EnergyConsumer4_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon4_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon4_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment4_3 -->
+	
+	
+	<!-- ACLineSegment4_4 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS4_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_3_ECon4_3_ACLS4_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS4_4">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 4_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS4_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment4_4</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS4_4_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS4_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_4_ACLS5_1_ACLS6_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment4_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS4_4_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS4_4 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS4_4_ACLS5_1_ACLS6_1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLSs on Grbavica</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS4_4_ACLS5_1_ACLS6_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS4_4 ACLS5_1 ACLS6_1</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<!-- END ACLineSegment4_4 -->
+	
+	
+	
+	<!-- ACLineSegment5_1 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS5_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS5_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_4_ACLS5_1_ACLS6_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment5_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS5_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS5_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS5_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 5_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS5_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment5_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS5_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS5_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS5_1_ECon5_1_a_ECon5_1_b_ACLS5_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment5_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS5_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS5_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS5_1_ECon5_1_a_ECon5_1_b_ACLS5_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment5_1 with consumers.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS5_1_ECon5_1_a_ECon5_1_b_ACLS5_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS5_1 ECon5_1_a ECon5_1_b ACLS5_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon5_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon5_1_a"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS5_1_ECon5_1_a_ECon5_1_b_ACLS5_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon5_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer5_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon5_1_a">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 5_1 a</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon5_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 5_1 a</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon5_1_a_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>130</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon5_1_a"/>
+		<cim:IdentifiedObject.description>EnergyConsumer5_1_a active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon5_1_a_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon5_1_a ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon5_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon5_1_b"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS5_1_ECon5_1_a_ECon5_1_b_ACLS5_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon5_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 5_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon5_1_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 5_1 b</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon5_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 5_1 b</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon5_1_b_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>132</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon5_1_b"/>
+		<cim:IdentifiedObject.description>EnergyConsumer5_1_b active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon5_1_b_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon5_1_b ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment5_1 -->
+	
+	
+	
+	<!-- ACLineSegment6_1 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS6_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS6_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS4_4_ACLS5_1_ACLS6_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment6_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS6_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS6_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS6_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 6_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS6_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment6_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS6_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS6_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS6_1_ECon6_1_ACLS6_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment6_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS6_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS6_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS6_1_ECon6_1_ACLS6_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment6_1 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS6_1_ECon6_1_ACLS6_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS6_1 ECon6_1 ACLS6_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon6_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon6_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS6_1_ECon6_1_ACLS6_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon6_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer6_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon6_1">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 6_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon6_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 6_1</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon6_1_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>134</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon6_1"/>
+		<cim:IdentifiedObject.description>EnergyConsumer6_1 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon6_1_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon6_1 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment6_1 -->
 	
 	
 	
@@ -1551,6 +1886,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon7_1">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is 7_1</cim:IdentifiedObject.description>
@@ -1615,6 +1951,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon7_2_a">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is 7_2 a</cim:IdentifiedObject.description>
@@ -1644,6 +1981,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon7_2_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
 		<cim:IdentifiedObject.description>Consumer is 7_2 b</cim:IdentifiedObject.description>
@@ -1665,6 +2003,136 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment7_2 -->
+	
+	
+	<!-- ACLineSegment7_3 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS7_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS7_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_2_ECon7_2_a_ECon7_2_b_ACLS7_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment7_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS7_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS7_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS7_3">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 7_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS7_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment7_3</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS7_3_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS7_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_3_ECon7_3_ACLS7_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment7_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS7_3_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS7_3 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS7_3_ECon7_3_ACLS7_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment7_3 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS7_3_ECon7_3_ACLS7_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS7_3 ECon7_3 ACLS7_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon7_3_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon7_3"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_3_ECon7_3_ACLS7_4"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon7_3_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer7_3 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon7_3">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 7_3</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon7_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 7_3</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon7_3_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>122</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon7_3"/>
+		<cim:IdentifiedObject.description>EnergyConsumer7_3 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon7_3_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon7_3 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment7_3 -->
+	
+	
+	<!-- ACLineSegment7_4 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS7_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS7_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_3_ECon7_3_ACLS7_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment7_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS7_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS7_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS7_4">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 7_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS7_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment7_4</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS7_4_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS7_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_4_ECon7_4"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment7_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS7_4_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS7_4 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS7_4_ECon7_4">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment7_4 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS7_4_ECon7_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS7_4 ECon7_4</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon7_4_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon7_4"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS7_4_ECon7_4"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon7_4_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer7_4 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon7_4">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
+		<cim:IdentifiedObject.description>Consumer is 7_4</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon7_4</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 7_4</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon7_4_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>124</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon7_4"/>
+		<cim:IdentifiedObject.description>EnergyConsumer7_4 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon7_4_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon7_4 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment7_4 -->
 	
 	
 	<!-- END Substation Grbavica -->
@@ -1887,6 +2355,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_1">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Macchiato Liman</cim:IdentifiedObject.description>
@@ -2263,6 +2732,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_4">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Mitic family</cim:IdentifiedObject.description>
@@ -2327,6 +2797,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_5_a">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Davidovic family</cim:IdentifiedObject.description>
@@ -2356,6 +2827,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_5_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Pavlovic family</cim:IdentifiedObject.description>
@@ -2579,6 +3051,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_7">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 10_7</cim:IdentifiedObject.description>
@@ -2796,6 +3269,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon10_9">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 10_9</cim:IdentifiedObject.description>
@@ -3144,6 +3618,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon11_2">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Filipovic</cim:IdentifiedObject.description>
@@ -3326,6 +3801,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon11_3">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Blagojevic</cim:IdentifiedObject.description>
@@ -3426,6 +3902,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon12_1">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Maxi</cim:IdentifiedObject.description>
@@ -3767,6 +4244,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon12_3">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 12_3</cim:IdentifiedObject.description>
@@ -3949,6 +4427,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon12_4">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 12_4</cim:IdentifiedObject.description>
@@ -3970,6 +4449,393 @@
 	</cim:Analog>
 	
 	<!-- END ACLineSegment12_4 -->
+	
+	
+	<!-- ACLineSegment12_5 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS12_5_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_5"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_4_EStorage12_4_B_SG12_4_ECon12_4_ACLS12_5"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_5</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_5_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_5 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS12_5">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 12_5</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS12_5</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment12_5</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS12_5_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS12_5"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_5_ACLS13_1_ACLS14_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment12_5</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS12_5_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS12_5 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS12_5_ACLS13_1_ACLS14_1">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLSs on Liman</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS12_5_ACLS13_1_ACLS14_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS12_5 ACLS13_1 ACLS14_1</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<!-- END ACLineSegment12_5 -->
+	
+	
+	
+	<!-- ACLineSegment13_1 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS13_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS13_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_5_ACLS13_1_ACLS14_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment13_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS13_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS13_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS13_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 13_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS13_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment13_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS13_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS13_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment13_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS13_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS13_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment13_1 with consumers.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS13_1 ECon13_1_a ECon13_1_b ACLS13_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon13_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon13_1_a"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon13_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer13_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon13_1_a">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 13_1 a</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon13_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 13_1 a</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon13_1_a_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>136</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon13_1_a"/>
+		<cim:IdentifiedObject.description>EnergyConsumer13_1_a active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon13_1_a_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon13_1_a ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon13_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon13_1_b"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon13_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 13_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon13_1_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 13_1 b</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon13_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 13_1 b</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon13_1_b_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>138</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon13_1_b"/>
+		<cim:IdentifiedObject.description>EnergyConsumer13_1_b active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon13_1_b_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon13_1_b ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment13_1 -->
+	
+	
+	<!-- ACLineSegment13_2 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS13_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS13_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_1_ECon13_1_a_ECon13_1_b_ACLS13_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment13_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS13_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS13_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS13_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 13_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS13_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment13_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS13_2_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS13_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_2_ECon13_2_ACLS13_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment13_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS13_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS13_2 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS13_2_ECon13_2_ACLS13_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment13_2 with consumer.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS13_2_ECon13_2_ACLS13_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS13_2 ECon13_2 ACLS13_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon13_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon13_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS13_2_ECon13_2_ACLS13_3"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon13_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer13_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon13_2">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 13_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon13_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 13_2</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon13_2_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>140</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon13_2"/>
+		<cim:IdentifiedObject.description>EnergyConsumer13_2 active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon13_2_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon13_2 ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment13_2 -->
+	
+	
+	
+	<!-- ACLineSegment14_1 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS14_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS14_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS12_5_ACLS13_1_ACLS14_1"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment14_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS14_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS14_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS14_1">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 14_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS14_1</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment14_1</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS14_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS14_1"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment14_1</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS14_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS14_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment14_1 with consumers.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS14_1 ECon14_1_a ECon14_1_b ACLS14_2</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon14_1_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon14_1_a"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon14_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer14_1 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon14_1_a">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 14_1 a</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon14_1_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 14_1 a</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon14_1_a_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>142</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon14_1_a"/>
+		<cim:IdentifiedObject.description>EnergyConsumer14_1_a active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon14_1_a_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon14_1_a ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon14_1_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon14_1_b"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon14_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 14_1 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon14_1_b">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 14_1 b</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon14_1_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 14_1 b</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon14_1_b_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>144</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon14_1_b"/>
+		<cim:IdentifiedObject.description>EnergyConsumer14_1_b active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon14_1_b_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon14_1_b ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment14_1 -->
+	
+	
+	<!-- ACLineSegment14_2 -->
+	
+	<cim:Terminal rdf:ID="T_ACLS14_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS14_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_1_ECon14_1_a_ECon14_1_b_ACLS14_2"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment14_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS14_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS14_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ACLineSegment rdf:ID="ACLS14_2">
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>ACLineSegment number 14_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ACLS14_2</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ACLineSegment14_2</ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+	
+	<cim:Terminal rdf:ID="T_ACLS14_2_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ACLS14_2"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_2_ECon14_2_a_ECon14_2_b_ACLS14_3"/>
+		<cim:IdentifiedObject.description>Terminal of ACLineSegment14_2</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ACLS14_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal ACLS14_2 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:ConnectivityNode rdf:ID="CN_ACLS14_2_ECon14_2_a_ECon14_2_b_ACLS14_3">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Connects ACLineSegment14_2 with consumers.</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>CN_ACLS14_2_ECon14_2_a_ECon14_2_b_ACLS14_3</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>ConnectivityNode ACLS14_2 ECon14_2_a ECon14_2_b ACLS14_3</ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+	
+	<cim:Terminal rdf:ID="T_ECon14_2_a">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon14_2_a"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_2_ECon14_2_a_ECon14_2_b_ACLS14_3"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon14_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer14_2 a</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon14_2_a">
+		<cim:EnergyConsumer.type>Building</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 14_2 a</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon14_2_a</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 14_2 a</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon14_2_a_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>146</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon14_2_a"/>
+		<cim:IdentifiedObject.description>EnergyConsumer14_2_a active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon14_2_a_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon14_2_a ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Terminal rdf:ID="T_ECon14_2_b">
+		<cim:Terminal.ConductingEquipment rdf:resource="#ECon14_2_b"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#CN_ACLS14_2_ECon14_2_a_ECon14_2_b_ACLS14_3"/>
+		<cim:IdentifiedObject.description>Terminal</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>T_ECon14_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Terminal Consumer 14_2 b</ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergyConsumer rdf:ID="ECon14_2_b">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
+		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
+		<cim:IdentifiedObject.description>Consumer is 14_2 b</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>ECon14_2_b</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Consumer 14_2 b</ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:Analog rdf:ID="A_ECon14_2_b_ActivePower">
+		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
+		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.minValue>0</cim:Analog.minValue>
+		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress>148</cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType>ActivePower</tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#ECon14_2_b"/>
+		<cim:IdentifiedObject.description>EnergyConsumer14_2_b active power</cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID>A_ECon14_2_b_ActivePower</cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name>Analog ECon14_2_b ActivePower</ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<!-- END ACLineSegment14_2 -->
 	
 	
 	
@@ -4138,6 +5004,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon15_1">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is Markovic</cim:IdentifiedObject.description>
@@ -4202,6 +5069,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon15_2">
+		<cim:EnergyConsumer.type>Block</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 15_2</cim:IdentifiedObject.description>
@@ -4419,6 +5287,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyConsumer rdf:ID="ECon15_4">
+		<cim:EnergyConsumer.type>Home</cim:EnergyConsumer.type>
 		<cim:EnergyConsumer.pfixed>10</cim:EnergyConsumer.pfixed>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
 		<cim:IdentifiedObject.description>Consumer is 15_4</cim:IdentifiedObject.description>
