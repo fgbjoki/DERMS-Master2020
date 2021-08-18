@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:cim="http://iec.ch/TC57/2010/CIM-schema-cim15#"
+	xmlns:ftn="http://www.ftnydro.com/CIM15/2010/extension#"
+	xmlns:tdms="http://www.ftnydro.com/CIM15/2010/extension#">
+	
+	<cim:GeographicalRegion rdf:ID=" ">
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:GeographicalRegion>
+
+	<cim:SubGeographicalRegion rdf:ID=" ">
+		<cim:SubGeographicalRegion.Region rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:SubGeographicalRegion>
+
+	<cim:Substation rdf:ID="">
+		<cim:Substation.Region rdf:resource="#"/>
+		<cim:IdentifiedObject.description></cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID></cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name></ftn:IdentifiedObject.name>
+	</cim:Substation>
+	
+	<cim:ConnectivityNode rdf:ID=" ">
+		<cim:ConnectivityNode.ConnectivityNodeContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:ConnectivityNode>
+
+	<cim:Terminal rdf:ID=" ">
+		<cim:Terminal.ConductingEquipment rdf:resource="#"/>
+		<cim:Terminal.ConnectivityNode rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:Terminal>
+	
+	<cim:EnergySource rdf:ID=" ">
+		<cim:EnergySource.activePower> </cim:EnergySource.activePower>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:EnergySource>
+
+	<cim:ACLineSegment rdf:ID=" ">
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:ACLineSegment>
+
+	<cim:Breaker rdf:ID=" ">
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:Breaker>
+	
+	<cim:EnergyConsumer rdf:ID=" ">
+		<cim:EnergyConsumer.pfixed> </cim:EnergyConsumer.pfixed>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:EnergyConsumer>
+	
+	<cim:EnergyStorage rdf:ID="">
+		<cim:EnergyStorage.capacity> </cim:EnergyStorage.capacity> <!-- Wh -->
+		<cim:EnergyStorage.Generator rdf:resource="#"/>
+		<cim:EnergyStorage.state></cim:EnergyStorage.state>
+		<cim:EnergyStorage.stateOfCharge></cim:EnergyStorage.stateOfCharge>
+		<cim:DER.activePower> </cim:DER.activePower>
+		<cim:DER.nominalPower> </cim:DER.nominalPower>
+		<cim:DER.setPoint> </cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:EnergyStorage>
+	
+	<cim:SolarGenerator rdf:ID="">
+		<cim:Generator.deltaPower> </cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#"/>
+		<cim:DER.activePower> </cim:DER.activePower>
+		<cim:DER.nominalPower> </cim:DER.nominalPower>
+		<cim:DER.setPoint> </cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:SolarGenerator>
+	
+	<cim:WindGenerator rdf:ID=" ">
+		<cim:WindGenerator.cutOutSpeed> </cim:WindGenerator.cutOutSpeed>
+		<cim:WindGenerator.nominalSpeed> </cim:WindGenerator.nominalSpeed>
+		<cim:WindGenerator.startUpSpeed> </cim:WindGenerator.startUpSpeed>
+		<cim:Generator.deltaPower> </cim:Generator.deltaPower>
+		<cim:Generator.Storage rdf:resource="#"/>
+		<cim:DER.activePower> </cim:DER.activePower>
+		<cim:DER.nominalPower> </cim:DER.nominalPower>
+		<cim:DER.setPoint> </cim:DER.setPoint>
+		<cim:Equipment.EquipmentContainer rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:WindGenerator>
+	
+	<cim:Analog rdf:ID=" ">
+		<tdms:Analog.currentValue> </tdms:Analog.currentValue>
+		<cim:Analog.maxValue> </cim:Analog.maxValue>
+		<cim:Analog.minValue> </cim:Analog.minValue>
+		<tdms:Measurement.direction> Read ReadWrite Write </tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress> </cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType> ActiveEnergy ActivePower Discrete Humidity Money Percent SkyCover Status SunshineMinutes Temperature Time Unitless WindSpeed </tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#"/>
+		<cim:Measurement.Terminal rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:Analog>
+	
+	<cim:Discrete rdf:ID=" ">
+		<tdms:Discrete.currentOpen> </tdms:Discrete.currentOpen>
+		<cim:Discrete.maxValue> </cim:Discrete.maxValue>
+		<cim:Discrete.minValue> </cim:Discrete.minValue>
+		<cim:Discrete.normalOpen> </cim:Discrete.normalOpen>
+		<tdms:Measurement.direction> Read ReadWrite Write </tdms:Measurement.direction>
+		<cim:Measurement.measurementAddress> </cim:Measurement.measurementAddress>
+		<tdms:Measurement.measurementType> ActiveEnergy ActivePower Discrete Humidity Money Percent SkyCover Status SunshineMinutes Temperature Time Unitless WindSpeed </tdms:Measurement.measurementType>
+		<cim:Measurement.PowerSystemResource rdf:resource="#"/>
+		<cim:Measurement.Terminal rdf:resource="#"/>
+		<cim:IdentifiedObject.description> </cim:IdentifiedObject.description>
+		<cim:IdentifiedObject.mRID> </cim:IdentifiedObject.mRID>
+		<ftn:IdentifiedObject.name> </ftn:IdentifiedObject.name>
+	</cim:Discrete>
+
+	
+</rdf:RDF>

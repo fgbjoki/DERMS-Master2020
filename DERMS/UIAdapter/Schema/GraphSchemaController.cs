@@ -156,6 +156,9 @@ namespace UIAdapter.Schema
             currentSchemaBalance.DemandEnergy = energyBalance.DemandEnergy;
             currentSchemaBalance.ImportedEnergy = energyBalance.ImportedEnergy;
             currentSchemaBalance.ProducedEnergy = energyBalance.ProducedEnergy;
+            currentSchemaBalance.SolarEnergyProduction = energyBalance.SolarEnergyProduced;
+            currentSchemaBalance.WindEnergyProduction = energyBalance.WindEnergyProduced;
+            currentSchemaBalance.EnergyStorageEnergyProduction = energyBalance.EnergyStorageEnergyProduced;
 
             locker.ExitWriteLock();
         }

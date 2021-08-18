@@ -23,7 +23,7 @@ namespace CalculationEngine.EnergyCalculators
             this.storage = storage;
         }
 
-        public float Calculate(long sourceGid, IEnumerable<long> connectedNodesGids)
+        public float Calculate(EnergyBalanceCalculation energyBalanceCalculation, IEnumerable<long> connectedNodesGids)
         {
             float totalSum = 0;
 
@@ -44,6 +44,8 @@ namespace CalculationEngine.EnergyCalculators
                     continue;
                 }
 
+                AdditionalProcessing(energyBalanceCalculation, entity);
+
                 float extractedValue = ExtractValueFromEntity(entity);
 
                 totalSum += extractedValue;
@@ -52,11 +54,16 @@ namespace CalculationEngine.EnergyCalculators
             return totalSum;
         }
 
+        protected virtual void AdditionalProcessing(EnergyBalanceCalculation energyBalanceCalculation, T entity)
+        {
+
+        }
+
         protected virtual float ExtractValueFromEntity(T entity)
         {
             return entity.GetCalculation(CalculationType.ActivePower).Value;
         }
 
-        public abstract void Recalculate(EnergyBalanceCalculation energyBalance, float delta);
+        public abstract void Recalculate(EnergyBalanceCalculation energyBalance, long conductingEquipmentGid, float delta);
     }
 }

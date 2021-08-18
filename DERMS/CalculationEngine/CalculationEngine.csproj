@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Solver.Foundation, Version=3.0.2.10889, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Solver.Foundation.3.1.0\lib\Microsoft.Solver.Foundation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NMath, Version=6.2.0.58, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
+      <HintPath>..\packages\CenterSpace.NMath.6.2.0.58\lib\net40\NMath.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -46,6 +56,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commanding\BreakerCommanding\BreakerCommandingUnit.cs" />
@@ -78,6 +89,11 @@
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\EnergyStorage\SchedulerCommandCreator\IdleStateCommandCreator.cs" />
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\EnergyStorage\SchedulerCommandCreator\RemoveCommandCreator.cs" />
     <Compile Include="Commanding\DERCommanding\TimedCommandCreator\ISchedulerCommandCreator.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\BaseDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\IDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\NominalPowerPercentageOptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\CommandingProcessors\UniformReserveUsageDEROptimalCommandingProcessor.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\DEROptimalCommandingProcessor.cs" />
     <Compile Include="DERStates\CommandScheduler\CommandScheduler.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\AddCommand.cs" />
     <Compile Include="DERStates\CommandScheduler\Commands\PauseCommand.cs" />
@@ -90,6 +106,20 @@
     <Compile Include="DERStates\CommandScheduler\ISchedulerCommandExecutor.cs" />
     <Compile Include="DERStates\CommandScheduler\SchedulerCommandExecutor.cs" />
     <Compile Include="DERStates\DERStateController.cs" />
+    <Compile Include="EnergyCalculators\EnergyImporterProcessor.cs" />
+    <Compile Include="EnergyCalculators\IEnergyImporterProcessor.cs" />
+    <Compile Include="Forecast\ProductionForecast\Formulas\IProductionFormula.cs" />
+    <Compile Include="Forecast\ProductionForecast\Formulas\ProductionFormula.cs" />
+    <Compile Include="Forecast\ProductionForecast\Formulas\SolarPanelProductionFormula.cs" />
+    <Compile Include="Forecast\ProductionForecast\Formulas\WindGeneratorProductionFormula.cs" />
+    <Compile Include="Forecast\ProductionForecast\ProductionForecastCalculator.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\IWeatherDataConverter.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\Functions\LinearReggressionFunction.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\Functions\ReggressionFunction.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\InterpolationValueCreator.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\Regression\RegressionFunctionCreator.cs" />
+    <Compile Include="Forecast\WeatherForecast\DataConverter\WeatherDataConverter.cs" />
+    <Compile Include="Forecast\WeatherForecast\WeatherForecastStorage.cs" />
     <Compile Include="Helpers\Topology\BreakerLoopFinder.cs" />
     <Compile Include="CalculationEngine.cs" />
     <Compile Include="EnergyCalculators\BaseTopologyCalculatingUnit.cs" />
@@ -110,6 +140,10 @@
     <Compile Include="Model\EnergyCalculations\EnergyConsumer.cs" />
     <Compile Include="Model\EnergyCalculations\EnergySource.cs" />
     <Compile Include="Model\EnergyCalculations\EnergyGenerator.cs" />
+    <Compile Include="Model\EnergyImporter\EnergySource.cs" />
+    <Compile Include="Model\Forecast\ProductionForecast\Generator.cs" />
+    <Compile Include="Model\Forecast\ProductionForecast\SolarPanel.cs" />
+    <Compile Include="Model\Forecast\ProductionForecast\WindGenerator.cs" />
     <Compile Include="Model\Topology\Graph\Schema\ISchemaGraph.cs" />
     <Compile Include="Model\Topology\Transaction\DiscreteRemotePoint.cs" />
     <Compile Include="PubSub\DynamicHandlers\BreakerStateChangedTopologyAnalysisDynamicHandler.cs" />
@@ -198,6 +232,10 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergyConsumerStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergyGeneratorStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergySourceStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\EnergyImporter\EnergyImporterStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\ProductionForecastStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\SolarPanelProductionForecastStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\WindGeneratorProductionForecastStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\BreakerStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConductingEquipmentStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Topology\ConnectivityNodeStorageItemCreator.cs" />
@@ -209,6 +247,8 @@
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\DERState\DERStateStorageTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\EnergyBalance\EnergyBalanceStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\EnergyImporter\EnergyImporterStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\Forecast\ProductionForecastTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\GraphTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\ReferenceResolver.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\TopologyOrderProcessingEnumerable.cs" />
@@ -218,6 +258,8 @@
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyConsumerStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyGeneratorStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergySourceStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\EnergyImporter\EnergyImproterStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Forecast\ProductionForecastStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\IStorageDependentUnit.cs" />
     <Compile Include="TransactionProcessing\Storage\Topology\ConductingEquipmentStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\Topology\ConnectivityNodeStorage.cs" />
@@ -228,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -240,6 +283,13 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y $(SolutionDir)\Common\Logger\log4net.config</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\CenterSpace.NMath.6.2.0.58\build\CenterSpace.NMath.targets" Condition="Exists('..\packages\CenterSpace.NMath.6.2.0.58\build\CenterSpace.NMath.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\CenterSpace.NMath.6.2.0.58\build\CenterSpace.NMath.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CenterSpace.NMath.6.2.0.58\build\CenterSpace.NMath.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

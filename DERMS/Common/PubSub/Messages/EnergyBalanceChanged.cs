@@ -8,5 +8,9 @@ namespace Common.PubSub.Messages
         public float ImportedEnergy { get; set; }
         public float ProducedEnergy { get; set; }
         public float DemandEnergy { get; set; }
+
+        public float WindEnergyProduced { get; set; }
+        public float SolarEnergyProduced { get; set; }
+        public float EnergyStorageEnergyProduced { get; set; }
     }
 }

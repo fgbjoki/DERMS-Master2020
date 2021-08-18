@@ -16,7 +16,7 @@ namespace CalculationEngine.EnergyCalculators.EnergyConsumption
             return new List<DMSType>() { DMSType.ENERGYCONSUMER };
         }
 
-        public override void Recalculate(EnergyBalanceCalculation energyBalance, float delta)
+        public override void Recalculate(EnergyBalanceCalculation energyBalance, long conductingEquipmentGid, float delta)
         {
             energyBalance.Demand += delta;
         }

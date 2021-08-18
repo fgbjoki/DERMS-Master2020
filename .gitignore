@@ -12,6 +12,7 @@
 [Rr]elease/
 x64/
 [Bb]in/
+bin64/
 [Oo]bj/
 DERMS/Executables
 *.lnk

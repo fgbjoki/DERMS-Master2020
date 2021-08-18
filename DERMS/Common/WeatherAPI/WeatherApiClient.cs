@@ -7,10 +7,11 @@ namespace Common.WeatherAPI
 {
     public class WeatherApiClient : IWeatherClient
     {
-        private static readonly string API_URL = "http://api.weatherapi.com/v1/@QUERYTYPE@.xml?key=@KEY@&q=@CITY@&";
+        private static readonly string API_URL = "http://api.weatherapi.com/v1/@QUERYTYPE@.xml?key=@KEY@&q=@CITY@&days=@DAYS@&aqi=no&alerts=no";
         private static readonly string QUERY_PARAMETER = "@QUERYTYPE@";
         private static readonly string KEY_PARAMETER = "@KEY@";
         private static readonly string CITY_PARAMETER = "@CITY@";
+        private static readonly string DAYS_PARAMETER = "@DAYS@";
 
         private static readonly string FORECAST_PARAMETER = "forecast";
 
@@ -43,8 +44,7 @@ namespace Common.WeatherAPI
         {
             WeatherDayData returnData = null;
 
-            string additionalParameter = $"days={FUTURE_DAYS}";
-            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER) + additionalParameter;
+            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER).Replace(DAYS_PARAMETER, "1");
             string xmlContent = String.Empty;
 
             using (var client = new WebClient())
@@ -79,8 +79,7 @@ namespace Common.WeatherAPI
         {
             List<WeatherDayData> returnData;
 
-            string additionalParameter = $"days={days}";
-            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER) + additionalParameter;
+            string tempUrl = url.Replace(QUERY_PARAMETER, FORECAST_PARAMETER).Replace(DAYS_PARAMETER, days.ToString());
             string xmlContent = String.Empty;
 
             using (var client = new WebClient())

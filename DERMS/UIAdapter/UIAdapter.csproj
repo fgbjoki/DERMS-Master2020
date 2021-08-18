@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Commanding\BreakerCommandingProxy.cs" />
     <Compile Include="Commanding\DERCommandingProxy.cs" />
+    <Compile Include="Commanding\DEROptimalCommanding\DEROptimalCommandingProxy.cs" />
+    <Compile Include="Forecast\Production\ProductionForecastAggregator.cs" />
+    <Compile Include="Forecast\Weather\WeatherForecastProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
     <Compile Include="Model\DERGroup\DERGroup.cs" />
     <Compile Include="Model\DERGroup\DistributedEnergyResource.cs" />

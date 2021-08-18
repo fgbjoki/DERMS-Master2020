@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:ClientUI.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:interaction="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:customProperties="clr-namespace:ClientUI.Common.AttachableProperties"
+             xmlns:converter="clr-namespace:ClientUI.Converters"
+             xmlns:viewTypes="clr-namespace:ClientUI.Common.ViewType"
+             xmlns:tillFill="clr-namespace:ClientUI.Common.DERGroup"
              mc:Ignorable="d"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
@@ -17,6 +21,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <converter:ViewTypeToVisibilityConverter x:Key="viewTypeToVisibilityConverter"/>
+
+            <converter:LoadToLinerGradientConverter x:Key="loadToColorConverter"/>
+            <converter:StateOfChargeToLinearGradientConverter x:Key="socToColorConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -25,112 +34,302 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <!-- Filter -->
-        <Border Grid.Row="0" Background="#FF686868" BorderBrush="Black" BorderThickness="1">
-            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,10,0,10">
-                <!-- Source filter -->
-                <TextBlock Text="Source:"  VerticalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding EnergySources}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedEnergySource}">
-                    <ComboBox.ItemTemplate>
+            <!-- Filter -->
+            <Border Grid.Row="0" Background="#FF686868" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:Card Grid.Column="0" Margin="5">
+                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,10,10,10">
+                        <!-- Technology filter-->
+                            <TextBlock Margin="10,0,0,0" Text="Technology:" VerticalAlignment="Center"/>
+                        <ComboBox ItemsSource="{Binding TechnologyTypes}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedTechnologyType}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Column="1" Margin="5">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="30,0,0,0" Text="View type:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ComboBox ItemsSource="{Binding ViewTypeOptions}" Margin="10,0,10,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedViewTypeOption}" DisplayMemberPath="Name"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedViewTypeOption.ViewType}" Value="{x:Static viewTypes:ViewTypeEnum.Tile}">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <TextBlock Margin="20,0,0,0" Text="Tile fill type:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ComboBox ItemsSource="{Binding TileFillOptions}" Margin="10,0,10,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedTileFillOption}" DisplayMemberPath="Name"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </Border>
+            <!-- DataGrid -->
+            <DataGrid
+            Grid.Row="1"
+            SelectedItem="{Binding SelectedItem}"
+            Visibility="{Binding SelectedViewTypeOption.ViewType, Converter={StaticResource viewTypeToVisibilityConverter}, ConverterParameter={x:Static viewTypes:ViewTypeEnum.Grid}}"
+            x:Name="itemDataGrid"
+            AlternationCount="2"
+            ItemsSource="{Binding FilteredItems}"
+            CanUserAddRows="False"
+            AutoGenerateColumns="False"
+            BorderBrush="Black"
+            HeadersVisibility="All">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                              Command="{Binding DataGridItemDoubleClicked}"/>
+            </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                Header="Name"
+                                MinWidth="100"
+                                IsReadOnly="True" Binding="{Binding Name}"/>
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Active power"
+                                IsReadOnly="True"
+                                Binding="{Binding ActivePower, StringFormat={}{0:N2}kW}"/>
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Energy storage name"
+                                IsReadOnly="True"
+                                Binding="{Binding EnergyStorage.Name}"/>
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Energy storage active power"
+                                IsReadOnly="True"
+                                Binding="{Binding EnergyStorage.ActivePower, StringFormat={}{0:N2}kW}"/>
+
+                <DataGridTemplateColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Energy storage state of charge"
+                                IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding SubstationName}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="10,0,0,0" Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}{0:N2}%}" Grid.Column="0"/>
+                            <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding EnergyStorage.StateOfCharge}" Orientation="Horizontal" HorizontalAlignment="Stretch"/>
+                            </Grid>
                         </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Generator name"
+                                IsReadOnly="True"
+                                Binding="{Binding Generator.Name}"/>
+
+                <DataGridTextColumn
+                                CanUserResize="False"
+                                MinWidth="100"
+                                Header="Generator active power"
+                                IsReadOnly="True"
+                                Binding="{Binding Generator.ActivePower, StringFormat={}{0:N2}kW}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ListView Grid.Row="1"
+                  Margin="10"
+                  ItemsSource="{Binding FilteredItems}"
+                  SelectedItem="{Binding SelectedItem}"
+                  Visibility="{Binding SelectedViewTypeOption.ViewType, Converter={StaticResource viewTypeToVisibilityConverter}, ConverterParameter={x:Static viewTypes:ViewTypeEnum.Tile}}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
             
-                <!-- Technology filter-->
-                <TextBlock Margin="50,0,0,0" Text="Technology:" VerticalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding TechnologyTypes}" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedTechnologyType}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            
-                <!-- Filter button -->
-                <Button Margin="20,0,0,0" Content="Filter" Command="{Binding FilterSummaryCommand}" />
-                
-                <!-- Clear filter button -->
-                <Button Margin="10,0,0,0" Content="Clear filter" Command="{Binding ClearFilterSummaryCommand}" />
-            </StackPanel>
-        </Border>
-        <!-- DataGrid -->
-        <DataGrid
-        Grid.Row="1"
-        x:Name="itemDataGrid"
-        AlternationCount="2"
-        ItemsSource="{Binding Items}"
-        CanUserAddRows="False"
-        AutoGenerateColumns="False"
-        BorderBrush="Black"
-        HeadersVisibility="All">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Border Width="120" Height="120" CornerRadius="2" SnapsToDevicePixels="True" Background="Black" BorderBrush="Black" BorderThickness="3" Opacity="1">
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.DataGridItemDoubleClicked, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
 
-        <DataGrid.Columns>
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            Header="Name"
-                            MinWidth="100"
-                            IsReadOnly="True" Binding="{Binding Name}"/>
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Active power"
-                            IsReadOnly="True"
-                            Binding="{Binding ActivePower, StringFormat={}{0:N2}kW}"/>
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Energy storage name"
-                            IsReadOnly="True"
-                            Binding="{Binding EnergyStorage.Name}"/>
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Energy storage active power"
-                            IsReadOnly="True"
-                            Binding="{Binding EnergyStorage.ActivePower, StringFormat={}{0:N2}kW}"/>
+                            </Border.InputBindings>
+                            <!--<Border.LayoutTransform>
+                                <ScaleTransform ScaleX="{Binding Scale}"
+                                                    ScaleY="{Binding Scale}"/>
+                            </Border.LayoutTransform>-->
+                            <!-- Progress bar -->
+                            <Grid>
+                                <!-- Energy storage progress bar -->
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=DataContext.SelectedTileFillOption.TileFill, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Static tillFill:TileFillEnum.EnergyStateOfCharge}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <ProgressBar Orientation="Vertical" Value="{Binding EnergyStorage.StateOfCharge}">
+                                        <ProgressBar.Style>
+                                            <Style TargetType="ProgressBar">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ProgressBar" >
+                                                            <Grid x:Name="Root">
+                                                                <Border 
+                                                            Name="PART_Track" 
+                                                            CornerRadius="2" 
+                                                            Background="Transparent"
+                                                            BorderBrush="Black"
+                                                            BorderThickness="2" />
+                                                                <Border 
+                                                            Name="PART_Indicator" 
+                                                            CornerRadius="2" 
+                                                            BorderBrush="Black" 
+                                                            BorderThickness="2" 
+                                                            HorizontalAlignment="Left"
+                                                            Background="{Binding EnergyStorage.StateOfCharge, Converter={StaticResource socToColorConverter}}">
+                                                                </Border>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="Orientation" Value="Vertical">
+                                                                    <Setter TargetName="Root" Property="LayoutTransform">
+                                                                        <Setter.Value>
+                                                                            <RotateTransform Angle="270" />
+                                                                        </Setter.Value>
+                                                                    </Setter>
 
-            <DataGridTemplateColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Energy storage state of charge"
-                            IsReadOnly="True">
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="100"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Margin="10,0,0,0" Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}{0:N2}%}" Grid.Column="0"/>
-                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding EnergyStorage.StateOfCharge}" Orientation="Horizontal" HorizontalAlignment="Stretch"/>
-                        </Grid>
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
+                                                                    <Setter TargetName="Root" Property="Width"
+                                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Height}"
+                                                                    />
+                                                                    <Setter TargetName="Root" Property="Height"
+                                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Width}"
+                                                                  />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
 
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Generator name"
-                            IsReadOnly="True"
-                            Binding="{Binding Generator.Name}"/>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ProgressBar.Style>
+                                    </ProgressBar>
+                                    <StackPanel Orientation="Vertical" Margin="10">
+                                        <TextBlock Text="{Binding ActivePower, StringFormat={}AP: {0:N2} kW}" Foreground="White"/>
+                                        <TextBlock Text="{Binding EnergyStorage.ActivePower, StringFormat={}Flex: {0:N2} kW}" Foreground="White" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}SoC: {0:N2}%}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="White"/>
+                                </Grid>
+                                
+                                <!-- Load progress bar -->
+                                <Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=DataContext.SelectedTileFillOption.TileFill, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Static tillFill:TileFillEnum.ActivePower}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <ProgressBar Orientation="Vertical" Value="{Binding ActivePower}" Minimum="0" Maximum="{Binding MaximumNominalPower}">
+                                        <ProgressBar.Style>
+                                            <Style TargetType="ProgressBar">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ProgressBar" >
+                                                            <Grid x:Name="Root">
+                                                            <Border 
+                                                                    Name="PART_Track" 
+                                                                    CornerRadius="2" 
+                                                                    Background="Transparent"
+                                                                    BorderBrush="Black"
+                                                                    BorderThickness="2" />
+                                                                <Border 
+                                                                    Name="PART_Indicator" 
+                                                                    CornerRadius="2" 
+                                                                    BorderBrush="Black" 
+                                                                    BorderThickness="2" 
+                                                                    HorizontalAlignment="Left">
+                                                                    <Border.Style>
+                                                                        <Style TargetType="Border">
+                                                                            <Setter Property="Background">
+                                                                                <Setter.Value>
+                                                                                    <MultiBinding Converter="{StaticResource loadToColorConverter}">
+                                                                                        <Binding Path="MinimumNominalPower"/>
+                                                                                        <Binding Path="ActivePower"/>
+                                                                                        <Binding Path="MaximumNominalPower"/>
+                                                                                    </MultiBinding>
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                        </Style>
+                                                                    </Border.Style>
+                                                            </Border>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="Orientation" Value="Vertical">
+                                                                    <Setter TargetName="Root" Property="LayoutTransform">
+                                                                        <Setter.Value>
+                                                                            <RotateTransform Angle="270" />
+                                                                        </Setter.Value>
+                                                                    </Setter>
 
-            <DataGridTextColumn
-                            CanUserResize="False"
-                            MinWidth="100"
-                            Header="Generator active power"
-                            IsReadOnly="True"
-                            Binding="{Binding Generator.ActivePower, StringFormat={}{0:N2}kW}"/>
+                                                                    <Setter TargetName="Root" Property="Width"
+                                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Height}"
+                                                                    />
+                                                                    <Setter TargetName="Root" Property="Height"
+                                                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Width}"
+                                                                  />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ProgressBar.Style>
+                                    </ProgressBar>
+                                    <StackPanel Orientation="Vertical" Margin="10">
+                                        <TextBlock Text="{Binding ActivePower, StringFormat={}AP: {0:N2} kW}" Foreground="White"/>
+                                        <TextBlock Text="{Binding EnergyStorage.ActivePower, StringFormat={}Flex: {0:N2} kW}" Foreground="White" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}SoC: {0:N2}%}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="White"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        </DataGrid.Columns>
-    </DataGrid>
     </Grid>
 
-    <interaction:Interaction.Triggers>
+    <!--<interaction:Interaction.Triggers>
         <interaction:EventTrigger EventName="MouseDoubleClick">
             <interaction:InvokeCommandAction Command="{Binding DataGridItemDoubleClicked}" CommandParameter="{Binding ElementName=itemDataGrid, Path=SelectedItem}" />
         </interaction:EventTrigger>
-    </interaction:Interaction.Triggers>
+    </interaction:Interaction.Triggers>-->
 </UserControl>

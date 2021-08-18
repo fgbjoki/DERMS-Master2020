@@ -37,6 +37,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
@@ -133,7 +141,9 @@
     <Compile Include="Commanding\CommandingProxy.cs" />
     <Compile Include="Commanding\Type\BreakerCommanding.cs" />
     <Compile Include="Commanding\Type\DERCommanding.cs" />
+    <Compile Include="Common\AttachableProperties\ViewTypeAttachableProperty.cs" />
     <Compile Include="Common\ContextAction.cs" />
+    <Compile Include="Common\DERGroup\TileFillOption.cs" />
     <Compile Include="Common\MessageBox\MessageBoxCreator.cs" />
     <Compile Include="Common\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -141,15 +151,30 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\BoolToSolidColorConverter.cs" />
+    <Compile Include="Converters\LoadToLinerGradientConverter.cs" />
+    <Compile Include="Converters\MultiValueBindingConverter.cs" />
     <Compile Include="Converters\Schema\HorizontalLineConverter.cs" />
     <Compile Include="Converters\Schema\VerticalLineConverter.cs" />
+    <Compile Include="Converters\StateOfChargeToLinearGradientConverter.cs" />
+    <Compile Include="Converters\ViewTypeToVisibilityConverter.cs" />
     <Compile Include="CustomControls\CommandWindow.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentItem.cs" />
     <Compile Include="CustomControls\ContentMenu\ContentMenu.xaml.cs">
       <DependentUpon>ContentMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\ContentMenu\ContentMenuViewModel.cs" />
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollection.xaml.cs">
+      <DependentUpon>FeedbackIconCollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollectionViewModel.cs" />
+    <Compile Include="CustomControls\DEROptimalFeedbackIcons\FeedbackType.cs" />
     <Compile Include="CustomControls\GIDMappedObservableCollection.cs" />
+    <Compile Include="CustomControls\PieChart\PieChartView.xaml.cs">
+      <DependentUpon>PieChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PieChart\PieCharViewModel.cs" />
+    <Compile Include="CustomControls\PieChart\ProductionPerTypePieChartViewModel.cs" />
+    <Compile Include="CustomControls\PieChart\ResponsePieChartViewModel.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEvent.cs" />
     <Compile Include="Events\ChangeSummary\ChangeSummaryEventArgs.cs" />
     <Compile Include="Events\ContentMenu\OpenSummaryEvent.cs" />
@@ -207,6 +232,8 @@
     <Compile Include="SummaryCreator\SummaryViewModelContainer.cs" />
     <Compile Include="ValidationRules\AnalogValueValidationRule.cs" />
     <Compile Include="ValidationRules\BinaryValueValidationRule.cs" />
+    <Compile Include="ValidationRules\BindingProxy.cs" />
+    <Compile Include="ValidationRules\DoubleRangeValidationRule.cs" />
     <Compile Include="ValidationRules\IsTextNumberValidationRule.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
@@ -226,12 +253,37 @@
     <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\EntityCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\DEROptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandingTypeOption.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\BaseCommandParameterViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\Commands\CalculateCommand.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\NominalPowerBasedOptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\ReserveBasedOptimalCommandingViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\BaseCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\BaseSummarySuggestedValueViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\NominalPowerBasedCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\NominalPowerBasedSuggestedValueViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\ReserveBasedCommandSummaryViewModel.cs" />
+    <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandSummaryViewModels\ReserveSuggestedValueViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\DisplayTypeControl.cs" />
+    <Compile Include="ViewModels\Forecast\Production\DTOConverter.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionForecastOption.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionForecastViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\PowerType.cs" />
+    <Compile Include="ViewModels\Forecast\Production\ProductionSeriesManager\ProductionSeriesManager.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\BaseWeatherTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\CloudCoverTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\TemperatureTypeViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\WeatherForecastViewModel.cs" />
+    <Compile Include="ViewModels\Forecast\Weahter\WindTypeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Schema\BrowseSchemaViewModel.cs" />
     <Compile Include="ViewModels\Schema\ISchemaNodeLocator.cs" />
     <Compile Include="ViewModels\Schema\SchemaViewModel.cs" />
     <Compile Include="ViewModels\Summaries\CommandingSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\DERGroupSummary\DERGroupSummaryViewModel.cs" />
+    <Compile Include="Common\ViewType\ViewTypeOption.cs" />
+    <Compile Include="ViewModels\Summaries\DERGroupSummary\TechnologyType.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\AnalogMeasurementEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BreakerEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\ConductingEquipmentEntityInformationViewModel.cs" />
@@ -243,7 +295,7 @@
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\MeasurementEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\SolarPanelEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\WindGeneratorEntityInformationViewModel.cs" />
-    <Compile Include="ViewModels\Summaries\NetworkSummary\FilterOption.cs" />
+    <Compile Include="Common\EntityFilterOption.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\EntityInformationViewModels\BaseNetworkModelEntityInformationViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\NetworkModelSummaryViewModel.cs" />
     <Compile Include="ViewModels\Summaries\NetworkSummary\ViewModelCache\IViewModelCache.cs" />
@@ -274,6 +326,15 @@
     </Compile>
     <Compile Include="Views\DERGroupSummaryView.xaml.cs">
       <DependentUpon>DERGroupSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommandingView.xaml.cs">
+      <DependentUpon>DEROptimalCommandingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommanding\CommandingParameters\NominalPowerPercentageCommandingView.xaml.cs">
+      <DependentUpon>NominalPowerPercentageCommandingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEROptimalCommanding\CommandingParameters\ReserveBasedCommandingView.xaml.cs">
+      <DependentUpon>ReserveBasedCommandingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DiscreteRemotePointSummaryView.xaml.cs">
       <DependentUpon>DiscreteRemotePointSummaryView.xaml</DependentUpon>
@@ -317,8 +378,17 @@
     <Compile Include="Views\NetworkModel\WindGeneratorEntityInformationView.xaml.cs">
       <DependentUpon>WindGeneratorEntityInformationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProductionForecastView.xaml.cs">
+      <DependentUpon>ProductionForecastView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SchemaView.xaml.cs">
       <DependentUpon>SchemaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WeatherForecastType\WeatherForecastTypeView.xaml.cs">
+      <DependentUpon>WeatherForecastTypeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WeatherForecastType\WeatherForecastView.xaml.cs">
+      <DependentUpon>WeatherForecastView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -338,6 +408,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="CustomControls\ContentMenu\ContentMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\DEROptimalFeedbackIcons\FeedbackIconCollection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\PieChart\PieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -378,6 +456,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DERGroupSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommandingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommanding\CommandingParameters\NominalPowerPercentageCommandingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEROptimalCommanding\CommandingParameters\ReserveBasedCommandingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -437,7 +527,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProductionForecastView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SchemaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WeatherForecastType\WeatherForecastTypeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WeatherForecastType\WeatherForecastView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

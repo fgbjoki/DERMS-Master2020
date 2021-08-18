@@ -7,8 +7,6 @@ namespace CalculationEngine.Commanding.Commands
     {
         private ICommandTimerElapsedHandler handler;
 
-        private static ElapsedEventHandler temp;
-
         private Timer timer;
 
         public TimedCommand(double timeInterval, Command command)

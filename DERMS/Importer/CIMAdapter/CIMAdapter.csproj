@@ -72,12 +72,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DERMSCIMProfile">
-      <HintPath>Lib\DERMSCIMProfile.dll</HintPath>
-    </Reference>
-    <Reference Include="PowerTransformerCIMProfile_Labs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DERMSCIMProfile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\PowerTransformerCIMProfile_Labs.dll</HintPath>
+      <HintPath>Lib\DERMSCIMProfile.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -108,14 +105,6 @@
     <ProjectReference Include="..\CIMParser\CIMParser.csproj">
       <Project>{3C03A41C-BE4C-40A8-97D5-5DBAC0C34102}</Project>
       <Name>CIMParser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{892CBE15-9ED7-4540-81FA-0EAABA592138}</Project>
-      <Name>Common %28Common\Common%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceContracts\NetworkModelQueryContract\NetworkModelGDAContract.csproj">
-      <Project>{B726FB71-D295-41EE-9644-B2B0B1BC8911}</Project>
-      <Name>NetworkModelGDAContract</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

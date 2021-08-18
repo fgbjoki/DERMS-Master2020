@@ -14,6 +14,10 @@ namespace ClientUI.Models.Schema
         private float demandEnergy;
         private float producedEnergy;
 
+        private float solarEnergyProduced;
+        private float windEnergyProduced;
+        private float energyStorageEnergyProduced;
+
         public long EnergySourceGid { get; set; }
 
         public float ImportedEnergy
@@ -27,6 +31,7 @@ namespace ClientUI.Models.Schema
                 }
             }
         }
+
         public float DemandEnergy
         {
             get { return demandEnergy; }
@@ -38,6 +43,7 @@ namespace ClientUI.Models.Schema
                 }
             }
         }
+
         public float ProducedEnergy
         {
             get { return producedEnergy; }
@@ -46,6 +52,42 @@ namespace ClientUI.Models.Schema
                 if (producedEnergy != value)
                 {
                     SetProperty(ref producedEnergy, value);
+                }
+            }
+        }
+
+        public float SolarEnergyProduced
+        {
+            get { return solarEnergyProduced; }
+            set
+            {
+                if (solarEnergyProduced != value)
+                {
+                    SetProperty(ref solarEnergyProduced, value);
+                }
+            }
+        }
+
+        public float WindEnergyProduced
+        {
+            get { return windEnergyProduced; }
+            set
+            {
+                if (windEnergyProduced != value)
+                {
+                    SetProperty(ref windEnergyProduced, value);
+                }
+            }
+        }
+
+        public float EnergyStorageEnergyProduced
+        {
+            get { return energyStorageEnergyProduced; }
+            set
+            {
+                if (energyStorageEnergyProduced != value)
+                {
+                    SetProperty(ref energyStorageEnergyProduced, value);
                 }
             }
         }
@@ -62,7 +104,10 @@ namespace ClientUI.Models.Schema
                 ProducedEnergy = energyBalance.ProducedEnergy,
                 ImportedEnergy = energyBalance.ImportedEnergy,
                 DemandEnergy = energyBalance.DemandEnergy,
-                EnergySourceGid = energyBalance.EnergySourceGid
+                EnergySourceGid = energyBalance.EnergySourceGid,
+                SolarEnergyProduced = energyBalance.SolarEnergyProduction,
+                WindEnergyProduced = energyBalance.WindEnergyProduction,
+                EnergyStorageEnergyProduced = energyBalance.EnergyStorageEnergyProduction
             };
         }
     }

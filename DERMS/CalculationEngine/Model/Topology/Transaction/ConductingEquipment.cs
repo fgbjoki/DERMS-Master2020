@@ -1,6 +1,4 @@
-﻿using Common.AbstractModel;
-using Common.ComponentStorage;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CalculationEngine.Model.Topology.Transaction
 {
@@ -8,11 +6,8 @@ namespace CalculationEngine.Model.Topology.Transaction
     {
         public ConductingEquipment(long globalId) : base(globalId)
         {
-            DMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(globalId);
             Terminals = new List<Terminal>();
         }
-
-        public DMSType DMSType { get; private set; }
 
         public List<Terminal> Terminals { get; private set; }
 

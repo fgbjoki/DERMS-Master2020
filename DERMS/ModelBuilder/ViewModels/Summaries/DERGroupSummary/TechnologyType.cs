@@ -5,16 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientUI.ViewModels.Summaries.NetworkSummary
+namespace ClientUI.ViewModels.Summaries.DERGroupSummary
 {
-    public class FilterOption
+    public class TechnologyType
     {
-        public FilterOption(string name, DMSType dmsType)
-        {
-            Name = name;
-            DMSType = dmsType;
-        }
-
         public string Name { get; set; }
         public DMSType DMSType { get; set; }
     }

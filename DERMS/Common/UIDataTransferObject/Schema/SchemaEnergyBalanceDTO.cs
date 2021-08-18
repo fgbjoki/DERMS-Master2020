@@ -16,5 +16,14 @@ namespace Common.UIDataTransferObject.Schema
 
         [DataMember]
         public float ProducedEnergy { get; set; }
+
+        [DataMember]
+        public float SolarEnergyProduction { get; set; }
+
+        [DataMember]
+        public float WindEnergyProduction { get; set; }
+
+        [DataMember]
+        public float EnergyStorageEnergyProduction { get; set; }
     }
 }

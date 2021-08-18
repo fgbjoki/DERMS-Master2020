@@ -20,7 +20,7 @@ namespace ClientUI.ViewModels
 
         public string PageName { get; private set; }
 
-        public abstract void StartProcessing();
-        public abstract void StopProcessing();
+        public virtual void StartProcessing() { }
+        public virtual void StopProcessing() { }
     }
 }

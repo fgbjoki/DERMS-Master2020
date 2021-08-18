@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ClientUI.CustomControls.DEROptimalFeedbackIcons.FeedbackIconCollection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ClientUI.CustomControls.DEROptimalFeedbackIcons"
+             xmlns:converter="clr-namespace:ClientUI.Converters"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+    </UserControl.Resources>
+    <Grid d:DataContext="{x:Type local:FeedbackIconCollectionViewModel}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Border Background="Transparent" 
+                    CornerRadius="40"
+                    Margin="5"
+                    Visibility="{Binding Valid, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}"
+                    ToolTip="Suggested command is valid">
+                <materialDesign:PackIcon Kind="Check" Foreground="LimeGreen" VerticalAlignment="Center" Height="40" Width="40"/>
+            </Border>
+            <Border Background="Transparent" 
+                    CornerRadius="40"
+                    Margin="5"
+                    Visibility="{Binding Error, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}"
+                    ToolTip="Suggested command is invalid">
+                <TextBlock Text="X" FontSize="40" Foreground="Red"/>
+            </Border>
+            <Border ToolTip="Load is above 90%" Background="Transparent"
+                    Visibility="{Binding HighLoad, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}">
+                <materialDesign:PackIcon Kind="Exclamation" VerticalAlignment="Center" Width="40" Height="40" Foreground="Orange" />
+            </Border>
+            <Border CornerRadius="40"
+                    Margin="5"
+                    Visibility="{Binding BatteryLow, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}"
+                    Background="Transparent"
+                    ToolTip="Battery bellow 35%">
+                <materialDesign:PackIcon Kind="Battery30" VerticalAlignment="Center" Foreground="OrangeRed" Height="40" Width="40"/>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>
