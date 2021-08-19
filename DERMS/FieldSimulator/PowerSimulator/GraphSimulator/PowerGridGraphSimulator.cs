@@ -66,7 +66,6 @@ namespace FieldSimulator.PowerSimulator.GraphSimulator
 
         private void Simulate(object sender, ElapsedEventArgs e)
         {
-            locker.EnterReadLock();
             simulationTimer.Enabled = false;
             try
             {
@@ -77,7 +76,6 @@ namespace FieldSimulator.PowerSimulator.GraphSimulator
             }
             finally
             {
-                locker.ExitReadLock();
                 simulationTimer.Enabled = true;
             }
         }
