@@ -37,8 +37,9 @@ namespace ClientUI.CustomControls
             scadaContent.AddChild(new ContentItem(new SummaryWrapper("Discrete Remote Point", ContentType.DiscreteRemotePointSummary, PackIconKind.Switch)));
 
             ContentItem derGroup = new ContentItem(new SummaryWrapper("DER Summaries", ContentType.NoActionContent, PackIconKind.VectorUnion));
-            derGroup.Children.Add(new ContentItem(new SummaryWrapper("DERGroup", ContentType.DERGroupSummary, PackIconKind.Group)));
-            derGroup.Children.Add(new ContentItem(new SummaryWrapper("DER Optimal Load Distribution", ContentType.DEROptimalCommanding, PackIconKind.Computer)));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("DERGroups", ContentType.DERGroupSummary, PackIconKind.Group)));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("Optimal Load Distribution", ContentType.DEROptimalCommanding, PackIconKind.Computer)));
+            derGroup.Children.Add(new ContentItem(new SummaryWrapper("Energy Balance Forecast", ContentType.DEREnergyBalanceCommanding, PackIconKind.Computer)));
 
             Summaries = new ObservableCollection<ContentItem>()
             {

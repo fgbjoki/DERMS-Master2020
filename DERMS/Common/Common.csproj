@@ -65,11 +65,18 @@
     <Compile Include="Communication\WCFDuplexClient.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\DEROptimalCommanding\DEROptimalCommandingFeedbackDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\DEROptimalCommanding\DERUnitFeedbackDTO.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\EnergyBalanceForecast\DERStateCommandingSequenceDTO.cs" />
+    <Compile Include="DataTransferObjects\CalculationEngine\EnergyBalanceForecast\DERStateDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\ForecastDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\ForecastSampleDTO.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\SchemaGraphChanged.cs" />
     <Compile Include="DataTransferObjects\CalculationEngine\CommandFeedback.cs" />
     <Compile Include="DataTransferObjects\CommandFeedbackMessageDTO.cs" />
+    <Compile Include="ServiceInterfaces\UIAdapter\IEnergyBalanceForecast.cs" />
+    <Compile Include="UIDataTransferObject\EnergyBalanceForecast\CostOfEnergyUseDTO.cs" />
+    <Compile Include="UIDataTransferObject\EnergyBalanceForecast\DERStateDTO.cs" />
+    <Compile Include="UIDataTransferObject\EnergyBalanceForecast\DERStatesSuggestionDTO.cs" />
+    <Compile Include="UIDataTransferObject\EnergyBalanceForecast\DomainParametersDTO.cs" />
     <Compile Include="DataTransferObjects\WeatherDataInfo.cs" />
     <Compile Include="GDA\GDAProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />
@@ -94,6 +101,7 @@
     <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\DEROptimalCommand.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\NominalPowerDEROptimalCommand.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\UniformReserveDEROptimalCommand.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IEnergyBalanceForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERCommandingProcessor.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDEROptimalCommanding.cs" />

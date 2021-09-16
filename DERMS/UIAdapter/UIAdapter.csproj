@@ -54,6 +54,8 @@
     <Compile Include="Commanding\BreakerCommandingProxy.cs" />
     <Compile Include="Commanding\DERCommandingProxy.cs" />
     <Compile Include="Commanding\DEROptimalCommanding\DEROptimalCommandingProxy.cs" />
+    <Compile Include="Forecast\EnergyBalanceForecast\DataConverter.cs" />
+    <Compile Include="Forecast\EnergyBalanceForecast\EnergyBalanceForecastProxy.cs" />
     <Compile Include="Forecast\Production\ProductionForecastAggregator.cs" />
     <Compile Include="Forecast\Weather\WeatherForecastProxy.cs" />
     <Compile Include="Helpers\BreakerMessageMapping.cs" />

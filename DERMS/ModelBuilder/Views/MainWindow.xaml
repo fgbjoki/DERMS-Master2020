@@ -12,6 +12,7 @@
         xmlns:summaryViewModels="clr-namespace:ClientUI.ViewModels.Summaries.RemotePointSummaries"
         xmlns:productionViewModel="clr-namespace:ClientUI.ViewModels.Forecast.Production"
         xmlns:browseSchemaViewModel="clr-namespace:ClientUI.ViewModels.Schema"
+        xmlns:energyBalanceForecastViewModel="clr-namespace:ClientUI.ViewModels.DEREnergyBalance"
         xmlns:customControls="clr-namespace:ClientUI.CustomControls"
         mc:Ignorable="d"
         MinWidth="1000"
@@ -44,6 +45,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type derOptimalCommandingViewModel:DEROptimalCommandingViewModel}">
             <views:DEROptimalCommandingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type energyBalanceForecastViewModel:DEREnergyBalanceForecastViewModel}">
+            <views:DEREnergyBalanceForecastView/>
         </DataTemplate>
     </Window.Resources>
 

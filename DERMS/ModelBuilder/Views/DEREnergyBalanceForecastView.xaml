@@ -1,0 +1,298 @@
+﻿<UserControl x:Class="ClientUI.Views.DEREnergyBalanceForecastView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:ClientUI.ViewModels.DEREnergyBalance"
+             xmlns:durationConverter="clr-namespace:ClientUI.Converters.EnergyBalance"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:validationRule="clr-namespace:ClientUI.ValidationRules"
+             xmlns:local="clr-namespace:ClientUI.Views"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <durationConverter:DurationConverter x:Key="durationConverter"/>
+
+            <Storyboard x:Key="ComputingStoryboard" Duration="0:0:30">
+                <Storyboard >
+                    <DoubleAnimation From="0" To="100" Storyboard.TargetProperty="Value" Duration="0:0:30"/>
+                </Storyboard>
+            </Storyboard>
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid d:DataContext="{x:Type viewModel:DEREnergyBalanceForecastViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <!-- Commanding parameters -->
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="5">
+                <TextBlock Text="Commanding parameters" Foreground="White" FontSize="24"/>
+                <materialDesign:Card BorderThickness="1" BorderBrush="White" UniformCornerRadius="10" Margin="0,2,0,10">
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+                        <WrapPanel Orientation="Horizontal" >
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                            <TextBlock Margin="10,10,0,10" Text="Compute interval (in seconds): " VerticalAlignment="Center" Foreground="White"/>
+                            <TextBox MinWidth="50" Margin="20,0,0,0" IsReadOnly="True" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left" TextAlignment="Center">
+                                <TextBox.Resources>
+                                    <validationRule:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                                </TextBox.Resources>
+                                <TextBox.Text>
+                                    <Binding Path="ComputeInterval" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validationRule:DoubleRangeValidationRule>
+                                                <validationRule:DoubleRangeValidationRule.Validation>
+                                                    <validationRule:ValidationValidDepedency Valid="{Binding Data.ComputeIntervalValid, Source={StaticResource proxy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </validationRule:DoubleRangeValidationRule.Validation>
+                                                <validationRule:DoubleRangeValidationRule.DoubleRange>
+                                                    <validationRule:DoubleRangeDependency MinValue="1" MaxValue="120" />
+                                                </validationRule:DoubleRangeValidationRule.DoubleRange>
+                                            </validationRule:DoubleRangeValidationRule>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                            <TextBlock Margin="10,10,0,10" Text="Forecast interval (in minutes): " VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox MinWidth="50" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left" TextAlignment="Center">
+                                <TextBox.Resources>
+                                    <validationRule:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                                </TextBox.Resources>
+                                <TextBox.Text>
+                                    <Binding Path="ForecastInterval" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <validationRule:DoubleRangeValidationRule>
+                                                <validationRule:DoubleRangeValidationRule.Validation>
+                                                    <validationRule:ValidationValidDepedency Valid="{Binding Data.ForecastIntervalValid, Source={StaticResource proxy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                </validationRule:DoubleRangeValidationRule.Validation>
+                                                <validationRule:DoubleRangeValidationRule.DoubleRange>
+                                                    <validationRule:DoubleRangeDependency MinValue="15" MaxValue="30" />
+                                                </validationRule:DoubleRangeValidationRule.DoubleRange>
+                                            </validationRule:DoubleRangeValidationRule>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <TextBlock Margin="10,10,0,10" Text="Energy storage use cost (per kWh): " VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox Width="50" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left" TextAlignment="Center">
+                                    <TextBox.Text>
+                                        <Binding Path="CostOfEnergyStorageUse" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBlock Text="$" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <TextBlock Margin="10,10,0,10" Text="Imported energy cost (per kWh): " VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox Width="50" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left" TextAlignment="Center">
+                                    <TextBox.Resources>
+                                        <validationRule:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                                    </TextBox.Resources>
+                                    <TextBox.Text>
+                                        <Binding Path="CostOfEnergyImport" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBlock Text="$" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                <TextBlock Margin="10,10,0,10" Text="Generator shut down cost (per kWh): " VerticalAlignment="Center" Foreground="White"/>
+                                <TextBox Width="50" Margin="26,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Left" TextAlignment="Center">
+                                    <TextBox.Text>
+                                        <Binding Path="CostOfGeneratorShutDown" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <TextBlock Text="$" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding ComputeCommand}">Compute</Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Visibility="{Binding ResultVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Heading -->
+            <Grid Grid.Row="0">
+                <TextBlock Text="Forecast commanding result" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24"/>
+            </Grid>
+            
+            <!-- Costs -->
+            <Grid Grid.Row="1" Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card Grid.Column="0" Grid.ColumnSpan="2" UniformCornerRadius="10">
+                    
+                </materialDesign:Card>
+                
+                <!-- Cost of energy per unit -->
+                <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="White">
+                            <Run Text="Total cost of energy import (per kWh): "/>
+                            <Run Text="{Binding TotalCostOfEnergyImportUsePerKWH, StringFormat={}{0:C2}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock Foreground="White">
+                            <Run Text="Total cost of energy storage use (per kWh): "/>
+                            <Run Text="{Binding TotalCostOfEnergyStorageUsePerKWH, StringFormat={}{0:C2}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock Foreground="White">
+                            <Run Text="Total cost of generator shutdown (per kWh): "/>
+                            <Run Text="{Binding TotalCostOfGeneratorShutdownPerKWH, StringFormat={}{0:C2}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                
+                <!-- Total cost of energy -->
+                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5">
+                    <TextBlock Text="Total cost of energy use (kWh)" HorizontalAlignment="Center" Foreground="White" FontSize="16"/>
+                    <TextBlock Text="{Binding TotalCost, StringFormat={}{0:C2}}" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+            
+            <!-- Report -->
+            <Grid Grid.Row="2" Margin="0,5,0,0">
+                <DataGrid
+                          ItemsSource="{Binding EntityStates}"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="False"
+                          BorderBrush="Black"
+                          HeadersVisibility="All">
+                    <DataGrid.Columns>
+                        <materialDesign:DataGridTextColumn
+                            Header="Name"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            MinWidth="100"
+                            IsReadOnly="True">
+
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding Path="Name"/>
+                            </materialDesign:DataGridTextColumn.Binding>
+
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Type"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            MinWidth="100"
+                            IsReadOnly="True">
+
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding Path="Type"/>
+                            </materialDesign:DataGridTextColumn.Binding>
+
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Energized"
+                            MinWidth="100"
+                            IsReadOnly="True">
+                            <materialDesign:DataGridTextColumn.ElementStyle>
+                                <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEnergized}" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:DataGridTextColumn.ElementStyle>
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding Path="IsEnergized"/>
+                            </materialDesign:DataGridTextColumn.Binding>
+
+                        </materialDesign:DataGridTextColumn>
+                        <materialDesign:DataGridTextColumn
+                            Header="Energy [kWh]"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            MinWidth="100"
+                            IsReadOnly="True">
+
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding Path="EnergyUsed" StringFormat="{}{0:N2}"/>
+                            </materialDesign:DataGridTextColumn.Binding>
+
+                        </materialDesign:DataGridTextColumn>
+
+                        <materialDesign:DataGridTextColumn
+                            Header="Cost [$]"
+                            ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                            MinWidth="100"
+                            IsReadOnly="True">
+
+                            <materialDesign:DataGridTextColumn.Binding>
+                                <Binding Path="Cost" StringFormat="{}{0:N2}"/>
+                            </materialDesign:DataGridTextColumn.Binding>
+
+                        </materialDesign:DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="0" Grid.RowSpan="2" Background="#99808080" Visibility="{Binding WaitingVisibility}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding WaitingMessage}"  FontSize="32" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Setters>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Computing}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <ProgressBar x:Name="progressBar" Height="10" Minimum="0" Maximum="100" Width="150" VerticalAlignment="Center">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar">
+                                <Style.Setters>
+                                    <Setter Property="Value" Value="0"/>
+                                </Style.Setters>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Computing}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard Storyboard="{StaticResource ComputingStoryboard}"/>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
+                    <TextBlock Margin="5,0,0,0" Text="{Binding ElementName=progressBar, Path=Value, StringFormat={}{0:N0}%}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

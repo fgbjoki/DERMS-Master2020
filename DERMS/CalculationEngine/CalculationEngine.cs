@@ -35,11 +35,14 @@ using Common.ServiceInterfaces.CalculationEngine.DEROptimalCommanding;
 using CalculationEngine.Commanding.DEROptimalCommanding;
 using CalculationEngine.TransactionProcessing.Storage.EnergyImporter;
 using Common.DataTransferObjects;
+using CalculationEngine.Commanding.BalanceForecastCommanding;
+using Common.DataTransferObjects.CalculationEngine.EnergyBalanceForecast;
+using Common.UIDataTransferObject.EnergyBalanceForecast;
 
 namespace CalculationEngine
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding, IWeatherForecastStorage
+    public class CalculationEngine : ITransaction, IModelPromotionParticipant, ISchemaRepresentation, IBreakerCommanding, IDERStateDeterminator, IDERCommandingProcessor, IProductionForecast, IDEROptimalCommanding, IWeatherForecastStorage, IEnergyBalanceForecast
     {
         private readonly string serviceName = "Calculation Engine";
         private string serviceUrlForTransaction;
@@ -91,6 +94,8 @@ namespace CalculationEngine
         private IEnergyImporterProcessor energyImporter;
         private EnergyImproterStorage energyImporterStorage;
 
+        private BalanceForecastCommandProcessor balanceForecastCommandingProcessor;
+
         public CalculationEngine()
         {
             InternalCEInitialization();
@@ -111,6 +116,8 @@ namespace CalculationEngine
             derCommandingProcessor = new DERCommandingProcessor(derStateDeterminator, derCommandingStorage, schedulerCommandExecutor);
             productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
             derOptimalCommanding = new DEROptimalCommandingProcessor(derCommandingProcessor, derStateStorage, derCommandingStorage);
+
+            balanceForecastCommandingProcessor = new BalanceForecastCommandProcessor(weatherForecastStorage, productionForecastStorage, derCommandingStorage);
 
             InitializePubSub();
         }
@@ -305,6 +312,11 @@ namespace CalculationEngine
         public List<WeatherDataInfo> GetHourlyWeatherInfo(int hours)
         {
             return weatherForecastStorage.GetHourlyWeatherInfo(hours);
+        }
+
+        public DERStateCommandingSequenceDTO Compute(DomainParametersDTO domainParameters)
+        {
+            return balanceForecastCommandingProcessor.Compute(domainParameters);
         }
     }
 }

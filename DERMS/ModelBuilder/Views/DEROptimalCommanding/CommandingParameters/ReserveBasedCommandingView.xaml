@@ -19,16 +19,6 @@
                             </TextBox.Resources>
                             <TextBox.Text>
                                 <Binding Path="SetPoint" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <validationRule:DoubleRangeValidationRule>
-                                            <validationRule:DoubleRangeValidationRule.DoubleRange>
-                                                <validationRule:DoubleRangeDependency MaxValue="{Binding Data.MaximumIncrease, Source={StaticResource proxy}}" MinValue="{Binding Data.MaximumDecrease, Source={StaticResource proxy}}"/>
-                                            </validationRule:DoubleRangeValidationRule.DoubleRange>
-                                            <validationRule:DoubleRangeValidationRule.Validation>
-                                                <validationRule:ValidationValidDepedency Valid="{Binding Data.SetpointValid, Source={StaticResource proxy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                            </validationRule:DoubleRangeValidationRule.Validation>
-                                        </validationRule:DoubleRangeValidationRule>
-                                    </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>

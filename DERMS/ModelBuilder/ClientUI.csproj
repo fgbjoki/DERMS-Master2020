@@ -149,6 +149,7 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnergyBalance\DurationConverter.cs" />
     <Compile Include="Converters\ImagePathToImageConverter.cs" />
     <Compile Include="Converters\BoolToSolidColorConverter.cs" />
     <Compile Include="Converters\LoadToLinerGradientConverter.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\DERGroup\DERGroupSummaryItem.cs" />
     <Compile Include="Models\DERGroup\EnergyStorage.cs" />
     <Compile Include="Models\DERGroup\Generator.cs" />
+    <Compile Include="Models\EnergyBalanceForecast\DERState.cs" />
     <Compile Include="Models\IdentifiedObject.cs" />
     <Compile Include="Models\NetworkModel\DistributedEnergyResource.cs" />
     <Compile Include="Models\NetworkModel\EnergyStorage.cs" />
@@ -253,6 +255,7 @@
     <Compile Include="ViewModels\CommandingWindow\DiscreteRemotePointCommandingViewModel.cs" />
     <Compile Include="ViewModels\CommandingWindow\EntityCommandingViewModel.cs" />
     <Compile Include="ViewModels\ContentViewModel.cs" />
+    <Compile Include="ViewModels\DEREnergyBalance\DEREnergyBalanceForecastViewModel.cs" />
     <Compile Include="ViewModels\DEROptimalCommanding\DEROptimalCommandingViewModel.cs" />
     <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandingTypeOption.cs" />
     <Compile Include="ViewModels\DEROptimalCommanding\OptimalCommanding\CommandParameterViewModels\BaseCommandParameterViewModel.cs" />
@@ -323,6 +326,9 @@
     </Compile>
     <Compile Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml.cs">
       <DependentUpon>DiscreteRemotePointCommandingWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DEREnergyBalanceForecastView.xaml.cs">
+      <DependentUpon>DEREnergyBalanceForecastView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DERGroupSummaryView.xaml.cs">
       <DependentUpon>DERGroupSummaryView.xaml</DependentUpon>
@@ -452,6 +458,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommandingWindow\DiscreteRemotePointCommandingWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DEREnergyBalanceForecastView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
