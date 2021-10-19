@@ -8,7 +8,7 @@ namespace ClientUI.Common.DERGroup
 {
     public enum TileFillEnum
     {
-        ActivePower,
+        //ActivePower,
         EnergyStateOfCharge
     }
 

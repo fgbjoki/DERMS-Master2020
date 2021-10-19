@@ -41,16 +41,18 @@ namespace UIAdapter.Forecast.EnergyBalanceForecast
         {
             ProcessEntity(derState, newDtoState, storage);
 
+            // E = P * t = P / (60 / t[min])
             newDtoState.EnergyUsed = derState.ActivePower / (60 / domainParameters.SimulationInterval);
-            newDtoState.Cost = derState.ActivePower > 0 && derState.IsEnergized ? 0 : newDtoState.EnergyUsed * domainParameters.CostOfGeneratorShutdownPerKWH;
+            newDtoState.Cost = (derState.ActivePower > 0 && derState.IsEnergized ) ? 0 : (newDtoState.EnergyUsed * domainParameters.CostOfGeneratorShutdownPerKWH);
         }
 
         private void ProcessEnergyStorage(Common.DataTransferObjects.CalculationEngine.EnergyBalanceForecast.DERStateDTO derState, Common.UIDataTransferObject.EnergyBalanceForecast.DERStateDTO newDtoState, DomainParametersDTO domainParameters, IStorage<NetworkModelItem> storage)
         {
             ProcessEntity(derState, newDtoState, storage);
 
+            // E = P * t = P / (60 / t[min])
             newDtoState.EnergyUsed = derState.ActivePower / (60 / domainParameters.SimulationInterval);
-            newDtoState.Cost = derState.ActivePower > 0 ? newDtoState.EnergyUsed * domainParameters.CostOfEnergyStorageUsePerKWH : 0; 
+            newDtoState.Cost = derState.ActivePower < 0 ? (newDtoState.EnergyUsed * (-1) * domainParameters.CostOfEnergyStorageUsePerKWH) : 0; 
         }
 
         private void ProcessEntity(Common.DataTransferObjects.CalculationEngine.EnergyBalanceForecast.DERStateDTO derState, Common.UIDataTransferObject.EnergyBalanceForecast.DERStateDTO newDtoState, IStorage<NetworkModelItem> storage)

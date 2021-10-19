@@ -1,4 +1,5 @@
 ﻿using CalculationEngine.Model.EnergyCalculations;
+using CalculationEngine.Model.Forecast.ConsumptionForecast;
 using Common.ComponentStorage;
 using System.Collections.Generic;
 

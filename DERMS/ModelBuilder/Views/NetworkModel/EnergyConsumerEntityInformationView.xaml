@@ -29,6 +29,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -43,9 +45,17 @@
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
             <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="GlobalId" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Global ID" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
             <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding GlobalId, StringFormat={}0x{0:X16}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
             <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="P fixed" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Pfixed}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Type" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Type}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
         </Grid>
 
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="0,1,0,0" BorderBrush="White" Margin="0,35,0,0">

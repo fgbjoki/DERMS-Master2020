@@ -15,10 +15,10 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
 
         public DERGene Crossover(DERGene firstParent, DERGene secondParent)
         {
-            return Crossover(firstParent as EnergyStorageGene, secondParent as EnergyStorageGene);
+            return InternalCrossover(firstParent as EnergyStorageGene, secondParent as EnergyStorageGene);
         }
 
-        public override EnergyStorageGene Crossover(EnergyStorageGene firstParent, EnergyStorageGene secondParent)
+        public override EnergyStorageGene InternalCrossover(EnergyStorageGene firstParent, EnergyStorageGene secondParent)
         {
             EnergyStorageGene child = (EnergyStorageGene)firstParent.Clone();
 

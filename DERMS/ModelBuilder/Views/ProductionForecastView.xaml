@@ -129,7 +129,7 @@
                                 Visibility="{Binding Source={x:Reference WindProductionCheckBox}, Path=IsChecked, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}" />
                         <lvc:LineSeries Values="{Binding EntityProduction}" LineSmoothness="0.4" StrokeThickness="3" 
                                 DataLabels="False" Fill="#4CFFFF00" FontSize="20" Foreground="White"
-                                Stroke="Yellow" PointGeometrySize="10" Title="{Binding SelectedEntity.Name}"
+                                Stroke="Green" PointGeometrySize="10" Title="{Binding SelectedEntity.Name}"
                                 Visibility="{Binding DisplayControl.DisplayEntity, Converter={StaticResource boolToVisibilityConverter}, ConverterParameter=True}" />
                     </lvc:CartesianChart.Series>
                     <lvc:CartesianChart.AxisX>

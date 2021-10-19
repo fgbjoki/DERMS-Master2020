@@ -8,5 +8,6 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         public List<GeneratorProduction> Generators { get; set; }
         public List<EnergyStorageEntity> EnergyStorages { get; set; }
+        public List<EnergyConsumerEntity> EnergyConsumers { get; set; }
     }
 }

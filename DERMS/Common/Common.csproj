@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DERMSCIMProfile">
+      <HintPath>..\FieldSimulator\PowerSimulator\Resources\DERMSCIMProfile.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
@@ -103,6 +106,7 @@
     <Compile Include="ServiceInterfaces\CalculationEngine\DEROptimalCommanding\UniformReserveDEROptimalCommand.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IEnergyBalanceForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IBreakerCommanding.cs" />
+    <Compile Include="ServiceInterfaces\CalculationEngine\IConsumptionForecast.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERCommandingProcessor.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDEROptimalCommanding.cs" />
     <Compile Include="ServiceInterfaces\CalculationEngine\IDERStateDeterminator.cs" />

@@ -148,7 +148,7 @@ namespace ClientUI.ViewModels.Summaries.DERGroupSummary
         {
             TileFillOptions = new ObservableCollection<TileFillOption>()
             {
-                new TileFillOption("Active power load", TileFillEnum.ActivePower),
+                //new TileFillOption("Active power load", TileFillEnum.ActivePower),
                 new TileFillOption("State of charge", TileFillEnum.EnergyStateOfCharge)
             };
 

@@ -6,6 +6,7 @@ using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Ma
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Manipulators.Selectors.Chromosome;
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Model;
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Model.Genes;
+using Common.Logger;
 using System.Collections.Generic;
 using System.Timers;
 
@@ -31,6 +32,7 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
         public GeneticAlgorithm(DomainParameters domainParameters)
         {
             this.domainParameters = domainParameters;
+            algorithmStopper = new Timer();
 
             selector = new Selector();
             fitnessCalculator = new FitnessCalculator();
@@ -49,13 +51,15 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
 
         public Chromosome<T> Compute(Population<T> initialPopulation)
         {
+            Logger.Instance.Log($"Genetic algorithm started ...");
+
             SetUpTimer();
 
             Population<T> currentPopulation = initialPopulation;
             for (int iteration = 0; shouldCompute; ++iteration)
             {
                 // TODO REMOVE THIS
-                System.Console.WriteLine($"Iteration= {iteration}");
+                //System.Console.WriteLine($"Iteration = {iteration}");
 
                 FitnessCalculation(currentPopulation);
 
@@ -69,6 +73,8 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
             }
 
             FitnessCalculation(currentPopulation);
+
+            Logger.Instance.Log($"Genetic algorithm ENDED.");
 
             return currentPopulation.Chromosomes[0];
         }

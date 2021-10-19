@@ -1,5 +1,4 @@
 ﻿using CalculationEngine.Forecast.ProductionForecast.Formulas;
-using CalculationEngine.Forecast.WeatherForecast;
 using CalculationEngine.Model.Forecast.ProductionForecast;
 using Common.AbstractModel;
 using Common.ComponentStorage;

@@ -30,11 +30,13 @@ using Common.AbstractModel;
 using Common.UIDataTransferObject.DEROptimalCommanding;
 using UIAdapter.Commanding.DEROptimalCommanding;
 using UIAdapter.Forecast.Weather;
+using Common.UIDataTransferObject.EnergyBalanceForecast;
+using UIAdapter.Forecast.EnergyBalanceForecast;
 
 namespace UIAdapter
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast, IDEROptimalCommandingProxy, IWeatherForecast
+    public class UIAdapter : ITransaction, IModelPromotionParticipant, IAnalogRemotePointSummaryJob, IDiscreteRemotePointSummaryJob, ISchema, IDERGroupSummaryJob, IBreakerCommanding, IDERCommanding, INetworkModelSummaryJob, IProductionForecast, IDEROptimalCommandingProxy, IWeatherForecast, IEnergyBalanceForecast
     {
         private readonly string serviceName = "UIAdapter";
         private string serviceUrlForTransaction;
@@ -69,6 +71,8 @@ namespace UIAdapter
         private IProductionForecast productionForecast;
         private IDEROptimalCommandingProxy derOptimalCommandingProxy;
 
+        private IEnergyBalanceForecast energyBalanceForecast;
+
         public UIAdapter()
         {
             LoadConfigurationFromAppConfig();
@@ -79,10 +83,13 @@ namespace UIAdapter
             weatherForecast = new WeatherForecastProxy();
             productionForecast = new ProductionForecastAggregator();
 
+            
             InitializeTransactionStorages();
 
             InitializeSchemaRepresentation();
             derOptimalCommandingProxy = new DEROptimalCommandingProxy(derCommanding, networkModelStorage, derGroupStorage);
+
+            energyBalanceForecast = new EnergyBalanceForecastProxy(networkModelStorage);
 
             InitializeJobs();
 
@@ -301,6 +308,16 @@ namespace UIAdapter
         public List<WeatherDataInfo> GetHourlyWeatherForecast(int hours)
         {
             return weatherForecast.GetHourlyWeatherForecast(hours);
+        }
+
+        public int Compute(DomainParametersDTO domainParameters)
+        {
+            return energyBalanceForecast.Compute(domainParameters);
+        }
+
+        public DERStatesSuggestionDTO GetResults(int clientId)
+        {
+            return energyBalanceForecast.GetResults(clientId);
         }
     }
 }

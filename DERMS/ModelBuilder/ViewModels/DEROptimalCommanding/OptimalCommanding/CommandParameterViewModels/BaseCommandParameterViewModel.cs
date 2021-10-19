@@ -38,7 +38,7 @@ namespace ClientUI.ViewModels.DEROptimalCommanding.OptimalCommanding.CommandPara
 
         public bool SetpointValid
         {
-            get { return setpointValid; }
+            get { return true; }
             set
             {
                 SetProperty(ref setpointValid, value);

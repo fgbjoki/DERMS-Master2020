@@ -38,6 +38,11 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
             {
                 DERMSConverter.PopulateConductingEquipmentProperties(cimEnergyConsumer, rd, importHelper, report);
 
+                if(cimEnergyConsumer.PfixedHasValue)
+                {
+                    rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_PFIXED, cimEnergyConsumer.Pfixed));
+                }
+
                 if (cimEnergyConsumer.TypeHasValue)
                 {
                     rd.AddProperty(new Property(ModelCode.ENERGYCONSUMER_TYPE, (short)ConsumerTypeMap(cimEnergyConsumer.Type)));
@@ -624,7 +629,7 @@ namespace FTN.ESI.SIMES.CIM.CIMAdapter.Importer
                 case CustomConsumerType.Home:
                     return Common.AbstractModel.ConsumerType.Home;
                 default:
-                    return -1;
+                    return 0;
             }
         }
 

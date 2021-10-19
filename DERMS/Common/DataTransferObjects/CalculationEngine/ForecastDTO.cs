@@ -9,5 +9,8 @@ namespace Common.DataTransferObjects.CalculationEngine
     {
         [DataMember]
         public Dictionary<DateTime, List<ForecastSampleDTO>> ProductionForecastSamples { get; set; }
+
+        [DataMember]
+        public Dictionary<DateTime, List<ForecastSampleDTO>> ConsumptionForecastSamples { get; set; }
     }
 }

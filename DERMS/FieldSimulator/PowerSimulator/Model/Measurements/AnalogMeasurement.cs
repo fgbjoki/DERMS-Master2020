@@ -56,8 +56,6 @@ namespace FieldSimulator.PowerSimulator.Model.Measurements
             {
                 case DERMS.MeasurementType.ActivePower:
                     return MeasurementType.ActivePower;
-                case DERMS.MeasurementType.DeltaPower:
-                    return MeasurementType.DeltaPower;
                 case DERMS.MeasurementType.Percent:
                     return MeasurementType.Percent;
                 default:

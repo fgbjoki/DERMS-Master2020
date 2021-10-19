@@ -10,6 +10,7 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewMode
 {
     public class WindGeneratorEntityInformationViewModel : DistributedEnergyResourceEntityInformationViewModel
     {
+        private float nominalActivePower;
         private float startUpSpeed;
         private float nominalSpeed;
         private float cutOutSpeed;
@@ -24,9 +25,23 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewMode
             base.PopulateFields(entity);
             WindGeneratorDTO dto = entity as WindGeneratorDTO;
 
+            NominalActivePower = dto.NominalActivePower;
             CutOutSpeed = dto.CutOutSpeed;
             NominalSpeed = dto.NominalSpeed;
             StartUpSpeed = dto.StartUpSpeed;
+        }
+
+
+        public float NominalActivePower
+        {
+            get { return nominalActivePower; }
+            set
+            {
+                if (nominalActivePower != value)
+                {
+                    SetProperty(ref nominalActivePower, value);
+                }
+            }
         }
 
         public float StartUpSpeed
@@ -64,5 +79,6 @@ namespace ClientUI.ViewModels.Summaries.NetworkSummary.EntityInformationViewMode
                 }
             }
         }
+
     }
 }

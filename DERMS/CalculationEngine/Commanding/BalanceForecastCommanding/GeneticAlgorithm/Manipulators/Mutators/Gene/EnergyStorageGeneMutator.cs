@@ -1,6 +1,5 @@
 ﻿using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Helpers;
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Model.Genes;
-using CalculationEngine.Extensions;
 
 namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Manipulators.Mutators.Gene
 {
@@ -15,15 +14,19 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
 
         public void Mutate(DERGene derGene)
         {
-            Mutate(derGene as EnergyStorageGene);
+            InternalMutate(derGene as EnergyStorageGene);
         }
 
-        public override void Mutate(EnergyStorageGene gene)
+        public override void InternalMutate(EnergyStorageGene gene)
         {
             float minimalActivePower = energyStoragePowerCalculator.GetMinimumActivePower(gene.Capacity, gene.StateOfCharge, gene.NominalPower);
             float maximalActivePower = energyStoragePowerCalculator.GetMaximumActivePower(gene.Capacity, gene.StateOfCharge, gene.NominalPower);
 
-            float randomActivePower = random.Next(minimalActivePower, maximalActivePower);
+            double range = maximalActivePower - minimalActivePower;
+            double sample = random.NextDouble();
+            double scaled = (sample * range) + minimalActivePower;
+            
+            float randomActivePower = (float)scaled;
             gene.ActivePower = randomActivePower;
         }
     }

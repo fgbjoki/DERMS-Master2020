@@ -7,10 +7,10 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         public DERGene Crossover(DERGene firstParent, DERGene secondParent)
         {
-            return Crossover(firstParent as GeneratorGene, secondParent as GeneratorGene);
+            return InternalCrossover(firstParent as GeneratorGene, secondParent as GeneratorGene);
         }
 
-        public override GeneratorGene Crossover(GeneratorGene firstParent, GeneratorGene secondParent)
+        public override GeneratorGene InternalCrossover(GeneratorGene firstParent, GeneratorGene secondParent)
         {
             GeneratorGene child = firstParent.Clone() as GeneratorGene;
 

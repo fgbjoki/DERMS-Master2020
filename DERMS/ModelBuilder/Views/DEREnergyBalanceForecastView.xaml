@@ -152,19 +152,19 @@
                 <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Foreground="White">
-                            <Run Text="Total cost of energy import (per kWh): "/>
+                            <Run Text="Total cost of energy import (per kWh):   "/>
                             <Run Text="{Binding TotalCostOfEnergyImportUsePerKWH, StringFormat={}{0:C2}}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                         <TextBlock Foreground="White">
-                            <Run Text="Total cost of energy storage use (per kWh): "/>
+                            <Run Text="Total cost of energy storage use (per kWh):   "/>
                             <Run Text="{Binding TotalCostOfEnergyStorageUsePerKWH, StringFormat={}{0:C2}}"/>
                         </TextBlock>
                     </StackPanel>
                     <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                         <TextBlock Foreground="White">
-                            <Run Text="Total cost of generator shutdown (per kWh): "/>
+                            <Run Text="Total cost of generator shutdown (per kWh):   "/>
                             <Run Text="{Binding TotalCostOfGeneratorShutdownPerKWH, StringFormat={}{0:C2}}"/>
                         </TextBlock>
                     </StackPanel>
@@ -189,7 +189,7 @@
                         <materialDesign:DataGridTextColumn
                             Header="Name"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            MinWidth="100"
+                            MinWidth="150"
                             IsReadOnly="True">
 
                             <materialDesign:DataGridTextColumn.Binding>
@@ -198,21 +198,21 @@
 
                         </materialDesign:DataGridTextColumn>
 
-                        <materialDesign:DataGridTextColumn
+                        <!--<materialDesign:DataGridTextColumn
                             Header="Type"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            MinWidth="100"
+                            MinWidth="150"
                             IsReadOnly="True">
 
                             <materialDesign:DataGridTextColumn.Binding>
                                 <Binding Path="Type"/>
                             </materialDesign:DataGridTextColumn.Binding>
 
-                        </materialDesign:DataGridTextColumn>
+                        </materialDesign:DataGridTextColumn>-->
 
                         <materialDesign:DataGridTextColumn
                             Header="Energized"
-                            MinWidth="100"
+                            MinWidth="150"
                             IsReadOnly="True">
                             <materialDesign:DataGridTextColumn.ElementStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}" TargetType="TextBlock">
@@ -232,7 +232,7 @@
                         <materialDesign:DataGridTextColumn
                             Header="Energy [kWh]"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            MinWidth="100"
+                            MinWidth="150"
                             IsReadOnly="True">
 
                             <materialDesign:DataGridTextColumn.Binding>
@@ -244,7 +244,7 @@
                         <materialDesign:DataGridTextColumn
                             Header="Cost [$]"
                             ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                            MinWidth="100"
+                            MinWidth="150"
                             IsReadOnly="True">
 
                             <materialDesign:DataGridTextColumn.Binding>

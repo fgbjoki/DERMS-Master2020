@@ -12,7 +12,7 @@ namespace ClientUI.CustomControls.PieChart
     {
         public PieCharViewModel()
         {
-            SeriesCollection = new SeriesCollection();
+            
         }
 
         public SeriesCollection SeriesCollection { get; set; }

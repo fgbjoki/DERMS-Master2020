@@ -13,26 +13,29 @@ namespace ClientUI.CustomControls.PieChart
     {
         public ProductionPerTypePieChartViewModel()
         {
-            SeriesCollection.Add(new PieSeries()
+            SeriesCollection = new SeriesCollection
             {
-                Title = "Solar production",
-                Values = new ChartValues<ObservableValue>() { new ObservableValue(0)},
-                LabelPoint = (param) => CreateLabel(param)
-            });
+                new PieSeries()
+                {
+                    Title = "Solar production",
+                    Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
+                    LabelPoint = (param) => CreateLabel(param)
+                },
 
-            SeriesCollection.Add(new PieSeries()
-            {
-                Title = "Wind production",
-                Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
-                LabelPoint = (param) => CreateLabel(param)
-            });
+                new PieSeries()
+                {
+                    Title = "Wind production",
+                    Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
+                    LabelPoint = (param) => CreateLabel(param)
+                },
 
-            SeriesCollection.Add(new PieSeries()
-            {
-                Title = "Energy storage production",
-                Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
-                LabelPoint = (param) => CreateLabel(param)
-            });
+                new PieSeries()
+                {
+                    Title = "Energy storage production",
+                    Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
+                    LabelPoint = (param) => CreateLabel(param)
+                }
+            };
         }
 
         public float SolarEnergyProduced

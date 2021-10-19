@@ -7,6 +7,6 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         protected static Random random = new Random();
 
-        public abstract void Mutate(T gene);
+        public abstract void InternalMutate(T gene);
     }
 }

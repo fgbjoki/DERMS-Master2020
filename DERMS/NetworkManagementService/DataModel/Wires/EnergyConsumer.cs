@@ -14,12 +14,12 @@ namespace NetworkManagementService.DataModel.Wires
         protected EnergyConsumer(EnergyConsumer copyObject) : base(copyObject)
         {
             PFixed = copyObject.PFixed;
-            ConsumerType = copyObject.ConsumerType;
+            Type = copyObject.Type;
         }
 
         public float PFixed { get; set; }
 
-        public ConsumerType ConsumerType { get; set; }
+        public ConsumerType Type { get; set; }
 
         public override bool HasProperty(ModelCode property)
         {
@@ -41,7 +41,7 @@ namespace NetworkManagementService.DataModel.Wires
                     property.SetValue(PFixed);
                     break;
                 case ModelCode.ENERGYCONSUMER_TYPE:
-                    property.SetValue((short)ConsumerType);
+                    property.SetValue((short)Type);
                     break;
                 default:
                     base.GetProperty(property);
@@ -57,7 +57,7 @@ namespace NetworkManagementService.DataModel.Wires
                     PFixed = property.AsFloat();
                     break;
                 case ModelCode.ENERGYCONSUMER_TYPE:
-                    ConsumerType = (ConsumerType)property.AsEnum();
+                    Type = (ConsumerType)property.AsEnum();
                     break;
                 default:
                     base.SetProperty(property);
@@ -74,7 +74,7 @@ namespace NetworkManagementService.DataModel.Wires
         {
             EnergyConsumer compareObject = x as EnergyConsumer;
 
-            return compareObject != null && PFixed == compareObject.PFixed && base.Equals(x) && ConsumerType == compareObject.ConsumerType;
+            return compareObject != null && PFixed == compareObject.PFixed && Type == compareObject.Type && base.Equals(x);
         }
 
         public override object Clone()

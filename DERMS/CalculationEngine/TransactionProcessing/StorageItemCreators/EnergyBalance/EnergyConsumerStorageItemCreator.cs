@@ -30,7 +30,7 @@ namespace CalculationEngine.TransactionProcessing.StorageItemCreators.EnergyBala
         {
             return new Dictionary<DMSType, List<ModelCode>>()
             {
-                { DMSType.ENERGYCONSUMER, new List<ModelCode>()     { ModelCode.PSR_MEASUREMENTS } },
+                { DMSType.ENERGYCONSUMER, new List<ModelCode>()     { ModelCode.PSR_MEASUREMENTS, ModelCode.ENERGYCONSUMER_TYPE, ModelCode.ENERGYCONSUMER_PFIXED } },
                 { DMSType.MEASUREMENTANALOG, new List<ModelCode>()  { ModelCode.MEASUREMENT_MEASUREMENTYPE, ModelCode.MEASUREMENTANALOG_CURRENTVALUE } }
             };
         }

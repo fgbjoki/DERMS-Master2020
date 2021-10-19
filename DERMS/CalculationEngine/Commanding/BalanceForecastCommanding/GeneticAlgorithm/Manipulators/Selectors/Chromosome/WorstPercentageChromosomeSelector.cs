@@ -16,7 +16,10 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
         public override List<Chromosome<T>> Select<T>(Population<T> population)
         {
             int numberOfSelectedChromosomes = Convert.ToInt32(Math.Round(population.Chromosomes.Count * worstPercentage));
-            return population.Chromosomes.GetRange(population.Chromosomes.Count - numberOfSelectedChromosomes - 1, population.Chromosomes.Count);
+
+            // OK?
+            //return population.Chromosomes.GetRange(population.Chromosomes.Count - numberOfSelectedChromosomes - 1, population.Chromosomes.Count);
+            return population.Chromosomes.GetRange(population.Chromosomes.Count - numberOfSelectedChromosomes - 1, numberOfSelectedChromosomes);
         }
     }
 }

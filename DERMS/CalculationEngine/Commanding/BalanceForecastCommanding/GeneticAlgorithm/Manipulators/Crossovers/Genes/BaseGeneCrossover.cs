@@ -8,6 +8,6 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         protected static Random random = new Random();
 
-        public abstract T Crossover(T firstParent, T secondParent);
+        public abstract T InternalCrossover(T firstParent, T secondParent);
     }
 }

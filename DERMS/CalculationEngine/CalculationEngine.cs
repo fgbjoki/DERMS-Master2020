@@ -65,6 +65,7 @@ namespace CalculationEngine
         private DERStateStorage derStateStorage;
 
         private ProductionForecastStorage productionForecastStorage;
+        private ConsumptionForecastStorage consumptionForecastStorage;
 
         private SchemaRepresentation schemaRepresentation;
 
@@ -88,6 +89,7 @@ namespace CalculationEngine
         private IWeatherForecastStorage weatherForecastStorage;
 
         private IProductionForecast productionForecast;
+        private IConsumptionForecast consumptionForecast;
 
         private IDEROptimalCommanding derOptimalCommanding;
 
@@ -117,7 +119,7 @@ namespace CalculationEngine
             productionForecast = new ProductionForecastCalculator(productionForecastStorage, weatherForecastStorage);
             derOptimalCommanding = new DEROptimalCommandingProcessor(derCommandingProcessor, derStateStorage, derCommandingStorage);
 
-            balanceForecastCommandingProcessor = new BalanceForecastCommandProcessor(weatherForecastStorage, productionForecastStorage, derCommandingStorage);
+            balanceForecastCommandingProcessor = new BalanceForecastCommandProcessor(weatherForecastStorage, productionForecastStorage, derCommandingStorage, consumptionForecastStorage);
 
             InitializePubSub();
         }
@@ -193,6 +195,7 @@ namespace CalculationEngine
             derCommandingStorage = new DERCommandingStorage();
 
             productionForecastStorage = new ProductionForecastStorage();
+            consumptionForecastStorage = new ConsumptionForecastStorage();
 
             energyImporterStorage = new EnergyImproterStorage();
         }
@@ -200,7 +203,7 @@ namespace CalculationEngine
         private void InitializeForTransaction()
         {     
             transactionManager = new TransactionManager(serviceName, serviceUrlForTransaction);
-            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage, productionForecastStorage, energyImporterStorage });
+            transactionManager.LoadTransactionProcessors(new List<ITransactionStorage>() { discreteRemotePointStorage, topologyStorage, energyBalanceStorage, derStateStorage, derCommandingStorage, productionForecastStorage, energyImporterStorage, consumptionForecastStorage });
         }
 
         private EndpointConfiguration InitializeDynamicPublisher()
@@ -297,6 +300,11 @@ namespace CalculationEngine
         public ForecastDTO ForecastProductionHourly(int hours)
         {
             return productionForecast.ForecastProductionHourly(hours);
+        }
+
+        public ForecastDTO ForecastConsumptionHourly(int hours)
+        {
+            return consumptionForecast.ForecastConsumptionHourly(hours);
         }
 
         public DEROptimalCommandingFeedbackDTO CreateCommand(DEROptimalCommand command)

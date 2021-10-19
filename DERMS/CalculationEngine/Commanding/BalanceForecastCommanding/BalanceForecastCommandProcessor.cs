@@ -14,6 +14,10 @@ using System;
 using System.Linq;
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Model;
 using CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorithm.Model.Genes;
+using CalculationEngine.TransactionProcessing.Storage.EnergyBalance;
+using CalculationEngine.Model.EnergyCalculations;
+using CalculationEngine.TransactionProcessing.Storage.Forecast;
+using Common.Logger;
 
 namespace CalculationEngine.Commanding.BalanceForecastCommanding
 {
@@ -21,17 +25,22 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding
     {
         private GeneratorDataPreparator generatorPreparator;
         private EnergyStorageDataPreparator energyStoragePreparator;
+        //private ConsumerDataPreparator consumerDataPreparator;
         private IConsumptionPreparation consumptionPreparation;
+        private ConsumptionForecastStorage consumptionForecastStorage;
 
         private InitialPopulationCreator initialPopulationCreator;
 
         private IWeatherForecastStorage weatherForecast;
 
-        public BalanceForecastCommandProcessor(IWeatherForecastStorage weatherForecast, IStorage<Generator> generatorStorage, IStorage<DistributedEnergyResource> ders)
+        public BalanceForecastCommandProcessor(IWeatherForecastStorage weatherForecast, IStorage<Generator> generatorStorage, IStorage<DistributedEnergyResource> ders, ConsumptionForecastStorage consumptionForecastStorage)
         {
             this.weatherForecast = weatherForecast;
             generatorPreparator = new GeneratorDataPreparator(generatorStorage);
             energyStoragePreparator = new EnergyStorageDataPreparator(ders);
+            //consumerDataPreparator = new ConsumerDataPreparator(ders);
+            this.consumptionForecastStorage = consumptionForecastStorage;
+            consumptionPreparation = new ConsumptionPreparation();
 
             initialPopulationCreator = new InitialPopulationCreator();
         }
@@ -41,7 +50,11 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding
             WeatherDataInfo weatherData = GetWeahterData();
             var internalDomainParameters = CreateDomainParameters(domainParameters);
 
-            internalDomainParameters.EnergyDemand = consumptionPreparation == null ? 0 : consumptionPreparation.CalculateEnergyDemand(DateTime.Now, domainParameters.SimulationInterval, weatherData);
+            internalDomainParameters.EnergyDemand = consumptionPreparation == null ? 0 : consumptionPreparation.CalculateEnergyDemand(DateTime.Now, domainParameters.SimulationInterval, weatherForecast, consumptionForecastStorage);
+
+            Logger.Instance.Log($"Power Demand: {internalDomainParameters.EnergyDemand} kW");
+
+
 
             var initialPopulationParameters = CreateInputParameters(weatherData);
 
@@ -87,6 +100,7 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding
             InitialPopulationCreationParameters inputParameters = new InitialPopulationCreationParameters();
             inputParameters.Generators = generatorPreparator.GenerateData(weatherDataInfo);
             inputParameters.EnergyStorages = energyStoragePreparator.CreateEntities();
+            //inputParameters.EnergyConsumers = consumerDataPreparator.CreateEntities();
             
             return inputParameters;
         }

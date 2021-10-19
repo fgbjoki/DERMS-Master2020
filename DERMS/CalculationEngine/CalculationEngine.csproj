@@ -17,7 +17,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -36,20 +36,68 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DERMSCIMProfile">
+      <HintPath>..\Importer\CIMAdapter\Lib\DERMSCIMProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.11.3.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.11.3\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Keras, Version=3.8.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Keras.NET.3.8.5\lib\netstandard2.0\Keras.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.15.0\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=5.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.5.0.2\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Solver.Foundation, Version=3.0.2.10889, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Solver.Foundation.3.1.0\lib\Microsoft.Solver.Foundation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NMath, Version=6.2.0.58, Culture=neutral, PublicKeyToken=873235918a322639, processorArchitecture=MSIL">
-      <HintPath>..\packages\CenterSpace.NMath.6.2.0.58\lib\net40\NMath.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c" />
+    <Reference Include="Numpy.Bare, Version=3.7.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Numpy.Bare.3.8.1.25\lib\netstandard2.0\Numpy.Bare.dll</HintPath>
+    </Reference>
+    <Reference Include="Protobuf.Text, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Protobuf.Text.0.5.0\lib\netstandard2.0\Protobuf.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="Python.Runtime, Version=2.5.2.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\pythonnet_netstandard_py38_win.2.5.2\lib\netstandard2.0\Python.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=4.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.4.0.0\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.2\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commanding\BalanceForecastCommanding\BalanceForecastCommandProcessor.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\ConsumerDataPreparator.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\ConsumptionPreparation.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\IConsumptionPreparation.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Production\EnergyStorageDataPreparator.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\DataPreparation\Production\GeneratorProduction.cs" />
@@ -85,6 +135,7 @@
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\InitialPopulationCreationParameters.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\InitialPopulationCreator.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\DEREntity.cs" />
+    <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\EnergyConsumerEntity.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\EnergyStorageEntity.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\InitialPopulationCreation\Model\GeneratorEntity.cs" />
     <Compile Include="Commanding\BalanceForecastCommanding\GeneticAlgorithm\Manipulators\Crossovers\Chromosome\ChromosomeCrossover.cs" />
@@ -162,7 +213,9 @@
     <Compile Include="DERStates\DERStateController.cs" />
     <Compile Include="EnergyCalculators\EnergyImporterProcessor.cs" />
     <Compile Include="EnergyCalculators\IEnergyImporterProcessor.cs" />
-    <Compile Include="Extensions\RandomExtension.cs" />
+    <Compile Include="Forecast\ConsumptionForecast\ConsumptionForecastCalculator.cs" />
+    <Compile Include="Forecast\ConsumptionForecast\Formulas\ConsumptionFormula.cs" />
+    <Compile Include="Forecast\ConsumptionForecast\Formulas\IConsumptionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\IProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\ProductionFormula.cs" />
     <Compile Include="Forecast\ProductionForecast\Formulas\SolarPanelProductionFormula.cs" />
@@ -196,6 +249,7 @@
     <Compile Include="Model\EnergyCalculations\EnergySource.cs" />
     <Compile Include="Model\EnergyCalculations\EnergyGenerator.cs" />
     <Compile Include="Model\EnergyImporter\EnergySource.cs" />
+    <Compile Include="Model\Forecast\ConsumptionForecast\Consumer.cs" />
     <Compile Include="Model\Forecast\ProductionForecast\Generator.cs" />
     <Compile Include="Model\Forecast\ProductionForecast\SolarPanel.cs" />
     <Compile Include="Model\Forecast\ProductionForecast\WindGenerator.cs" />
@@ -288,6 +342,7 @@
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergyGeneratorStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyBalance\EnergySourceStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\EnergyImporter\EnergyImporterStorageItemCreator.cs" />
+    <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\EnergyConsumerForecastStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\ProductionForecastStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\SolarPanelProductionForecastStorageItemCreator.cs" />
     <Compile Include="TransactionProcessing\StorageItemCreators\Forecast\WindGeneratorProductionForecastStorageItemCreator.cs" />
@@ -303,6 +358,7 @@
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\DiscreteRemotePointTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\EnergyBalance\EnergyBalanceStorageTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\EnergyImporter\EnergyImporterStorageTransactionProcessor.cs" />
+    <Compile Include="TransactionProcessing\StorageTransactionProcessor\Forecast\ConsumptionForecastTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Forecast\ProductionForecastTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\GraphTransactionProcessor.cs" />
     <Compile Include="TransactionProcessing\StorageTransactionProcessor\Topology\Helpers\ReferenceResolver.cs" />
@@ -314,6 +370,7 @@
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergyGeneratorStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyBalance\EnergySourceStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\EnergyImporter\EnergyImproterStorage.cs" />
+    <Compile Include="TransactionProcessing\Storage\Forecast\ConsumptionForecastStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\Forecast\ProductionForecastStorage.cs" />
     <Compile Include="TransactionProcessing\Storage\IStorageDependentUnit.cs" />
     <Compile Include="TransactionProcessing\Storage\Topology\ConductingEquipmentStorage.cs" />
@@ -325,7 +382,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\block_load.csv" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\building_load.csv" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\household_load.csv" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_Block.json" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_Building.json" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_Household.json" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_weight_Block.h5" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_weight_Building.h5" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\model_weight_Household.h5" />
+    <None Include="Commanding\BalanceForecastCommanding\DataPreparation\Consumption\Za_Dunju_Temp_2.csv" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

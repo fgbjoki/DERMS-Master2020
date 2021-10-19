@@ -18,7 +18,15 @@ namespace CalculationEngine.EnergyCalculators.EnergyConsumption
 
         public override void Recalculate(EnergyBalanceCalculation energyBalance, long conductingEquipmentGid, float delta)
         {
+            DMSType conductingEquipmentDMSType = (DMSType)ModelCodeHelper.ExtractTypeFromGlobalId(conductingEquipmentGid);
             energyBalance.Demand += delta;
+        }
+
+        protected override void AdditionalProcessing(EnergyBalanceCalculation energyBalanceCalculation, EnergyConsumer entity)
+        {
+            base.AdditionalProcessing(energyBalanceCalculation, entity);
+            var demand = energyBalanceCalculation.Demand;
+            demand += ExtractValueFromEntity(entity);
         }
     }
 }

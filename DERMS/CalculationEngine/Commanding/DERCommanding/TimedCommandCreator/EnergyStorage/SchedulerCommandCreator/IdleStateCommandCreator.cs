@@ -16,7 +16,7 @@ namespace CalculationEngine.Commanding.DERCommanding.TimedCommandCreator.EnergyS
         {
             BaseEnergyStorageCommand energyStorageCommand = command as BaseEnergyStorageCommand;
 
-            return new TimedCommand(energyStorageCommand.SecondsOfUse * 1000, new EnergyStorageIdleStateCommand() { GlobalId = energyStorageCommand.GlobalId });
+            return new TimedCommand(energyStorageCommand.SecondsOfUse * 100, new EnergyStorageIdleStateCommand() { GlobalId = energyStorageCommand.GlobalId });
         }
     }
 }

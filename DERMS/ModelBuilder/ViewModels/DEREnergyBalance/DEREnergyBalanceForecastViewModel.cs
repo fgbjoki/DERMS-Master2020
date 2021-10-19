@@ -215,7 +215,7 @@ namespace ClientUI.ViewModels.DEREnergyBalance
             }
         }
 
-        private float TotalCostOfEnergyStorageUsePerKWH
+        public float TotalCostOfEnergyStorageUsePerKWH
         {
             get { return totalCostOfEnergyStorageUsePerKWH; }
             set
@@ -227,7 +227,7 @@ namespace ClientUI.ViewModels.DEREnergyBalance
             }
         }
 
-        private float TotalCostOfEnergyImportUsePerKWH
+        public float TotalCostOfEnergyImportUsePerKWH
         {
             get { return totalCostOfImportedEnergyUsePerKWH; }
             set
@@ -239,7 +239,7 @@ namespace ClientUI.ViewModels.DEREnergyBalance
             }
         }
 
-        private float TotalCostOfGeneratorShutdownPerKWH
+        public float TotalCostOfGeneratorShutdownPerKWH
         {
             get { return totalCostOfGeneratorShutdownPerKWH; }
             set
@@ -314,7 +314,10 @@ namespace ClientUI.ViewModels.DEREnergyBalance
                 try
                 {
                     dto = energyBalanceForecast.Proxy.GetResults(requestId);
-                    break;
+                    if (dto != null)
+                    {
+                        break;
+                    }
                 }
                 catch
                 {
@@ -343,8 +346,14 @@ namespace ClientUI.ViewModels.DEREnergyBalance
             TotalCostOfGeneratorShutdownPerKWH = dto.CostOfEnergyUse.CostOfGeneratorShutDown;
 
             TotalCost = TotalCostOfEnergyImportUsePerKWH + TotalCostOfEnergyStorageUsePerKWH + TotalCostOfGeneratorShutdownPerKWH;
+            Application.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)(() => UpdateEntities(dto.DERStates)));
 
-            foreach (var derState in dto.DERStates)
+            
+        }
+
+        private void UpdateEntities(List<DERStateDTO> dtos)
+        {
+            foreach (var derState in dtos)
             {
                 DERState newDerState = new DERState()
                 {

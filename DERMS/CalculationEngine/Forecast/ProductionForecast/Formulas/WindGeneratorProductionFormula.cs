@@ -20,7 +20,7 @@ namespace CalculationEngine.Forecast.ProductionForecast.Formulas
 
         protected override bool IsWeatherDataOutOfBounds(WindGenerator generator, WeatherDataInfo weatherData)
         {
-            return weatherData.WindMPS >= generator.CutOutSpeed || weatherData.WindMPS <= generator.StartUpSpeed;
+            return weatherData.WindMPS >= generator.CutOutSpeed || weatherData.WindMPS < generator.StartUpSpeed;
         }
     }
 }

@@ -13,19 +13,22 @@ namespace ClientUI.CustomControls.PieChart
     {
         public ResponsePieChartViewModel()
         {
-            SeriesCollection.Add(new PieSeries()
+            SeriesCollection = new SeriesCollection
             {
-                Title = "Imported",
-                Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
-                LabelPoint = (param) => CreateLabel(param)
-            });
+                new PieSeries()
+                {
+                    Title = "Imported",
+                    Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
+                    LabelPoint = (param) => CreateLabel(param)
+                },
 
-            SeriesCollection.Add(new PieSeries()
-            {
-                Title = "DERs",
-                Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
-                LabelPoint = (param) => CreateLabel(param)
-            });
+                new PieSeries()
+                {
+                    Title = "DERs",
+                    Values = new ChartValues<ObservableValue>() { new ObservableValue(0) },
+                    LabelPoint = (param) => CreateLabel(param)
+                }
+            };
         }
 
         public float Imported

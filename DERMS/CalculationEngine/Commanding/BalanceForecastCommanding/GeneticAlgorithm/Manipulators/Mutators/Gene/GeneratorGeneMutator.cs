@@ -6,10 +6,10 @@ namespace CalculationEngine.Commanding.BalanceForecastCommanding.GeneticAlgorith
     {
         public void Mutate(DERGene derGene)
         {
-            Mutate(derGene as GeneratorGene);
+            InternalMutate(derGene as GeneratorGene);
         }
 
-        public override void Mutate(GeneratorGene gene)
+        public override void InternalMutate(GeneratorGene gene)
         {
             gene.IsEnergized = random.Next(0, 2) == 1 ? true : false;
         }

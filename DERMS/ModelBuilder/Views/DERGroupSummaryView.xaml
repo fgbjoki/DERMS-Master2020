@@ -24,7 +24,7 @@
             
             <converter:ViewTypeToVisibilityConverter x:Key="viewTypeToVisibilityConverter"/>
 
-            <converter:LoadToLinerGradientConverter x:Key="loadToColorConverter"/>
+            <!--<converter:LoadToLinerGradientConverter x:Key="loadToColorConverter"/>-->
             <converter:StateOfChargeToLinearGradientConverter x:Key="socToColorConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -60,7 +60,7 @@
                                 <TextBlock Margin="30,0,0,0" Text="View type:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <ComboBox ItemsSource="{Binding ViewTypeOptions}" Margin="10,0,10,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedViewTypeOption}" DisplayMemberPath="Name"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
+                            <!--<StackPanel Orientation="Horizontal">
                                 <StackPanel.Style>
                                     <Style TargetType="StackPanel">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -73,7 +73,7 @@
                                 </StackPanel.Style>
                                 <TextBlock Margin="20,0,0,0" Text="Tile fill type:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <ComboBox ItemsSource="{Binding TileFillOptions}" Margin="10,0,10,0" VerticalAlignment="Center" MinWidth="70" SelectedItem="{Binding SelectedTileFillOption}" DisplayMemberPath="Name"/>
-                            </StackPanel>
+                            </StackPanel>-->
                         </StackPanel>
                     </materialDesign:Card>
                 </Grid>
@@ -162,7 +162,7 @@
                   Visibility="{Binding SelectedViewTypeOption.ViewType, Converter={StaticResource viewTypeToVisibilityConverter}, ConverterParameter={x:Static viewTypes:ViewTypeEnum.Tile}}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
+                    <UniformGrid Columns="5"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             
@@ -245,7 +245,7 @@
                                 </Grid>
                                 
                                 <!-- Load progress bar -->
-                                <Grid>
+                                <!--<Grid>
                                     <Grid.Style>
                                         <Style TargetType="Grid">
                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -317,7 +317,7 @@
                                         <TextBlock Text="{Binding EnergyStorage.ActivePower, StringFormat={}Flex: {0:N2} kW}" Foreground="White" />
                                     </StackPanel>
                                     <TextBlock Text="{Binding EnergyStorage.StateOfCharge, StringFormat={}SoC: {0:N2}%}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="White"/>
-                                </Grid>
+                                </Grid>-->
                             </Grid>
                         </Border>
                     </StackPanel>

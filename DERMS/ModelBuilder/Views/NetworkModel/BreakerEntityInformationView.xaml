@@ -44,7 +44,7 @@
             <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Description}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
             <Separator Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" Text="GlobalId" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Global ID" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
             <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding GlobalId, StringFormat={}0x{0:X16}}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
             <Separator Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
 

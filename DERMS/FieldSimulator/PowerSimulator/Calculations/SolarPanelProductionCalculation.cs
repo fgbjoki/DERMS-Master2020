@@ -21,9 +21,9 @@ namespace FieldSimulator.PowerSimulator.Calculations
                 return;
             }
 
-            float solarInsolation = 990 * (1 - 3 * powerGridSimulatorStorage.WeatherStorage.CloudCover);
+            float solarInsolation = 990 * (1 - powerGridSimulatorStorage.WeatherStorage.CloudCover/100);
             float cellTemperature = powerGridSimulatorStorage.WeatherStorage.Temperature + 0.025f * solarInsolation;
-            float generatedPower = nominalPower * solarInsolation * 0.00095f * (-(1 - 0.005f * (cellTemperature - 25)));
+            float generatedPower = nominalPower * solarInsolation * 0.00095f * (1 - 0.005f * (cellTemperature - 25));
 
             powerGridSimulatorStorage.UpdateValue(outputPower.RemotePointType, outputPower.Address, generatedPower);
         }

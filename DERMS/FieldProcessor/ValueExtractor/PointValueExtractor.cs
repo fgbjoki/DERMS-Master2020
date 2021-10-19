@@ -5,7 +5,9 @@ using Common.ServiceInterfaces.NetworkDynamicsService;
 using FieldProcessor.ModbusMessages;
 using FieldProcessor.Model;
 using FieldProcessor.RemotePointAddressCollector;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace FieldProcessor.ValueExtractor
 {
@@ -30,9 +32,34 @@ namespace FieldProcessor.ValueExtractor
                 return;
             }
 
-            IEnumerable<RemotePointFieldValue> fieldValues = processor.ExtractValues(request, response);
+            ProcessFieldValues(processor.ExtractValues(request, response));  
+        }
+        private void ProcessFieldValues(IEnumerable<RemotePointFieldValue> fieldValues)
+        {
+            int retryTimesPolicy = 5;
+            bool succesfullyProcessed = false;
 
-            fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
+            while (retryTimesPolicy > 0)
+            {
+                try
+                {
+                    fieldValueProcessing.Proxy.ProcessFieldValues(fieldValues);
+
+                    succesfullyProcessed = true;
+                    break;
+                }
+                catch (Exception e)
+                {
+                    retryTimesPolicy--;
+
+                    Thread.Sleep(1000);
+                }
+            }
+
+            if (!succesfullyProcessed)
+            {
+                throw new Exception("Values from field not processed");
+            }
         }
 
         private void InitializeProcessors(IRemotePointSortedAddressCollector remotePointAddressCollector)

@@ -1,6 +1,5 @@
 ﻿using Common.ComponentStorage;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CalculationEngine.Model.EnergyCalculations
 {
