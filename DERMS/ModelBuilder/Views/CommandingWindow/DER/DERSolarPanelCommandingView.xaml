@@ -82,11 +82,11 @@
             <materialDesign:PackIcon Kind="Search" />
         </Button>
         
-        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0">
+        <!--<Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0">
             <materialDesign:Card Margin="10">
-                <!-- Commanding -->
+                --><!-- Commanding --><!--
             </materialDesign:Card>
-        </Grid>
+        </Grid>-->
         
     </Grid>
 </UserControl>

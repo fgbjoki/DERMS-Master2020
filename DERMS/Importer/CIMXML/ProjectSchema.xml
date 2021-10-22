@@ -249,7 +249,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon3_1_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>0</cim:Measurement.measurementAddress>
@@ -279,7 +279,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon3_1_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>2</cim:Measurement.measurementAddress>
@@ -334,7 +334,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage3_2">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG3_2"/>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -424,7 +424,7 @@
 	<cim:WindGenerator rdf:ID="WG3_2">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage3_2"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -493,7 +493,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage3_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4.8</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG3_3"/>
 		<cim:DER.nominalPower>1.2</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -656,7 +656,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon3_4_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>12</cim:Measurement.measurementAddress>
@@ -686,7 +686,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon3_4_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>14</cim:Measurement.measurementAddress>
@@ -752,7 +752,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon2_1_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>16</cim:Measurement.measurementAddress>
@@ -782,7 +782,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon2_1_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>18</cim:Measurement.measurementAddress>
@@ -837,7 +837,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage2_2">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>240</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG2_2"/>
 		<cim:DER.nominalPower>60</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -990,7 +990,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage2_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>1200</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG2_3"/>
 		<cim:DER.nominalPower>300</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -1118,7 +1118,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon2_3_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>40</cim:Measurement.measurementAddress>
@@ -1173,7 +1173,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage2_4">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG2_4"/>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -1263,7 +1263,7 @@
 	<cim:WindGenerator rdf:ID="WG2_4">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage2_4"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -1378,7 +1378,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon4_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>110</cim:Measurement.measurementAddress>
@@ -1443,7 +1443,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon4_2_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>126</cim:Measurement.measurementAddress>
@@ -1498,7 +1498,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage4_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>7.2</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG4_3"/>
 		<cim:DER.nominalPower>1.8</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -1626,7 +1626,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon4_3_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>128</cim:Measurement.measurementAddress>
@@ -1727,7 +1727,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon5_1_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>130</cim:Measurement.measurementAddress>
@@ -1757,7 +1757,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon5_1_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>132</cim:Measurement.measurementAddress>
@@ -1823,7 +1823,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon6_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>134</cim:Measurement.measurementAddress>
@@ -1879,7 +1879,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage7_1">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>9.6</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG7_1"/>
 		<cim:DER.nominalPower>2.4</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Grbavica"/>
@@ -2007,7 +2007,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon7_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>116</cim:Measurement.measurementAddress>
@@ -2072,7 +2072,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon7_2_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>118</cim:Measurement.measurementAddress>
@@ -2102,7 +2102,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon7_2_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>120</cim:Measurement.measurementAddress>
@@ -2167,7 +2167,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon7_3_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>122</cim:Measurement.measurementAddress>
@@ -2232,7 +2232,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon7_4_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>124</cim:Measurement.measurementAddress>
@@ -2476,7 +2476,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>24</cim:Measurement.measurementAddress>
@@ -2531,7 +2531,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage10_2">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>1200</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG10_2"/>
 		<cim:DER.nominalPower>300</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -2684,7 +2684,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage10_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG10_3"/>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -2774,7 +2774,7 @@
 	<cim:WindGenerator rdf:ID="WG10_3">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage10_3"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -2853,7 +2853,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_4_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>58</cim:Measurement.measurementAddress>
@@ -2918,7 +2918,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_5_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>60</cim:Measurement.measurementAddress>
@@ -2948,7 +2948,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_5_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>62</cim:Measurement.measurementAddress>
@@ -3003,7 +3003,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage10_6">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG10_6"/>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -3093,7 +3093,7 @@
 	<cim:WindGenerator rdf:ID="WG10_6">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage10_6"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -3172,7 +3172,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_7_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>96</cim:Measurement.measurementAddress>
@@ -3227,7 +3227,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage10_8">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>7.2</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG10_8"/>
 		<cim:DER.nominalPower>1.8</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -3390,7 +3390,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon10_9_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>102</cim:Measurement.measurementAddress>
@@ -3446,7 +3446,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage11_1">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>4000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG11_1"/>
 		<cim:DER.nominalPower>1000</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -3469,7 +3469,7 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:ID="A_EStorage11_1_StateOfCharge">
-		<tdms:Analog.currentValue>0.2</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>0.45</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0.2</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
@@ -3536,7 +3536,7 @@
 	<cim:WindGenerator rdf:ID="WG11_1">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage11_1"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -3605,7 +3605,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage11_2">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>2000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG11_2"/>
 		<cim:DER.nominalPower>500</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -3695,7 +3695,7 @@
 	<cim:WindGenerator rdf:ID="WG11_2">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage11_2"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -3739,7 +3739,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon11_2_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>34</cim:Measurement.measurementAddress>
@@ -3794,7 +3794,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage11_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>1200</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG11_3"/>
 		<cim:DER.nominalPower>300</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -3922,7 +3922,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon11_3_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>46</cim:Measurement.measurementAddress>
@@ -4023,7 +4023,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon12_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>48</cim:Measurement.measurementAddress>
@@ -4078,7 +4078,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage12_2">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>1200</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG12_2"/>
 		<cim:DER.nominalPower>300</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -4231,7 +4231,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage12_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>240</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG12_3"/>
 		<cim:DER.nominalPower>60</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -4254,7 +4254,7 @@
 	</cim:Analog>
 	
 	<cim:Analog rdf:ID="A_EStorage12_3_StateOfCharge">
-		<tdms:Analog.currentValue>0.25</tdms:Analog.currentValue>
+		<tdms:Analog.currentValue>1</tdms:Analog.currentValue>
 		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0.2</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
@@ -4359,7 +4359,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon12_3_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>90</cim:Measurement.measurementAddress>
@@ -4414,7 +4414,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage12_4">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>14.4</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG12_4"/>
 		<cim:DER.nominalPower>3.6</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -4542,7 +4542,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon12_4_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>108</cim:Measurement.measurementAddress>
@@ -4643,7 +4643,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon13_1_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>136</cim:Measurement.measurementAddress>
@@ -4673,7 +4673,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon13_1_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>138</cim:Measurement.measurementAddress>
@@ -4738,7 +4738,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon13_2_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>140</cim:Measurement.measurementAddress>
@@ -4804,7 +4804,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon14_1_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>142</cim:Measurement.measurementAddress>
@@ -4834,7 +4834,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon14_1_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>144</cim:Measurement.measurementAddress>
@@ -4899,7 +4899,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon14_2_a_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>16</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>146</cim:Measurement.measurementAddress>
@@ -4929,7 +4929,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon14_2_b_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>148</cim:Measurement.measurementAddress>
@@ -4985,7 +4985,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage15_1">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>2000</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#WG15_1"/>
 		<cim:DER.nominalPower>500</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -5075,7 +5075,7 @@
 	<cim:WindGenerator rdf:ID="WG15_1">
 		<cim:WindGenerator.cutOutSpeed>25</cim:WindGenerator.cutOutSpeed>
 		<cim:WindGenerator.nominalSpeed>14</cim:WindGenerator.nominalSpeed>
-		<cim:WindGenerator.startUpSpeed>3.5</cim:WindGenerator.startUpSpeed>
+		<cim:WindGenerator.startUpSpeed>2</cim:WindGenerator.startUpSpeed>
 		<cim:Generator.deltaPower>0</cim:Generator.deltaPower>
 		<cim:Generator.Storage rdf:resource="#EStorage15_1"/>
 		<cim:DER.activePower>0</cim:DER.activePower>
@@ -5119,7 +5119,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon15_1_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>72</cim:Measurement.measurementAddress>
@@ -5184,7 +5184,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon15_2_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>80</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>78</cim:Measurement.measurementAddress>
@@ -5239,7 +5239,7 @@
 	</cim:Terminal>
 	
 	<cim:EnergyStorage rdf:ID="EStorage15_3">
-		<cim:EnergyStorage.capacity>100</cim:EnergyStorage.capacity>
+		<cim:EnergyStorage.capacity>1200</cim:EnergyStorage.capacity>
 		<cim:EnergyStorage.Generator rdf:resource="#SG15_3"/>
 		<cim:DER.nominalPower>300</cim:DER.nominalPower>
 		<cim:Equipment.EquipmentContainer rdf:resource="#SubS_Liman"/>
@@ -5402,7 +5402,7 @@
 	
 	<cim:Analog rdf:ID="A_ECon15_4_ActivePower">
 		<tdms:Analog.currentValue>0</tdms:Analog.currentValue>
-		<cim:Analog.maxValue>100</cim:Analog.maxValue>
+		<cim:Analog.maxValue>0.8</cim:Analog.maxValue>
 		<cim:Analog.minValue>0</cim:Analog.minValue>
 		<tdms:Measurement.direction>Read</tdms:Measurement.direction>
 		<cim:Measurement.measurementAddress>84</cim:Measurement.measurementAddress>

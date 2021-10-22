@@ -55,7 +55,7 @@
             <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
 
             <TextBlock Grid.Row="5" Grid.Column="0" Text="Capacity" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,12,0,4"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Capacity, StringFormat={}{0} %}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Capacity, StringFormat={}{0} kWh}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,12,0,4"/>
             <Separator Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
         </Grid>
 

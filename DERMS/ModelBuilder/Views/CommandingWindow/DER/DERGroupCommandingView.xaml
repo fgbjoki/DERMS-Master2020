@@ -155,11 +155,11 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+        <!--<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <materialDesign:Card Margin="10">
-                <!-- Commanding -->
+                --><!-- Commanding --><!--
             </materialDesign:Card>
-        </Grid>
+        </Grid>-->
         
     </Grid>
 
