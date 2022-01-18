@@ -31,7 +31,7 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Foreground="White" FontSize="14" Title="{Binding YAxisTitle}" MinValue="0">
+                <lvc:Axis Foreground="White" FontSize="14" Title="{Binding YAxisTitle}">
                     <lvc:Axis.Separator>
                         <lvc:Separator StrokeThickness="1" Stroke="White" StrokeDashArray="8"/>
                     </lvc:Axis.Separator>
